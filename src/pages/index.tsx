@@ -10,7 +10,7 @@ const Home: React.FC = () => {
         <title>Tsundoku Traduções</title>
       </Head>
      
-      <h1>Consegui!!!!! AAHHHHHHH</h1>
+      <h1>Finalmente consegui terminar esse botão do tema!!!!!!!</h1>
     </Container>
   )
 }

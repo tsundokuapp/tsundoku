@@ -1,9 +1,9 @@
 import React from "react";
 import { LogoTemaContainer } from "./style";
 
-import LogoDark from "../../assets/img/logoTemaDark.svg";
-import LogoLight from "../../assets/img/logoTemaLight.svg";
-import LogoSepia from "../../assets/img/logoTemaSepia.svg";
+import LogoDark from "assets/img/logoTemaDark.svg";
+import LogoLight from "assets/img/logoTemaLight.svg";
+import LogoSepia from "assets/img/logoTemaSepia.svg";
 
 interface ILogoTemaProps {
   tema: string;

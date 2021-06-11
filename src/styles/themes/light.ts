@@ -1,5 +1,5 @@
 const gradienteLight = {
-    "background": "linear-gradient(180deg, #A9F0FF 0%, #F5F5F5 100%);",
+    "background": "linear-gradient(180deg, #CAF0F8 0%, #EDF6F9 100%);",
     "boxshadow": "0px 5px 10px rgba(198, 220, 234, 0.5);",
     "border": "1px solid #EAF9FC;"
   }
@@ -20,3 +20,7 @@ export default {
         aviso: "#e35053"
     }
 };
+
+//#63ADF2
+
+//#A9F0FF
