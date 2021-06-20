@@ -1,14 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
 
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
-`
+import TelaLogin from 'components/TelaLogin';
+
 
 const Login: React.FC = () => {
-  return <Title>Tela de Login !</Title>
-}
-
+  return (
+    <TelaLogin />
+  );
+};
 
 export default Login;

@@ -1,0 +1,36 @@
+import Link from "next/link";
+import React from "react";
+import imagemFundo from "assets/img/backgrounds/SlimeAzul.png";
+import {
+  Container,
+  ContainerLogo,
+  InputLogin,
+  InputSenha,
+  ContainerForm,
+  ContainerImagemLogo,
+  InputSubmit,
+  InputBotaoPaginaInicial
+} from "./style";
+
+import LogoDark from "assets/img/logoTemaDark.svg";
+
+
+const TelaLogin: React.FC = () => {
+  return (
+    <Container imagemFundo={imagemFundo}>
+      <ContainerLogo>
+       <ContainerImagemLogo src={LogoDark} alt="Logo Branca"/>
+      </ContainerLogo>
+      <ContainerForm>
+        <InputLogin placeholder="Usuário" />
+        <InputSenha placeholder="Senha" />
+        <InputSubmit value="Login" />
+        <InputBotaoPaginaInicial>
+            <Link href="/">Voltar para página inicial</Link>
+        </InputBotaoPaginaInicial>
+      </ContainerForm>
+    </Container>
+  );
+};
+
+export default TelaLogin;

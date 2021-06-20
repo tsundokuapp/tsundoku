@@ -1,18 +1,44 @@
-import React from 'react'
-import Head from 'next/head'
+import React, { useState } from "react";
+import Head from "next/head";
 
-import { Container } from '../styles/pages/home';
+import Navbar from "../components/NavBar";
+import { Container } from "../styles/pages/home";
+
+import { DefaultTheme, ThemeProvider } from "styled-components";
+
+import { combineTheme, dark } from "../styles/themes";
+
+import { Brightness3, Brightness6, Brightness7} from "@material-ui/icons";
 
 const Home: React.FC = () => {
-  return (
-    <Container>
-      <Head>
-        <title>Tsundoku Traduções</title>
-      </Head>
-     
-      <h1>Finalmente consegui terminar esse botão do tema!!!!!!!</h1>
-    </Container>
-  )
-}
+    const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
 
-export default Home
+  const opcoes = [
+    {
+      indiceTema: "dark",
+      icone: <Brightness3 />,
+    },
+    {
+      indiceTema: "light",
+      icone: <Brightness7 />,
+    },
+    {
+      indiceTema: "sepia",
+      icone: <Brightness6 />,
+    },
+  ];
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Head>
+          <title>Tsundoku Traduções</title>
+        </Head>
+        <Navbar tema={theme.title} opcoes={opcoes} setTheme={setTheme} />
+        <h1>Sugestão campeã!</h1>
+      </Container>
+    </ThemeProvider>
+  );
+};
+
+export default Home;

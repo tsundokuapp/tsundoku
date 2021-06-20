@@ -1,9 +1,9 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
 import {
-  ArrowDropDown,
-  Brightness2,
-  Brightness4,
+    ExpandMore,
+    Brightness3,
+    Brightness6,
   Brightness7,
 } from "@material-ui/icons";
 import { DefaultTheme } from "styled-components";
@@ -29,7 +29,7 @@ const DropDownTemas: React.FC<IDropDownTemas> = ({
 
   const alteraTemaIncone = (tema: string) => {
     if (tema === "dark") {
-      setTemaSelecionado(<Brightness2 />);
+      setTemaSelecionado(<Brightness3 />);
       setTheme(dark);
     }
 
@@ -39,7 +39,7 @@ const DropDownTemas: React.FC<IDropDownTemas> = ({
     }
 
     if (tema === "sepia") {
-      setTemaSelecionado(<Brightness4 />);
+      setTemaSelecionado(<Brightness6 />);
       setTheme(sepia);
     }
   };
@@ -48,7 +48,7 @@ const DropDownTemas: React.FC<IDropDownTemas> = ({
     <Dropdown>
       <DropdownBtn onClick={(e) => setAtivo(!ativo)}>
         {temaSelecionado}
-        <ArrowDropDown />
+        <ExpandMore />
       </DropdownBtn>
       {ativo && (
         <DropdownConteudo>

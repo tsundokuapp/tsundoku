@@ -1,9 +1,14 @@
+import Link from "next/link";
 import React, { useState, Dispatch, SetStateAction } from "react";
-import { Container } from "./styles";
+
 import LogoTema from "components/LogoTema";
 import DropDownTemas from "components/DropDownTemas";
-import { Brightness2 } from "@material-ui/icons";
+import DropDownAcesso from "components/DropDownAcesso";
+
 import { DefaultTheme } from "styled-components";
+import { Container } from "./styles";
+
+import { Brightness3 } from "@material-ui/icons";
 
 interface INavbarProps {
   tema: string;
@@ -12,18 +17,22 @@ interface INavbarProps {
 }
 
 const Navbar: React.FC<INavbarProps> = ({ tema, opcoes, setTheme }) => {
-  const [temaSelecionado, setTemaSelecionado] = useState(<Brightness2 />);
+  const [temaSelecionado, setTemaSelecionado] = useState(<Brightness3 />);
 
   return (
     <Container>
-      <LogoTema tema={tema} />
+      <Link href="/">
+        <a>
+          <LogoTema tema={tema} />
+        </a>
+      </Link>
       <DropDownTemas
         opcoes={opcoes}
         temaSelecionado={temaSelecionado}
         setTemaSelecionado={setTemaSelecionado}
         setTheme={setTheme}
       />
-      <h2>Login</h2>
+      <DropDownAcesso />
     </Container>
   );
 };
