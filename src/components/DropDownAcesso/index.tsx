@@ -6,27 +6,37 @@ import { ExpandMore, AccountCircle } from "@material-ui/icons";
 const DropDownAcesso: React.FC = () => {
   const [ativo, setAtivo] = useState(false);
 
+  /*onClick={() => setAtivo(!ativo)}*/
+
   return (
     <Dropdown>
-      <DropdownBtn onClick={(e) => setAtivo(!ativo)}>
+      <DropdownBtn onClick={() => setAtivo(!ativo)}>
         <AccountCircle />
         <ExpandMore />
       </DropdownBtn>
       {ativo && (
-        <DropdownConteudo>
+        <DropdownConteudo onMouseLeave={() => setAtivo(false)}>
           <DropdownItem
-            onClick={(e) => {
+            onClick={() => {
               setAtivo(false);
             }}
+            
           >
             <Link href="../../admin/login">Login</Link>
           </DropdownItem>
           <DropdownItem
-            onClick={(e) => {
+            onClick={() => {
               setAtivo(false);
-            }}
+            }}            
           >
             <Link href="../../admin/cadastro">Cadastre-se</Link>
+          </DropdownItem>
+          <DropdownItem
+            onClick={() => {
+              setAtivo(false);
+            }}            
+          >
+            <Link href="../../admin/dashboard">Painel</Link>
           </DropdownItem>
         </DropdownConteudo>
       )}

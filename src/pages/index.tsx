@@ -35,7 +35,7 @@ const Home: React.FC = () => {
           <title>Tsundoku Traduções</title>
         </Head>
         <Navbar tema={theme.title} opcoes={opcoes} setTheme={setTheme} />
-        <h1>Sugestão campeã!</h1>
+        <h1>Home</h1>
       </Container>
     </ThemeProvider>
   );

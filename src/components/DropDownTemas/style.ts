@@ -8,7 +8,7 @@ export const Dropdown = styled.div`
 `;
 
 export const DropdownBtn = styled.div`
-    padding: 5px 0px 5px 4px;
+    padding: 5px 0px 5px 0px;
     background-color: rgba(255,255,255,0.0);
     font-weight: bold;
     color: ${(props) => props.theme.colors.branca}; 
@@ -20,7 +20,7 @@ export const DropdownBtn = styled.div`
 
 export const DropdownConteudo = styled.div`
     position: absolute;
-    top: 135%;
+    margin-top: 25%;
     left: 0;
     padding: 5px 0 5px 0;
     background-color: rgba(255,255,255,0.0);

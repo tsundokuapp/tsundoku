@@ -10,6 +10,7 @@ export default {
     colors:{
         primaria: gradienteLight.background,
         secundaria: "#65DAFF",
+        terciaria: "#A9F0FF",
         
         branca: "#455974",
         borda: gradienteLight.border,

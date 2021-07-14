@@ -1,14 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
-`
+import React from "react";
+import LayoutDashBoard from "../../components/LayoutDashBoard";
 
 const DashBoard: React.FC = () => {
-  return <Title>DashBoard !</Title>
-}
-
+  return <LayoutDashBoard>DashBoard !</LayoutDashBoard>;
+};
 
 export default DashBoard;

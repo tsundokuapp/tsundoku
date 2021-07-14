@@ -20,5 +20,6 @@ export const Container = styled.div`
     margin-top: 24px;
     font-size: 24px;
     line-height: 32px;
+    color: ${props => props.theme.colors.branca};
   }
 `

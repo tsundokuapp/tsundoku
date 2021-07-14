@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document.d";
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document.d';
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="pt-BR">
+      <Html lang='pt-BR'>
         <Head />
         <body>
           <Main />

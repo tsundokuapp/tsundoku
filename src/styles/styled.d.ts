@@ -7,6 +7,7 @@ declare module "styled-components" {
     colors: {
       primaria: string;
       secundaria: string;
+      terciaria: string;
 
       branca: string;
       sombra: string;
@@ -24,6 +25,7 @@ declare module "styled-components" {
     colors: {
       primaria: string;
       secundaria: string;
+      terciaria: string;
 
       branca: string;
       sombra: string;

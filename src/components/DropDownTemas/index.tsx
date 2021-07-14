@@ -46,16 +46,16 @@ const DropDownTemas: React.FC<IDropDownTemas> = ({
 
   return (
     <Dropdown>
-      <DropdownBtn onClick={(e) => setAtivo(!ativo)}>
+      <DropdownBtn onClick={() => setAtivo(!ativo)}>
         {temaSelecionado}
         <ExpandMore />
       </DropdownBtn>
       {ativo && (
-        <DropdownConteudo>
+        <DropdownConteudo onMouseLeave={() => setAtivo(false)}>
           {opcoes.map((opcao) => (
             <DropdownItem
               key={opcao.indiceTema}
-              onClick={(e) => {
+              onClick={() => {
                 alteraTemaIncone(opcao.indiceTema);
                 setAtivo(false);
               }}
