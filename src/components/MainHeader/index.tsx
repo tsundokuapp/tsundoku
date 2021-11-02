@@ -31,7 +31,7 @@ const MainHeader: React.FC<IMainHeader> = ({ opcoes, setTheme, setMenu }) => {
       <BotaoMenu onClick={tiraMenu} >
         <MenuIcon />
       </BotaoMenu>
-      Bem vindo ao Painel de Controle!
+      Bem-vindo(a) ao Painel de Controle!
       <ContainerNav>
         <DropDownTemas
           opcoes={opcoes}

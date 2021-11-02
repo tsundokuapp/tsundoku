@@ -1,11 +1,15 @@
 import React from "react";
-import Container from 'components/Aside/styles';
+import Avatar from "components/Avatar";
+import Container from "components/Aside/styles";
+import NavMenuAside from 'components/NavMenuAside';
 
 const Aside: React.FC = () => {
-  return <Container>
-    Aside
-  </Container>;
+  return (
+    <Container>
+      <Avatar />
+      <NavMenuAside />
+    </Container>
+  );
 };
-
 
 export default Aside;

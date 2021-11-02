@@ -6,7 +6,7 @@ import DropDownTemas from "components/DropDownTemas";
 import DropDownAcesso from "components/DropDownAcesso";
 
 import { DefaultTheme } from "styled-components";
-import { Container } from "./styles";
+import { Container, ContainerMenuUsuario } from "./styles";
 
 import { Brightness3 } from "@material-ui/icons";
 
@@ -26,13 +26,15 @@ const Navbar: React.FC<INavbarProps> = ({ tema, opcoes, setTheme }) => {
           <LogoTema tema={tema} />
         </a>
       </Link>
-      <DropDownTemas
-        opcoes={opcoes}
-        temaSelecionado={temaSelecionado}
-        setTemaSelecionado={setTemaSelecionado}
-        setTheme={setTheme}
-      />
-      <DropDownAcesso />
+      <ContainerMenuUsuario>
+        <DropDownTemas
+            opcoes={opcoes}
+            temaSelecionado={temaSelecionado}
+            setTemaSelecionado={setTemaSelecionado}
+            setTheme={setTheme}
+        />
+        <DropDownAcesso />
+      </ContainerMenuUsuario>
     </Container>
   );
 };

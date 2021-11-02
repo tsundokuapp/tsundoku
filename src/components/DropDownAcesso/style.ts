@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Dropdown = styled.div`
-  width: 50px;
-  margin-right: 20px;
+  width: 30px;
+  margin-right: 30px;
   position: relative;
   user-select: none;
 `;

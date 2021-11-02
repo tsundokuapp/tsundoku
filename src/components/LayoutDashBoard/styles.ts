@@ -14,24 +14,18 @@ interface IGrid{
 export const Grid = styled.div<IGrid>`
     display: grid;
     grid-template-columns: 220px auto;    
-    grid-template-rows: 75px auto;        
-    //grid-template-areas: 'AS MH AS CT';
+    grid-template-rows: 75px auto;   
+    height: 100vh; 
     
     ${(props) => props.menu ? `
     
     grid-template-areas: 
     'AS MH'
-    'AS CT';
+    'AS CT';` :
     
-    ` :
-    `
-    grid-template-areas: 
+    `grid-template-areas: 
     'MH MH'
     'CT CT';
     `
     };
-    
-    height: 100vh; 
-
-    
 `;

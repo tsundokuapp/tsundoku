@@ -48,7 +48,6 @@ const DropDownTemas: React.FC<IDropDownTemas> = ({
     <Dropdown>
       <DropdownBtn onClick={() => setAtivo(!ativo)}>
         {temaSelecionado}
-        <ExpandMore />
       </DropdownBtn>
       {ativo && (
         <DropdownConteudo onMouseLeave={() => setAtivo(false)}>

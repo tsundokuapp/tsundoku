@@ -19,15 +19,8 @@ export const Container = styled.nav`
     }
 `;
 
-
-
-export const EstiloSelect = styled.select`
-    
-    > EstiloSelect::before{
-        content: none;
-    }
-    
-    > EstiloSelect::after{
-        content: none;
-    }
+export const ContainerMenuUsuario = styled.div`    
+    display: flex;    
+    width: 110px;  
+    justify-content: space-between;
 `;

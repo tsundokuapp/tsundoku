@@ -8,8 +8,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-
-    
+    border-bottom: solid 1px ${(props) => props.theme.colors.secundaria}; 
 `;
 
 export const ContainerNav = styled.nav`
@@ -32,6 +31,9 @@ export const BotaoMenu = styled.div`
     align-items: center;
     padding-left: 5px;
 
+    :hover{
+        opacity: 0.8;
+    }
 `;
 
 export const BotaoSair = styled.div`
@@ -45,15 +47,17 @@ export const BotaoSair = styled.div`
     font-size: 1em;
     display: flex;
     align-items: center;
-    padding-left: 5px;
-    
+    padding-left: 5px;    
 
     > a {
-    text-decoration: none;
-    color: ${(props) => props.theme.colors.branca};
-    padding-left: 3px;
-    
-  }
+        text-decoration: none;
+        color: ${(props) => props.theme.colors.branca};
+        padding-left: 3px;
+    }
+
+    :hover{
+        opacity: 0.8;
+    }
 
 `;
 

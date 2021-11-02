@@ -11,6 +11,7 @@ export default {
         primaria: gradienteLight.background,
         secundaria: "#65DAFF",
         terciaria: "#A9F0FF",
+        quartiaria: "#1f2421",
         
         branca: "#455974",
         borda: gradienteLight.border,
