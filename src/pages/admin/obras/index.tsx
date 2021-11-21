@@ -23,10 +23,11 @@ import Container, {
 } from "./styles";
 import * as ROTAS from "constants/rotas";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import mushoku from "assets/img/backgroudscard/MushokuTensei.png";
 import { Search } from "@material-ui/icons";
 import AppsIcon from "@material-ui/icons/Apps";
 import DehazeIcon from "@material-ui/icons/Dehaze";
+
+import mushoku from "assets/img/backgroudscard/MushokuTensei.png";
 
 const Obras: React.FC = () => {
   const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
@@ -62,7 +63,11 @@ const Obras: React.FC = () => {
                   Mushoku Tensei: Reencarnação do Desempregado
                 </span>
                 <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
+                  <BotaoAlteracao className="sucesso">
+                      <Link href={ROTAS.LISTACAPITULO}>
+                        <a>Capítulos</a>
+                      </Link>
+                    </BotaoAlteracao>
                   <BotaoAlteracao className="secundaria">                    
                     <Link href={ROTAS.EDITAROBRA}>
                       <a>Editar</a>
