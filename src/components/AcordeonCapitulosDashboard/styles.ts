@@ -11,21 +11,21 @@ export const Titulo = styled.div`
     flex-direction: row;
     justify-content: space-between;
     cursor: pointer;
-    background-color: #21aeca;
+    background-color: ${(props) => props.theme.colors.secundaria};
     padding: 1rem;
-    width: 300px;
+    width: 290px;
     
 
     :hover{
-        background-color: #3ab4cc;
+        opacity: 0.7;
     }
 `;
   
   
   export const Conteudo = styled.div`
-      width: 300px;
+      width: 290px;
       padding: 1rem;
-      background-color: #39b9d2;
+      background-color: ${(props) => props.theme.colors.secundaria};
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -37,7 +37,7 @@ export const CapaVolume = styled.img`
   border-radius: 5px;
   width: 260px;
   height: 400px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 `;
 
 export const ConteudoCapitulos = styled.div`

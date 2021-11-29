@@ -13,7 +13,7 @@ interface ICardLista{
 }
 
 const largura = {
-  largura: "245px",
+  largura: "220px",
 };
 
 const Container = styled.div`
@@ -95,7 +95,7 @@ export const ContainerTituloAcoesCardObra = styled.div<ICardLista>`
 `;
 
 export const ContainerBotoesAcaoCardObra = styled.div<ICardLista>`
-  width: ${props => props.cardLista ? '100%' : '30%'}; 
+  width: ${props => props.cardLista ? '110%' : '40%'}; 
   display: flex;
   align-items: center;
   justify-content: center;

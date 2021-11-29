@@ -1,7 +1,7 @@
 import React from "react";
 import LayoutDashBoard from "components/LayoutDashBoard";
 import Container, { SecaoTitulo, SecaoIndiceCapitulos} from "./styles";
-import Acordeon from "components/Acordeon";
+import Acordeon from "components/AcordeonCapitulosDashboard";
 
 import mushoku from "assets/img/backgroudscard/MushokuTensei.png";
 

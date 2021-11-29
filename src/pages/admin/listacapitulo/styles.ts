@@ -32,7 +32,7 @@ export const SecaoConteudoCapitulos = styled.div`
     width: 90%;
     margin: 10px 0 10px 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;   
 `;
 

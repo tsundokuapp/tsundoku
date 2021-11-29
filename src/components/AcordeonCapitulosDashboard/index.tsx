@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos} from './styles';
 
-interface IAcordeon {
+interface IAcordeonCapitulosDashboard {
     //indice: string;
     titulo: string;
     capaVolume: string;
     capitulos: string[];
   }
 
-const Acordeon: React.FC<IAcordeon> = ({ titulo, capaVolume, capitulos}) => {
+const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ titulo, capaVolume, capitulos}) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -25,10 +25,9 @@ const Acordeon: React.FC<IAcordeon> = ({ titulo, capaVolume, capitulos}) => {
                     {capitulo}
                 </ConteudoCapitulos>
             ))}
-
           </Conteudo>}
     </Container>
   );
 };
 
-export default Acordeon;
+export default AcordeonCapitulosDashboard;
