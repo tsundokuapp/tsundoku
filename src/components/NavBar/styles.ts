@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.nav`
     position: absolute;
     width: 100%;
-    height: 60px;
+    height: 80px;
     left: 0px;
     top: 0px;
     display: flex;

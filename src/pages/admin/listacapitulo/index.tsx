@@ -1,8 +1,9 @@
+import Link from "next/link";
 import React from "react";
 import LayoutDashBoard from "components/LayoutDashBoard";
 import Container, { SecaoTitulo, SecaoIndiceCapitulos} from "./styles";
 import Acordeon from "components/AcordeonCapitulosDashboard";
-
+import * as ROTAS from "constants/rotas";
 import mushoku from "assets/img/backgroudscard/MushokuTensei.png";
 
 const volumes = [
@@ -53,6 +54,9 @@ const ListaCapitulo: React.FC = () => {
           <h1>Mushoku Tensei: Reencarnação do Desempregado</h1>
         </SecaoTitulo>
         <h2>Índice de Capítulos</h2>
+
+        
+        <Link href={ROTAS.NOVOCAPITULO}><a>+ Capítulos</a></Link>
 
         <SecaoIndiceCapitulos>
           {volumes.map(({ indice, titulo, capaVolume, capitulos }) => (

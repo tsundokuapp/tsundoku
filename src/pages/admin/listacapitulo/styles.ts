@@ -4,6 +4,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  a{
+      text-decoration: none;
+      color: ${(props) => props.theme.colors.branca};
+  }
+
 `;
 
 export const SecaoTitulo = styled.div`

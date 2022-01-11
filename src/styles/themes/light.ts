@@ -1,6 +1,6 @@
 const gradienteLight = {
-    "background": "linear-gradient(180deg, #CAF0F8 0%, #EDF6F9 100%);",
-    "boxshadow": "0px 5px 10px rgba(198, 220, 234, 0.5);",
+    "background": "#F8F8FF",//"linear-gradient(180deg, #CAF0F8 0%, #EDF6F9 100%);",
+    "boxshadow": "0px 5px 10px rgba(69, 89, 116, 0.3);",
     "border": "1px solid #EAF9FC;"
   }
 

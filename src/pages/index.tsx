@@ -36,6 +36,13 @@ const Home: React.FC = () => {
         </Head>
         <Navbar tema={theme.title} opcoes={opcoes} setTheme={setTheme} />
         <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
+        <h1>Home</h1>
       </Container>
     </ThemeProvider>
   );

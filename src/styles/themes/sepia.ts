@@ -1,6 +1,6 @@
 const gradienteSepia = {
-    "background": "linear-gradient(180deg, #f2cc8f 0%, #FAF3D5 100%);",
-    "boxshadow": "0px 5px 10px rgba(232, 202, 64, 0.8);",
+    "background": "#f3e8da",
+    "boxshadow": "0px 5px 10px rgba(99,67,67, 0.3);",
     "border": "1px solid #f2cc8f;"
   }
 
@@ -13,7 +13,7 @@ export default {
         terciaria: "#F0DC82",
         quartiaria: "#1f2421",
         
-        branca: "#7A290E",
+        branca: "#634343",//"#7A290E",
         borda: gradienteSepia.border,
         sombra: gradienteSepia.boxshadow,
 
@@ -24,6 +24,7 @@ export default {
         /*
          #f2cc8f
          #F0DC82 
+         "linear-gradient(180deg, #f2cc8f 0%, #FAF3D5 100%);",
          */
     }
 };
