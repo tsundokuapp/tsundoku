@@ -4,7 +4,7 @@ import MainHeader from "components/MainHeader";
 import Aside from "components/Aside";
 import Content from "components/Content";
 import { DefaultTheme, ThemeProvider } from "styled-components";
-import { combineTheme, dark } from "../../styles/themes";
+import { combineTheme, dark } from "../../../../styles/themes";
 import { Brightness3, Brightness6, Brightness7 } from "@material-ui/icons";
 
 

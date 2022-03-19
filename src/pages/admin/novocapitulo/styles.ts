@@ -90,6 +90,10 @@ export const SecaoInputs = styled.section`
   .inputText {
     height: 100px;
   }
+
+  .botaoNovoVolume{
+      margin-left: 10px;
+  }
 `;
 
 export const SecaoBotoesSubmit = styled.div`

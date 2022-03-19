@@ -33,7 +33,7 @@ export const Container = styled.div<IContainer>`
 
 export const ContainerLogo = styled.section`
   width: 100%;
-  height: 100px; 
+  height: 100px;
   padding: 15px 0 20px 20px;
   margin-bottom: 150px;
 `;
@@ -90,8 +90,14 @@ export const InputSubmit = styled.input.attrs((props) => ({ type: "submit" }))`
   margin-bottom: 15px;
   cursor: pointer;
   font-size: 100%;
+  /* Rosa
   background-color: #ffcbf2;
   color: #ef476f;
+  */
+
+  background-color: #bc98ff;
+  color: #6818a5;
+
   border-radius: 5px;
 
   :hover {
@@ -105,12 +111,27 @@ export const InputBotaoPaginaInicial = styled.button`
   margin-bottom: 15px;
   cursor: pointer;
   font-size: 100%;
+  /* Rosa
   border: 1px solid #ffcbf2;
+  */
+
+  // Roxo
+  border: 1px solid #bc98ff;
+
   background-color: rgba(0, 0, 0, 0);
   border-radius: 5px;
 
+  /* Rosa
   :hover{
     background-color: #ffcbf2;
   color: #ef476f;
+  }
+
+  */
+
+  // Roxo
+  :hover {
+    background-color: #bc98ff;
+    color: #6818a5;
   }
 `;

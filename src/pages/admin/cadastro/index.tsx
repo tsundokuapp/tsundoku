@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import imagemFundo from "assets/img/backgrounds/SlimeRosa.png";
+//import imagemFundo from "assets/img/backgrounds/SlimeRosa.png";
+import imagemFundo from "assets/img/backgrounds/SlimeRoxo.png";
+
 import {
   Container,
   ContainerLogo,

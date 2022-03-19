@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutDashBoard from "components/LayoutDashBoard";
+import LayoutDashBoard from "../components/LayoutDashBoard";
 import { Formik, Form, Field } from "formik";
 import Container, {
   ContainerForm,

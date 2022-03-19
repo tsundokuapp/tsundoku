@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import LayoutDashBoard from "components/LayoutDashBoard";
+import LayoutDashBoard from "../components/LayoutDashBoard";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import Container, {

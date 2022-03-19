@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutDashBoard from "components/LayoutDashBoard";
+import LayoutDashBoard from "../components/LayoutDashBoard";
 import { Formik, Form, Field } from "formik";
 import Container, {
   ContainerForm,
@@ -14,6 +14,7 @@ import Container, {
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+
 
 import capaPrincipal from "assets/img/backgroudscard/MushokuTensei.png";
 
@@ -104,6 +105,7 @@ const NovaObra: React.FC = () => {
                 
                 <label htmlFor="sinopse">Sinopse: </label>
                 <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" />
+                
 
                 <SecaoOutrasInformacoes>
                     <label>

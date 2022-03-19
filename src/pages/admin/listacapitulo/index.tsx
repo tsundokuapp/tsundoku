@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import LayoutDashBoard from "components/LayoutDashBoard";
+import LayoutDashBoard from "../components/LayoutDashBoard";
 import Container, { SecaoTitulo, SecaoIndiceCapitulos} from "./styles";
 import Acordeon from "components/AcordeonCapitulosDashboard";
 import * as ROTAS from "constants/rotas";
