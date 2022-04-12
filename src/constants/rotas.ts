@@ -7,4 +7,4 @@ export const OBRAS = '/admin/obras';
 export const USUARIOS = '/admin/usuarios';
 export const EDITAROBRA = '/admin/editarobra';
 export const NOVOCAPITULO = '/admin/novocapitulo';
-export const LISTACAPITULO = '/admin/listacapitulo';
+export const INDICEOBRAS = '/admin/indiceobras';

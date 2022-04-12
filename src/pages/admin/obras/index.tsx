@@ -64,8 +64,8 @@ const Obras: React.FC = () => {
                 </span>
                 <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
                   <BotaoAlteracao className="sucesso">
-                      <Link href={ROTAS.LISTACAPITULO}>
-                        <a>Capítulos</a>
+                      <Link href={ROTAS.INDICEOBRAS}>
+                        <a>Índice</a>
                       </Link>
                     </BotaoAlteracao>
                   <BotaoAlteracao className="secundaria">                    
@@ -175,7 +175,7 @@ const Obras: React.FC = () => {
               Mushoku Tensei: Reencarnação do Desempregado
             </span>
             <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
+              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
               <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
               <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
             </ContainerBotoesAcaoCardObra>
@@ -185,7 +185,7 @@ const Obras: React.FC = () => {
               Mushoku Tensei: Reencarnação do Desempregado
             </span>
             <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
+              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
               <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
               <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
             </ContainerBotoesAcaoCardObra>
@@ -195,7 +195,7 @@ const Obras: React.FC = () => {
               Mushoku Tensei: Reencarnação do Desempregado
             </span>
             <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
+              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
               <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
               <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
             </ContainerBotoesAcaoCardObra>
