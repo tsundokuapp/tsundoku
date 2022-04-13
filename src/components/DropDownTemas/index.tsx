@@ -1,7 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
-import {
-    ExpandMore,
+import {    
     Brightness3,
     Brightness6,
   Brightness7,
