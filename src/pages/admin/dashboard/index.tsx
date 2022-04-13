@@ -1,6 +1,6 @@
 import React from 'react';
 import LayoutDashBoard from '../components/LayoutDashBoard';
-import { Titulo } from './style';
+import Titulo from './style';
 
 const DashBoard: React.FC = () => {
   return (

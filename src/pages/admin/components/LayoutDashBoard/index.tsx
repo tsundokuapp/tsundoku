@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "./styles";
+import Grid from "./styles";
 import MainHeader from "components/MainHeader";
 import Aside from "components/Aside";
 import Content from "components/Content";

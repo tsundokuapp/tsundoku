@@ -1,16 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import imagemFundo from "assets/img/backgrounds/SlimeAzul.png";
-import {
-  Container,
-  ContainerLogo,
-  InputLogin,
-  InputSenha,
-  ContainerForm,
-  ContainerImagemLogo,
-  InputSubmit,
-  InputBotaoPaginaInicial
-} from "./style";
+import Container, {  ContainerLogo, InputLogin, InputSenha, ContainerForm, ContainerImagemLogo, InputSubmit, InputBotaoPaginaInicial} from "./style";
 
 import LogoDark from "assets/img/logoTemaDark.svg";
 
