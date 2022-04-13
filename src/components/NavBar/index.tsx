@@ -11,7 +11,7 @@ import { Container, ContainerMenuUsuario } from "./styles";
 import { Brightness3 } from "@material-ui/icons";
 
 interface INavbarProps {
-  tema: string;
+  tema: string | null;
   opcoes: { indiceTema: string; icone: JSX.Element }[];
   setTheme: Dispatch<SetStateAction<DefaultTheme>>;
 }

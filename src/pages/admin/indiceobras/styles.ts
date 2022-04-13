@@ -7,7 +7,7 @@ const Container = styled.div`
 
   a{
       text-decoration: none;
-      color: ${(props) => props.theme.colors.branca};
+      color: #fb8500 //${(props) => props.theme.colors.branca};
   }
 
 `;

@@ -6,7 +6,7 @@ import LogoLight from "assets/img/logoTemaLight.svg";
 import LogoSepia from "assets/img/logoTemaSepia.svg";
 
 interface ILogoTemaProps {
-  tema: string;
+  tema: string | null;
 }
 
 const LogoTema: React.FC<ILogoTemaProps> = ({ tema }) => {
