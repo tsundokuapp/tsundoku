@@ -54,7 +54,7 @@ export const ContainerForm = styled.section`
   margin-left: 200px;
 `;
 
-export const InputLogin = styled.input.attrs((props) => ({ type: "text" }))`
+export const InputLogin = styled.input.attrs(() => ({ type: "text" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;
@@ -63,7 +63,7 @@ export const InputLogin = styled.input.attrs((props) => ({ type: "text" }))`
   font-size: 100%;
 `;
 
-export const InputEmail = styled.input.attrs((props) => ({ type: "email" }))`
+export const InputEmail = styled.input.attrs(() => ({ type: "email" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;
@@ -72,7 +72,7 @@ export const InputEmail = styled.input.attrs((props) => ({ type: "email" }))`
   font-size: 100%;
 `;
 
-export const InputSenha = styled.input.attrs((props) => ({
+export const InputSenha = styled.input.attrs(() => ({
   type: "password",
 }))`
   height: 50px;
@@ -84,7 +84,7 @@ export const InputSenha = styled.input.attrs((props) => ({
   border-radius: 5px;
 `;
 
-export const InputSubmit = styled.input.attrs((props) => ({ type: "submit" }))`
+export const InputSubmit = styled.input.attrs(() => ({ type: "submit" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;
