@@ -27,6 +27,7 @@ declare module "styled-components" {
       primaria: string;
       secundaria: string;
       terciaria: string;
+      quartiaria: string;
 
       branca: string;
       sombra: string;

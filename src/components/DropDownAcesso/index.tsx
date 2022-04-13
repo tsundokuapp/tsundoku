@@ -21,21 +21,27 @@ const DropDownAcesso: React.FC = () => {
             }}
             
           >
-            <Link href="../../admin/login">Login</Link>
+            <Link href="../../admin/login">
+                <a>Login</a>
+            </Link>
           </DropdownItem>
           <DropdownItem
             onClick={() => {
               setAtivo(false);
             }}            
           >
-            <Link href="../../admin/cadastro">Cadastre-se</Link>
+            <Link href="../../admin/cadastro">
+                <a>Cadastre-se</a>
+            </Link>
           </DropdownItem>
           <DropdownItem
             onClick={() => {
               setAtivo(false);
             }}            
           >
-            <Link href="../../admin/dashboard">Painel</Link>
+            <Link href="../../admin/dashboard">
+                <a>Painel</a>
+            </Link>
           </DropdownItem>
         </DropdownConteudo>
       )}

@@ -121,7 +121,7 @@ export const SecaoOutrasInformacoes = styled.div`
   }
 `;
 
-export const SecaoCategorias = styled.div`
+export const SecaoGeneros = styled.div`
   height: 100px;
   width: 25%;
   margin: 5px 0 20px 0;
@@ -131,7 +131,7 @@ export const SecaoCategorias = styled.div`
   display: flex;
   flex-direction: column;
 
-  .checkBoxCategorias {
+  .checkBoxGeneros {
     margin-right: 5px;
     margin-bottom: 10px;
   }

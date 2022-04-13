@@ -31,7 +31,9 @@ const TelaLogin: React.FC = () => {
         <InputSenha placeholder="Confirme sua senha" />
         <InputSubmit value="Cadastrar" />
         <InputBotaoPaginaInicial>
-            <Link href="/">Voltar para página inicial</Link>
+            <Link href="/">
+                <a>Voltar para página inicial</a>
+            </Link>
         </InputBotaoPaginaInicial>
       </ContainerForm>
     </Container>

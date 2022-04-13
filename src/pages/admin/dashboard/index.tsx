@@ -1,10 +1,11 @@
 import React from 'react';
 import LayoutDashBoard from '../components/LayoutDashBoard';
+import { Titulo } from './style';
 
 const DashBoard: React.FC = () => {
   return (
     <LayoutDashBoard>
-      <h1>Esse é o Dashboard!!!</h1>
+      <Titulo>Esse é o Dashboard!!!</Titulo>
     </LayoutDashBoard>
   );
 };

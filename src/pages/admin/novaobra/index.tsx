@@ -8,7 +8,7 @@ import Container, {
   InputIncluiCapaPrincipal,
   ImagemCapaObraPrincipal,
   SecaoOutrasInformacoes,
-  SecaoCategorias,
+  SecaoGeneros,
   SecaoBotoesSubmit
 } from "./styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
@@ -24,7 +24,7 @@ interface Values {
   titulosAlternativos: string;
   autor: string;
   artista: string;
-  categorias: string[];
+  generos: string[];
   sinopse: string;
   maiorIdade: string;
 }
@@ -41,7 +41,7 @@ const NovaObra: React.FC = () => {
     titulosAlternativos: "",
     autor: "",
     artista: "",
-    categorias: [""],
+    generos: [""],
     sinopse:"",
     maiorIdade: "não"
   };
@@ -75,33 +75,33 @@ const NovaObra: React.FC = () => {
                 <label htmlFor="artista">Artista: </label>
                 <Field className="InputCampoDados" id="artista" name="artista" type="text" />
                 
-                <label htmlFor="categorias">Categorias: </label>
-                <SecaoCategorias>
+                <label htmlFor="generos">Gêneros: </label>
+                <SecaoGeneros>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Aventura" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Aventura" />
                             Aventura
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Ação" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Ação" />
                             Ação
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Fantasia" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Fantasia" />
                             Fantasia
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Comédia" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Comédia" />
                             Comédia
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Drama" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Drama" />
                             Drama
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Slice  of Life" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Slice  of Life" />
                             Slice  of Life
                     </label>
-                </SecaoCategorias>
+                </SecaoGeneros>
                 
                 <label htmlFor="sinopse">Sinopse: </label>
                 <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" />
@@ -138,7 +138,6 @@ const NovaObra: React.FC = () => {
                             <option value="2">Completa</option>
                             <option value="3">Pausada</option>
                             <option value="4">Dropada</option>
-                            <option value="5">Manhwa</option>
                     </Field>
                     
                 </SecaoOutrasInformacoes>
@@ -150,9 +149,9 @@ const NovaObra: React.FC = () => {
               </Form>
             </Formik>
           </SecaoInputs>
-          <SecaoCapaObra>
+          {/*<SecaoCapaObra>
             <ImagemCapaObraPrincipal src={capaPrincipal} />
-          </SecaoCapaObra>
+          </SecaoCapaObra>*/}
         </ContainerForm>
       </Container>
     </LayoutDashBoard>

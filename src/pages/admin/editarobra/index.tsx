@@ -8,7 +8,7 @@ import Container, {
   InputIncluiCapaPrincipal,
   ImagemCapaObraPrincipal,
   SecaoOutrasInformacoes,
-  SecaoCategorias,
+  SecaoGeneros,
   SecaoBotoesSubmit,
 } from "../novaobra/styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
@@ -78,33 +78,33 @@ const EditarObra: React.FC = () => {
                 <label htmlFor="artista">Artista: </label>
                 <Field className="InputCampoDados" id="artista" name="artista" type="text" />
                 
-                <label htmlFor="categorias">Categorias: </label>
-                <SecaoCategorias>
+                <label htmlFor="generos">Gêneros: </label>
+                <SecaoGeneros>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" checked={true} value="Aventura" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" checked={true} value="Aventura" />
                             Aventura
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" checked={true} value="Ação" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" checked={true} value="Ação" />
                             Ação
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Fantasia" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Fantasia" />
                             Fantasia
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Comédia" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Comédia" />
                             Comédia
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Drama" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Drama" />
                             Drama
                     </label>
                     <label>
-                            <Field className="checkBoxCategorias" type="checkbox" name="categorias" value="Slice  of Life" />
+                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Slice  of Life" />
                             Slice  of Life
                     </label>
-                </SecaoCategorias>
+                </SecaoGeneros>
                 
                 <label htmlFor="sinopse">Sinopse: </label>
                 <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" />
