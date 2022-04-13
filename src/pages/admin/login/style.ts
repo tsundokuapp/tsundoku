@@ -4,7 +4,7 @@ interface IContainer {
   imagemFundo: string;
 }
 
-export const Container = styled.div<IContainer>`
+const Container = styled.div<IContainer>`
   width: 100vw;
   height: 100vh;
   background-image: url(${(props) => props.imagemFundo});
@@ -105,3 +105,5 @@ export const InputBotaoPaginaInicial = styled.button`
   color: #fff;
   }
 `;
+
+export default Container;

@@ -11,7 +11,7 @@ interface IGrid{
     menu: boolean; 
 }
 
-export const Grid = styled.div<IGrid>`
+const Grid = styled.div<IGrid>`
     display: grid;
     grid-template-columns: 220px auto;    
     grid-template-rows: 75px auto;   
@@ -29,3 +29,5 @@ export const Grid = styled.div<IGrid>`
     `
     };
 `;
+
+export default Grid;
