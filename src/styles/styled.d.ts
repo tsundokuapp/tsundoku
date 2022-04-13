@@ -2,40 +2,40 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    title: string;
+    title: string | null;
 
     colors: {
-      primaria: string;
-      secundaria: string;
-      terciaria: string;
-      quartiaria: string;
+      primaria: string | null;
+      secundaria: string | null;
+      terciaria: string | null;
+      quartiaria: string | null;
 
-      branca: string;
-      sombra: string;
-      borda: string;
+      branca: string | null;
+      sombra: string | null;
+      borda: string | null;
 
-      sucesso: string;
-      informacao: string;
-      aviso: string;
+      sucesso: string | null;
+      informacao: string | null;
+      aviso: string | null;
     };
   }
 
   export interface CustomTheme {
-    title: string;
+    title: string | null;
 
     colors: {
-      primaria: string;
-      secundaria: string;
-      terciaria: string;
-      quartiaria: string;
+      primaria: string | null;
+      secundaria: string | null;
+      terciaria: string | null;
+      quartiaria: string | null;
 
-      branca: string;
-      sombra: string;
-      borda: string;
+      branca: string | null;
+      sombra: string | null;
+      borda: string | null;
 
-      sucesso: string;
-      informacao: string;
-      aviso: string;
+      sucesso: string | null;
+      informacao: string | null;
+      aviso: string | null;
     };
   }
 }

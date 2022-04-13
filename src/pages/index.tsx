@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 import Navbar from "../components/NavBar";
-import { Container } from "../styles/pages/home";
+import { Container } from "../styles/stylepages/home";
 
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
