@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutDashBoard from "../components/LayoutDashBoard";
+import LayoutDashBoard from '../../../components/LayoutDashBoard';
 
 const Usuarios: React.FC = () => {
   return (
