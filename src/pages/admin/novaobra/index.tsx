@@ -4,9 +4,7 @@ import { Formik, Form, Field } from "formik";
 import Container, {
   ContainerForm,
   SecaoInputs,
-  SecaoCapaObra,
   InputIncluiCapaPrincipal,
-  ImagemCapaObraPrincipal,
   SecaoOutrasInformacoes,
   SecaoGeneros,
   SecaoBotoesSubmit
@@ -14,9 +12,6 @@ import Container, {
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-
-
-import capaPrincipal from "assets/img/backgroudscard/MushokuTensei.png";
 
 interface Values {
   capaPrincipalObra: string;
@@ -149,9 +144,6 @@ const NovaObra: React.FC = () => {
               </Form>
             </Formik>
           </SecaoInputs>
-          {/*<SecaoCapaObra>
-            <ImagemCapaObraPrincipal src={capaPrincipal} />
-          </SecaoCapaObra>*/}
         </ContainerForm>
       </Container>
     </LayoutDashBoard>

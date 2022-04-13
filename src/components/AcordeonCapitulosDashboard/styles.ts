@@ -33,7 +33,6 @@ export const Titulo = styled.div`
 
 
 export const CapaVolume = styled.img`
-  //border: 3px solid ${(props) => props.theme.colors.secundaria};
   border-radius: 5px;
   width: 260px;
   height: 400px;

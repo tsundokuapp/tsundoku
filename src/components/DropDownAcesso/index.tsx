@@ -4,9 +4,7 @@ import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
 import { AccountCircle } from "@material-ui/icons";
 
 const DropDownAcesso: React.FC = () => {
-  const [ativo, setAtivo] = useState(false);
-
-  /*onClick={() => setAtivo(!ativo)}*/
+  const [ativo, setAtivo] = useState(false);  
 
   return (
     <Dropdown>

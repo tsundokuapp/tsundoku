@@ -21,7 +21,6 @@ export const DropdownBtn = styled.div`
 export const DropdownConteudo = styled.div`
     position: absolute;
     margin-top: 25%;
-    //left: 0;
     padding: 5px 0 5px 0;
     background-color: rgba(255,255,255,0.0);
     color: ${(props) => props.theme.colors.branca}; 

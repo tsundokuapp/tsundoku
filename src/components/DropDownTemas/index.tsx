@@ -1,10 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
-import {    
-    Brightness3,
-    Brightness6,
-  Brightness7,
-} from "@material-ui/icons";
+import { Brightness3, Brightness6, Brightness7} from "@material-ui/icons";
 import { DefaultTheme } from "styled-components";
 import { light, dark, sepia } from "styles/themes";
 

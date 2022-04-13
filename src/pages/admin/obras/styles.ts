@@ -34,7 +34,6 @@ export const ImagemCardObra = styled.img`
   opacity: 1;
   border-radius: 5px;
   display: block;
-  //width: ${largura.largura};
   max-width: 100%;
   height: 100%;
   transition: 0.5s ease;
@@ -189,14 +188,14 @@ export const NavConsultas = styled.div`
     align-items: center;
 `;
 
-export const InputPesquisa = styled.input.attrs((props) => ({ type: "text" }))`
+export const InputPesquisa = styled.input.attrs(() => ({ type: "text" }))`
   height: 30px;
   width: 200px;  
   padding-left: 10px;
   border-radius: 5px;
   font-size: 100%;
   outline: none;
-  background: #dedede; //${props => props.theme.colors.terciaria};  
+  background: #dedede; 
   color: ${props => props.theme.colors.primaria};  
 `;  
 

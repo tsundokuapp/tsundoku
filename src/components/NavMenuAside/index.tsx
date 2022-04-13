@@ -17,13 +17,6 @@ const NavMenuAside: React.FC = () => {
     if (evento === undefined) {
       setSubMenuAtivo(!subMenuAtivo);
     }
-
-    console.log("Elemento: ", evento);
-
-
-
-    //setSubMenuAtivo(!subMenuAtivo);
-
   };
 
   // criar um componente link e trocar os links

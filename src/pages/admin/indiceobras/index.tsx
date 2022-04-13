@@ -54,8 +54,7 @@ const ListaCapitulo: React.FC = () => {
           <h1>Mushoku Tensei: Reencarnação do Desempregado</h1>
         </SecaoTitulo>
         <h2>Índice de Capítulos</h2>
-
-        
+                
         <Link href={ROTAS.NOVOCAPITULO}><a>+ Capítulos</a></Link>
 
         <SecaoIndiceCapitulos>

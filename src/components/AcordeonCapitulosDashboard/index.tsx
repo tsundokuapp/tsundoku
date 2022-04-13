@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos} from './styles';
 
 interface IAcordeonCapitulosDashboard {
-    //indice: string;
     titulo: string;
     capaVolume: string;
     capitulos: string[];
