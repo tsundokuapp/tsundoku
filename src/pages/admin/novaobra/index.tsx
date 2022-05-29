@@ -12,6 +12,7 @@ import Container, {
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import EditorTsun from '../../../components/EditorTsun/index';
 
 interface Values {
   capaPrincipalObra: string;
@@ -99,7 +100,8 @@ const NovaObra: React.FC = () => {
                 </SecaoGeneros>
                 
                 <label htmlFor="sinopse">Sinopse: </label>
-                <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" />
+                {/* <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" /> */}
+                <EditorTsun />
                 
 
                 <SecaoOutrasInformacoes>
