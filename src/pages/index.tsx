@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import Head from "next/head";
-
 import Navbar from "../components/NavBar";
 import { Container } from "../styles/stylepages/home";
-
 import { DefaultTheme, ThemeProvider } from "styled-components";
-
 import { combineTheme, dark } from "../styles/themes";
-
 import { Brightness3, Brightness6, Brightness7} from "@material-ui/icons";
 
 const Home: React.FC = () => {
