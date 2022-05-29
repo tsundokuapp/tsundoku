@@ -102,8 +102,7 @@ const NovaObra: React.FC = () => {
                 <label htmlFor="sinopse">Sinopse: </label>
                 {/* <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" /> */}
                 <EditorTsun />
-                
-
+              
                 <SecaoOutrasInformacoes>
                     <label>
                         <Field className="checkBoxOutrasInformacoes" type="checkbox" name="maiorIdade" value="sim" />
@@ -145,6 +144,9 @@ const NovaObra: React.FC = () => {
 
               </Form>
             </Formik>
+
+           
+          
           </SecaoInputs>
         </ContainerForm>
       </Container>

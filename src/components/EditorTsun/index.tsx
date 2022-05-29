@@ -7,7 +7,7 @@ if(typeof window !== 'undefined'){
     require ('tinymce/plugins/link');
     require ('tinymce/plugins/image');
     require ('tinymce/plugins/charmap');
-    require ('tinymce/plugins/print');
+    //require ('tinymce/plugins/print');
     require ('tinymce/plugins/preview');
     require ('tinymce/plugins/anchor');
     require ('tinymce/plugins/searchreplace');
@@ -17,7 +17,7 @@ if(typeof window !== 'undefined'){
     require ('tinymce/plugins/insertdatetime');
     require ('tinymce/plugins/media');
     require ('tinymce/plugins/table');
-    require ('tinymce/plugins/paste');
+    //require ('tinymce/plugins/paste');
     require ('tinymce/plugins/code');
     require ('tinymce/plugins/help');
     require ('tinymce/plugins/wordcount');
@@ -25,10 +25,11 @@ if(typeof window !== 'undefined'){
 
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { Editor as TinyMCEEditor } from 'tinymce';
 
 const EditorTsun: React.FC = () => {
     
-    //const editorRef = useRef(null);
+    const editorRef = useRef<TinyMCEEditor | null>(null);
     const log = (content: any) => {
         console.log("Deu certo!!", content);
     };
@@ -40,10 +41,10 @@ const EditorTsun: React.FC = () => {
     const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     return (
-        <>
+        <div>
         <Editor
-          //onInit={(evt, editor) => editorRef.current = editor}
-          initialValue="<p>This is the initial content of the editor.</p>"
+          onInit={(evt, editor) => editorRef.current = editor}
+          initialValue="This is the initial content of the editor."
           init={{
             height: 500,
             menubar: false,
@@ -56,14 +57,14 @@ const EditorTsun: React.FC = () => {
               'bold italic forecolor | alignleft aligncenter ' +
               'alignright alignjustify | bullist numlist outdent indent | ' +
               'removeformat | link | anchor | help',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-            content_css: useDarkMode ? 'dark' : 'default',
-            skin: useDarkMode ? 'oxide-dark' : 'oxide',            
+            // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+            // content_css: useDarkMode ? 'dark' : 'default',
+            // skin: useDarkMode ? 'oxide-dark' : 'oxide',            
           }}
           onEditorChange={handleEditorChange}
         />
         <button onClick={log}>Log editor content</button>
-      </>
+      </div>
     );
   };
   

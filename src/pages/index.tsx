@@ -5,6 +5,7 @@ import { Container } from "../styles/stylepages/home";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { combineTheme, dark } from "../styles/themes";
 import { Brightness3, Brightness6, Brightness7} from "@material-ui/icons";
+import EditorAxios from "components/EditorTsun/EditorAxios";
 
 const Home: React.FC = () => {
     const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
@@ -32,6 +33,7 @@ const Home: React.FC = () => {
         </Head>
         <Navbar tema={theme.title} opcoes={opcoes} setTheme={setTheme} />
         <h1>Site em construção...</h1>
+        <EditorAxios/>
       </Container>
     </ThemeProvider>
   );

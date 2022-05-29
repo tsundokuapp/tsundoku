@@ -19,9 +19,12 @@ module.exports = withImages({
         ignoreDuringBuilds: true,
       },
        webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-        config.plugins.push(new CopyPlugin([
+        config.plugins.push(new CopyPlugin({
+          patterns: [
             { from: path.join(__dirname, 'node_modules/tinymce/skins'), to: path.join(__dirname, 'public/assets/libs/tinymce/skins') }, /// Copy to public folder
-        ]));
+          ]
+        })
+      );
         return config
     },
     webpackDevMiddleware: config => {
