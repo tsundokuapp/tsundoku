@@ -18,7 +18,7 @@ module.exports = withImages({
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
       },
-      webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+       webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         config.plugins.push(new CopyPlugin([
             { from: path.join(__dirname, 'node_modules/tinymce/skins'), to: path.join(__dirname, 'public/assets/libs/tinymce/skins') }, /// Copy to public folder
         ]));
