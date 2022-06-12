@@ -3,6 +3,8 @@ import React from "react";
 //import imagemFundo from "assets/img/backgrounds/SlimeRosa.png";
 import imagemFundo from "assets/img/backgrounds/SlimeRoxo.png";
 
+import teste from "assets/img/backgrounds/SlimeRoxo.png";
+
 import Container, {ContainerLogo, InputLogin, InputEmail, InputSenha, ContainerForm, ContainerImagemLogo, InputSubmit, InputBotaoPaginaInicial} from "./style";
 
 import LogoSepia from "assets/img/logoTemaSepia.svg";
