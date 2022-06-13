@@ -69,6 +69,10 @@ export const SecaoInputs = styled.section`
   .inputText {
     height: 100px;
   }
+
+  .hidden {
+    visibility: hidden;
+  }
 `;
 
 export const SecaoBotoesSubmit = styled.div`
