@@ -1,4 +1,6 @@
 {
+    "name": "@tsundoku/main",
+    "version": "1.0.0",
     "private": true,
     "workspaces": {
         "packages": [
@@ -8,6 +10,8 @@
     },
     "scripts": {
         "web": "yarn workspace @tsundoku/web",
-        "dev": "yarn web dev"
+        "dev": "yarn web dev",
+        "build": "next build",
+        "start": "next start"
       }
 }
