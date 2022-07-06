@@ -24,8 +24,7 @@
     "suneditor-react": "^3.4.0",
     "webpack": "4.0.0",
     "yarn": "^1.22.17",
-    "yup": "^0.32.9",
-    "@tsundoku/utils": "*"
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/node": "15.0.0",
