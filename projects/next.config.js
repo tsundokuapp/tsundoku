@@ -1,8 +1,7 @@
 const webpack = require("webpack");
 const withImages = require("next-images");
 
-module.exports = withImages({
-  basePath: './src',
+module.exports = withImages({  
   esModule: true,
   trailingSlash: true,
   images: {
