@@ -10,6 +10,7 @@
     },
     "scripts": {
         "web": "yarn workspace @tsundoku/web",
-        "dev": "yarn web dev"
+        "dev": "yarn web dev",
+        "build": "yarn web build"
       }
 }
