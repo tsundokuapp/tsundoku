@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import { Formik, Form, Field } from "formik";
 import Container, {
@@ -14,6 +14,8 @@ import Container, {
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditIcon from '@material-ui/icons/Edit';
+
+import EditorTsun from "components/EditorTsun/index";
 
 import capaPrincipal from '../../../../public/assets/img/backgroudscard/MushokuTensei.png';
 
@@ -38,6 +40,7 @@ const excluirObra = () =>{
 }
 
 const EditarObra: React.FC = () => {
+
   const initialValues: Values = {
     capaPrincipalObra: "",
     tituloObra: "Mushoku Tensei: Reencarnação do Desempregado",
@@ -45,10 +48,12 @@ const EditarObra: React.FC = () => {
     autor: "Rifujin na Magonote",
     artista: "Shirotaka",
     categorias: ["Ação, Aventura"],
-    sinopse:"Alguma coisa aqui até eu achar um editor de texto",
+    sinopse:"<p>Aqui é um parágrafo, pode acreditar<p><p>Mais um aqui<p><p>Oxi, mais um?!<p>",
     maiorIdade: "não"
   };
 
+  const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
+  
   return (
     <LayoutDashBoard>
       <Container>
@@ -61,6 +66,7 @@ const EditarObra: React.FC = () => {
         <ContainerForm>
           <SecaoInputs>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            {({ values }) => (
               <Form >
                 
                 <label htmlFor="capaPrincipalObra" >Capa Principal: </label>
@@ -72,10 +78,10 @@ const EditarObra: React.FC = () => {
                 <label htmlFor="titulosAlternativos">Títulos alternativos: </label>
                 <Field className="InputCampoDados" id="titulosAlternativos" name="titulosAlternativos" type="text" />
                 
-                <label htmlFor="autor">Autor: </label>
+                <label htmlFor="autor">Autor(es): </label>
                 <Field className="InputCampoDados" id="autor" name="autor" type="text" />
                 
-                <label htmlFor="artista">Artista: </label>
+                <label htmlFor="artista">Artista(s): </label>
                 <Field className="InputCampoDados" id="artista" name="artista" type="text" />
                 
                 <label htmlFor="generos">Gêneros: </label>
@@ -106,8 +112,8 @@ const EditarObra: React.FC = () => {
                     </label>
                 </SecaoGeneros>
                 
-                <label htmlFor="sinopse">Sinopse: </label>
-                <Field className="InputCampoDados inputText" id="sinopse" name="sinopse" as="textarea" />
+                <label htmlFor="sinopse">Sinopse:</label>                
+                <EditorTsun larguraEditor='100%' tamanhoEditor='500px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoOutrasInformacoes>
                     <label>
@@ -115,12 +121,7 @@ const EditarObra: React.FC = () => {
                         +18
                     </label>
 
-                    <Field
-                            component="select"
-                            id="tipoObra"
-                            name="tipoObra"
-                            className="selectTipoObras"
-                        >
+                    <Field component="select" id="tipoObra" name="tipoObra" className="selectTipoObras">
                             <option value="0">Selecione o tipo da obra</option>
                             <option value="1"selected={true}>Light Novel</option>
                             <option value="2">Web Novel</option>
@@ -129,12 +130,7 @@ const EditarObra: React.FC = () => {
                             <option value="5">Manhwa</option>
                     </Field>
 
-                    <Field
-                            component="select"
-                            id="statusObra"
-                            name="statusObra"
-                            className="selectTipoObras"
-                        >
+                    <Field component="select" id="statusObra" name="statusObra" className="selectTipoObras">
                             <option value="0">Selecione o status da obra</option>
                             <option value="1" selected={true}>Em Andamento</option>
                             <option value="2">Completa</option>
@@ -150,7 +146,10 @@ const EditarObra: React.FC = () => {
                     <button className="botao-submit aviso" type="button" onClick={excluirObra}>Excluir</button>
                 </SecaoBotoesSubmit>
 
+                <Field className="InputCampoDados inputText hidden" id="sinopse" name="sinopse" as="textarea" value={values.sinopse = valorConteudoEditor} />
+
               </Form>
+              )}
             </Formik>
           </SecaoInputs>
           <SecaoCapaObra>

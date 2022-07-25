@@ -4,6 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 200px;
 `;
 
 export const ContainerForm = styled.div`
@@ -12,7 +13,7 @@ export const ContainerForm = styled.div`
 `;
 
 export const SecaoInputs = styled.section`
-  width: 65%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   padding-top: 50px;
@@ -52,7 +53,7 @@ export const SecaoInputs = styled.section`
 
   .InputCampoDados {
     height: 35px;
-    width: 80%;
+    width: 95%;
     padding-left: 10px;
     border-radius: 5px;
     font-size: 100%;
@@ -113,6 +114,7 @@ export const SecaoOutrasInformacoes = styled.div`
   height: 35px;
   display: flex;
   justify-content: space-around;
+  margin-top: 25px;
 
   .checkBoxOutrasInformacoes {
     margin-right: 5px;
@@ -126,7 +128,7 @@ export const SecaoOutrasInformacoes = styled.div`
 `;
 
 export const SecaoGeneros = styled.div`
-  height: 100px;
+  height: 250px;
   width: 25%;
   margin: 5px 0 20px 0;
   padding: 15px 10px 10px 25px;
@@ -165,8 +167,8 @@ export const InputIncluiCapaPrincipal = styled.input.attrs(() => ({
 export const SecaoCapaObra = styled.section`
   width: 35%;
   display: flex;
-  justify-content: center;
-  height: 700px;
+  justify-content: flex-start;
+  height: 100%;
 `;
 
 export const ImagemCapaObraPrincipal = styled.img`

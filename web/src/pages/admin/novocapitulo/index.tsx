@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import { Formik, Form, Field } from "formik";
 import Container, {
@@ -9,6 +9,7 @@ import Container, {
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import EditorTsun from 'components/EditorTsun';
 
 interface Values {
   idObra: string;
@@ -45,6 +46,8 @@ const NovoCapitulo: React.FC = () => {
     parteCapitulo: "",
   };
 
+  const [valorConteudoEditor, setValorConteudoEditor] = useState("");
+
   return (
     <LayoutDashBoard>
       <Container>
@@ -57,25 +60,17 @@ const NovoCapitulo: React.FC = () => {
         <ContainerForm>
           <SecaoInputs>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            {({ values }) => (
               <Form>
                 <label htmlFor="descricaoObra">Obra: </label>
-                <Field
-                  className="InputCampoDados"
-                  id="descricaoObra"
-                  name="descricaoObra"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="descricaoObra" name="descricaoObra" type="text" />
 
                 <div>
                   <label htmlFor="volumeObra">Volume: </label>
                   <div>
 
                 <Field
-                    component="select"
-                    id="volumeObra"
-                    name="volumeObra"
-                    className="selectTipoObras larguraInputsAuxiiar"
-                  >
+                    component="select" id="volumeObra" name= "volumeObra" className="larguraInputsAuxiiar selectTipoObras">
                     <option value="0" selected={true}>
                       Selecione o volume
                     </option>
@@ -91,59 +86,32 @@ const NovoCapitulo: React.FC = () => {
                 </div>                
 
                 <label htmlFor="numeroCapitulo">Número do capítulo: </label>
-                <Field
-                  className="InputCampoDados larguraInputsAuxiiar"
-                  id="numeroCapitulo"
-                  name="numeroCapitulo"
-                  type="number"
-                />
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="numeroCapitulo" name="numeroCapitulo" type="number" />
 
                 <label htmlFor="parteCapitulo">Parte capítulo: </label>
-                <Field
-                  className="InputCampoDados larguraInputsAuxiiar"
-                  id="parteCapitulo"
-                  name="parteCapitulo"
-                  type="text"
-                />
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="parteCapitulo" name="parteCapitulo" type="text" />
 
                 <label htmlFor="nomeCapitulo">Nome do capítulo: </label>
-                <Field
-                  className="InputCampoDados"
-                  id="nomeCapitulo"
-                  name="nomeCapitulo"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="nomeCapitulo" name="nomeCapitulo" type="text" /> 
 
                 <label htmlFor="ordemCapitulo">Ordem do capítulo: </label>
-                <Field
-                  className="InputCampoDados larguraInputsAuxiiar"
-                  id="ordemCapitulo"
-                  name="ordemCapitulo"
-                  type="number"
-                />
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="ordemCapitulo" name="ordemCapitulo" type="number" />
 
                 <label htmlFor="slugCapitulo">Slug capítulo: </label>
-                <Field
-                  className="InputCampoDados"
-                  id="slugCapitulo"
-                  name="slugCapitulo"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" />
 
                 <label htmlFor="conteudo">Conteudo: </label>
-                <Field
-                  className="InputCampoDados inputText"
-                  id="conteudo"
-                  name="conteudo"
-                  as="textarea"
-                />
+                <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoBotoesSubmit>
                   <button className="botao-submit sucesso" type="submit">
                     Adicionar
                   </button>
                 </SecaoBotoesSubmit>
+                
+                <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.conteudo = valorConteudoEditor} />                
               </Form>
+              )}
             </Formik>
           </SecaoInputs>
         </ContainerForm>

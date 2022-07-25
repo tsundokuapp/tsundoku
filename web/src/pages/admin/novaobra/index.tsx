@@ -8,6 +8,7 @@ import Container, {
   SecaoOutrasInformacoes,
   SecaoGeneros,
   SecaoBotoesSubmit,
+  SecaoCapaObra,
 } from "./styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
@@ -31,12 +32,10 @@ const handleSubmit = (valores: Values) => {
 };
 
 const NovaObra: React.FC = () => {
-  const [valorSinopse, setValorSinopse] = useState("<p>Teste</p>");
-
-
+  
   const initialValues: Values = {
     capaPrincipalObra: "",
-    tituloObra: "Teste",
+    tituloObra: "",
     titulosAlternativos: "",
     autor: "",
     artista: "",
@@ -44,6 +43,8 @@ const NovaObra: React.FC = () => {
     sinopse: "",
     maiorIdade: "não",
   };
+
+  const [valorConteudoEditor, setValorConteudoEditor] = useState("");
 
   return (
     <LayoutDashBoard>
@@ -74,7 +75,7 @@ const NovaObra: React.FC = () => {
                 />
 
                 <label htmlFor="titulosAlternativos">
-                  Títulos alternativos:{" "}
+                  Títulos alternativos:
                 </label>
                 <Field
                   className="InputCampoDados"
@@ -83,7 +84,7 @@ const NovaObra: React.FC = () => {
                   type="text"
                 />
 
-                <label htmlFor="autor">Autor: </label>
+                <label htmlFor="autor">Autor(es): </label>
                 <Field
                   className="InputCampoDados"
                   id="autor"
@@ -91,7 +92,7 @@ const NovaObra: React.FC = () => {
                   type="text"
                 />
 
-                <label htmlFor="artista">Artista: </label>
+                <label htmlFor="artista">Artista(s): </label>
                 <Field
                   className="InputCampoDados"
                   id="artista"
@@ -155,23 +156,10 @@ const NovaObra: React.FC = () => {
                     />
                     Slice of Life
                   </label>
-                </SecaoGeneros>
+                </SecaoGeneros>              
 
-                <label htmlFor="sinopse">Sinopse: 
-                    {/* <Field
-                    className="InputCampoDados"
-                    id="sinopse"
-                    name="sinopse"
-                    placeholder="sinopse"
-                    type="text"
-                    value={valorSinopse}
-                    /> */}
-                </label>
-
-                <Field className="InputCampoDados inputText hidden" id="sinopse" name="sinopse" as="textarea" value={values.sinopse = valorSinopse} />
-                <EditorTsun name="teste" setValorSinopse={setValorSinopse} />
-
-                
+                <label htmlFor="sinopse">Sinopse:</label>                
+                <EditorTsun larguraEditor='100%' tamanhoEditor='500px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoOutrasInformacoes>
                   <label>
@@ -221,10 +209,17 @@ const NovaObra: React.FC = () => {
                     Adicionar
                   </button>
                 </SecaoBotoesSubmit>
+
+                <Field className="InputCampoDados inputText hidden" id="sinopse" name="sinopse" as="textarea" value={values.sinopse = valorConteudoEditor} />
+
               </Form>
               )}
             </Formik>
           </SecaoInputs>
+          <SecaoCapaObra>
+            Aqui vai ser a prévia da imagem
+            
+          </SecaoCapaObra>
         </ContainerForm>
       </Container>
     </LayoutDashBoard>

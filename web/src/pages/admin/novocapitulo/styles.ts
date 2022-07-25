@@ -4,6 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 200px;
 `;
 
 export const ContainerForm = styled.div`
@@ -84,7 +85,7 @@ export const SecaoInputs = styled.section`
   }
 
   .larguraInputsAuxiiar{
-    width: 10%;
+    width: 12%;
   }
 
   .inputText {
@@ -94,13 +95,16 @@ export const SecaoInputs = styled.section`
   .botaoNovoVolume{
       margin-left: 10px;
   }
+
+  .hidden {
+    visibility: hidden;
+  }
 `;
 
 export const SecaoBotoesSubmit = styled.div`
   width: 40%;
   margin: 15px 0 30px 0;
   display: flex;
-  //justify-content: space-around;
 `;
 
 export const BotaoAlteracao = styled.button`

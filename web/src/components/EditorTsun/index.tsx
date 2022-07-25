@@ -3,35 +3,39 @@ import React, {useRef, Dispatch, SetStateAction} from 'react';
 
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
+import { Container } from './styles';
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
     ssr: false,
   });
 
   interface IEditorTsun {
-    name: string;
-    setValorSinopse: Dispatch<SetStateAction<string>>;
+    larguraEditor: string;
+    tamanhoEditor: string;
+    valorConteudoEditor: string;
+    setValorConteudoEditor: Dispatch<SetStateAction<string>>;
   }  
 
-const EditorTsun: React.FC<IEditorTsun> = ({name, setValorSinopse}) => {
-   
+const EditorTsun: React.FC<IEditorTsun> = ({larguraEditor, tamanhoEditor, valorConteudoEditor, setValorConteudoEditor}) => {  
 
     const editor = useRef<SunEditorCore>();
-
-    // The sunEditor parameter will be set to the core suneditor instance when this function is called
     const getSunEditorInstance = (sunEditor: SunEditorCore) => {
         editor.current = sunEditor;
     };
 
     function handleChange(content: any | string){
-        console.log(content); //Get Content Inside Editor
-        setValorSinopse(content)
-    }    
+        setValorConteudoEditor(content)
+    }
+
+    let valorAjusteTamanhoEditor = 0;
+
+    function handleOnResizeEditor(prevHeight:number){
+        valorAjusteTamanhoEditor =  prevHeight;
+    }
 
     return (
-        <div>
-            <p>Testando um novo componente de edição de texto</p>
-            <SunEditor getSunEditorInstance={getSunEditorInstance} lang="pt_br" name={name} setAllPlugins={true} onChange={handleChange} setOptions={{				    
+        <Container ajusteLarguraEditor={larguraEditor} ajusteTamanhoEditor={valorAjusteTamanhoEditor}>            
+            <SunEditor getSunEditorInstance={getSunEditorInstance} lang="pt_br" setAllPlugins={true} onChange={handleChange} width={larguraEditor} height={tamanhoEditor} onResizeEditor={handleOnResizeEditor} setContents={valorConteudoEditor} setOptions={{				    
 					buttonList: [['undo',
                     'redo',
                     'font',
@@ -69,15 +73,8 @@ const EditorTsun: React.FC<IEditorTsun> = ({name, setValorSinopse}) => {
                     'save',
                     'template']]
 			}}  />
-        </div>
+        </Container>
     );
 }
-
-/*
-
-            
-
-*/
-
 
 export default EditorTsun;
