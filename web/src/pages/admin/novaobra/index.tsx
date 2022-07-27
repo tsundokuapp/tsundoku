@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import { Formik, Form, Field } from "formik";
-import Container, {
-  ContainerForm,
-  SecaoInputs,
-  InputIncluiCapaPrincipal,
-  SecaoOutrasInformacoes,
-  SecaoGeneros,
-  SecaoBotoesSubmit,
-  SecaoCapaObra,
-} from "./styles";
+import Container, { ContainerForm, SecaoInputs, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, SecaoCapaObra } from "./styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditorTsun from "components/EditorTsun/index";
+import { ImagemCapaObraPrincipal } from '../novocapitulo/styles';
+import Blob from 'cross-blob';
 
 interface Values {
   capaPrincipalObra: string;
@@ -31,6 +25,8 @@ const handleSubmit = (valores: Values) => {
   console.log(JSON.stringify(valores));
 };
 
+import capaPrincipal from '../../../../public/assets/img/logoTemaDark.svg';
+
 const NovaObra: React.FC = () => {
   
   const initialValues: Values = {
@@ -44,7 +40,15 @@ const NovaObra: React.FC = () => {
     maiorIdade: "não",
   };
 
-  const [valorConteudoEditor, setValorConteudoEditor] = useState("");
+  const valorInicialImagem = new Blob();
+
+  const [valorConteudoEditor, setValorConteudoEditor] = useState('');
+  const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
+  const [enderecoImagemCapa] = useState(capaPrincipal);  
+
+    const handleImagemCapa = (event: any) => {
+        setImagemCapa(event.target.files[0])
+    }
 
   return (
     <LayoutDashBoard>
@@ -61,10 +65,7 @@ const NovaObra: React.FC = () => {
             {({ values }) => (
               <Form>
                 <label htmlFor="capaPrincipalObra">Capa Principal: </label>
-                <InputIncluiCapaPrincipal
-                  id="capaPrincipalObra"
-                  name="capaPrincipalObra"
-                />
+                <Field className="inputIncluiCapaPrincipal" id="capaPrincipalObra" name="capaPrincipalObra" type="file" onChange={handleImagemCapa}/>
 
                 <label htmlFor="tituloObra">Título da Obra: </label>
                 <Field
@@ -217,8 +218,7 @@ const NovaObra: React.FC = () => {
             </Formik>
           </SecaoInputs>
           <SecaoCapaObra>
-            Aqui vai ser a prévia da imagem
-            
+            {imagemCapa.size > 0 ? <ImagemCapaObraPrincipal src={URL.createObjectURL(imagemCapa)} alt='Capa Principal'/> : <ImagemCapaObraPrincipal src={enderecoImagemCapa} alt='Capa Principal' />}
           </SecaoCapaObra>
         </ContainerForm>
       </Container>

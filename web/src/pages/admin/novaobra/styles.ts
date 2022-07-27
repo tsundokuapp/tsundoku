@@ -74,6 +74,15 @@ export const SecaoInputs = styled.section`
   .hidden {
     visibility: hidden;
   }
+
+  .inputIncluiCapaPrincipal {
+    width: 80%;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 100%;
+    margin: 5px 0 20px 0;
+  }
+
 `;
 
 export const SecaoBotoesSubmit = styled.div`
