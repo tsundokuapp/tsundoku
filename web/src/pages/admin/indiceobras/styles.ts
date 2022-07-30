@@ -4,12 +4,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  a{
-      text-decoration: none;
-      color: #fb8500 //${(props) => props.theme.colors.branca};
-  }
-
 `;
 
 export const SecaoTitulo = styled.div`
@@ -40,6 +34,44 @@ export const SecaoConteudoCapitulos = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;   
+`;
+
+export const SecaoBotoesAdicao = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+`;
+
+export const BotaoAlteracao = styled.button`
+  width: 150px;
+  height: 30px;
+  color: ${(props) => props.theme.colors.branca};
+  font-size: 10pt;
+  border-radius: 3px;
+  margin: 10px;
+  opacity: 0.7;
+
+  &.sucesso {
+    background: ${(props) => props.theme.colors.sucesso};
+  }
+
+  &.aviso {
+    background: ${(props) => props.theme.colors.aviso};
+  }
+
+  &.secundaria {
+    background: ${(props) => props.theme.colors.secundaria};
+  }
+
+  :hover {
+    opacity: 1;
+  }
+
+  > a{
+    color: ${(props) => props.theme.colors.branca};
+    text-decoration: none;
+  }
+
 `;
 
 export default Container;

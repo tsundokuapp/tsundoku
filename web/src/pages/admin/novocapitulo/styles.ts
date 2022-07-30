@@ -34,11 +34,11 @@ export const SecaoInputs = styled.section`
 
   .botao-submit {
     width: 90px;
-    height: 25px;
+    height: 30px;
     color: ${(props) => props.theme.colors.branca};
     font-size: 9pt;
     border-radius: 3px;
-    margin: 15px 0 30px 0;
+    margin: 15px 15px 30px 0;
     opacity: 0.7;
 
     &.sucesso {
@@ -55,6 +55,11 @@ export const SecaoInputs = styled.section`
 
     :hover {
       opacity: 1;
+    }
+
+    > a{
+        text-decoration: none;
+        color: ${(props) => props.theme.colors.branca};
     }
   }
 

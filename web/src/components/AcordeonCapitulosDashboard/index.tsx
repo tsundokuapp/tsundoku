@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos} from './styles';
+import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSinopse} from './styles';
 
 interface IAcordeonCapitulosDashboard {
     titulo: string;
     capaVolume: string;
+    sinopse: string;
     capitulos: string[];
   }
 
-const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ titulo, capaVolume, capitulos}) => {
+const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ titulo, capaVolume, capitulos, sinopse}) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -15,9 +16,11 @@ const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ tit
       <Titulo onClick={() => setIsActive(!isActive)}>
         <div>{titulo}</div>
         <div>{isActive ? '-' : '+'}</div>
-      </Titulo>
-      {isActive && <Conteudo>
+      </Titulo>      
+      {isActive && <Conteudo>        
           <CapaVolume src={capaVolume}/>
+
+            <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
 
             {capitulos.map((capitulo) => (
                 <ConteudoCapitulos>

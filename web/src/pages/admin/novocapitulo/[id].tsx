@@ -10,6 +10,9 @@ import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditorTsun from 'components/EditorTsun';
+import { INDICEOBRAS } from '../../../constants/rotas';
+import Link from 'next/link';
+import * as ROTAS from "constants/rotas";
 
 interface Values {
   idObra: string;
@@ -28,21 +31,16 @@ const handleSubmit = (valores: Values) => {
   console.log(JSON.stringify(valores));
 };
 
-const adicionaVolumeNovo = () => {
-    alert("Adicionar novo volume");
-};
-
 const NovoCapitulo: React.FC = () => {
   const initialValues: Values = {
     idObra: "",
-    descricaoObra: "Mushoku Tensei",
+    descricaoObra: "",
     volumeObra: "",
     numeroCapitulo: "",
     nomeCapitulo: "",
     conteudo: "",
     tipoObra: "",
-    slugCapitulo:
-      "light-novel-mushoku-tensei-jobless-reincarnation-volume-01-capitulo-01",
+    slugCapitulo: "",
     parteCapitulo: "",
   };
 
@@ -80,8 +78,6 @@ const NovoCapitulo: React.FC = () => {
                     <option value="4">04</option>
                   </Field>
 
-                  <button className="botao-submit secundaria botaoNovoVolume" type="button" onClick={adicionaVolumeNovo}> + Novo Volume</button>
-
                   </div>
                 </div>                
 
@@ -104,9 +100,16 @@ const NovoCapitulo: React.FC = () => {
                 <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoBotoesSubmit>
-                  <button className="botao-submit sucesso" type="submit">
-                    Adicionar
-                  </button>
+                    <button className="botao-submit sucesso" type="submit">
+                        Adicionar
+                    </button>
+
+                    <button className="botao-submit secundaria">
+                    <Link href={ROTAS.INDICEOBRAS}>
+                        <a>Voltar</a>
+                    </Link>
+                    </button>
+
                 </SecaoBotoesSubmit>
                 
                 <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.conteudo = valorConteudoEditor} />                

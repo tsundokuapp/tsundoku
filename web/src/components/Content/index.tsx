@@ -1,7 +1,9 @@
 import React from "react";
 import Container from "components/Content/styles";
 
-const Content: React.FC = ({ children }) => {
+interface IContent {   children?: React.ReactNode; } 
+
+const Content: React.FC<IContent> = ({ children }) => {
   return <Container>{children}</Container>;
 };
 

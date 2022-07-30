@@ -69,7 +69,7 @@ const Obras: React.FC = () => {
                       </Link>
                     </BotaoAlteracao>
                   <BotaoAlteracao className="secundaria">                    
-                    <Link href={ROTAS.EDITAROBRA}>
+                    <Link href={ROTAS.EDITAROBRA + "/1"}>
                       <a>Editar</a>
                     </Link>
                   </BotaoAlteracao>

@@ -67,6 +67,10 @@ export const SecaoInputs = styled.section`
     }
   }
 
+  .InputCampoDadosNumber{
+    width: 30%;
+  }
+
   .inputText {
     height: 100px;
   }

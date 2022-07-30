@@ -20,7 +20,7 @@ import EditorTsun from "components/EditorTsun/index";
 import capaPrincipal from '../../../../public/assets/img/backgroudscard/MushokuTensei.png';
 
 interface Values {
-  capaPrincipalObra: string;
+  capaPrincipalObra: File | any;
   tituloObra: string;
   titulosAlternativos: string;
   autor: string;
@@ -42,7 +42,7 @@ const excluirObra = () =>{
 const EditarObra: React.FC = () => {
 
   const initialValues: Values = {
-    capaPrincipalObra: "",
+    capaPrincipalObra: null,
     tituloObra: "Mushoku Tensei: Reencarnação do Desempregado",
     titulosAlternativos: "Mushoku Tensei: Isekai Ittara Honki Dasu | 無職転生 | 無職転生 – 異世界行ったら本気だす | Mushoku Tensei: Jobless Reincarnation ~ It will be All Out if I Go to Another World ~",
     autor: "Rifujin na Magonote",

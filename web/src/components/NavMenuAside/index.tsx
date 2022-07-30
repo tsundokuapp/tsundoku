@@ -33,25 +33,25 @@ const NavMenuAside: React.FC = () => {
        <ItemLista className="ativaMenu" onClick={ativaDesativaMenu}>
           <LibraryBooksIcon />
           <a>Obras</a>
-          {subMenuAtivo && (
-            <ListaSubMenu>
-              <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
-                <Link href={ROTAS.OBRAS}>
-                  <a>Ver Obras</a>
-                </Link>
-              </ItemSubLista>
+          {/* {subMenuAtivo && ( */}
+            <ListaSubMenu>              
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
                 <Link href={ROTAS.NOVAOBRA}>
                   <a>Nova Obra</a>
                 </Link>
               </ItemSubLista>
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
-                <Link href={ROTAS.GENEROS}>
-                  <a>Ver Gêneros</a>
+                <Link href={ROTAS.OBRAS}>
+                  <a>Ver Obras</a>
                 </Link>
               </ItemSubLista>
+              {/* <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
+                <Link href={ROTAS.VOLUMES}>
+                  <a>Ver Gêneros</a>
+                </Link>
+              </ItemSubLista> */}
             </ListaSubMenu>
-          )}
+          {/* )} */}
         </ItemLista>
         <ItemLista>
           <SupervisorAccountIcon />
