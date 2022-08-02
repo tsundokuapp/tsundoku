@@ -44,7 +44,7 @@ const volumes = [
     capaVolume: "https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/07/MT_V16_Capa-01.jpg",
     capitulos: listaCapitulos,
   },
-  {
+  {    
     indice: "05",
     titulo: "Volume 02",
     sinopse: `<p style="text-align: justify;">Em um determinado lugar, havia uma bruxa viajante. Seu nome era Elaina.</p><p style="text-align: justify;">Por ser uma viajante, ela conheceu muitas pessoas e países enquanto continuava sua longa, longa jornada.</p>
@@ -55,7 +55,7 @@ const volumes = [
     capaVolume: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V7_Capa.png",
     capitulos: listaCapitulos,
   },
-  {
+  {   
     indice: "06",
     titulo: "Volume 03",
     sinopse: `<p>A garota sentada ao meu lado no começo do novo semestre é a famosa Garota Perigosa, mas… a Chihara-san é mesmo o “Perigo” que todos dizem ser?</p>`,
@@ -98,6 +98,7 @@ const ListaCapitulo: React.FC = () => {
               sinopse={sinopse}
               capaVolume={capaVolume}
               capitulos={capitulos}
+              idObra={idObra}
             />
           ))}
         </SecaoIndiceCapitulos>

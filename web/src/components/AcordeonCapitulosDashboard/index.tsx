@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSinopse} from './styles';
+import Link from 'next/link';
+import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSinopse, BotaoAlteracao} from './styles';
+import * as ROTAS from "constants/rotas";
 
 interface IAcordeonCapitulosDashboard {
+    idObra: number;
     titulo: string;
     capaVolume: string;
     sinopse: string;
     capitulos: string[];
   }
 
-const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ titulo, capaVolume, capitulos, sinopse}) => {
+const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ idObra, titulo, capaVolume, capitulos, sinopse}) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -18,6 +21,11 @@ const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ tit
       </Titulo>      
       {isActive && 
       <Conteudo>        
+        <BotaoAlteracao className="quintiaria">
+            <Link href={ROTAS.EDITARVOLUME + "/" + idObra}>
+                <a>Editar</a>
+            </Link>
+        </BotaoAlteracao>        
         <CapaVolume src={capaVolume}/>
         <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
           {capitulos.map((capitulo) => (

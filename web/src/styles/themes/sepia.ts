@@ -12,6 +12,7 @@ export default {
         secundaria: "#E8CA40",
         terciaria: "#e5d4c3",
         quartiaria: "#1f2421",
+        quintiaria: "#7A290E",
         
         branca: "#634343",//"#7A290E",
         borda: gradienteSepia.border,

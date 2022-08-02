@@ -53,4 +53,40 @@ export const ConteudoCapitulos = styled.div`
     }
 `;
 
+export const BotaoAlteracao = styled.button`
+  width: 150px;
+  height: 30px;
+  color: ${(props) => props.theme.colors.branca};
+  font-size: 10pt;
+  border-radius: 3px;
+  margin: 10px;
+  opacity: 0.7;
+
+  &.sucesso {
+    background: ${(props) => props.theme.colors.sucesso};
+  }
+
+  &.aviso {
+    background: ${(props) => props.theme.colors.aviso};
+  }
+
+  &.secundaria {
+    background: ${(props) => props.theme.colors.secundaria};
+  }
+
+  &.quintiaria {
+    background: ${(props) => props.theme.colors.quintiaria};
+  }
+
+  :hover {
+    opacity: 1;
+  }
+
+  > a{
+    color: ${(props) => props.theme.colors.branca};
+    text-decoration: none;
+  }
+
+`;
+
 export default Container;

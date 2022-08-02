@@ -1,6 +1,7 @@
 export const CADASTRO = '/admin/cadastro';
 export const DASHBOARD = '/admin/dashboard';
 export const NOVOVOLUME = '/admin/novovolume';
+export const EDITARVOLUME = '/admin/editarvolume';
 export const LOGIN = '/admin/login';
 export const NOVAOBRA = '/admin/novaobra';
 export const OBRAS = '/admin/obras';

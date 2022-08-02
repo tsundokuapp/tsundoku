@@ -9,6 +9,7 @@ declare module "styled-components" {
       secundaria: string | null;
       terciaria: string | null;
       quartiaria: string | null;
+      quintiaria: string | null;
 
       branca: string | null;
       sombra: string | null;

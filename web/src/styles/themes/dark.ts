@@ -12,6 +12,7 @@ export default {
         secundaria: "#259CC1",
         terciaria: "#343a40",
         quartiaria: "#202225",
+        quintiaria: "#176585",
 
         
         branca: "#FFF",
