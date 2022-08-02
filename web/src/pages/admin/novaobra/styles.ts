@@ -4,7 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 200px;
+  padding-left: 100px;
 `;
 
 export const ContainerForm = styled.div`
@@ -31,7 +31,8 @@ export const SecaoInputs = styled.section`
     color: ${(props) => props.theme.colors.branca};
     font-size: 9pt;
     border-radius: 3px;
-    margin: 15px 0 30px 0;
+    margin: 15px 10px 30px 0;
+    
     opacity: 0.7;
 
     &.sucesso {
@@ -93,7 +94,8 @@ export const SecaoBotoesSubmit = styled.div`
   width: 40%;
   margin: 15px 0 30px 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: between;
+ 
 `;
 
 export const BotaoAlteracao = styled.button`
@@ -103,7 +105,7 @@ export const BotaoAlteracao = styled.button`
   font-size: 9pt;
   border-radius: 3px;
   margin: 0 10px 0 10px;
-  opacity: 0.7;
+  opacity: 0.7;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -187,8 +189,8 @@ export const SecaoCapaObra = styled.section`
 export const ImagemCapaObraPrincipal = styled.img`
   border: 3px solid ${(props) => props.theme.colors.secundaria};
   border-radius: 5px;
-  width: 250px;
-  height: 400px;
+  width: 290px;
+  height: 390px;
   margin-bottom: 10px;
 `;
 

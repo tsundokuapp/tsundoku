@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useRouter } from 'next/router'
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import { Formik, Form, Field } from "formik";
-import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit, SecaoCapaObra } from "../novaobra/styles";
+import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoBotoesSubmit, } from "../novaobra/styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditorTsun from "components/EditorTsun/index";
-import { ImagemCapaObraPrincipal } from '../novocapitulo/styles';
 import Blob from 'cross-blob';
 
 interface Values {
@@ -16,14 +15,13 @@ interface Values {
   sinopse: string;
 }
 
-import capaPrincipal from '../../../../public/assets/img/logoTemaDark.svg';
+import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
 
 const NovoVolume: React.FC = () => {
   
     const router = useRouter()
-  const { pid } = router.query
-
-  console.log(pid);
+    const { pid } = router.query
+    console.log(pid);
 
   const initialValues: Values = {
     capaVolumeObra: null,
@@ -33,7 +31,7 @@ const NovoVolume: React.FC = () => {
 
   const valorInicialImagem = new Blob();
 
-  const [valorConteudoEditor, setValorConteudoEditor] = useState('');
+  const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
   const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
   const [enderecoImagemCapa] = useState(capaPrincipal);  
 
@@ -71,7 +69,7 @@ const NovoVolume: React.FC = () => {
                 />  
 
                 <label htmlFor="sinopse">Sinopse Volume:</label>                
-                <EditorTsun larguraEditor='90%' tamanhoEditor='500px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoBotoesSubmit>
                   <button className="botao-submit sucesso" type="submit">

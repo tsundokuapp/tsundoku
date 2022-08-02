@@ -79,13 +79,13 @@ export const CardObra = styled.li`
 
 export const ContainerTituloAcoesCardObra = styled.div<ICardLista>`
   width: ${props => props.cardLista ? largura.largura : '50%'}; 
-  height: 95px; 
+  height: 100%; 
   background: ${(props) => props.theme.colors.primaria};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 5px;
+  padding: 10px 5px;
 
   .titulo-card-obra {
     color: ${(props) => props.theme.colors.branca};
@@ -98,6 +98,7 @@ export const ContainerBotoesAcaoCardObra = styled.div<ICardLista>`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
 `;
 
 export const BotaoAlteracao = styled.button`
@@ -160,7 +161,7 @@ export const SecaoContentLista = styled.section<ISecaoContentLista>`
 `;
 
 export const ListaObra = styled.li`
-    height: 100px;
+    height: 50px;
     width: 90%;
     background: ${props => props.theme.colors.primaria};
     list-style: none;

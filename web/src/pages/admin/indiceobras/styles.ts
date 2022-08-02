@@ -16,13 +16,13 @@ export const SecaoTitulo = styled.div`
 `;
 
 export const SecaoIndiceCapitulos = styled.div`
-    width: 100%;
+    width: 600px;
     margin-bottom: 10px;
     padding: 10px 0 10px 0;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;    
-
+    flex-direction: column;
+    
     >h2{
         margin-bottom: 10px;
     }

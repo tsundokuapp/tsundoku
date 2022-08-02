@@ -27,9 +27,35 @@ import { Search } from "@material-ui/icons";
 import AppsIcon from "@material-ui/icons/Apps";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 
-import mushoku from '../../../../public/assets/img/backgroudscard/MushokuTensei.png';
-
 const Obras: React.FC = () => {
+
+  const listaObras = [
+    {
+      id:1,
+      capaPrincipalObra: "https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/07/MT_V16_Capa-01.jpg",
+      tituloObra: "Mushoku Tensei: Reencarnação do Desempregado",     
+    },
+    {
+      id:2,
+      capaPrincipalObra: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V7_Capa.png",
+      tituloObra: "Bruxa Errante, a Jornada de Elaina",     
+    },
+    {
+      id:3,
+      capaPrincipalObra: "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg",
+      tituloObra: "Jirai Nandesuka? Chihara-san",     
+    },
+    {
+      id:4,
+      capaPrincipalObra: "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2022/02/toxicGirlfriendCover2.png",
+      tituloObra: "De Colega Tóxica a Metas de Namoro",     
+    },
+    {
+      id:5,
+      capaPrincipalObra: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
+      tituloObra: "Parasita Apaixonado",
+    }];
+
   const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
 
   const AlteraSecaoContent = () => {
@@ -55,151 +81,60 @@ const Obras: React.FC = () => {
           </NavConsultas>
         </SecaoHeadBar>
         <SecaoContentCard visivel={secaoContentAtivo}>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
+
+          {listaObras.map((obra) => {
+            return (
+              <CardObra key={obra.id}>
+              <ImagemCardObra src={obra.capaPrincipalObra} />
+              <ContainerMeioCardObra>
+                <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
+                  <span className="titulo-card-obra">
+                    {obra.tituloObra}
+                  </span>
+                  <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
+                    <BotaoAlteracao className="sucesso">
+                        <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
+                          <a>Índice</a>
+                        </Link>
+                      </BotaoAlteracao>
+                    <BotaoAlteracao className="secundaria">                    
+                      <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
+                        <a>Editar</a>
+                      </Link>
+                    </BotaoAlteracao>                 
+                  </ContainerBotoesAcaoCardObra>
+                </ContainerTituloAcoesCardObra>
+              </ContainerMeioCardObra>
+            </CardObra>
+            );})
+          }
+
+        </SecaoContentCard>
+
+        <SecaoContentLista visivel={!secaoContentAtivo}>
+
+          {listaObras.map((obra) => {
+            return (
+              <ListaObra key={obra.id}>
                 <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
+                  {obra.tituloObra}
                 </span>
                 <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
                   <BotaoAlteracao className="sucesso">
-                      <Link href={ROTAS.INDICEOBRAS}>
-                        <a>Índice</a>
-                      </Link>
-                    </BotaoAlteracao>
+                    <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
+                      <a>Índice</a>
+                    </Link>
+                  </BotaoAlteracao>
                   <BotaoAlteracao className="secundaria">                    
-                    <Link href={ROTAS.EDITAROBRA + "/1"}>
+                    <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
                       <a>Editar</a>
                     </Link>
                   </BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
                 </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-          <CardObra>
-            <ImagemCardObra src={mushoku} />
-            <ContainerMeioCardObra>
-              <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                <span className="titulo-card-obra">
-                  Mushoku Tensei: Reencarnação do Desempregado
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">Capítulos</BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-                  <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ContainerTituloAcoesCardObra>
-            </ContainerMeioCardObra>
-          </CardObra>
-        </SecaoContentCard>
-        <SecaoContentLista visivel={!secaoContentAtivo}>
-          <ListaObra>
-            <span className="titulo-card-obra">
-              Mushoku Tensei: Reencarnação do Desempregado
-            </span>
-            <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
-              <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-              <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-            </ContainerBotoesAcaoCardObra>
-          </ListaObra>
-          <ListaObra>
-            <span className="titulo-card-obra">
-              Mushoku Tensei: Reencarnação do Desempregado
-            </span>
-            <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
-              <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-              <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-            </ContainerBotoesAcaoCardObra>
-          </ListaObra>
-          <ListaObra>
-            <span className="titulo-card-obra">
-              Mushoku Tensei: Reencarnação do Desempregado
-            </span>
-            <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-              <BotaoAlteracao className="sucesso">Índice</BotaoAlteracao>
-              <BotaoAlteracao className="secundaria">Editar</BotaoAlteracao>
-              <BotaoAlteracao className="aviso">Excluir</BotaoAlteracao>
-            </ContainerBotoesAcaoCardObra>
-          </ListaObra>
+              </ListaObra>
+            );})
+          }    
+
         </SecaoContentLista>
       </Container>
     </LayoutDashBoard>

@@ -5,28 +5,28 @@ import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditorTsun from "components/EditorTsun/index";
-import Container, { ContainerForm, SecaoInputs, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, SecaoCapaObra } from "./styles";
-import { ImagemCapaObraPrincipal } from '../novocapitulo/styles';
+import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from "./styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 interface Values {
-  capaPrincipalObra: string;
+  capaPrincipalObra: File | any;
   tituloObra: string;
   titulosAlternativos: string;
   autor: string;
   artista: string;
   generos: string[];
-  sinopse: any;
-  maiorIdade: string;
+  sinopse: string;
+  maiorIdade: boolean;
   tipoObra: string;
+  statusObra: string;
 }
 
 const handleSubmit = (valores: Values) => {
-  alert(JSON.stringify(valores));
-  console.log(JSON.stringify(valores));
+  alert(valores);
+  console.log(valores);
 };
 
-import capaPrincipal from '../../../../public/assets/img/logoTemaDark.svg';
+import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
 
 const listaTipoObra = ["Selecione o tipo da obra", "Light Novel","Web Novel","Mangá","Manhua","Manhwa"];
 const listaStatusObra = ["Selecione o status da obra", "Em Andamento","Completa","Pausada","Dropada"];
@@ -35,22 +35,21 @@ const listaGeneros = ["Slice  of Life", "Drama", "Comédia", "Fantasia", "Ação
 const NovaObra: React.FC = () => {
   
   const initialValues: Values = {
-    capaPrincipalObra: "",
+    capaPrincipalObra: null,
     tituloObra: "",
     titulosAlternativos: "",
     autor: "",
     artista: "",
     generos: [""],
     sinopse: "",
-    maiorIdade: "não",
-    tipoObra: "Selecione o tipo da obra"
+    maiorIdade: false,
+    tipoObra: "Selecione o tipo da obra",
+    statusObra: "Selecione o status da obra"
   };
-
-  
 
   const valorInicialImagem = new Blob();
 
-  const [valorConteudoEditor, setValorConteudoEditor] = useState('');
+  const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
   const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
   const [enderecoImagemCapa] = useState(capaPrincipal);  
 
@@ -70,10 +69,10 @@ const NovaObra: React.FC = () => {
         <ContainerForm>
           <SecaoInputs>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ values }) => (
+            {({ values, setFieldValue }) => (
               <Form>
-                <label htmlFor="capaPrincipalObra">Capa Principal: </label>
-                <Field className="inputIncluiCapaPrincipal" id="capaPrincipalObra" name="capaPrincipalObra" type="file" onChange={handleImagemCapa}/>
+                <label htmlFor="capaPrincipalObra">Capa Principal: </label>                
+                <input className="inputIncluiCapaPrincipal" id="capaPrincipalObra" name="capaPrincipalObra" type="file" onChange={(e:any) => { setFieldValue("capaPrincipalObra", e.target.files[0]); handleImagemCapa(e) }} />
 
                 <label htmlFor="tituloObra">Título da Obra: </label>
                 <Field className="InputCampoDados" id="tituloObra" name="tituloObra" type="text" />
@@ -102,11 +101,11 @@ const NovaObra: React.FC = () => {
                 </SecaoGeneros>              
 
                 <label htmlFor="sinopse">Sinopse:</label>                
-                <EditorTsun larguraEditor='100%' tamanhoEditor='500px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                <EditorTsun larguraEditor='100%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                 <SecaoOutrasInformacoes>
                   <label>
-                    <Field className="checkBoxOutrasInformacoes" type="checkbox" name="maiorIdade" value="sim" />
+                    <Field className="checkBoxOutrasInformacoes" type="checkbox" name="maiorIdade" />
                     +18
                   </label>
 
@@ -119,18 +118,18 @@ const NovaObra: React.FC = () => {
                         </div>
                         )
                     }}
-                </Field>
+                  </Field>
 
-                <Field name="statusObra" id="statusObra">
-                    {({ field }: FieldProps) => {
-                     const options=listaStatusObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
-                    return (
-                        <div>
-                            <select className="selectTipoObras" {...field}>{options}</select>
-                        </div>
-                        )
-                    }}
-                </Field>
+                  <Field name="statusObra" id="statusObra">
+                      {({ field }: FieldProps) => {
+                      const options=listaStatusObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
+                      return (
+                          <div>
+                              <select className="selectTipoObras" {...field}>{options}</select>
+                          </div>
+                          )
+                      }}
+                  </Field>
 
                 </SecaoOutrasInformacoes>
 

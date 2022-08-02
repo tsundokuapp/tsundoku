@@ -15,19 +15,17 @@ const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ tit
     <Container>
       <Titulo onClick={() => setIsActive(!isActive)}>
         <div>{titulo}</div>
-        <div>{isActive ? '-' : '+'}</div>
       </Titulo>      
-      {isActive && <Conteudo>        
-          <CapaVolume src={capaVolume}/>
-
-            <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
-
-            {capitulos.map((capitulo) => (
-                <ConteudoCapitulos>
-                    {capitulo}
-                </ConteudoCapitulos>
-            ))}
-          </Conteudo>}
+      {isActive && 
+      <Conteudo>        
+        <CapaVolume src={capaVolume}/>
+        <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
+          {capitulos.map((capitulo) => (
+              <ConteudoCapitulos>
+                  {capitulo}
+              </ConteudoCapitulos>
+          ))}
+      </Conteudo>}
     </Container>
   );
 };
