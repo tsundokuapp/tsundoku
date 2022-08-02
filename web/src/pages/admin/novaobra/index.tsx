@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { Formik, Form, Field, FieldProps } from "formik";
+import Blob from 'cross-blob';
 import LayoutDashBoard from 'components/LayoutDashBoard';
-import { Formik, Form, Field } from "formik";
-import Container, { ContainerForm, SecaoInputs, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, SecaoCapaObra } from "./styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
-import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditorTsun from "components/EditorTsun/index";
+import Container, { ContainerForm, SecaoInputs, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, SecaoCapaObra } from "./styles";
 import { ImagemCapaObraPrincipal } from '../novocapitulo/styles';
-import Blob from 'cross-blob';
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
 interface Values {
   capaPrincipalObra: string;
@@ -18,6 +18,7 @@ interface Values {
   generos: string[];
   sinopse: any;
   maiorIdade: string;
+  tipoObra: string;
 }
 
 const handleSubmit = (valores: Values) => {
@@ -26,6 +27,10 @@ const handleSubmit = (valores: Values) => {
 };
 
 import capaPrincipal from '../../../../public/assets/img/logoTemaDark.svg';
+
+const listaTipoObra = ["Selecione o tipo da obra", "Light Novel","Web Novel","Mangá","Manhua","Manhwa"];
+const listaStatusObra = ["Selecione o status da obra", "Em Andamento","Completa","Pausada","Dropada"];
+const listaGeneros = ["Slice  of Life", "Drama", "Comédia", "Fantasia", "Ação", "Aventura"] // Virá do banco de dados
 
 const NovaObra: React.FC = () => {
   
@@ -38,7 +43,10 @@ const NovaObra: React.FC = () => {
     generos: [""],
     sinopse: "",
     maiorIdade: "não",
+    tipoObra: "Selecione o tipo da obra"
   };
+
+  
 
   const valorInicialImagem = new Blob();
 
@@ -68,95 +76,29 @@ const NovaObra: React.FC = () => {
                 <Field className="inputIncluiCapaPrincipal" id="capaPrincipalObra" name="capaPrincipalObra" type="file" onChange={handleImagemCapa}/>
 
                 <label htmlFor="tituloObra">Título da Obra: </label>
-                <Field
-                  className="InputCampoDados"
-                  id="tituloObra"
-                  name="tituloObra"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="tituloObra" name="tituloObra" type="text" />
 
                 <label htmlFor="titulosAlternativos">
                   Títulos alternativos:
                 </label>
-                <Field
-                  className="InputCampoDados"
-                  id="titulosAlternativos"
-                  name="titulosAlternativos"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="titulosAlternativos" name="titulosAlternativos" type="text" />
 
                 <label htmlFor="autor">Autor(es): </label>
-                <Field
-                  className="InputCampoDados"
-                  id="autor"
-                  name="autor"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="autor" name="autor" type="text" />
 
                 <label htmlFor="artista">Artista(s): </label>
-                <Field
-                  className="InputCampoDados"
-                  id="artista"
-                  name="artista"
-                  type="text"
-                />
+                <Field className="InputCampoDados" id="artista" name="artista" type="text" />
 
                 <label htmlFor="generos">Gêneros: </label>
                 <SecaoGeneros>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Aventura"
-                    />
-                    Aventura
-                  </label>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Ação"
-                    />
-                    Ação
-                  </label>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Fantasia"
-                    />
-                    Fantasia
-                  </label>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Comédia"
-                    />
-                    Comédia
-                  </label>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Drama"
-                    />
-                    Drama
-                  </label>
-                  <label>
-                    <Field
-                      className="checkBoxGeneros"
-                      type="checkbox"
-                      name="generos"
-                      value="Slice  of Life"
-                    />
-                    Slice of Life
-                  </label>
+                    {listaGeneros.map((opt) =>{
+                        return (
+                            <label key={opt}>
+                                <Field className="checkBoxGeneros" type="checkbox" name="generos" value={opt} />
+                                {opt}
+                            </label>
+                        )
+                    })}
                 </SecaoGeneros>              
 
                 <label htmlFor="sinopse">Sinopse:</label>                
@@ -164,45 +106,32 @@ const NovaObra: React.FC = () => {
 
                 <SecaoOutrasInformacoes>
                   <label>
-                    <Field
-                      className="checkBoxOutrasInformacoes"
-                      type="checkbox"
-                      name="maiorIdade"
-                      value="sim"
-                    />
+                    <Field className="checkBoxOutrasInformacoes" type="checkbox" name="maiorIdade" value="sim" />
                     +18
                   </label>
 
-                  <Field
-                    component="select"
-                    id="tipoObra"
-                    name="tipoObra"
-                    className="selectTipoObras"
-                  >
-                    <option value="0" selected={true}>
-                      Selecione o tipo da obra
-                    </option>
-                    <option value="1">Light Novel</option>
-                    <option value="2">Web Novel</option>
-                    <option value="3">Mangá</option>
-                    <option value="4">Manhua</option>
-                    <option value="5">Manhwa</option>
-                  </Field>
+                  <Field name="tipoObra" id="tipoObra">
+                    {({ field }: FieldProps) => {
+                     const options=listaTipoObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
+                    return (
+                        <div>
+                            <select className="selectTipoObras" {...field}>{options}</select>
+                        </div>
+                        )
+                    }}
+                </Field>
 
-                  <Field
-                    component="select"
-                    id="statusObra"
-                    name="statusObra"
-                    className="selectTipoObras"
-                  >
-                    <option value="0" selected={true}>
-                      Selecione o status da obra
-                    </option>
-                    <option value="1">Em Andamento</option>
-                    <option value="2">Completa</option>
-                    <option value="3">Pausada</option>
-                    <option value="4">Dropada</option>
-                  </Field>
+                <Field name="statusObra" id="statusObra">
+                    {({ field }: FieldProps) => {
+                     const options=listaStatusObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
+                    return (
+                        <div>
+                            <select className="selectTipoObras" {...field}>{options}</select>
+                        </div>
+                        )
+                    }}
+                </Field>
+
                 </SecaoOutrasInformacoes>
 
                 <SecaoBotoesSubmit>

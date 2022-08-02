@@ -1,22 +1,11 @@
 import React, { useState } from "react";
-import LayoutDashBoard from 'components/LayoutDashBoard';
 import { Formik, Form, Field } from "formik";
-import Container, {
-  ContainerForm,
-  SecaoInputs,
-  SecaoCapaObra,
-  InputIncluiCapaPrincipal,
-  ImagemCapaObraPrincipal,
-  SecaoOutrasInformacoes,
-  SecaoGeneros,
-  SecaoBotoesSubmit,
-} from "../novaobra/styles";
+import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
-import EditIcon from '@material-ui/icons/Edit';
-
 import EditorTsun from "components/EditorTsun/index";
-
+import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, InputIncluiCapaPrincipal, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from "../novaobra/styles";
+import EditIcon from '@material-ui/icons/Edit';
 import capaPrincipal from '../../../../public/assets/img/backgroudscard/MushokuTensei.png';
 
 interface Values {
@@ -25,9 +14,10 @@ interface Values {
   titulosAlternativos: string;
   autor: string;
   artista: string;
-  categorias: string[];
+  generos: string[];
   sinopse: string;
   maiorIdade: string;
+  tipoObra: string;
 }
 
 const handleSubmit = (valores: Values) => {
@@ -39,6 +29,10 @@ const excluirObra = () =>{
     alert("Obra Excluída");
 }
 
+const listaTipoObra = ["Selecione o tipo da obra", "Light Novel","Web Novel","Mangá","Manhua","Manhwa"];
+const listaStatusObra = ["Selecione o status da obra", "Em Andamento","Completa","Pausada","Dropada"];
+const listaGeneros = ["Slice  of Life", "Drama", "Comédia", "Fantasia", "Ação", "Aventura"] // Virá do banco de dados
+
 const EditarObra: React.FC = () => {
 
   const initialValues: Values = {
@@ -47,13 +41,18 @@ const EditarObra: React.FC = () => {
     titulosAlternativos: "Mushoku Tensei: Isekai Ittara Honki Dasu | 無職転生 | 無職転生 – 異世界行ったら本気だす | Mushoku Tensei: Jobless Reincarnation ~ It will be All Out if I Go to Another World ~",
     autor: "Rifujin na Magonote",
     artista: "Shirotaka",
-    categorias: ["Ação, Aventura"],
+    generos: ["Ação", "Aventura"],
     sinopse:"<p>Aqui é um parágrafo, pode acreditar<p><p>Mais um aqui<p><p>Oxi, mais um?!<p>",
-    maiorIdade: "não"
+    maiorIdade: "não",    
+    tipoObra: "Light Novel"
   };
 
   const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
   
+    const handleCheckState = (opcao: string) => {
+        return initialValues.generos.some(element => element === opcao);
+    }
+
   return (
     <LayoutDashBoard>
       <Container>
@@ -86,30 +85,18 @@ const EditarObra: React.FC = () => {
                 
                 <label htmlFor="generos">Gêneros: </label>
                 <SecaoGeneros>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" checked={true} value="Aventura" />
-                            Aventura
-                    </label>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" checked={true} value="Ação" />
-                            Ação
-                    </label>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Fantasia" />
-                            Fantasia
-                    </label>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Comédia" />
-                            Comédia
-                    </label>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Drama" />
-                            Drama
-                    </label>
-                    <label>
-                            <Field className="checkBoxGeneros" type="checkbox" name="generos" value="Slice  of Life" />
-                            Slice  of Life
-                    </label>
+
+                {listaGeneros.map((opt) =>{
+                        return (
+                            <label key={opt}>
+                                <Field className="checkBoxGeneros" type="checkbox" name="generos" value={opt}  
+                                checked={handleCheckState(opt)} 
+                                />
+                                {opt}
+                            </label>
+                        )
+                    })}
+                    
                 </SecaoGeneros>
                 
                 <label htmlFor="sinopse">Sinopse:</label>                
