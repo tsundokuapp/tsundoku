@@ -58,7 +58,11 @@ const NovoVolume: React.FC = () => {
             {({ values , setFieldValue }) => (
               <Form>
                 <label htmlFor="capaVolumeObra">Capa Volume: </label>
-                <input className="inputIncluiCapaPrincipal" id="capaVolumeObra" name="capaVolumeObra" type="file" onChange={(e:any) => { setFieldValue("capaVolumeObra", e.target.files[0]); handleImagemCapa(e) }} />
+                <input className="inputIncluiCapaPrincipal" 
+                       id="capaVolumeObra" 
+                       name="capaVolumeObra" 
+                       type="file" 
+                       onChange={(e:any) => { setFieldValue("capaVolumeObra", e.target.files[0]); handleImagemCapa(e) }} />
 
                 <label htmlFor="numeroVolume">Número Volume: </label>
                 <Field

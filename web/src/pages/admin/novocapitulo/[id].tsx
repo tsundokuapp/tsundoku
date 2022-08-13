@@ -6,6 +6,7 @@ import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditorTsun from 'components/EditorTsun';
+import EditorMangaTsun from 'components/EditorMangaTsun';
 import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "./styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import * as ROTAS from "constants/rotas";
@@ -20,14 +21,14 @@ interface Values {
   tipoObra: string;
   slugCapitulo: string;
   parteCapitulo: string;
+  conteudoImagensCapitulo: Array<File> | any;
 }
 
 const handleSubmit = (valores: Values) => {
   alert(JSON.stringify(valores));
-  console.log(JSON.stringify(valores));
+  console.log(valores);
 };
 
-let ehNovel = false;
 
 const NovoCapitulo: React.FC = () => {
   const initialValues: Values = {
@@ -40,10 +41,12 @@ const NovoCapitulo: React.FC = () => {
     tipoObra: "Manga",
     slugCapitulo: "",
     parteCapitulo: "",
+    conteudoImagensCapitulo: null,
   };
-
-  const [valorConteudoEditor, setValorConteudoEditor] = useState("");  
-
+  
+  const [valorConteudoEditor, setValorConteudoEditor] = useState("");
+  const [valorconteudoImagensCapitulo, setValorconteudoImagensCapitulo] = useState<any[]>([]);
+  
   return (
     <LayoutDashBoard>
       <Container>
@@ -57,16 +60,7 @@ const NovoCapitulo: React.FC = () => {
           <SecaoInputs>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ values }) => (
-
-                
               <Form>
-
-                {ehNovel = values.tipoObra === "Light Novel" || values.tipoObra === "Web Novel"}
-
-                
-                <label htmlFor="descricaoObra">É novel?: {ehNovel} </label>
-                
-
                 <label htmlFor="descricaoObra">Obra: </label>
                 <Field className="InputCampoDados" id="descricaoObra" name="descricaoObra" type="text" />
 
@@ -103,11 +97,10 @@ const NovoCapitulo: React.FC = () => {
                 <label htmlFor="slugCapitulo">Slug capítulo: </label>
                 <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" />
 
-                <label htmlFor="conteudo">Conteudo: </label>
-                {/* <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} /> */}
-
-                {values.tipoObra === "Light Novel"                
-                ? (<div>"Mango aqui"</div>) 
+                <label htmlFor="conteudo">Conteudo: </label>                
+                
+                {(values.tipoObra === "Light Novel" || values.tipoObra === "Web Novel") === false                
+                ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo}  setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} />
                 : <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
                  
                 <SecaoBotoesSubmit>
@@ -122,7 +115,8 @@ const NovoCapitulo: React.FC = () => {
                     </button>
 
                 </SecaoBotoesSubmit>
-                
+
+                <input  className="inputIncluiCapaPrincipal hidden" id="ArrayImagensCapitulo" name="ArrayImagensCapitulo" type="hidden" value={values.conteudoImagensCapitulo = valorconteudoImagensCapitulo} />
                 <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.conteudo = valorConteudoEditor} />                
               </Form>
               )}
@@ -133,7 +127,5 @@ const NovoCapitulo: React.FC = () => {
     </LayoutDashBoard>
   );
 };
-
-console.log(ehNovel)
 
 export default NovoCapitulo;
