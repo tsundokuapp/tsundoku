@@ -1,11 +1,32 @@
-import Link from "next/link";
 import React from "react";
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import Container, { SecaoTitulo, SecaoIndiceCapitulos, BotaoAlteracao, SecaoBotoesAdicao} from "./styles";
 import Acordeon from "components/AcordeonCapitulosDashboard";
 import * as ROTAS from "constants/rotas";
+import { LinkNav } from "components/Common/LinkNav";
 
-const listaCapitulos = ["Capítulo 01","Capítulo 02","Capítulo 03","Capítulo 04","Capítulo 05","Capítulo 06",];
+const listaCapitulos = [
+  {
+    idCapitulo: "01",
+    capitulo: "Capítulo 01"
+  },
+  {
+    idCapitulo: "02",
+    capitulo: "Capítulo 02"
+  },
+  {
+    idCapitulo: "03",
+    capitulo: "Capítulo 03"
+  },
+  {
+    idCapitulo: "04",
+    capitulo: "Capítulo 04"
+  },
+  {
+    idCapitulo: "05",
+    capitulo: "Capítulo 05"
+  },
+];
 
 const volumes = [
   {
@@ -78,15 +99,11 @@ const ListaCapitulo: React.FC = () => {
 
         <SecaoBotoesAdicao>
             <BotaoAlteracao className="secundaria">
-                <Link href={ROTAS.NOVOCAPITULO + "/" + idObra}>
-                    <a>Adicionar Capítulo</a>
-                </Link>
+                <LinkNav textoLink="Adicionar Capítulo" url={ROTAS.NOVOCAPITULO + "/" + idObra}/>
             </BotaoAlteracao>
 
             <BotaoAlteracao className="sucesso">
-                <Link href={ROTAS.NOVOVOLUME + "/" + idObra}>
-                    <a>Adicionar Volume</a>
-                </Link>
+                <LinkNav textoLink="Adicionar Volume" url={ROTAS.NOVOVOLUME + "/" + idObra}/>
             </BotaoAlteracao>
         </SecaoBotoesAdicao>
 

@@ -1,5 +1,6 @@
+import InputFiles from "components/Common/InputFiles/InputFiles";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { Container } from "./styles";
+import Container, { ContainerImagens, ListaImagens } from "./styles";
 
 interface Imagens {
     nome: string;
@@ -9,14 +10,13 @@ interface Imagens {
 interface IEditorMangaTsun {
     valorconteudoImagensCapitulo: Array<any>;
     setValorconteudoImagensCapitulo: Dispatch<SetStateAction<Array<any>>>;
+    conteudoImagensCapitulo?: Array<Imagens> | any;
 }
 
-const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({
-    setValorconteudoImagensCapitulo,
-}) => {
-    const [filesPreview, setFilesPreview] = useState<any>([]);
+const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCapitulo, conteudoImagensCapitulo }) => {
+    const [filesPreview, setFilesPreview] = useState<any[]>(conteudoImagensCapitulo);
     const fileArray: Imagens[] = [];
-    const fileObj: any[] = [];
+    const fileObj: any[] = [];    
 
     const uploadPreviewImagens = (e: any) => {
         fileObj.push(e.target.files);
@@ -38,25 +38,23 @@ const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({
 
     return (
         <Container>
-            <input
-                className="inputIncluiCapaPrincipal"
-                id="ArrayImagensCapitulo"
-                name="ArrayImagensCapitulo"
-                type="file"
-                onChange={(e: any) => uploadPreviewImagens(e)}
-                multiple
+            <InputFiles 
+                classNameInput="inputIncluiCapaPrincipal" 
+                idInput="ArrayImagensCapitulo" 
+                nameInput="ArrayImagensCapitulo" 
+                multipleInput={true}
+                onChangeInput={(e: any) => uploadPreviewImagens(e)}
+                typeInput={"file"}  
             />
 
-            <div>
+            <ContainerImagens larguraContainerImagens="1010px">              
+
                 {(filesPreview || []).map((url: any) => (
-                    <img
-                        key={url.nome}
-                        src={url.url}
-                        width={500}
-                        alt={url.nome}
-                    ></img>
+                    <ListaImagens>
+                        <img key={url.nome} src={url.url} width={1000} alt={url.nome}></img>
+                    </ListaImagens>
                 ))}
-            </div>
+            </ContainerImagens>
         </Container>
     );
 };

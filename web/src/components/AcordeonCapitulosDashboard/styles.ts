@@ -51,6 +51,11 @@ export const ConteudoCapitulos = styled.div`
     :hover {
         opacity: 0.7;
     }
+
+    > a {
+      text-decoration: none;
+      color: ${(props) => props.theme.colors.branca}
+    }
 `;
 
 export const BotaoAlteracao = styled.button`

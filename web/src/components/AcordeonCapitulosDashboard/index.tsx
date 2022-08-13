@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSinopse, BotaoAlteracao} from './styles';
 import * as ROTAS from "constants/rotas";
+import { LinkNav } from 'components/Common/LinkNav';
+
+interface ICapitulo {
+  idCapitulo: string;
+  capitulo: string;
+}
 
 interface IAcordeonCapitulosDashboard {
     idObra: number;
     titulo: string;
     capaVolume: string;
     sinopse: string;
-    capitulos: string[];
+    capitulos: Array<ICapitulo>;
   }
 
 const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ idObra, titulo, capaVolume, capitulos, sinopse}) => {
@@ -29,8 +35,8 @@ const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ idO
         <CapaVolume src={capaVolume}/>
         <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
           {capitulos.map((capitulo) => (
-              <ConteudoCapitulos>
-                  {capitulo}
+              <ConteudoCapitulos key={capitulo.idCapitulo}>
+                  <LinkNav textoLink={capitulo.capitulo} url={ROTAS.EDITARCAPITULO + "/" + capitulo.idCapitulo}/>
               </ConteudoCapitulos>
           ))}
       </Conteudo>}

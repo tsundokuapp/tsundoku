@@ -7,7 +7,7 @@ import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditorTsun from 'components/EditorTsun';
 import EditorMangaTsun from 'components/EditorMangaTsun';
-import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "./styles";
+import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "../styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import * as ROTAS from "constants/rotas";
 
@@ -25,12 +25,28 @@ interface Values {
 }
 
 const handleSubmit = (valores: Values) => {
-  alert(JSON.stringify(valores));
   console.log(valores);
 };
 
+const conteudoImagensCapitulo = [
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/00.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/01.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/02.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/03.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/04.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/05.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/06.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/07.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/08.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/09.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/10.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/11.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/12.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/13.jpg"},
+  { nome: "Cap. 20 Chihara", url: "https://tsundoku.com.br/wp-content/uploads/2022/07/chihara/20/14.jpg"},
+]
 
-const NovoCapitulo: React.FC = () => {
+const EditarCapitulo: React.FC = () => {
   const initialValues: Values = {
     idObra: "",
     descricaoObra: "",
@@ -41,7 +57,7 @@ const NovoCapitulo: React.FC = () => {
     tipoObra: "Manga",
     slugCapitulo: "",
     parteCapitulo: "",
-    conteudoImagensCapitulo: null,
+    conteudoImagensCapitulo: conteudoImagensCapitulo,
   };
   
   const [valorConteudoEditor, setValorConteudoEditor] = useState("");
@@ -53,7 +69,7 @@ const NovoCapitulo: React.FC = () => {
         <SecaoHeadBar>
           <NavPaginas>
             <AddBoxIcon />
-            <h3>Novo Capítulo</h3>
+            <h3>Editar Capítulo</h3>
           </NavPaginas>
         </SecaoHeadBar>
         <ContainerForm>
@@ -100,12 +116,12 @@ const NovoCapitulo: React.FC = () => {
                 <label htmlFor="conteudo">Conteudo: </label>                
                 
                 {(values.tipoObra === "Light Novel" || values.tipoObra === "Web Novel") === false                
-                ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo}  setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} />
+                ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo}  setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} conteudoImagensCapitulo={initialValues.conteudoImagensCapitulo}/>
                 : <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
                  
                 <SecaoBotoesSubmit>
                     <button className="botao-submit sucesso" type="submit">
-                        Adicionar
+                        Atualizar
                     </button>
 
                     <button className="botao-submit secundaria">
@@ -128,4 +144,4 @@ const NovoCapitulo: React.FC = () => {
   );
 };
 
-export default NovoCapitulo;
+export default EditarCapitulo;
