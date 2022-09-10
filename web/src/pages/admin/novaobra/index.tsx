@@ -1,157 +1,187 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, FieldProps } from "formik";
-import Blob from 'cross-blob';
-import LayoutDashBoard from 'components/LayoutDashBoard';
+import Blob from "cross-blob";
+import LayoutDashBoard from "components/LayoutDashBoard";
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditorTsun from "components/EditorTsun/index";
-import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from "./styles";
+import Container, {
+    ContainerForm,
+    SecaoInputs,
+    SecaoCapaObra,
+    ImagemCapaObraPrincipal,
+    SecaoOutrasInformacoes,
+    SecaoGeneros,
+    SecaoBotoesSubmit,
+} from "./styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import * as ROTAS from "constants/rotas";
+import API from "services/API";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import https from "https";
+import capaPrincipal from "../../../../public/assets/img/logoTemaLight.svg";
 
 interface Values {
-  capaPrincipalObra: File | any;
-  tituloObra: string;
-  titulosAlternativos: string;
-  autor: string;
-  artista: string;
-  generos: string[];
-  sinopse: string;
-  maiorIdade: boolean;
-  tipoObra: string;
-  statusObra: string;
+    ImagemCapa: File | any;
+    Titulo: string;
+    TituloAlternativo: string;
+    AutorObra: string;
+    Artista: string;
+    Ano: string;
+    UsuarioCadastro: string;
+    StatusObraId: number;
+    TipoObraId: number;
+    Sinopse: string;
+    EhObraMaiorIdade: boolean;
+    ListaGeneros: string[];
 }
 
-const handleSubmit = (valores: Values) => {
-  alert(valores);
-  console.log(valores);
+const handleSubmit = (valores: Values) => {        
+    const formData = new FormData();    
+    formData.append("ImagemCapa", valores.ImagemCapa)
+    formData.append("Titulo", valores.Titulo)
+    formData.append("TituloAlternativo", valores.TituloAlternativo)
+    formData.append("AutorObra", valores.AutorObra)
+    formData.append("Artista", valores.Artista)
+    formData.append("Ano", valores.Ano)
+    formData.append("UsuarioCadastro", valores.UsuarioCadastro)
+    formData.append("StatusObraId", String(valores.StatusObraId))
+    formData.append("TipoObraId", String(valores.TipoObraId))
+    formData.append("Sinopse", valores.Sinopse)
+    formData.append("EhObraMaiorIdade", String(valores.EhObraMaiorIdade))
+    formData.append("ListaGeneros", String(valores.ListaGeneros))
+
+    API.post("obra", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+    .then(() => {        
+        window.location.href = ROTAS.OBRAS;
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 };
 
-import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
+const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    
+    const initialValues: Values = {
+        ImagemCapa: null,
+        Titulo: "",
+        TituloAlternativo: "",
+        AutorObra: "",
+        Artista: "",
+        Ano: "",
+        UsuarioCadastro: "Bravo",
+        StatusObraId: 0,
+        TipoObraId: 0,
+        Sinopse: "",
+        EhObraMaiorIdade: false,
+        ListaGeneros: [],
+    };
 
-const listaTipoObra = ["Selecione o tipo da obra", "Light Novel","Web Novel","Mangá","Manhua","Manhwa"];
-const listaStatusObra = ["Selecione o status da obra", "Em Andamento","Completa","Pausada","Dropada"];
-const listaGeneros = ["Slice  of Life", "Drama", "Comédia", "Fantasia", "Ação", "Aventura"] // Virá do banco de dados
+    const valorInicialImagem = new Blob();
 
-const NovaObra: React.FC = () => {
-  
-  const initialValues: Values = {
-    capaPrincipalObra: null,
-    tituloObra: "",
-    titulosAlternativos: "",
-    autor: "",
-    artista: "",
-    generos: [""],
-    sinopse: "",
-    maiorIdade: false,
-    tipoObra: "Selecione o tipo da obra",
-    statusObra: "Selecione o status da obra"
-  };
-
-  const valorInicialImagem = new Blob();
-
-  const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
-  const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
-  const [enderecoImagemCapa] = useState(capaPrincipal);  
+    const [valorConteudoEditor, setValorConteudoEditor] = useState(
+        initialValues.Sinopse
+    );
+    const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
+    const [enderecoImagemCapa] = useState(capaPrincipal);
 
     const handleImagemCapa = (event: any) => {
-        setImagemCapa(event.target.files[0])
-    }
+        setImagemCapa(event.target.files[0]);
+    };
 
-  return (
-    <LayoutDashBoard>
-      <Container>
-        <SecaoHeadBar>
-          <NavPaginas>
-            <AddBoxIcon />
-            <h3>Nova Obra</h3>
-          </NavPaginas>
-        </SecaoHeadBar>
-        <ContainerForm>
-          <SecaoInputs>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ values, setFieldValue }) => (
-              <Form>
-                <label htmlFor="capaPrincipalObra">Capa Principal: </label>                
-                <input className="inputIncluiCapaPrincipal" id="capaPrincipalObra" name="capaPrincipalObra" type="file" onChange={(e:any) => { setFieldValue("capaPrincipalObra", e.target.files[0]); handleImagemCapa(e) }} />
+    return (
+        <LayoutDashBoard>
+            <Container>
+                <SecaoHeadBar>
+                    <NavPaginas>
+                        <AddBoxIcon />
+                        <h3>Nova Obra</h3>
+                    </NavPaginas>
+                </SecaoHeadBar>
+                <ContainerForm>
+                    <SecaoInputs>
+                        <Formik initialValues={initialValues} onSubmit={handleSubmit} >
+                            {({ values, setFieldValue }) => (
+                                <Form>
+                                    <label htmlFor="ImagemCapa"> Capa Principal:{" "} </label>
+                                    <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e: any) => { setFieldValue( "ImagemCapa", e.target.files[0] ); handleImagemCapa(e); }}/>
 
-                <label htmlFor="tituloObra">Título da Obra: </label>
-                <Field className="InputCampoDados" id="tituloObra" name="tituloObra" type="text" />
+                                    <label htmlFor="Titulo"> Título da Obra:{" "} </label> <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
 
-                <label htmlFor="titulosAlternativos">
-                  Títulos alternativos:
-                </label>
-                <Field className="InputCampoDados" id="titulosAlternativos" name="titulosAlternativos" type="text" />
+                                    <label htmlFor="TituloAlternativo"> Títulos alternativos: </label> <Field className="InputCampoDados" id="TituloAlternativo" name="TituloAlternativo" type="text" />
 
-                <label htmlFor="autor">Autor(es): </label>
-                <Field className="InputCampoDados" id="autor" name="autor" type="text" />
+                                    <label htmlFor="AutorObra"> Autor(es):{" "} </label> <Field className="InputCampoDados" id="AutorObra" name="AutorObra" type="text" />
 
-                <label htmlFor="artista">Artista(s): </label>
-                <Field className="InputCampoDados" id="artista" name="artista" type="text" />
+                                    <label htmlFor="Artista"> Artista(s):{" "} </label> <Field className="InputCampoDados" id="Artista" name="Artista" type="text" />
 
-                <label htmlFor="generos">Gêneros: </label>
-                <SecaoGeneros>
-                    {listaGeneros.map((opt) =>{
-                        return (
-                            <label key={opt}>
-                                <Field className="checkBoxGeneros" type="checkbox" name="generos" value={opt} />
-                                {opt}
-                            </label>
-                        )
-                    })}
-                </SecaoGeneros>              
+                                    <label htmlFor="Ano"> Ano de publicação:{" "} </label> <Field className="InputCampoDados" id="Ano" name="Ano" type="text" />
 
-                <label htmlFor="sinopse">Sinopse:</label>                
-                <EditorTsun larguraEditor='100%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                                    <label htmlFor="ListaGeneros">Gêneros: </label>
+                                    <SecaoGeneros>
+                                        {data.listaGeneros.map((generoObra: any) => {
+                                            return (
+                                                <label key={generoObra.id}>
+                                                    <Field className="checkBoxGeneros" type="checkbox" name="ListaGeneros" value={ generoObra.descricao } />
+                                                        {generoObra.descricao}
+                                                </label> 
+                                                ); 
+                                            } 
+                                        )}
+                                    </SecaoGeneros>
 
-                <SecaoOutrasInformacoes>
-                  <label>
-                    <Field className="checkBoxOutrasInformacoes" type="checkbox" name="maiorIdade" />
-                    +18
-                  </label>
+                                    <label htmlFor="Sinopse">Sinopse:</label>
+                                    <EditorTsun larguraEditor="100%" tamanhoEditor="200px" valorConteudoEditor={ valorConteudoEditor } setValorConteudoEditor={ setValorConteudoEditor } />
 
-                  <Field name="tipoObra" id="tipoObra">
-                    {({ field }: FieldProps) => {
-                     const options=listaTipoObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
-                    return (
-                        <div>
-                            <select className="selectTipoObras" {...field}>{options}</select>
-                        </div>
-                        )
-                    }}
-                  </Field>
+                                    <SecaoOutrasInformacoes>
+                                        <label>
+                                            <Field className="checkBoxOutrasInformacoes" type="checkbox" name="EhObraMaiorIdade" /> +18
+                                        </label>
 
-                  <Field name="statusObra" id="statusObra">
-                      {({ field }: FieldProps) => {
-                      const options=listaStatusObra.map((opt)=>{return (<option key={opt} value={opt}>{opt}</option>)})
-                      return (
-                          <div>
-                              <select className="selectTipoObras" {...field}>{options}</select>
-                          </div>
-                          )
-                      }}
-                  </Field>
+                                    <Field name="TipoObraId" id="TipoObraId">
+                                        {({ field }: FieldProps) => {
+                                            const options = data.listaTipoObra.map((tipoObra: any) => {return (<option key={tipoObra.id} value={tipoObra.id}>{tipoObra.descricao}</option>); });                                            
+                                        return ( 
+                                            <div> 
+                                                <select className="selectTipoObras" {...field}> {options} </select>
+                                            </div>
+                                            );
+                                        }}
+                                    </Field>
 
-                </SecaoOutrasInformacoes>
+                                    <Field name="StatusObraId" id="StatusObraId" >
+                                        {({ field }: FieldProps) => 
+                                            { const options = data.listaStatusObra.map((statusObra: any) => {return (<option key={statusObra.id} value={statusObra.id}>{statusObra.descricao}</option>); });
+                                            return ( 
+                                                <div>
+                                                    <select className="selectTipoObras" {...field}> {options} </select>
+                                                </div>
+                                            );
+                                        }}
+                                    </Field>                                    
+                                    </SecaoOutrasInformacoes>
+                                    <SecaoBotoesSubmit>
+                                        <button className="botao-submit sucesso" type="submit" > Adicionar </button>
+                                    </SecaoBotoesSubmit>
 
-                <SecaoBotoesSubmit>
-                  <button className="botao-submit sucesso" type="submit">
-                    Adicionar
-                  </button>
-                </SecaoBotoesSubmit>
+                                    <Field className="InputCampoDados inputText hidden" id="Sinopse" name="Sinopse" as="textarea" value={ (values.Sinopse = valorConteudoEditor) } />
+                                </Form>
+                            )}
+                        </Formik>
+                    </SecaoInputs>
+                    <SecaoCapaObra>
+                        {imagemCapa.size > 0 ? ( <ImagemCapaObraPrincipal src={URL.createObjectURL(imagemCapa)} alt="Capa Principal" />) 
+                                             : ( <ImagemCapaObraPrincipal src={enderecoImagemCapa} alt="Capa Principal" /> )}
+                    </SecaoCapaObra>
+                </ContainerForm>
+            </Container>
+        </LayoutDashBoard>
+    );
+};
 
-                <Field className="InputCampoDados inputText hidden" id="sinopse" name="sinopse" as="textarea" value={values.sinopse = valorConteudoEditor} />
-
-              </Form>
-              )}
-            </Formik>
-          </SecaoInputs>
-          <SecaoCapaObra>
-            {imagemCapa.size > 0 ? <ImagemCapaObraPrincipal src={URL.createObjectURL(imagemCapa)} alt='Capa Principal'/> : <ImagemCapaObraPrincipal src={enderecoImagemCapa} alt='Capa Principal' />}
-          </SecaoCapaObra>
-        </ContainerForm>
-      </Container>
-    </LayoutDashBoard>
-  );
+export const getStaticProps: GetStaticProps = async () => {
+    const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    const { data } = await API.get(`obra/informacoes`, { httpsAgent });    
+    return { props: { data } };
 };
 
 export default NovaObra;

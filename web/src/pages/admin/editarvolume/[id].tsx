@@ -7,85 +7,131 @@ import NavPaginas from "components/NavPaginas";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditorTsun from "components/EditorTsun/index";
 import Blob from 'cross-blob';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import https from "https";
+import API from "services/API";
+import * as ROTAS from "constants/rotas";
 
 interface Values {
-  capaVolumeObra: File | any;
-  numeroVolume: number;
-  sinopse: string;
+    Id: string;
+    ObraId: string;
+    ImagemCapa: File | any;
+    CapaVolumeObra: string;
+    Titulo: string;
+    Numero: number;
+    Sinopse: string;
+    UsuarioAlteracao: string;
+    Slug: string;
 }
 
-const EditarVolume: React.FC = () => {
-  
-  const initialValues: Values = {
-    capaVolumeObra: 'https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V7_Capa.png',
-    numeroVolume: 8,
-    sinopse: "<p>Aqui é uma sinopse!!</p>",
-  };
+const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const handleSubmit = (valores: Values) => {        
+        const formData = new FormData();    
+        formData.append("Id", valores.Id)
+        formData.append("ObraId", valores.ObraId)
+        formData.append("ImagemCapa", valores.ImagemCapa)
+        formData.append("Titulo", valores.Titulo)
+        formData.append("Numero", String(valores.Numero))
+        formData.append("Sinopse", valores.Sinopse)
+        formData.append("UsuarioAlteracao", valores.UsuarioAlteracao)
+    
+        API.put("volume", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        .then((response) => { 
+            if(response.status === 200){
+                window.location.href = ROTAS.INDICEOBRAS + `/${valores.ObraId}`;
+                //alert('Volume alterado com sucesso!')
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };  
 
-  const valorInicialImagem = new Blob();
+    const initialValues: Values = {   
+        Id: data.id,
+        ObraId: data.obraId,
+        ImagemCapa: null,
+        CapaVolumeObra: data.enderecoUrlCapa,
+        Titulo: data.titulo,
+        Numero: data.numero,
+        Sinopse: data.sinopse,
+        UsuarioAlteracao: 'Bravo',
+        Slug: data.slug,
+    };
 
-  const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.sinopse);
-  const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
-  const [enderecoImagemCapa] = useState(initialValues.capaVolumeObra);  
+    const valorInicialImagem = new Blob();
+    const [valorConteudoEditor, setValorConteudoEditor] = useState(initialValues.Sinopse);
+    const [imagemCapa, setImagemCapa] = useState(valorInicialImagem);
+    const [enderecoImagemCapa] = useState(initialValues.CapaVolumeObra);  
 
     const handleImagemCapa = (event: any) => {
         setImagemCapa(event.target.files[0]);
     }   
 
-    const handleSubmit = (values: Values) => {        
-        console.log(values);        
-      };
+    const excluirObra = () => {
+        alert("Usuário sem permissão para excluir. Contate o Bravo!");
+    }
 
-      const excluirObra = () => {
-        alert("Volume excluído")
-      }
+    console.log('Dados Volume: ', data);
 
-  return (
-    <LayoutDashBoard>
-      <Container>
-        <SecaoHeadBar>
-          <NavPaginas>
-            <AddBoxIcon />
-            <h3>Editar Volume</h3>
-          </NavPaginas>
-        </SecaoHeadBar>
-        <ContainerForm>
-          <SecaoInputs>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ values , setFieldValue }) => (
-              <Form>
-                <label htmlFor="capaVolumeObra">Capa Volume: </label>
-                <input className="inputIncluiCapaPrincipal" id="capaVolumeObra" name="capaVolumeObra" type="file" onChange={(e:any) => { setFieldValue("capaVolumeObra", e.target.files[0]); handleImagemCapa(e) }} />
+    return (
+        <LayoutDashBoard>
+            <Container>
+                <SecaoHeadBar>
+                    <NavPaginas>
+                        <AddBoxIcon />
+                        <h3>Editar Volume</h3>
+                    </NavPaginas>
+                </SecaoHeadBar>
+                <ContainerForm>
+                    <SecaoInputs>
+                        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                            {({ values , setFieldValue }) => (
+                                <Form>
+                                    <label htmlFor="ImagemCapa">Capa Volume: </label>
+                                    <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} />
 
-                <label htmlFor="numeroVolume">Número Volume: </label>
-                <Field
-                  className="InputCampoDados InputCampoDadosNumber"
-                  id="numeroVolume"
-                  name="numeroVolume"
-                  type="number"
-                />  
+                                    <label htmlFor="Titulo">Título do Volume: </label>
+                                    <Field className="InputCampoDados InputCampoDadosNumber" id="Titulo" name="Titulo" type="text" />
 
-                <label htmlFor="sinopse">Sinopse Volume:</label>                
-                <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                                    <label htmlFor="Numero">Número Volume: </label>
+                                    <Field className="InputCampoDados InputCampoDadosNumber" id="Numero" name="Numero" type="number" /> 
 
-                <SecaoBotoesSubmit>
-                    <button className="botao-submit secundaria" type="submit">Alterar</button>                
-                    <button className="botao-submit aviso" type="button" onClick={excluirObra}>Excluir</button>
-                </SecaoBotoesSubmit>
+                                    <label htmlFor="Slug">Slug do Volume: </label>
+                                    <Field className="InputCampoDados InputCampoDadosNumber" id="Slug" name="Slug" type="text" disabled={true} />   
 
-                <Field className="InputCampoDados inputText hidden" id="sinopse" name="sinopse" as="textarea" value={values.sinopse = valorConteudoEditor} />
+                                    <label htmlFor="Sinopse">Sinopse Volume:</label>                
+                                    <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
-              </Form>
-              )}
-            </Formik>
-          </SecaoInputs>
-          <SecaoCapaObra>
-            {imagemCapa.size > 0 ? <ImagemCapaObraPrincipal src={URL.createObjectURL(imagemCapa)} alt='Capa Principal'/> : <ImagemCapaObraPrincipal src={enderecoImagemCapa} alt='Capa Principal' />}
-          </SecaoCapaObra>
-        </ContainerForm>
-      </Container>
-    </LayoutDashBoard>
-  );
+                                    <SecaoBotoesSubmit>
+                                        <button className="botao-submit secundaria" type="submit">Alterar</button>                
+                                        <button className="botao-submit aviso" type="button" onClick={excluirObra}>Excluir</button>
+                                    </SecaoBotoesSubmit>
+                                    
+                                    <Field className="InputCampoDados inputText hidden" id="Sinopse" name="Sinopse" as="textarea" value={values.Sinopse = valorConteudoEditor} />
+                                </Form>
+                            )}
+                        </Formik>
+                    </SecaoInputs>
+                    <SecaoCapaObra>
+                    {imagemCapa.size > 0 ? <ImagemCapaObraPrincipal src={URL.createObjectURL(imagemCapa)} alt='Capa do Volume'/> : <ImagemCapaObraPrincipal src={enderecoImagemCapa} alt='Capa do Volume' />}
+                    </SecaoCapaObra>
+                </ContainerForm>
+            </Container>
+        </LayoutDashBoard>
+    );
 };
+
+export async function getStaticPaths() {   
+
+    return { paths: [], fallback: true };
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+    
+    const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    const { data } = await API.get(`volume/${context.params?.id}`, { httpsAgent });
+    return { props: { data } };
+}
 
 export default EditarVolume;

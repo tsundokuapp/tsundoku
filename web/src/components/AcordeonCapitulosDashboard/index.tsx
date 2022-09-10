@@ -4,39 +4,37 @@ import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSino
 import * as ROTAS from "constants/rotas";
 import { LinkNav } from 'components/Common/LinkNav';
 
-interface ICapitulo {
-  idCapitulo: string;
-  capitulo: string;
-}
-
 interface IAcordeonCapitulosDashboard {
+    id: number;
     idObra: number;
     titulo: string;
+    descritivovolume: string;
     capaVolume: string;
     sinopse: string;
-    capitulos: Array<ICapitulo>;
+    capitulos: Array<any>;
   }
 
-const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ idObra, titulo, capaVolume, capitulos, sinopse}) => {
+const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ id, idObra, titulo, descritivovolume, capaVolume, sinopse, capitulos}) => {
   const [isActive, setIsActive] = useState(false);
-
+  
   return (
     <Container>
-      <Titulo onClick={() => setIsActive(!isActive)}>
-        <div>{titulo}</div>
+      <Titulo onClick={() => setIsActive(!isActive)}>        
+        <h3>{descritivovolume}</h3>
       </Titulo>      
       {isActive && 
       <Conteudo>        
-        <BotaoAlteracao className="quintiaria">
-            <Link href={ROTAS.EDITARVOLUME + "/" + idObra}>
+        <h4>{titulo}</h4>
+        <BotaoAlteracao className="quintiaria">            
+            <Link href={ROTAS.EDITARVOLUME + "/" + id}>
                 <a>Editar</a>
             </Link>
         </BotaoAlteracao>        
         <CapaVolume src={capaVolume}/>
         <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
           {capitulos.map((capitulo) => (
-              <ConteudoCapitulos key={capitulo.idCapitulo}>
-                  <LinkNav textoLink={capitulo.capitulo} url={ROTAS.EDITARCAPITULO + "/" + capitulo.idCapitulo}/>
+              <ConteudoCapitulos key={capitulo.id}>                  
+                  <LinkNav textoLink={capitulo.descritivoCapitulo + (capitulo.titulo === null ? "" : " - " + capitulo.titulo)} url={ROTAS.EDITARCAPITULO + "/" + capitulo.id}/>
               </ConteudoCapitulos>
           ))}
       </Conteudo>}

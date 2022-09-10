@@ -26,119 +26,124 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import { Search } from "@material-ui/icons";
 import AppsIcon from "@material-ui/icons/Apps";
 import DehazeIcon from "@material-ui/icons/Dehaze";
+import https from 'https';
+import API from 'services/API';
 
-const Obras: React.FC = () => {
+interface IObra {
+    id: number;
+    titulo: string;
+    tituloAlternativo: string;
+    autorObra: string;
+    artista: string;
+    ano: string;
+    slug: string;
+    visualizacoes: number;
+    usuarioCadastro: string;
+    usuarioAlteracao: string;
+    enderecoUrlCapa: string;
+    sinopse: string;
+    ehObraMaiorIdade: boolean;
+    dataInclusao: Date;
+    dataAlteracao: Date;
+    statusObraId: number;
+    tipoObraId: number;
+  }
 
-  const listaObras = [
-    {
-      id:1,
-      capaPrincipalObra: "https://i2.wp.com/tsundoku.com.br/wp-content/uploads/2022/07/MT_V16_Capa-01.jpg",
-      tituloObra: "Mushoku Tensei: Reencarnação do Desempregado",     
-    },
-    {
-      id:2,
-      capaPrincipalObra: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V7_Capa.png",
-      tituloObra: "Bruxa Errante, a Jornada de Elaina",     
-    },
-    {
-      id:3,
-      capaPrincipalObra: "https://i1.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Capa-Chihara.jpg",
-      tituloObra: "Jirai Nandesuka? Chihara-san",     
-    },
-    {
-      id:4,
-      capaPrincipalObra: "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2022/02/toxicGirlfriendCover2.png",
-      tituloObra: "De Colega Tóxica a Metas de Namoro",     
-    },
-    {
-      id:5,
-      capaPrincipalObra: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
-      tituloObra: "Parasita Apaixonado",
-    }];
+  interface IObras {
+    obras: Array<IObra>;
+  }
 
-  const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
+const Obras: React.FC<IObras> = ( props: IObras ) => {    
+    const obras =  props.obras;
+    const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
 
-  const AlteraSecaoContent = () => {
-    setSecaoContentAtivo(!secaoContentAtivo);
-  };
+    const AlteraSecaoContent = () => {
+        setSecaoContentAtivo(!secaoContentAtivo);
+    };
 
   return (
     <LayoutDashBoard>
-      <Container>
-        <SecaoHeadBar>
-          <NavPaginas>
-            <LibraryBooksIcon />
-            <h3>Obras</h3>
-          </NavPaginas>
-          <NavConsultas>
-            <BotaoTrocaCardLista onClick={AlteraSecaoContent}>
-              {secaoContentAtivo === true ? <DehazeIcon /> : <AppsIcon />}
-            </BotaoTrocaCardLista>
-            <InputPesquisa placeholder="Pesquisar..." />
-            <BotaoPesquisar>
-              <Search fontSize="small" />
-            </BotaoPesquisar>
-          </NavConsultas>
-        </SecaoHeadBar>
-        <SecaoContentCard visivel={secaoContentAtivo}>
+        <Container>
+            <SecaoHeadBar>
+            <NavPaginas>
+                <LibraryBooksIcon />            
+                <h3>Obras</h3>            
+            </NavPaginas>
+            <NavConsultas>
+                <BotaoTrocaCardLista onClick={AlteraSecaoContent}>
+                {secaoContentAtivo === true ? <DehazeIcon /> : <AppsIcon />}
+                </BotaoTrocaCardLista>
+                <InputPesquisa placeholder="Pesquisar..." />
+                <BotaoPesquisar>
+                <Search fontSize="small" />
+                </BotaoPesquisar>
+            </NavConsultas>
+            </SecaoHeadBar>
+            <SecaoContentCard visivel={secaoContentAtivo}>        
+            {obras.map((obra) => {
+                return (
+                <CardObra key={obra.id}>
+                <ImagemCardObra src={obra.enderecoUrlCapa} />
+                <ContainerMeioCardObra>
+                    <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
+                    <span className="titulo-card-obra">
+                        {obra.titulo}
+                    </span>
+                    <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
+                        <BotaoAlteracao className="sucesso">
+                            <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
+                            <a>Índice</a>
+                            </Link>
+                        </BotaoAlteracao>
+                        <BotaoAlteracao className="secundaria">                    
+                        <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
+                            <a>Editar</a>
+                        </Link>
+                        </BotaoAlteracao>                 
+                    </ContainerBotoesAcaoCardObra>
+                    </ContainerTituloAcoesCardObra>
+                </ContainerMeioCardObra>
+                </CardObra>
+                );})
+            }
 
-          {listaObras.map((obra) => {
-            return (
-              <CardObra key={obra.id}>
-              <ImagemCardObra src={obra.capaPrincipalObra} />
-              <ContainerMeioCardObra>
-                <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                  <span className="titulo-card-obra">
-                    {obra.tituloObra}
-                  </span>
-                  <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
+            </SecaoContentCard>
+
+            <SecaoContentLista visivel={!secaoContentAtivo}>
+
+            {obras.map((obra) => {
+                return (
+                <ListaObra key={obra.id}>
+                    <span className="titulo-card-obra">
+                    {obra.titulo}
+                    </span>
+                    <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
                     <BotaoAlteracao className="sucesso">
                         <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
-                          <a>Índice</a>
+                        <a>Índice</a>
                         </Link>
-                      </BotaoAlteracao>
+                    </BotaoAlteracao>
                     <BotaoAlteracao className="secundaria">                    
-                      <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
+                        <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
                         <a>Editar</a>
-                      </Link>
-                    </BotaoAlteracao>                 
-                  </ContainerBotoesAcaoCardObra>
-                </ContainerTituloAcoesCardObra>
-              </ContainerMeioCardObra>
-            </CardObra>
-            );})
-          }
+                        </Link>
+                    </BotaoAlteracao>
+                    </ContainerBotoesAcaoCardObra>
+                </ListaObra>
+                );})
+            }    
 
-        </SecaoContentCard>
-
-        <SecaoContentLista visivel={!secaoContentAtivo}>
-
-          {listaObras.map((obra) => {
-            return (
-              <ListaObra key={obra.id}>
-                <span className="titulo-card-obra">
-                  {obra.tituloObra}
-                </span>
-                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                  <BotaoAlteracao className="sucesso">
-                    <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
-                      <a>Índice</a>
-                    </Link>
-                  </BotaoAlteracao>
-                  <BotaoAlteracao className="secundaria">                    
-                    <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
-                      <a>Editar</a>
-                    </Link>
-                  </BotaoAlteracao>
-                </ContainerBotoesAcaoCardObra>
-              </ListaObra>
-            );})
-          }    
-
-        </SecaoContentLista>
-      </Container>
+            </SecaoContentLista>
+        </Container>
     </LayoutDashBoard>
   );
 };
+
+export async function getStaticProps() {
+    const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    const response = await API.get("obra", {httpsAgent});   
+    const obras = response.data;
+    return { props:  { obras } } 
+}
 
 export default Obras;

@@ -12,15 +12,14 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import * as ROTAS from "constants/rotas";
 
 interface Values {
+    Numero: string;
+    Parte: string;
+    ConteudoNovel: string;
   idObra: string;
   descricaoObra: string;
   volumeObra: string;
-  numeroCapitulo: string;
   nomeCapitulo: string;
-  conteudo: string | Blob;
   tipoObra: string;
-  slugCapitulo: string;
-  parteCapitulo: string;
   conteudoImagensCapitulo: Array<File> | any;
 }
 
@@ -32,15 +31,14 @@ const handleSubmit = (valores: Values) => {
 
 const NovoCapitulo: React.FC = () => {
   const initialValues: Values = {
+      Numero: "",
+      Parte: "",
+      ConteudoNovel: "",
     idObra: "",
     descricaoObra: "",
     volumeObra: "",
-    numeroCapitulo: "",
     nomeCapitulo: "",
-    conteudo: "",
     tipoObra: "Manga",
-    slugCapitulo: "",
-    parteCapitulo: "",
     conteudoImagensCapitulo: null,
   };
   
@@ -61,9 +59,9 @@ const NovoCapitulo: React.FC = () => {
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ values }) => (
               <Form>
-                <label htmlFor="descricaoObra">Obra: </label>
-                <Field className="InputCampoDados" id="descricaoObra" name="descricaoObra" type="text" />
-
+                <h4>Obra</h4>
+                <br></br>
+                <br></br>
                 <div>
                   <label htmlFor="volumeObra">Volume: </label>
                   <div>
@@ -88,14 +86,11 @@ const NovoCapitulo: React.FC = () => {
                 <label htmlFor="parteCapitulo">Parte capítulo: </label>
                 <Field className="InputCampoDados larguraInputsAuxiiar" id="parteCapitulo" name="parteCapitulo" type="text" />
 
-                <label htmlFor="nomeCapitulo">Nome do capítulo: </label>
-                <Field className="InputCampoDados" id="nomeCapitulo" name="nomeCapitulo" type="text" /> 
-
-                <label htmlFor="ordemCapitulo">Ordem do capítulo: </label>
-                <Field className="InputCampoDados larguraInputsAuxiiar" id="ordemCapitulo" name="ordemCapitulo" type="number" />
+                <label htmlFor="nomeCapitulo">Título do capítulo: </label>
+                <Field className="InputCampoDados" id="nomeCapitulo" name="nomeCapitulo" type="text" />                
 
                 <label htmlFor="slugCapitulo">Slug capítulo: </label>
-                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" />
+                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" disabled={true} />
 
                 <label htmlFor="conteudo">Conteudo: </label>                
                 
@@ -117,7 +112,7 @@ const NovoCapitulo: React.FC = () => {
                 </SecaoBotoesSubmit>
 
                 <input  className="inputIncluiCapaPrincipal hidden" id="ArrayImagensCapitulo" name="ArrayImagensCapitulo" type="hidden" value={values.conteudoImagensCapitulo = valorconteudoImagensCapitulo} />
-                <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.conteudo = valorConteudoEditor} />                
+                <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.ConteudoNovel = valorConteudoEditor} />                
               </Form>
               )}
             </Formik>
