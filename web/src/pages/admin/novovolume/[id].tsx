@@ -23,8 +23,7 @@ interface Values {
 
 import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
 
-const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    
+const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {    
     const handleSubmit = (valores: Values) => {        
         const formData = new FormData();    
         formData.append("ObraId", valores.ObraId)

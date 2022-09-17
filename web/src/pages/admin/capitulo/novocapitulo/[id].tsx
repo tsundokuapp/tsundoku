@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Link from 'next/link';
-import { Formik, Form, Field } from "formik";
-import Blob from 'cross-blob';
+import { Formik, Form, Field, FieldProps } from "formik";
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
@@ -9,42 +8,71 @@ import EditorTsun from 'components/EditorTsun';
 import EditorMangaTsun from 'components/EditorMangaTsun';
 import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "../styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import https from "https";
+import API from "services/API";
 import * as ROTAS from "constants/rotas";
 
 interface Values {
-    Numero: string;
+    Numero: number;
     Parte: string;
     ConteudoNovel: string;
-  idObra: string;
-  descricaoObra: string;
-  volumeObra: string;
-  nomeCapitulo: string;
-  tipoObra: string;
-  conteudoImagensCapitulo: Array<File> | any;
+    VolumeId: string;
+    TituloObra: string;
+    TituloCapitulo: string;
+    TipoObraId: string;
+    ConteudoImagensCapitulo: Array<File> | any;
+    UsuarioCadastro: string;
+    ObraId: string;
 }
 
-const handleSubmit = (valores: Values) => {
-  alert(JSON.stringify(valores));
-  console.log(valores);
-};
+const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const handleSubmit = (valores: Values) => {        
+        
+        console.log(valores)
 
-
-const NovoCapitulo: React.FC = () => {
-  const initialValues: Values = {
-      Numero: "",
-      Parte: "",
-      ConteudoNovel: "",
-    idObra: "",
-    descricaoObra: "",
-    volumeObra: "",
-    nomeCapitulo: "",
-    tipoObra: "Manga",
-    conteudoImagensCapitulo: null,
-  };
+        const formData = new FormData();    
+        formData.append("Numero", String(valores.Numero))
+        formData.append("Parte", valores.Parte)
+        formData.append("TituloCapitulo", valores.TituloCapitulo)
+        formData.append("VolumeId", valores.VolumeId)
+        formData.append("ConteudoNovel", valores.ConteudoNovel)
+        formData.append("ConteudoImagensCapitulo", valores.ConteudoImagensCapitulo)
+        formData.append("UsuarioCadastro", valores.UsuarioCadastro)
+    
+        API.post("capitulo", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        .then((response) => { 
+            if(response.status === 200){
+                window.location.href = ROTAS.INDICEOBRAS + `/${valores.ObraId}`;
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };     
+    
+    const initialValues: Values = {
+        Numero: 0,
+        Parte: "",
+        ConteudoNovel: "",
+        VolumeId: "",   
+        TituloObra: "",
+        TituloCapitulo: "",
+        TipoObraId: "",
+        ConteudoImagensCapitulo: null,
+        UsuarioCadastro: "Bravo",
+        ObraId: data.obra.id,
+    };
   
   const [valorConteudoEditor, setValorConteudoEditor] = useState("");
   const [valorconteudoImagensCapitulo, setValorconteudoImagensCapitulo] = useState<any[]>([]);
   
+    const listaVolumes = [{"id":"0","numero": "Selecione o volume "}]
+    for (let volume of data.obra.volumes) {
+        let dataVolume = {"id": volume.id, "numero": volume.numero}
+        listaVolumes.push(dataVolume);
+    }
+
   return (
     <LayoutDashBoard>
       <Container>
@@ -59,42 +87,40 @@ const NovoCapitulo: React.FC = () => {
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ values }) => (
               <Form>
-                <h4>Obra</h4>
+                <h4>{data?.titulo} Obra aqui</h4>
                 <br></br>
                 <br></br>
                 <div>
-                  <label htmlFor="volumeObra">Volume: </label>
-                  <div>
+                  <label htmlFor="VolumeId">Volume: </label>
+                  <div>                   
 
-                <Field
-                    component="select" id="volumeObra" name= "volumeObra" className="larguraInputsAuxiiar selectTipoObras">
-                    <option value="0" selected={true}>
-                      Selecione o volume
-                    </option>
-                    <option value="1">01</option>
-                    <option value="2">02</option>
-                    <option value="3">03</option>
-                    <option value="4">04</option>
-                  </Field>
+                    {/* Selecione o volume */}
+                    <Field name="VolumeId" id="VolumeId">
+                        {({ field }: FieldProps) => {
+                            const options = listaVolumes.map((volume: any) => {return (<option key={volume?.id} value={volume?.id}>{volume?.numero}</option>); });
+                            return ( 
+                                <div> 
+                                    <select className="selectTipoObras" {...field}> {options} </select>
+                                </div>
+                            );
+                        }}
+                    </Field>
 
                   </div>
                 </div>                
 
-                <label htmlFor="numeroCapitulo">Número do capítulo: </label>
-                <Field className="InputCampoDados larguraInputsAuxiiar" id="numeroCapitulo" name="numeroCapitulo" type="number" />
+                <label htmlFor="Numero">Número do capítulo: </label>
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="Numero" name="Numero" type="number" />
 
-                <label htmlFor="parteCapitulo">Parte capítulo: </label>
-                <Field className="InputCampoDados larguraInputsAuxiiar" id="parteCapitulo" name="parteCapitulo" type="text" />
+                <label htmlFor="Parte">Parte capítulo: </label>
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="Parte" name="Parte" type="text" />
 
-                <label htmlFor="nomeCapitulo">Título do capítulo: </label>
-                <Field className="InputCampoDados" id="nomeCapitulo" name="nomeCapitulo" type="text" />                
+                <label htmlFor="TituloCapitulo">Título do capítulo: </label>
+                <Field className="InputCampoDados" id="TituloCapitulo" name="TituloCapitulo" type="text" />
 
-                <label htmlFor="slugCapitulo">Slug capítulo: </label>
-                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" disabled={true} />
+                <label htmlFor="conteudo">Conteudo: </label>
 
-                <label htmlFor="conteudo">Conteudo: </label>                
-                
-                {(values.tipoObra === "Light Novel" || values.tipoObra === "Web Novel") === false                
+                {data?.ehComic               
                 ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo}  setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} />
                 : <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
                  
@@ -104,14 +130,14 @@ const NovoCapitulo: React.FC = () => {
                     </button>
 
                     <button className="botao-submit secundaria">
-                    <Link href={ROTAS.INDICEOBRAS + "/1"}>
+                    <Link href={ROTAS.INDICEOBRAS + `/${values.ObraId}`}>
                         <a>Voltar</a>
                     </Link>
                     </button>
 
                 </SecaoBotoesSubmit>
 
-                <input  className="inputIncluiCapaPrincipal hidden" id="ArrayImagensCapitulo" name="ArrayImagensCapitulo" type="hidden" value={values.conteudoImagensCapitulo = valorconteudoImagensCapitulo} />
+                <input  className="inputIncluiCapaPrincipal hidden" id="ArrayImagensCapitulo" name="ArrayImagensCapitulo" type="hidden" value={values.ConteudoImagensCapitulo = valorconteudoImagensCapitulo} />
                 <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.ConteudoNovel = valorConteudoEditor} />                
               </Form>
               )}
@@ -122,5 +148,16 @@ const NovoCapitulo: React.FC = () => {
     </LayoutDashBoard>
   );
 };
+
+export async function getStaticPaths() {
+    return { paths: [], fallback: true };
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {    
+    const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    const { data } = await API.get(`capitulo/dadosobra/${context.params?.id}`, { httpsAgent });
+    return { props: { data } };
+}
+
 
 export default NovoCapitulo;

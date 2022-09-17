@@ -111,7 +111,7 @@ const EditarCapitulo: React.FC = () => {
                 <Field className="InputCampoDados larguraInputsAuxiiar" id="ordemCapitulo" name="ordemCapitulo" type="number" />
 
                 <label htmlFor="slugCapitulo">Slug capítulo: </label>
-                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" />
+                <Field className="InputCampoDados" id="slugCapitulo"  name="slugCapitulo" type="text" disabled={true} />
 
                 <label htmlFor="conteudo">Conteudo: </label>                
                 
