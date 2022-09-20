@@ -21,32 +21,34 @@ interface Values {
     TituloObra: string;
     TituloCapitulo: string;
     TipoObraId: string;
-    ConteudoImagensCapitulo: Array<File> | any;
+    ListaImagensCapituloManga: Array<File> | any;
     UsuarioCadastro: string;
     ObraId: string;
 }
 
 const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const handleSubmit = (valores: Values) => {        
-        
-        console.log(valores)
+    const handleSubmit = (valores: Values) => {     
 
-        const formData = new FormData();    
+        const formData = new FormData();        
+
+        for (var i = 0; i < valores.ListaImagensCapituloManga[0].length; i++) {
+          formData.append("ListaImagensCapituloManga", valores.ListaImagensCapituloManga[0][i]);
+        }
+        
         formData.append("Numero", String(valores.Numero))
         formData.append("Parte", valores.Parte)
         formData.append("TituloCapitulo", valores.TituloCapitulo)
         formData.append("VolumeId", valores.VolumeId)
         formData.append("ConteudoNovel", valores.ConteudoNovel)
-        formData.append("ConteudoImagensCapitulo", valores.ConteudoImagensCapitulo)
-        formData.append("UsuarioCadastro", valores.UsuarioCadastro)
-    
+        formData.append("UsuarioCadastro", valores.UsuarioCadastro)       
+
         API.post("capitulo", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-        .then((response) => { 
+        .then((response:any) => { 
             if(response.status === 200){
                 window.location.href = ROTAS.INDICEOBRAS + `/${valores.ObraId}`;
             }
         })
-        .catch((error) => {
+        .catch((error:any) => {
             console.log(error);
         });
     };     
@@ -59,7 +61,7 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
         TituloObra: "",
         TituloCapitulo: "",
         TipoObraId: "",
-        ConteudoImagensCapitulo: null,
+        ListaImagensCapituloManga: null,
         UsuarioCadastro: "Bravo",
         ObraId: data.obra.id,
     };
@@ -137,7 +139,7 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
 
                 </SecaoBotoesSubmit>
 
-                <input  className="inputIncluiCapaPrincipal hidden" id="ArrayImagensCapitulo" name="ArrayImagensCapitulo" type="hidden" value={values.ConteudoImagensCapitulo = valorconteudoImagensCapitulo} />
+                <input  className="inputIncluiCapaPrincipal hidden" id="ListaImagensCapituloManga" name="ListaImagensCapituloManga" type="hidden" value={values.ListaImagensCapituloManga = valorconteudoImagensCapitulo} />
                 <Field className="InputCampoDados inputText hidden" id="conteudo" name="conteudo" as="textarea" value={values.ConteudoNovel = valorConteudoEditor} />                
               </Form>
               )}

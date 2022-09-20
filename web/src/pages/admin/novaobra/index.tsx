@@ -55,7 +55,7 @@ const handleSubmit = (valores: Values) => {
     .then(() => {        
         window.location.href = ROTAS.OBRAS;
     })
-    .catch((error) => {
+    .catch((error:any) => {
         console.log(error);
     });
 };
