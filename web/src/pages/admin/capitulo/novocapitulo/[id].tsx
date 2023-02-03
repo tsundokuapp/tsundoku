@@ -15,7 +15,7 @@ import * as ROTAS from "constants/rotas";
 
 interface Values {
     Numero: number;
-    Parte: string;
+    Parte: number | any;
     ConteudoNovel: string;
     VolumeId: string;
     TituloObra: string;
@@ -31,16 +31,18 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
 
         const formData = new FormData();        
 
-        for (var i = 0; i < valores.ListaImagensCapituloManga[0].length; i++) {
-          formData.append("ListaImagensCapituloManga", valores.ListaImagensCapituloManga[0][i]);
+        if(valores.ListaImagensCapituloManga[0] !== undefined){
+            for (var i = 0; i < valores.ListaImagensCapituloManga[0].length; i++) {
+                formData.append("ListaImagensCapituloManga", valores.ListaImagensCapituloManga[0][i]);
+            }
         }
         
         formData.append("Numero", String(valores.Numero))
         formData.append("Parte", valores.Parte)
-        formData.append("TituloCapitulo", valores.TituloCapitulo)
+        formData.append("Titulo", valores.TituloCapitulo)
         formData.append("VolumeId", valores.VolumeId)
         formData.append("ConteudoNovel", valores.ConteudoNovel)
-        formData.append("UsuarioCadastro", valores.UsuarioCadastro)       
+        formData.append("UsuarioCadastro", valores.UsuarioCadastro)    
 
         API.post("capitulo", formData, { headers: {'Content-Type': 'multipart/form-data'}})
         .then((response:any) => { 
@@ -89,17 +91,15 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ values }) => (
               <Form>
-                <h4>{data?.titulo} Obra aqui</h4>
+                <h4>{data.obra.titulo} Obra aqui</h4>
                 <br></br>
                 <br></br>
                 <div>
                   <label htmlFor="VolumeId">Volume: </label>
                   <div>                   
-
-                    {/* Selecione o volume */}
                     <Field name="VolumeId" id="VolumeId">
                         {({ field }: FieldProps) => {
-                            const options = listaVolumes.map((volume: any) => {return (<option key={volume?.id} value={volume?.id}>{volume?.numero}</option>); });
+                            const options = listaVolumes.map((volume: any) => {return (<option key={volume.id} value={volume?.id}>{volume?.numero}</option>); });
                             return ( 
                                 <div> 
                                     <select className="selectTipoObras" {...field}> {options} </select>
@@ -107,7 +107,6 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                             );
                         }}
                     </Field>
-
                   </div>
                 </div>                
 
@@ -115,7 +114,7 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                 <Field className="InputCampoDados larguraInputsAuxiiar" id="Numero" name="Numero" type="number" />
 
                 <label htmlFor="Parte">Parte capítulo: </label>
-                <Field className="InputCampoDados larguraInputsAuxiiar" id="Parte" name="Parte" type="text" />
+                <Field className="InputCampoDados larguraInputsAuxiiar" id="Parte" name="Parte" type="number" />
 
                 <label htmlFor="TituloCapitulo">Título do capítulo: </label>
                 <Field className="InputCampoDados" id="TituloCapitulo" name="TituloCapitulo" type="text" />

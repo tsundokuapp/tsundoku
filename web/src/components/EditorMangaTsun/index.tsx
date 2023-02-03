@@ -3,15 +3,16 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import Container, { ContainerImagens, ListaImagens } from "./styles";
 
 interface Imagens {
+    id: string;
     nome: string;
     url: string;
-}
+};
 
 interface IEditorMangaTsun {
     valorconteudoImagensCapitulo: Array<any>;
     setValorconteudoImagensCapitulo: Dispatch<SetStateAction<Array<any>>>;
     conteudoImagensCapitulo?: Array<Imagens> | any;
-}
+};
 
 const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCapitulo, conteudoImagensCapitulo }) => {
     const [filesPreview, setFilesPreview] = useState<any[]>(conteudoImagensCapitulo);
@@ -24,7 +25,8 @@ const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCa
         for (let i = 0; i < fileObj[0].length; i++) {
             const nomeImagem = fileObj[0][i].name;
             if (!fileArray.includes(nomeImagem)) {
-                const imagens: Imagens = {
+                const imagens: Imagens = {                    
+                    id: String(i),
                     nome: nomeImagem,
                     url: URL.createObjectURL(fileObj[0][i]),
                 };
@@ -50,8 +52,9 @@ const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCa
             <ContainerImagens larguraContainerImagens="1010px">              
 
                 {(filesPreview || []).map((url: any) => (
-                    <ListaImagens>
-                        <img key={url.nome} src={url.url} width={1000} alt={url.nome}></img>
+                    
+                    <ListaImagens key={url.id}>
+                        <img src={url.url} width={1000} alt={url.nome}></img>
                     </ListaImagens>
                 ))}
             </ContainerImagens>
