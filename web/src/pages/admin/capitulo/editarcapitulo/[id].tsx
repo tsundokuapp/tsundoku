@@ -63,7 +63,7 @@ const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSt
 
     const conteudoImagensCapitulo = [];
 
-    for (let urlImagensManga of data.listaUrlImagensManga) {
+    for (let urlImagensManga of data?.listaUrlImagensManga) {
         let dataUrlImagensManga = {"id": urlImagensManga.id, "url": urlImagensManga.url, "nome": urlImagensManga.nomePagina}
         conteudoImagensCapitulo.push(dataUrlImagensManga);
     }
@@ -176,6 +176,9 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async (context) => {    
     const httpsAgent = new https.Agent({ rejectUnauthorized: false });
     const { data } = await API.get(`capitulo/dadoscapitulo/${context.params?.id}`, { httpsAgent });
+
+    console.log(data);
+
     return { props: { data } };
 };
 
