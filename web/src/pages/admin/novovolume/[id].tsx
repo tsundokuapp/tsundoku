@@ -45,7 +45,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
     };   
 
     const initialValues: Values = {
-        ObraId: data.id,
+        ObraId: data?.id,
         ImagemCapa: null,
         Titulo: "",
         Numero: 0,

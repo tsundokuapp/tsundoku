@@ -27,7 +27,7 @@ interface Values {
 const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const handleSubmit = (valores: Values) => {        
         const formData = new FormData();    
-        formData.append("Id", valores.Id)
+        formData.append("Id", valores?.Id)
         formData.append("ObraId", valores.ObraId)
         formData.append("ImagemCapa", valores.ImagemCapa)
         formData.append("Titulo", valores.Titulo)
@@ -48,15 +48,15 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
     };  
 
     const initialValues: Values = {   
-        Id: data.id,
-        ObraId: data.obraId,
+        Id: data?.id,
+        ObraId: data?.obraId,
         ImagemCapa: null,
-        CapaVolumeObra: data.enderecoUrlCapa,
-        Titulo: data.titulo,
-        Numero: data.numero,
-        Sinopse: data.sinopse,
+        CapaVolumeObra: data?.enderecoUrlCapa,
+        Titulo: data?.titulo,
+        Numero: data?.numero,
+        Sinopse: data?.sinopse,
         UsuarioAlteracao: 'Bravo',
-        Slug: data.slug,
+        Slug: data?.slug,
     };
 
     const valorInicialImagem = new Blob();
