@@ -31,10 +31,8 @@ interface Values {
 };
 
 const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-
     const handleSubmit = (valores: Values) => {
         const formData = new FormData();
-
         if (valores.ListaImagensCapituloManga[0] !== undefined) {
             for (var i = 0; i < valores.ListaImagensCapituloManga[0].length; i++) {
                 formData.append("ListaImagensCapituloManga", valores.ListaImagensCapituloManga[0][i]);
@@ -53,6 +51,7 @@ const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSt
         API.put("capitulo", formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then((response: any) => {
                 if (response.status === 200) {
+                    alert('Capítulo alterado com sucesso!')
                     window.location.href = ROTAS.INDICEOBRAS + `/${valores.ObraId}`;
                 }
             })
@@ -62,14 +61,12 @@ const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSt
     };
 
     const conteudoImagensCapitulo = [];
-
     if (data?.listaUrlImagensManga !== undefined) {
 
         for (let urlImagensManga of data?.listaUrlImagensManga) {
             let dataUrlImagensManga = { "id": urlImagensManga?.id, "url": urlImagensManga?.url, "nome": urlImagensManga?.nomePagina }
             conteudoImagensCapitulo.push(dataUrlImagensManga);
         }
-
     }
 
     const initialValues: Values = {
@@ -79,10 +76,10 @@ const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSt
         TituloCapitulo: data?.titulo,
         VolumeId: data?.volumeId,
         ConteudoNovel: data?.conteudoNovel !== null ? data?.conteudoNovel : undefined,
-        TituloObra: data?.obra.titulo,
-        TipoObraId: data?.obra.tipoObraId,
+        TituloObra: data?.tituloObra,
+        TipoObraId: data?.tipoObraId,
         ListaImagensCapituloManga: undefined,
-        ObraId: data?.obra.id,
+        ObraId: data?.obraId,
         ConteudoImagensCapitulo: conteudoImagensCapitulo,
         Slug: data?.slug,
         UsuarioAlteracao: "Bravo",
@@ -116,7 +113,7 @@ const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSt
                             {({ values }) => (
                                 <Form>
                                     <label htmlFor="TituloObra">Obra: </label>
-                                    <Field className="InputCampoDados" id="TituloObra" name="TituloObra" type="text" />
+                                    <Field className="InputCampoDados" id="TituloObra" name="TituloObra" type="text" disabled={true} />
 
                                     <div>
                                         <label htmlFor="volumeObra">Volume: </label>
@@ -182,10 +179,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    const { data } = await API.get(`capitulo/dadoscapitulo/${context.params?.id}`, { httpsAgent });
-
-    console.log(data);
-
+    const { data } = await API.get(`capitulo/dados-capitulo/${context.params?.id}`, { httpsAgent });
     return { props: { data } };
 };
 

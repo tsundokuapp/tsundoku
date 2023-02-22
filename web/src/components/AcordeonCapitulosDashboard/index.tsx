@@ -6,7 +6,6 @@ import { LinkNav } from 'components/Common/LinkNav';
 
 interface IAcordeonCapitulosDashboard {
     id: number;
-    idObra: number;
     titulo: string;
     descritivovolume: string;
     capaVolume: string;
@@ -14,7 +13,7 @@ interface IAcordeonCapitulosDashboard {
     capitulos: Array<any>;
   }
 
-const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ id, idObra, titulo, descritivovolume, capaVolume, sinopse, capitulos}) => {
+const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ id, titulo, descritivovolume, capaVolume, sinopse, capitulos}) => {
   const [isActive, setIsActive] = useState(false);
   
   return (
@@ -32,9 +31,9 @@ const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ id,
         </BotaoAlteracao>        
         <CapaVolume src={capaVolume}/>
         <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
-          {capitulos.map((capitulo) => (
-              <ConteudoCapitulos key={capitulo.id}>                  
-                  <LinkNav textoLink={capitulo.descritivoCapitulo + (capitulo.titulo === null ? "" : " - " + capitulo.titulo)} url={ROTAS.EDITARCAPITULO + "/" + capitulo.id}/>
+          {capitulos?.map((capitulo) => (
+              <ConteudoCapitulos key={capitulo?.id}>                  
+                  <LinkNav textoLink={capitulo?.descritivoCapitulo + (capitulo?.titulo === null ? "" : " - " + capitulo?.titulo)} url={ROTAS.EDITARCAPITULO + "/" + capitulo?.id}/>
               </ConteudoCapitulos>
           ))}
       </Conteudo>}

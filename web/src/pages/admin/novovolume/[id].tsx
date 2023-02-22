@@ -36,6 +36,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
         API.post("volume", formData, { headers: {'Content-Type': 'multipart/form-data'}})
         .then((response) => { 
             if(response.status === 200){
+                alert('Volume adicionado com sucesso!')
                 window.location.href = ROTAS.INDICEOBRAS + `/${valores.ObraId}`;
             }
         })

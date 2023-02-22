@@ -47,6 +47,7 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
     API.post("capitulo", formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((response: any) => {
         if (response.status === 200) {
+          alert('Capítulo adicionado com sucesso!')
           window.location.href = ROTAS.INDICEOBRAS + `/${valores?.ObraId}`;
         }
       })
@@ -159,7 +160,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-  const { data } = await API.get(`capitulo/dadosobra/${context.params?.id}`, { httpsAgent });
+  const { data } = await API.get(`capitulo/dados-obra/${context.params?.id}`, { httpsAgent });
   return { props: { data } };
 }
 

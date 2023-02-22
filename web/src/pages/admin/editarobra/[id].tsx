@@ -10,6 +10,7 @@ import Blob from 'cross-blob';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import https from "https";
 import API from "services/API";
+import * as ROTAS from "constants/rotas";
 
 interface Values {
     IdObra: string,
@@ -47,9 +48,12 @@ const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
         formData.append("EhObraMaiorIdade", String(valores.EhObraMaiorIdade))
         formData.append("ListaGeneros", String(valores.Generos))
 
-        API.put("obra", formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(() => {
-                alert('Obra alterada com sucesso!')
+        API.put("obra", formData, { headers: { 'Content-Type': 'multipart/form-data' } })           
+            .then((response: any) => {
+                if (response.status === 200) {
+                    alert('Obra alterada com sucesso!')
+                    window.location.href = ROTAS.OBRAS;
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -226,7 +230,7 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async (context) => {
 
     const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    const { data } = await API.get(`obra/informacoesobra/${context.params?.id}`, { httpsAgent });
+    const { data } = await API.get(`obra/informacoes-obra/${context.params?.id}`, { httpsAgent });
 
     return { props: { data } };
 }

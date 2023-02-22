@@ -51,9 +51,12 @@ const handleSubmit = (valores: Values) => {
     formData.append("EhObraMaiorIdade", String(valores.EhObraMaiorIdade))
     formData.append("ListaGeneros", String(valores.ListaGeneros))
 
-    API.post("obra", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-    .then(() => {        
-        window.location.href = ROTAS.OBRAS;
+    API.post("obra", formData, { headers: {'Content-Type': 'multipart/form-data'}})   
+    .then((response) => { 
+        if(response.status === 200){
+            alert('Obra adicionada com sucesso!')
+            window.location.href = ROTAS.OBRAS;
+        }
     })
     .catch((error:any) => {
         console.log(error);
@@ -180,7 +183,7 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
 
 export const getStaticProps: GetStaticProps = async () => {
     const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    const { data } = await API.get(`obra/informacoes`, { httpsAgent });    
+    const { data } = await API.get(`obra/informacoes-obra`, { httpsAgent });    
     return { props: { data } };
 };
 

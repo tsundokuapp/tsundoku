@@ -13,7 +13,7 @@ import https from "https";
 import API from "services/API";
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
-const ListaCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => { 
+const ListaCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <LayoutDashBoard>
             <Container>
@@ -44,7 +44,6 @@ const ListaCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSta
                             <Acordeon
                                 key={volume?.id}
                                 id={volume?.id}
-                                idObra={volume?.obraId}
                                 titulo={volume?.titulo}
                                 descritivovolume={volume?.descritivoVolume}
                                 capaVolume={volume?.enderecoUrlCapa}

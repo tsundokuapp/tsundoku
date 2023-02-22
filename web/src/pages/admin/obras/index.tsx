@@ -60,7 +60,7 @@ const Obras: React.FC<IObras> = ( props: IObras ) => {
     const AlteraSecaoContent = () => {
         setSecaoContentAtivo(!secaoContentAtivo);
     };
-
+    
   return (
     <LayoutDashBoard>
         <Container>
