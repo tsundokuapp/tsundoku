@@ -3,9 +3,13 @@ import Avatar from "components/Avatar";
 import Container from "components/Aside/styles";
 import NavMenuAside from 'components/NavMenuAside';
 
-const Aside: React.FC = () => {
+interface IAside {
+  className: string;
+}
+
+const Aside: React.FC<IAside> = ({ className }) => {
   return (
-    <Container>
+    <Container className={className}>
       <Avatar />
       <NavMenuAside />
     </Container>

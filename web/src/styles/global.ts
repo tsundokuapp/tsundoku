@@ -8,8 +8,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 }
 
-html, body, #root{
-    height: 100vh
+html{
+    background-color: #000;
+}
+
+body { 
+    height: 100vh;
+    width: 100%;
 }
 
 *, button, input{

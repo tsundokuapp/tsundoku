@@ -27,7 +27,12 @@ const Container = styled.div`
 export const SecaoContentCard = styled.section<ISecaoContentCard>`
   margin-top: 25px;  
   display: ${props => props.visivel ? 'flex' : 'none'};
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
+  
+  @media (max-width: 474px) {
+    justify-content: center; 
+  }
+  
 `;
 
 export const ImagemCardObra = styled.img`
@@ -94,11 +99,11 @@ export const ContainerTituloAcoesCardObra = styled.div<ICardLista>`
 `;
 
 export const ContainerBotoesAcaoCardObra = styled.div<ICardLista>`
-  width: ${props => props.cardLista ? '110%' : '40%'}; 
+  width: ${props => props.cardLista ? '110%' : 'auto'}; 
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: ${props => props.cardLista ? '10px' : '0'};  ;
 `;
 
 export const BotaoAlteracao = styled.button`
@@ -144,7 +149,7 @@ export const BotaoTrocaCardLista = styled.button`
   color: ${(props) => props.theme.colors.branca};
   background: ${(props) => props.theme.colors.secundaria};  
   align-items: center;
-  margin-right: 4px;
+  margin-right: 5px;
   
   :hover{
     opacity: 0.7;
@@ -170,7 +175,9 @@ export const ListaObra = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 25px;
+    //padding-left: 25px;
+    padding: 10px;
+    
 
     :hover{
         box-shadow: 3px 5px 2px 1px rgba(0, 0, 0, 0.2);
@@ -178,12 +185,17 @@ export const ListaObra = styled.li`
         margin-right: 5px;
     }
 
+    @media (max-width: 474px) {
+      margin-left: 10px;
+      height: 125px;
+    }
+
 `;
 
 // Navegação
 
 export const NavConsultas = styled.div`    
-    width: 400px;
+    width: auto;
     height: auto;
     display: flex;
     align-items: center;
@@ -197,7 +209,8 @@ export const InputPesquisa = styled.input.attrs(() => ({ type: "text" }))`
   font-size: 100%;
   outline: none;
   background: #dedede; 
-  color: ${props => props.theme.colors.primaria};  
+  color: ${props => props.theme.colors.primaria};
+  margin-right: 5px;
 `;  
 
 export const BotaoPesquisar = styled.button`
@@ -208,7 +221,6 @@ export const BotaoPesquisar = styled.button`
   color: ${(props) => props.theme.colors.branca};
   background: ${(props) => props.theme.colors.secundaria};  
   align-items: center;
-  margin-left: 4px;
   
   :hover{
     opacity: 0.7;

@@ -4,24 +4,24 @@ import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import Container, {
-  //Cards
-  CardObra,
-  ImagemCardObra,
-  ContainerMeioCardObra,
-  ContainerTituloAcoesCardObra,
-  SecaoContentCard,
-  BotaoAlteracao,
-  ContainerBotoesAcaoCardObra,
+    //Cards
+    CardObra,
+    ImagemCardObra,
+    ContainerMeioCardObra,
+    ContainerTituloAcoesCardObra,
+    SecaoContentCard,
+    BotaoAlteracao,
+    ContainerBotoesAcaoCardObra,
 
-  //Listas
-  SecaoContentLista,
-  ListaObra,
-  
-  //Navegação
-  NavConsultas,
-  InputPesquisa,
-  BotaoPesquisar,
-  BotaoTrocaCardLista,
+    //Listas
+    SecaoContentLista,
+    ListaObra,
+
+    //Navegação
+    NavConsultas,
+    InputPesquisa,
+    BotaoPesquisar,
+    BotaoTrocaCardLista,
 } from "./styles";
 import * as ROTAS from "constants/rotas";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
@@ -49,103 +49,104 @@ interface IObra {
     dataAlteracao: Date;
     statusObraId: number;
     tipoObraId: number;
-  }
+}
 
-  interface IObras {
+interface IObras {
     obras: Array<IObra>;
-  }
+}
 
-const Obras: React.FC<IObras> = ( props: IObras ) => {    
-    const obras =  props.obras;
+const Obras: React.FC<IObras> = (props: IObras) => {
+    const obras = props.obras;
     const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
 
     const AlteraSecaoContent = () => {
         setSecaoContentAtivo(!secaoContentAtivo);
     };
-    
-  return (
-    <LayoutDashBoard>
-        <Container>
-            <SecaoHeadBar>
-            <NavPaginas>
-                <LibraryBooksIcon />            
-                <h3>Obras</h3>            
-            </NavPaginas>
-            <NavConsultas>
-                <BotaoTrocaCardLista onClick={AlteraSecaoContent}>
-                {secaoContentAtivo === true ? <DehazeIcon /> : <AppsIcon />}
-                </BotaoTrocaCardLista>
-                <InputPesquisa placeholder="Pesquisar..." />
-                <BotaoPesquisar>
-                <Search fontSize="small" />
-                </BotaoPesquisar>
-            </NavConsultas>
-            </SecaoHeadBar>
-            <SecaoContentCard visivel={secaoContentAtivo}>        
-            {obras.map((obra) => {
-                return (
-                <CardObra key={obra.id}>
-                <ImagemCardObra src={obra.enderecoUrlCapa} />
-                <ContainerMeioCardObra>
-                    <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
-                    <span className="titulo-card-obra">
-                        {obra.titulo}
-                    </span>
-                    <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                        <BotaoAlteracao className="sucesso">
-                            <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
-                            <a>Índice</a>
-                            </Link>
-                        </BotaoAlteracao>
-                        <BotaoAlteracao className="secundaria">                    
-                        <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
-                            <a>Editar</a>
-                        </Link>
-                        </BotaoAlteracao>                 
-                    </ContainerBotoesAcaoCardObra>
-                    </ContainerTituloAcoesCardObra>
-                </ContainerMeioCardObra>
-                </CardObra>
-                );})
-            }
 
-            </SecaoContentCard>
+    return (
+        <LayoutDashBoard>
+            <Container>
+                <SecaoHeadBar>
+                    <NavPaginas>
+                        <LibraryBooksIcon />
+                        <h3>Obras</h3>
+                    </NavPaginas>
+                    <NavConsultas>
+                        <BotaoTrocaCardLista onClick={AlteraSecaoContent}>
+                            {secaoContentAtivo === true ? <DehazeIcon /> : <AppsIcon />}
+                        </BotaoTrocaCardLista>
+                        <InputPesquisa placeholder="Pesquisar..." />
+                        <BotaoPesquisar>
+                            <Search fontSize="small" />
+                        </BotaoPesquisar>
+                    </NavConsultas>
+                </SecaoHeadBar>
+                <SecaoContentCard visivel={secaoContentAtivo}>
+                    {obras.map((obra) => {
+                        return (
+                            <CardObra key={obra.id}>
+                                <ImagemCardObra src={obra.enderecoUrlCapa} />
+                                <ContainerMeioCardObra>
+                                    <ContainerTituloAcoesCardObra cardLista={secaoContentAtivo}>
+                                        <span className="titulo-card-obra">
+                                            {obra.titulo}
+                                        </span>
+                                        <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
+                                            <BotaoAlteracao className="sucesso">
+                                                <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
+                                                    <a>Índice</a>
+                                                </Link>
+                                            </BotaoAlteracao>
+                                            <BotaoAlteracao className="secundaria">
+                                                <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
+                                                    <a>Editar</a>
+                                                </Link>
+                                            </BotaoAlteracao>
+                                        </ContainerBotoesAcaoCardObra>
+                                    </ContainerTituloAcoesCardObra>
+                                </ContainerMeioCardObra>
+                            </CardObra>
+                        );
+                    })
+                    }
 
-            <SecaoContentLista visivel={!secaoContentAtivo}>
+                </SecaoContentCard>
 
-            {obras.map((obra) => {
-                return (
-                <ListaObra key={obra.id}>
-                    <span className="titulo-card-obra">
-                    {obra.titulo}
-                    </span>
-                    <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
-                    <BotaoAlteracao className="sucesso">
-                        <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
-                        <a>Índice</a>
-                        </Link>
-                    </BotaoAlteracao>
-                    <BotaoAlteracao className="secundaria">                    
-                        <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
-                        <a>Editar</a>
-                        </Link>
-                    </BotaoAlteracao>
-                    </ContainerBotoesAcaoCardObra>
-                </ListaObra>
-                );})
-            }    
+                <SecaoContentLista visivel={!secaoContentAtivo}>
+                    {obras.map((obra) => {
+                        return (
+                            <ListaObra key={obra.id}>
+                                <span className="titulo-card-obra">
+                                    {obra.titulo}
+                                </span>
+                                <ContainerBotoesAcaoCardObra cardLista={secaoContentAtivo}>
+                                    <BotaoAlteracao className="sucesso">
+                                        <Link href={ROTAS.INDICEOBRAS + "/" + obra.id}>
+                                            <a>Índice</a>
+                                        </Link>
+                                    </BotaoAlteracao>
+                                    <BotaoAlteracao className="secundaria">
+                                        <Link href={ROTAS.EDITAROBRA + "/" + obra.id}>
+                                            <a>Editar</a>
+                                        </Link>
+                                    </BotaoAlteracao>
+                                </ContainerBotoesAcaoCardObra>
+                            </ListaObra>
+                        );
+                    })
+                    }
 
-            </SecaoContentLista>
-        </Container>
-    </LayoutDashBoard>
-  );
+                </SecaoContentLista>
+            </Container>
+        </LayoutDashBoard>
+    );
 };
 
 export async function getStaticProps() {
     const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    const response = await API.get("obra", {httpsAgent});   
+    const response = await API.get("obra", { httpsAgent });
     const obras = response.data;
-    return { props:  { obras } } 
+    return { props: { obras } }
 }
 
 export default Obras;

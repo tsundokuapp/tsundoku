@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    grid-area: MH;
     background: ${(props) => props.theme.colors.primaria}; 
     color: ${(props) => props.theme.colors.branca}; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30px;
-    border-bottom: solid 1px ${(props) => props.theme.colors.secundaria}; 
+    padding: 0 10px;
+    border-bottom: solid 1px ${(props) => props.theme.colors.secundaria};
+    height: 10vh;
 `;
 
 export const ContainerNav = styled.nav`
-    width: 130px;
+    width: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,6 +30,7 @@ export const BotaoMenu = styled.div`
     display: flex;
     align-items: center;
     padding-left: 5px;
+    margin-right: 10px;
 
     :hover{
         opacity: 0.8;

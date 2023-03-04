@@ -133,7 +133,7 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
                                     </SecaoGeneros>
 
                                     <label htmlFor="Sinopse">Sinopse:</label>
-                                    <EditorTsun larguraEditor="100%" tamanhoEditor="200px" valorConteudoEditor={ valorConteudoEditor } setValorConteudoEditor={ setValorConteudoEditor } />
+                                    <EditorTsun larguraEditor="115%" tamanhoEditor="400px" valorConteudoEditor={ valorConteudoEditor } setValorConteudoEditor={ setValorConteudoEditor } />
 
                                     <SecaoOutrasInformacoes>
                                         <label>

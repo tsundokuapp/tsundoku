@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const Titulo = styled.h1`  
-      color: #fb8500//${(props) => props.theme.colors.branca};
+      color: ${(props) => props.theme.colors.secundaria};
 `;
+
+
 
 export default Titulo;

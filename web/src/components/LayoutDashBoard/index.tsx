@@ -8,7 +8,7 @@ import { combineTheme, dark } from "../../styles/themes";
 import { Brightness3, Brightness6, Brightness7 } from "@material-ui/icons";
 import { PropsWithChildren } from 'react';
 
-interface ILayoutDashBoard {   children?: React.ReactNode; } 
+interface ILayoutDashBoard { children?: React.ReactNode; }
 
 const LayoutDashBoard: React.FC<PropsWithChildren<ILayoutDashBoard>> = ({ children }) => {
   const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
@@ -28,16 +28,25 @@ const LayoutDashBoard: React.FC<PropsWithChildren<ILayoutDashBoard>> = ({ childr
       icone: <Brightness6 />,
     },
   ];
- 
+
+  var classeHide = "";
+  if (!menuAtivo) {
+    classeHide = "hide";
+  }
 
   return (
-    <Grid menu={menuAtivo}>
-      <ThemeProvider theme={theme}>
-        <MainHeader opcoes={opcoes} setTheme={setTheme} setMenu={setMenuAtivo} />
-        {menuAtivo && <Aside />}
-        <Content>{children}</Content>
-      </ThemeProvider>
-    </Grid>
+    <ThemeProvider theme={theme}>
+      <Grid menu={menuAtivo} className="wrapper" >
+        <div className="coluna-grid">
+          <Aside className={classeHide + " aside"} />
+          {/* {menuAtivo && <Aside />} */}
+        </div>
+        <div className="coluna-grid-main">
+          <MainHeader opcoes={opcoes} setTheme={setTheme} setMenu={setMenuAtivo} />
+          <Content>{children}</Content>
+        </div>
+      </Grid>
+    </ThemeProvider>
   );
 };
 

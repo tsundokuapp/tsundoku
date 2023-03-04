@@ -26,6 +26,10 @@ export const SecaoIndiceCapitulos = styled.div`
     >h2{
         margin-bottom: 10px;
     }
+
+    @media(max-width: 474px) {
+      width: 350px;
+    }
 `;
 
 export const SecaoConteudoCapitulos = styled.div`
@@ -40,6 +44,10 @@ export const SecaoBotoesAdicao = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 10px;
+
+    @media(max-width: 474px) {
+      flex-direction: column;
+    }
 `;
 
 export const BotaoAlteracao = styled.button`
