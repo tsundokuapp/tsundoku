@@ -4,12 +4,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 100px;
+  padding: 10px 0 0 0;
+  margin-left: 50px;
 `;
 
 export const ContainerForm = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
+  margin-right: 10px;
+
+  @media (max-width: 474px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: -40px;
+
+    .inputIncluiCapaPrincipal{
+      margin-bottom: 430px !important
+    }
+  }
+
+  @media (min-width: 1048px) {
+    .label-editor-tsun{
+      margin-top: 100px;
+    }
+  }  
+
 `;
 
 export const SecaoInputs = styled.section`
@@ -32,8 +52,6 @@ export const SecaoInputs = styled.section`
     font-size: 9pt;
     border-radius: 3px;
     margin: 15px 10px 30px 0;
-    
-    opacity: 0.7;
 
     &.sucesso {
       background: ${(props) => props.theme.colors.sucesso};
@@ -48,7 +66,7 @@ export const SecaoInputs = styled.section`
     }
 
     :hover {
-      opacity: 1;
+      opacity: 0.7;
     }
   }
 
@@ -91,7 +109,7 @@ export const SecaoInputs = styled.section`
 `;
 
 export const SecaoBotoesSubmit = styled.div`
-  width: 40%;
+  width: 100%;
   margin: 15px 0 30px 0;
   display: flex;
   justify-content: between;
@@ -104,8 +122,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 9pt;
   border-radius: 3px;
-  margin: 0 10px 0 10px;
-  opacity: 0.7;  
+  margin: 0 10px 0 10px;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -120,7 +137,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover {
-    opacity: 1;
+    opacity: 0.7;
   }
 `;
 
@@ -129,6 +146,7 @@ export const SecaoOutrasInformacoes = styled.div`
   height: 35px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin-top: 25px;
 
   .checkBoxOutrasInformacoes {
@@ -138,13 +156,22 @@ export const SecaoOutrasInformacoes = styled.div`
   .selectTipoObras {
     color: ${(props) => props.theme.colors.branca};
     background-color: ${(props) => props.theme.colors.quartiaria};
-    height: 30px;
+    height: 35px;
+    width: 125px;
   }
+
+  @media (max-width: 474px) {    
+    width: 350px;
+    margin-right: 75px;
+    margin-left: 25px;
+  }
+
 `;
 
 export const SecaoGeneros = styled.div`
   height: 250px;
-  width: 25%;
+  width: auto;
+  max-width: 300px;
   margin: 5px 0 20px 0;
   padding: 15px 10px 10px 25px;
   border-radius: 5px;
@@ -180,10 +207,15 @@ export const InputIncluiCapaPrincipal = styled.input.attrs(() => ({
 `;
 
 export const SecaoCapaObra = styled.section`
-  width: 35%;
+  width: auto;
   display: flex;
   justify-content: flex-start;
   height: 100%;
+
+  @media (max-width: 474px) {  
+      margin-top: -580px;
+  }
+
 `;
 
 export const ImagemCapaObraPrincipal = styled.img`

@@ -64,8 +64,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 10pt;
   border-radius: 3px;
-  margin: 10px;
-  opacity: 0.7;
+  margin: 10px;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -84,7 +83,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover {
-    opacity: 1;
+    opacity: 0.7;
   }
 
   > a{

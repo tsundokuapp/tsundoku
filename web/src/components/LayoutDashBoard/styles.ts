@@ -7,27 +7,51 @@ import styled from "styled-components";
 * CT = Content
 */
 
-interface IGrid{
-    menu: boolean; 
-}
+/*
 
-const Grid = styled.div<IGrid>`
-    display: grid;
+ display: grid;
     grid-template-columns: 220px auto;    
     grid-template-rows: 75px auto;   
     height: 100vh; 
     
-    ${(props) => props.menu ? `
-    
     grid-template-areas: 
     'AS MH'
-    'AS CT';` :
+    'AS CT';
+
+*/
+
+interface IGrid {
+    menu: boolean;
+}
+
+const Grid = styled.div<IGrid>`
+
+    &.wrapper{
+        display: flex;
+    }
     
-    `grid-template-areas: 
-    'MH MH'
-    'CT CT';
-    `
-    };
+    .coluna-grid-main {        
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    @media (max-width: 474px) {
+        .coluna-grid{            
+            display: none;
+        }
+
+        ${(props) => !props.menu 
+        ? 
+            `.coluna-grid{            
+                display: block;
+            }` 
+        : 
+            `.coluna-grid{            
+                display: none;
+            }` 
+        }
+    }
 `;
 
 export default Grid;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LayoutDashBoard from 'components/LayoutDashBoard';
+import InputFiles from "components/Common/InputFiles/InputFiles";
 import { Formik, Form, Field } from "formik";
 import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoBotoesSubmit, } from "../novaobra/styles";
 import SecaoHeadBar from "components/SecaoHeadBar";
@@ -70,9 +71,7 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
 
     const excluirObra = () => {
         alert("Usuário sem permissão para excluir. Contate o Bravo!");
-    }
-
-    console.log('Dados Volume: ', data);
+    }    
 
     return (
         <LayoutDashBoard>
@@ -89,8 +88,17 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                             {({ values , setFieldValue }) => (
                                 <Form>
                                     <label htmlFor="ImagemCapa">Capa Volume: </label>
-                                    <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} />
-
+                                    <InputFiles 
+                                        classNameInput="inputIncluiCapaPrincipal" 
+                                        idInput="ArrayImagensCapitulo" 
+                                        nameInput="ArrayImagensCapitulo" 
+                                        multipleInput={true}
+                                        onChangeInput={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); 
+                                        handleImagemCapa(e) }}
+                                        typeInput={"file"}
+                                        textoBotao="Selecione a imagem para capa do volume"
+                                    />
+                                    
                                     <label htmlFor="Titulo">Título do Volume: </label>
                                     <Field className="InputCampoDados InputCampoDadosNumber" id="Titulo" name="Titulo" type="text" />
 
@@ -100,7 +108,7 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                                     <label htmlFor="Slug">Slug do Volume: </label>
                                     <Field className="InputCampoDados InputCampoDadosNumber" id="Slug" name="Slug" type="text" disabled={true} />   
 
-                                    <label htmlFor="Sinopse">Sinopse Volume:</label>                
+                                    <label htmlFor="Sinopse" className="label-editor-tsun">Sinopse Volume:</label>                
                                     <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                                     <SecaoBotoesSubmit>

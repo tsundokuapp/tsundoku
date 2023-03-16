@@ -46,10 +46,11 @@ const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCa
                 nameInput="ArrayImagensCapitulo" 
                 multipleInput={true}
                 onChangeInput={(e: any) => uploadPreviewImagens(e)}
-                typeInput={"file"}  
+                typeInput={"file"}
+                textoBotao="Selecione as imagens"
             />
 
-            <ContainerImagens larguraContainerImagens="1010px">              
+            <ContainerImagens larguraContainerImagens="1000px">              
 
                 {(filesPreview || []).map((url: any) => (
                     

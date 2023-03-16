@@ -12,14 +12,14 @@ const Container = styled.label`
     text-align: center;
     display: flex;
     justify-content: space-around;
-    opacity: 0.7;
-
+    margin: 10px 0 10px 0;
+    
     > input {
         display: none;
     }
 
     :hover {
-      opacity: 1;
+      opacity: 0.7;
     }
 `;
 
