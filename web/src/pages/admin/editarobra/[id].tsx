@@ -142,7 +142,7 @@ const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                         textoBotao="Selecione a imagem para capa da obra"  
                                     />
 
-                                    <label htmlFor="Titulo">Título da Obra: </label>
+                                    <label htmlFor="Titulo" className="inputTitulo">Título da Obra: </label>
                                     <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
 
                                     <label htmlFor="TituloAlternativo">Títulos alternativos: </label>

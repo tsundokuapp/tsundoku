@@ -5,13 +5,15 @@ interface IContainer {
 }
 
 const Container = styled.div<IContainer>`
-  width: 100vw;
-  height: 100vh;
-  background-image: url(${(props) => props.imagemFundo});
-  background-repeat: no-repeat;
-  background-size: 100%;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: url(${(props) => props.imagemFundo}) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
   h1 {
     font-size: 54px;
@@ -45,13 +47,11 @@ export const ContainerImagemLogo = styled.img`
 `;
 
 export const ContainerForm = styled.section`
-  width: 300px;
-  height: 300px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
-  margin-left: 200px;
 `;
 
 export const InputLogin = styled.input.attrs(() => ({ type: "text" }))`

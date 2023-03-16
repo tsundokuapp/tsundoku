@@ -118,7 +118,7 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
                                         textoBotao="Selecione a imagem para capa da obra"  
                                     />
 
-                                    <label htmlFor="Titulo"> Título da Obra:{" "} </label> <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
+                                    <label htmlFor="Titulo" className="inputTitulo"> Título da Obra:{" "} </label> <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
 
                                     <label htmlFor="TituloAlternativo"> Títulos alternativos: </label> <Field className="InputCampoDados" id="TituloAlternativo" name="TituloAlternativo" type="text" />
 

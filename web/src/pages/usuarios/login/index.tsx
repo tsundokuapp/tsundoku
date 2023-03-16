@@ -9,6 +9,8 @@ import LogoDark from "../../../../public/assets/img/logoTemaDark.svg";
 const TelaLogin: React.FC = () => {
   return (
     <Container imagemFundo={imagemFundo}>
+    {/* <div className="container-imagem"> */}
+      {/* <img src={imagemFundo} alt=""/> */}
       <ContainerLogo>
        <ContainerImagemLogo src={LogoDark} alt="Logo Branca"/>
       </ContainerLogo>
@@ -22,6 +24,7 @@ const TelaLogin: React.FC = () => {
             </Link>
         </InputBotaoPaginaInicial>
       </ContainerForm>
+      {/* </div> */}
     </Container>
   );
 };

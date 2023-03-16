@@ -89,7 +89,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                         textoBotao="Selecione a imagem para capa do volume"
                                 />
 
-                                <label htmlFor="Titulo">Título Volume: </label>
+                                <label htmlFor="Titulo" className="inputTitulo">Título Volume: </label>
                                 <Field className="InputCampoDados InputCampoDadosNumber" id="Titulo" name="Titulo" type="text"/> 
 
                                 <label htmlFor="Numero">Número Volume: </label>

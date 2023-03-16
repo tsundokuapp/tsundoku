@@ -9,6 +9,10 @@ const Container = styled.div`
     padding: 0 10px;
     border-bottom: solid 1px ${(props) => props.theme.colors.secundaria};
     height: 10vh;
+
+    @media (max-width: 474px) {
+        height: 15vh;   
+    }
 `;
 
 export const ContainerNav = styled.nav`

@@ -106,6 +106,12 @@ export const SecaoInputs = styled.section`
     margin: 5px 0 20px 0;
   }
 
+  @media (max-width: 474px ) {
+    .inputTitulo{
+      margin-top: 430px;
+    }
+  } 
+
 `;
 
 export const SecaoBotoesSubmit = styled.div`
@@ -213,7 +219,8 @@ export const SecaoCapaObra = styled.section`
   height: 100%;
 
   @media (max-width: 474px) {  
-      margin-top: -580px;
+    margin-top: -560px;
+    margin-left: 10px;
   }
 
 `;

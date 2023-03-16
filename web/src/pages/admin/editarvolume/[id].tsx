@@ -99,7 +99,7 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                                         textoBotao="Selecione a imagem para capa do volume"
                                     />
                                     
-                                    <label htmlFor="Titulo">Título do Volume: </label>
+                                    <label htmlFor="Titulo" className="inputTitulo">Título do Volume: </label>
                                     <Field className="InputCampoDados InputCampoDadosNumber" id="Titulo" name="Titulo" type="text" />
 
                                     <label htmlFor="Numero">Número Volume: </label>
