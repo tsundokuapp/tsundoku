@@ -8,13 +8,14 @@ interface IInputFiles {
     typeInput: React.HTMLInputTypeAttribute | undefined;
     onChangeInput: React.ChangeEventHandler<HTMLInputElement> | undefined;
     multipleInput: boolean | undefined;
+    textoBotao: string;
 }
 
-const InputFiles: React.FC<IInputFiles> = ({classNameInput, idInput, nameInput, typeInput, onChangeInput, multipleInput}) => {
+const InputFiles: React.FC<IInputFiles> = ({classNameInput, idInput, nameInput, typeInput, onChangeInput, multipleInput, textoBotao}) => {
 
     return (
        <Container>
-        Selecionar Imagens
+        {textoBotao}
         <input
                 className={classNameInput}
                 id={idInput}

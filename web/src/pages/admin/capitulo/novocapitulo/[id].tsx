@@ -54,7 +54,7 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
       .catch((error: any) => {
         console.log(error);
       });
-  };
+  }; 
 
   const initialValues: Values = {
     Numero: 0,
@@ -125,9 +125,16 @@ const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
 
                   <label htmlFor="conteudo">Conteudo: </label>
 
-                  {data?.ehComic
-                    ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo} setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} />
-                    : <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
+                  {/* <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} /> */}
+
+                  {
+                    data?.ehComic
+                    ? 
+                    <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo} setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} />
+                    : 
+                    <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                  
+                  }
 
                   <SecaoBotoesSubmit>
                     <button className="botao-submit sucesso" type="submit">

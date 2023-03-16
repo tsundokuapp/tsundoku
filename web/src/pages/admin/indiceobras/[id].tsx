@@ -23,17 +23,17 @@ const ListaCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getSta
                 <h2>Índice de Capítulos</h2>
 
                 <SecaoBotoesAdicao>
-                    <BotaoAlteracao className="secundaria">
-                        <LinkNav
-                            textoLink="Adicionar Capítulo"
-                            url={ROTAS.NOVOCAPITULO + "/" + data?.id}
-                        />
-                    </BotaoAlteracao>
-
                     <BotaoAlteracao className="sucesso">
                         <LinkNav
                             textoLink="Adicionar Volume"
                             url={ROTAS.NOVOVOLUME + "/" + data?.id}
+                        />
+                    </BotaoAlteracao>
+                    
+                    <BotaoAlteracao className="secundaria">
+                        <LinkNav
+                            textoLink="Adicionar Capítulo"
+                            url={ROTAS.NOVOCAPITULO + "/" + data?.id}
                         />
                     </BotaoAlteracao>
                 </SecaoBotoesAdicao>

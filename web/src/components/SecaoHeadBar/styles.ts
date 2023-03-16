@@ -9,7 +9,7 @@ const Container = styled.section`
   align-items: center;
 
   @media (max-width: 474px) {
-    margin: 10px 0 5px -50px;
+    margin: 10px 0 5px 10px;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;

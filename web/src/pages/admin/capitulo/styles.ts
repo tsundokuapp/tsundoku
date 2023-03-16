@@ -4,16 +4,25 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 200px;
+  padding: 10px 0 0 0;
+  margin-left: 50px;
 `;
 
 export const ContainerForm = styled.div`
   width: 100%;
   display: flex;
+  margin-right: 10px;
+
+  @media (max-width: 474px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: -100px;
+  }
 `;
 
 export const SecaoInputs = styled.section`
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   padding-top: 50px;
@@ -21,11 +30,8 @@ export const SecaoInputs = styled.section`
   height: 700px;
 
   > form {
-    width: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-left: 50px;
 
     > label {
         width: 80%;
@@ -33,13 +39,12 @@ export const SecaoInputs = styled.section`
   }
 
   .botao-submit {
-    width: 90px;
+    width: 150px;
     height: 30px;
     color: ${(props) => props.theme.colors.branca};
     font-size: 9pt;
     border-radius: 3px;
     margin: 15px 15px 30px 0;
-    opacity: 0.7;
 
     &.sucesso {
       background: ${(props) => props.theme.colors.sucesso};
@@ -54,7 +59,7 @@ export const SecaoInputs = styled.section`
     }
 
     :hover {
-      opacity: 1;
+      opacity: 0.7;
     }
 
     > a{
@@ -70,11 +75,11 @@ export const SecaoInputs = styled.section`
     padding-left: 10px;
     border-radius: 5px;
     margin: 5px 0 20px 0;
+    width: 155px;
   }
 
   .InputCampoDados {
     height: 35px;
-    width: 80%;
     padding-left: 10px;
     border-radius: 5px;
     font-size: 100%;
@@ -90,7 +95,7 @@ export const SecaoInputs = styled.section`
   }
 
   .larguraInputsAuxiiar{
-    width: 12%;
+    width: 100px;
   }
 
   .inputText {
@@ -104,10 +109,17 @@ export const SecaoInputs = styled.section`
   .hidden {
     visibility: hidden;
   }
+
+  @media (max-width: 474px) {
+    .InputCampoDados{
+      width: 120%;
+    }
+  } 
+
 `;
 
 export const SecaoBotoesSubmit = styled.div`
-  width: 40%;
+  width: 100%;
   margin: 15px 0 30px 0;
   display: flex;
 `;
@@ -118,8 +130,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 9pt;
   border-radius: 3px;
-  margin: 0 10px 0 10px;
-  opacity: 0.7;
+  margin: 0 10px 0 10px;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -134,7 +145,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover {
-    opacity: 1;
+    opacity: 0.7;
   }
 `;
 

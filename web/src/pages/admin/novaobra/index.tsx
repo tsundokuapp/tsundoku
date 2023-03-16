@@ -20,6 +20,7 @@ import API from "services/API";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import https from "https";
 import capaPrincipal from "../../../../public/assets/img/logoTemaLight.svg";
+import InputFiles from "components/Common/InputFiles/InputFiles";
 
 interface Values {
     ImagemCapa: File | any;
@@ -106,8 +107,16 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
                         <Formik initialValues={initialValues} onSubmit={handleSubmit} >
                             {({ values, setFieldValue }) => (
                                 <Form>
-                                    <label htmlFor="ImagemCapa"> Capa Principal:{" "} </label>
-                                    <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e: any) => { setFieldValue( "ImagemCapa", e.target.files[0] ); handleImagemCapa(e); }}/>
+                                    <label htmlFor="ImagemCapa"> Capa Principal:{" "} </label>                                    
+                                    <InputFiles 
+                                        classNameInput="inputIncluiCapaPrincipal" 
+                                        idInput="ImagemCapa" 
+                                        nameInput="ImagemCapa" 
+                                        multipleInput={false}
+                                        onChangeInput={(e: any) => { setFieldValue( "ImagemCapa", e.target.files[0] ); handleImagemCapa(e); }}
+                                        typeInput={"file"}
+                                        textoBotao="Selecione a imagem para capa da obra"  
+                                    />
 
                                     <label htmlFor="Titulo"> Título da Obra:{" "} </label> <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
 

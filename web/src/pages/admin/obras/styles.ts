@@ -112,8 +112,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 9pt;
   border-radius: 3px;
-  margin: 0 10px 0 10px;
-  opacity: 0.7;  
+  margin: 0 10px 0 10px;  
 
   a{
     text-decoration: none;
@@ -133,7 +132,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover{
-    opacity: 1;
+    opacity: 0.7;
   }
 
 `;
@@ -175,9 +174,7 @@ export const ListaObra = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    //padding-left: 25px;
-    padding: 10px;
-    
+    padding: 10px;    
 
     :hover{
         box-shadow: 3px 5px 2px 1px rgba(0, 0, 0, 0.2);

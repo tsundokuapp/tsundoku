@@ -10,9 +10,16 @@ export const SecaoTitulo = styled.div`
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
+    margin-left: 20px;
+    margin-top: 20px;    
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media(max-width: 474px) {
+      margin-bottom: 40px;
+    }
+
 `;
 
 export const SecaoIndiceCapitulos = styled.div`
@@ -56,8 +63,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 10pt;
   border-radius: 3px;
-  margin: 10px;
-  opacity: 0.7;
+  margin: 10px;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -72,7 +78,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover {
-    opacity: 1;
+    opacity: 0.7;
   }
 
   > a{

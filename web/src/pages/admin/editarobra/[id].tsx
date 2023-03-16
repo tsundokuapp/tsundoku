@@ -4,6 +4,7 @@ import LayoutDashBoard from 'components/LayoutDashBoard';
 import SecaoHeadBar from "components/SecaoHeadBar";
 import NavPaginas from "components/NavPaginas";
 import EditorTsun from "components/EditorTsun/index";
+import InputFiles from "components/Common/InputFiles/InputFiles";
 import Container, { ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from "../novaobra/styles";
 import EditIcon from '@material-ui/icons/Edit';
 import Blob from 'cross-blob';
@@ -131,7 +132,15 @@ const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                 <Form >
 
                                     <label htmlFor="ImagemCapa" >Capa Principal: </label>
-                                    <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e: any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} />
+                                    <InputFiles 
+                                        classNameInput="inputIncluiCapaPrincipal" 
+                                        idInput="ImagemCapa" 
+                                        nameInput="ImagemCapa" 
+                                        multipleInput={false}
+                                        onChangeInput={(e: any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }}
+                                        typeInput={"file"}
+                                        textoBotao="Selecione a imagem para capa da obra"  
+                                    />
 
                                     <label htmlFor="Titulo">Título da Obra: </label>
                                     <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />

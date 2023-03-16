@@ -11,6 +11,7 @@ const Container = styled.div`
 export const ContainerForm = styled.div`
   width: auto;
   display: flex;
+  margin-right: 10px;
 
   @media (max-width: 474px) {
     flex-direction: column;
@@ -21,8 +22,13 @@ export const ContainerForm = styled.div`
     .inputIncluiCapaPrincipal{
       margin-bottom: 430px !important
     }
-
   }
+
+  @media (min-width: 1048px) {
+    .label-editor-tsun{
+      margin-top: 100px;
+    }
+  }  
 
 `;
 
@@ -46,8 +52,6 @@ export const SecaoInputs = styled.section`
     font-size: 9pt;
     border-radius: 3px;
     margin: 15px 10px 30px 0;
-    
-    opacity: 0.7;
 
     &.sucesso {
       background: ${(props) => props.theme.colors.sucesso};
@@ -62,7 +66,7 @@ export const SecaoInputs = styled.section`
     }
 
     :hover {
-      opacity: 1;
+      opacity: 0.7;
     }
   }
 
@@ -105,7 +109,7 @@ export const SecaoInputs = styled.section`
 `;
 
 export const SecaoBotoesSubmit = styled.div`
-  width: 40%;
+  width: 100%;
   margin: 15px 0 30px 0;
   display: flex;
   justify-content: between;
@@ -118,8 +122,7 @@ export const BotaoAlteracao = styled.button`
   color: ${(props) => props.theme.colors.branca};
   font-size: 9pt;
   border-radius: 3px;
-  margin: 0 10px 0 10px;
-  opacity: 0.7;  
+  margin: 0 10px 0 10px;  
 
   &.sucesso {
     background: ${(props) => props.theme.colors.sucesso};
@@ -134,7 +137,7 @@ export const BotaoAlteracao = styled.button`
   }
 
   :hover {
-    opacity: 1;
+    opacity: 0.7;
   }
 `;
 
@@ -143,6 +146,7 @@ export const SecaoOutrasInformacoes = styled.div`
   height: 35px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin-top: 25px;
 
   .checkBoxOutrasInformacoes {

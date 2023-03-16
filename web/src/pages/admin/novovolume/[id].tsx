@@ -22,6 +22,7 @@ interface Values {
 }
 
 import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
+import InputFiles from "components/Common/InputFiles/InputFiles";
 
 const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {    
     const handleSubmit = (valores: Values) => {        
@@ -78,7 +79,15 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                         {({ values , setFieldValue }) => (
                             <Form>
                                 <label htmlFor="ImagemCapa">Capa Volume: </label>
-                                <input className="inputIncluiCapaPrincipal" id="ImagemCapa" name="ImagemCapa" type="file" onChange={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} />
+                                <InputFiles 
+                                        classNameInput="inputIncluiCapaPrincipal" 
+                                        idInput="ArrayImagensCapitulo" 
+                                        nameInput="ArrayImagensCapitulo" 
+                                        multipleInput={true}
+                                        onChangeInput={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} 
+                                        typeInput={"file"}
+                                        textoBotao="Selecione a imagem para capa do volume"
+                                />
 
                                 <label htmlFor="Titulo">Título Volume: </label>
                                 <Field className="InputCampoDados InputCampoDadosNumber" id="Titulo" name="Titulo" type="text"/> 
@@ -86,7 +95,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                 <label htmlFor="Numero">Número Volume: </label>
                                 <Field className="InputCampoDados InputCampoDadosNumber" id="Numero" name="Numero" type="text"/>   
 
-                                <label htmlFor="Sinopse">Sinopse Volume:</label>                
+                                <label htmlFor="Sinopse" className="label-editor-tsun">Sinopse Volume:</label>                
                                 <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                                 <SecaoBotoesSubmit>
