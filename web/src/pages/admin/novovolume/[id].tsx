@@ -68,7 +68,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
         <LayoutDashBoard>
             <Container>
                 <SecaoHeadBar>
-                    <NavPaginas>
+                    <NavPaginas ajuste={true}>
                         <AddBoxIcon />
                         <h3>Novo Volume</h3>
                     </NavPaginas>

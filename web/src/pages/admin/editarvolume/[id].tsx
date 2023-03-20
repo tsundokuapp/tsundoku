@@ -77,7 +77,7 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
         <LayoutDashBoard>
             <Container>
                 <SecaoHeadBar>
-                    <NavPaginas>
+                    <NavPaginas ajuste={true}>
                         <AddBoxIcon />
                         <h3>Editar Volume</h3>
                     </NavPaginas>

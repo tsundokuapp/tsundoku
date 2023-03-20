@@ -120,7 +120,7 @@ const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
         <LayoutDashBoard>
             <Container>
                 <SecaoHeadBar>
-                    <NavPaginas>
+                    <NavPaginas ajuste={true}>
                         <EditIcon />
                         <h3>Editar Obra</h3>
                     </NavPaginas>

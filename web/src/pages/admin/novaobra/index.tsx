@@ -97,7 +97,7 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
         <LayoutDashBoard>
             <Container>
                 <SecaoHeadBar>
-                    <NavPaginas>
+                    <NavPaginas ajuste={true}>
                         <AddBoxIcon />
                         <h3>Nova Obra</h3>
                     </NavPaginas>
@@ -118,15 +118,20 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
                                         textoBotao="Selecione a imagem para capa da obra"  
                                     />
 
-                                    <label htmlFor="Titulo" className="inputTitulo"> Título da Obra:{" "} </label> <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
+                                    <label htmlFor="Titulo" className="inputTitulo"> Título da Obra:{" "} </label> 
+                                    <Field className="InputCampoDados" id="Titulo" name="Titulo" type="text" />
 
-                                    <label htmlFor="TituloAlternativo"> Títulos alternativos: </label> <Field className="InputCampoDados" id="TituloAlternativo" name="TituloAlternativo" type="text" />
+                                    <label htmlFor="TituloAlternativo"> Títulos alternativos: </label> 
+                                    <Field className="InputCampoDados" id="TituloAlternativo" name="TituloAlternativo" type="text" />
 
-                                    <label htmlFor="AutorObra"> Autor(es):{" "} </label> <Field className="InputCampoDados" id="AutorObra" name="AutorObra" type="text" />
+                                    <label htmlFor="AutorObra"> Autor(es):{" "} 
+                                    </label> <Field className="InputCampoDados" id="AutorObra" name="AutorObra" type="text" />
 
-                                    <label htmlFor="Artista"> Artista(s):{" "} </label> <Field className="InputCampoDados" id="Artista" name="Artista" type="text" />
+                                    <label htmlFor="Artista"> Artista(s):{" "} 
+                                    </label> <Field className="InputCampoDados" id="Artista" name="Artista" type="text" />
 
-                                    <label htmlFor="Ano"> Ano de publicação:{" "} </label> <Field className="InputCampoDados" id="Ano" name="Ano" type="text" />
+                                    <label htmlFor="Ano"> Ano de publicação:{" "} 
+                                    </label> <Field className="InputCampoDados" id="Ano" name="Ano" type="text" />
 
                                     <label htmlFor="ListaGeneros">Gêneros: </label>
                                     <SecaoGeneros>
