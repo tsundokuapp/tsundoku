@@ -25,7 +25,7 @@ interface Values {
     Slug: string;
 }
 
-const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const EditarVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const handleSubmit = (valores: Values) => {        
         const formData = new FormData();    
         formData.append("Id", valores?.Id)
@@ -96,7 +96,7 @@ const EditarVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStat
                                         onChangeInput={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); 
                                         handleImagemCapa(e) }}
                                         typeInput={"file"}
-                                        textoBotao="Selecione a imagem para capa do volume"
+                                        textoBotao="Selecione a imagem da capa"
                                     />
                                     
                                     <label htmlFor="Titulo" className="inputTitulo">Título do Volume: </label>

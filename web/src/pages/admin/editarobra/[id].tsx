@@ -32,7 +32,7 @@ interface Values {
     Generos: string[];
 };
 
-const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const EditarObra = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const handleSubmit = (valores: Values) => {
         const formData = new FormData();
         formData.append("Id", valores.IdObra)
@@ -139,7 +139,7 @@ const EditarObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                         multipleInput={false}
                                         onChangeInput={(e: any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }}
                                         typeInput={"file"}
-                                        textoBotao="Selecione a imagem para capa da obra"  
+                                        textoBotao="Selecione a imagem da capa"  
                                     />
 
                                     <label htmlFor="Titulo" className="inputTitulo">Título da Obra: </label>

@@ -6,7 +6,7 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import { combineTheme, dark } from 'styles/themes';
 import { Brightness3, Brightness6, Brightness7} from "@material-ui/icons";
 
-const Home: React.FC = () => {
+const Home = () => {
     const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
 
   const opcoes = [

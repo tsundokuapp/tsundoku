@@ -16,7 +16,7 @@ interface INavbarProps {
   setTheme: Dispatch<SetStateAction<DefaultTheme>>;
 }
 
-const Navbar: React.FC<INavbarProps> = ({ tema, opcoes, setTheme }) => {
+const Navbar = ({ tema, opcoes, setTheme }: INavbarProps) => {
   const [temaSelecionado, setTemaSelecionado] = useState(<Brightness3 />);
 
   return (

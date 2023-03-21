@@ -55,7 +55,7 @@ interface IObras {
     obras: Array<IObra>;
 }
 
-const Obras: React.FC<IObras> = (props: IObras) => {
+const Obras = (props: IObras) => {
     const obras = props.obras;
     const [secaoContentAtivo, setSecaoContentAtivo] = useState(true);
 

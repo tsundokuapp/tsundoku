@@ -13,7 +13,7 @@ interface IAcordeonCapitulosDashboard {
     capitulos: Array<any>;
   }
 
-const AcordeonCapitulosDashboard: React.FC<IAcordeonCapitulosDashboard> = ({ id, titulo, descritivovolume, capaVolume, sinopse, capitulos}) => {
+const AcordeonCapitulosDashboard = ({ id, titulo, descritivovolume, capaVolume, sinopse, capitulos} : IAcordeonCapitulosDashboard) => {
   const [isActive, setIsActive] = useState(false);
   
   return (

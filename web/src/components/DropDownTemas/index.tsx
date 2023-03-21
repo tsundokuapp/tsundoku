@@ -14,12 +14,7 @@ interface IDropDownTemas {
   setTheme: Dispatch<SetStateAction<DefaultTheme>>;
 }
 
-const DropDownTemas: React.FC<IDropDownTemas> = ({
-  opcoes,
-  temaSelecionado,
-  setTemaSelecionado,
-  setTheme,
-}) => {
+const DropDownTemas = ({opcoes, temaSelecionado, setTemaSelecionado, setTheme}: IDropDownTemas) => {
   const [ativo, setAtivo] = useState(false);
 
   const alteraTemaIncone = (tema: string) => {

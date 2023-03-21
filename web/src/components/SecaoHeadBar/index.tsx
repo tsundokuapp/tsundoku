@@ -1,10 +1,9 @@
 import React from 'react';
 import Container from 'components/SecaoHeadBar/styles';
-import { PropsWithChildren } from 'react';
 
-interface ISecaoHeadBar {   children?: React.ReactNode; } 
+interface ISecaoHeadBar { children?: React.ReactNode; } 
 
-const SecaoHeadBar: React.FC<PropsWithChildren<ISecaoHeadBar>> = ({ children }) => {
+const SecaoHeadBar = ({ children }: ISecaoHeadBar) => {
 
     return (
         <Container>

@@ -26,7 +26,7 @@ interface Values {
   ObraId: string;
 }
 
-const NovoCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const NovoCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const handleSubmit = (valores: Values) => {
 
     const formData = new FormData();

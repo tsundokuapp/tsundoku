@@ -7,7 +7,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import * as ROTAS from "constants/rotas";
 
 
-const NavMenuAside: React.FC = () => {
+const NavMenuAside = () => {
   
   const [subMenuAtivo, setSubMenuAtivo] = useState(false);
 

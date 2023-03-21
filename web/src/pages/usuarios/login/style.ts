@@ -103,7 +103,7 @@ export const InputBotaoPaginaInicial = styled.button`
 
   :hover{
     background-color: #259cc1;
-  color: #fff;
+    color: #fff;
   }
 `;
 

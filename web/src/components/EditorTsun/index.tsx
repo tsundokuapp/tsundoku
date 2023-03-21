@@ -16,8 +16,7 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
     setValorConteudoEditor: Dispatch<SetStateAction<string>>;
   }  
 
-const EditorTsun: React.FC<IEditorTsun> = ({larguraEditor, tamanhoEditor, valorConteudoEditor, setValorConteudoEditor}) => {  
-
+const EditorTsun = ({larguraEditor, tamanhoEditor, valorConteudoEditor, setValorConteudoEditor}: IEditorTsun) => {  
     const editor = useRef<SunEditorCore>();
     const getSunEditorInstance = (sunEditor: SunEditorCore) => {
         editor.current = sunEditor;

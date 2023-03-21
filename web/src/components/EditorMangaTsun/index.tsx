@@ -14,7 +14,7 @@ interface IEditorMangaTsun {
     conteudoImagensCapitulo?: Array<Imagens> | any;
 };
 
-const EditorMangaTsun: React.FC<IEditorMangaTsun> = ({ setValorconteudoImagensCapitulo, conteudoImagensCapitulo }) => {
+const EditorMangaTsun = ({ setValorconteudoImagensCapitulo, conteudoImagensCapitulo }: IEditorMangaTsun) => {
     const [filesPreview, setFilesPreview] = useState<any[]>(conteudoImagensCapitulo);
     const fileArray: Imagens[] = [];
     const fileObj: any[] = [];    

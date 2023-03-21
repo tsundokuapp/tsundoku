@@ -6,11 +6,10 @@ import Content from '../Content/styles';
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { combineTheme, dark } from "../../styles/themes";
 import { Brightness3, Brightness6, Brightness7 } from "@material-ui/icons";
-import { PropsWithChildren } from 'react';
 
 interface ILayoutDashBoard { children?: React.ReactNode; }
 
-const LayoutDashBoard: React.FC<PropsWithChildren<ILayoutDashBoard>> = ({ children }) => {
+const LayoutDashBoard = ({ children }: ILayoutDashBoard) => {
   const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
   const [menuAtivo, setMenuAtivo] = useState(true);
 

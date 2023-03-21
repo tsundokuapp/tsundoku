@@ -16,7 +16,7 @@ import Container, {
 
 import LogoSepia from "../../../../public/assets/img/logoTemaSepia.svg";
 
-const TelaLogin: React.FC = () => {
+const TelaLogin = () => {
     return (
         <Container imagemFundo={imagemFundo}>
             <ContainerLogo>

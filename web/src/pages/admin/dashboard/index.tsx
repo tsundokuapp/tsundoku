@@ -2,7 +2,7 @@ import React from 'react';
 import LayoutDashBoard from 'components/LayoutDashBoard';
 import Container, {Titulo} from './style';
 
-const DashBoard: React.FC = () => {
+const DashBoard = () => {
   return (
     <LayoutDashBoard>
       <Container>

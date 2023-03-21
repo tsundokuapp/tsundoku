@@ -64,7 +64,7 @@ const handleSubmit = (valores: Values) => {
     });
 };
 
-const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const NovaObra = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     
     const initialValues: Values = {
         ImagemCapa: null,
@@ -115,7 +115,7 @@ const NovaObra: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticPr
                                         multipleInput={false}
                                         onChangeInput={(e: any) => { setFieldValue( "ImagemCapa", e.target.files[0] ); handleImagemCapa(e); }}
                                         typeInput={"file"}
-                                        textoBotao="Selecione a imagem para capa da obra"  
+                                        textoBotao="Selecione a imagem da capa"  
                                     />
 
                                     <label htmlFor="Titulo" className="inputTitulo"> Título da Obra:{" "} </label> 

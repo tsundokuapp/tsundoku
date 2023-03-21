@@ -4,10 +4,9 @@ import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
 import { AccountCircle } from "@material-ui/icons";
 import * as ROTAS from "constants/rotas";
 
-const DropDownAcesso: React.FC = () => {
+const DropDownAcesso = () => {
   const [ativo, setAtivo] = useState(false);
-  const urlBaseUsuarios = '../../../../usuarios/';  
-  const urlBaseAcesso = '../../../../admin/';  
+  const urlBaseUsuarios = '../../../../usuarios/';
 
   return (
     <Dropdown>

@@ -6,7 +6,7 @@ import Container, {  ContainerLogo, InputLogin, InputSenha, ContainerForm, Conta
 import LogoDark from "../../../../public/assets/img/logoTemaDark.svg";
 
 
-const TelaLogin: React.FC = () => {
+const TelaLogin = () => {
   return (
     <Container imagemFundo={imagemFundo}>
       <ContainerLogo>

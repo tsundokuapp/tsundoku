@@ -17,7 +17,7 @@ interface IMainHeader {
   setMenu:  Dispatch<SetStateAction<boolean>>;
 }
 
-const MainHeader: React.FC<IMainHeader> = ({ opcoes, setTheme, setMenu }) => {
+const MainHeader = ({ opcoes, setTheme, setMenu }: IMainHeader) => {
   const [temaSelecionado, setTemaSelecionado] = useState(<Brightness3 />);
   const [menuAtivo, setMenuAtivo] = useState(true);
 

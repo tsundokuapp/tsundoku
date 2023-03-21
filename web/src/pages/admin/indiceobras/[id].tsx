@@ -13,7 +13,7 @@ import https from "https";
 import API from "services/API";
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
-const ListaCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ListaCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <LayoutDashBoard>
             <Container>

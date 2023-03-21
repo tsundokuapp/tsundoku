@@ -24,7 +24,7 @@ interface Values {
 import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
 import InputFiles from "components/Common/InputFiles/InputFiles";
 
-const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {    
+const NovoVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {    
     const handleSubmit = (valores: Values) => {        
         const formData = new FormData();    
         formData.append("ObraId", valores.ObraId)
@@ -86,7 +86,7 @@ const NovoVolume: React.FC = ({ data }: InferGetStaticPropsType<typeof getStatic
                                         multipleInput={true}
                                         onChangeInput={(e:any) => { setFieldValue("ImagemCapa", e.target.files[0]); handleImagemCapa(e) }} 
                                         typeInput={"file"}
-                                        textoBotao="Selecione a imagem para capa do volume"
+                                        textoBotao="Selecione a imagem da capa"
                                 />
 
                                 <label htmlFor="Titulo" className="inputTitulo">Título Volume: </label>

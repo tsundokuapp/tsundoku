@@ -9,7 +9,7 @@ interface ILogoTemaProps {
   tema: string | null;
 }
 
-const LogoTema: React.FC<ILogoTemaProps> = ({ tema }) => {
+const LogoTema = ({ tema }: ILogoTemaProps) => {
  
   var tipoLogo = "";
   var textoAlt = "";

@@ -3,7 +3,7 @@ import { Container, ImagemAvatar } from './styles';
 
 import avatar from '../../../public/assets/img/Ichigo_Ulquiorra.jpg';
 
-const Avatar: React.FC = () =>{
+const Avatar = () =>{
 
     return (
         <Container>

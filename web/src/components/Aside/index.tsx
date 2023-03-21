@@ -7,7 +7,7 @@ interface IAside {
   className: string;
 }
 
-const Aside: React.FC<IAside> = ({ className }) => {
+const Aside = ({ className } : IAside) => {
   return (
     <Container className={className}>
       <Avatar />

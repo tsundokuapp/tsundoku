@@ -30,7 +30,7 @@ interface Values {
     UsuarioCadastro: string;
 };
 
-const EditarCapitulo: React.FC = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const EditarCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const handleSubmit = (valores: Values) => {
         const formData = new FormData();
         if (valores.ListaImagensCapituloManga[0] !== undefined) {
