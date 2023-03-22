@@ -1,0 +1,12 @@
+export const CADASTRO = '/admin/cadastro';
+export const LOGIN = '/admin/login';
+export const USUARIOS = '/admin/usuarios';
+export const DASHBOARD = '/admin/dashboard';
+export const OBRAS = '/admin/obras';
+export const INDICEOBRAS = '/admin/indiceobras';
+export const NOVAOBRA = '/admin/novaobra';
+export const EDITAROBRA = '/admin/editarobra';
+export const NOVOVOLUME = '/admin/novovolume';
+export const EDITARVOLUME = '/admin/editarvolume';
+export const NOVOCAPITULO = '/admin/capitulo/novocapitulo';
+export const EDITARCAPITULO = '/admin/capitulo/editarcapitulo';
