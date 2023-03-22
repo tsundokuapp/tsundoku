@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
-import { defaultTheme } from '../styles/theme/defaultTheme';
+// TODO: usando dark theme como padrão, mas será alterado para light
+import { defaultTheme } from '../styles/theme/darkTheme';
 // import { useLocalStorage } from "usehooks-ts";
 import { GlobalStyle } from '../styles/globals';
 

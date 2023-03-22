@@ -1,3 +1,4 @@
+// ! Alterar no arquivo @rocketseat/eslint-config/react na linha 33 para 'semi': true.
 {
   "extends": "@rocketseat/eslint-config/react"
 }
