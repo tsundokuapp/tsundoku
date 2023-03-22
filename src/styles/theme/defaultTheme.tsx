@@ -8,6 +8,7 @@ const baseLight = {
 
 export const defaultTheme: DefaultTheme = {
   name: 'default',
+  icon: undefined,
   borderRadius: '0.25rem',
   bodyColor: baseLight.background,
   textColor: '#000000',
@@ -45,5 +46,19 @@ export const defaultTheme: DefaultTheme = {
       main: '#63ADF2',
       contrastText: '#ffffff',
     },
+  },
+  title: null,
+  colors: {
+    primaria: null,
+    secundaria: null,
+    terciaria: null,
+    quartiaria: null,
+    quintiaria: null,
+    branca: null,
+    sombra: null,
+    borda: null,
+    sucesso: null,
+    informacao: null,
+    aviso: null,
   },
 };

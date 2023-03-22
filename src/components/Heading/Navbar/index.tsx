@@ -6,6 +6,7 @@ import { HeaderContainer, HeaderContent } from './styles';
 // TODO: fazer a troca da logo de acordo com o tema;
 import logo from '@/assets/logo/temaDark.svg';
 import { SearchBox } from '../SearchBox';
+import DropdownTemas from '../Dropdown';
 
 export const Navbar = () => {
   return (
@@ -22,7 +23,10 @@ export const Navbar = () => {
         </nav>
 
         <SearchBox placeholder="Novel, Comic, Gênero..." />
-        {/* <SignInButton /> */}
+        <div>
+          {/* <SignInButton /> */}
+          <DropdownTemas />
+        </div>
       </HeaderContent>
     </HeaderContainer>
   );
