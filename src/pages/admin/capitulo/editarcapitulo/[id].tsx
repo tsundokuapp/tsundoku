@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Link from 'next/link';
-import { Formik, Form, Field, FieldProps } from "formik";
-import LayoutDashBoard from 'components/LayoutDashBoard';
-import SecaoHeadBar from "components/SecaoHeadBar";
-import NavPaginas from "components/NavPaginas";
-import EditorTsun from 'components/EditorTsun';
-import EditorMangaTsun from 'components/EditorMangaTsun';
+import { Formik, Form, Field, FieldProps } from 'formik';
+import LayoutAdminMain from '../../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../../components/antigos/SecaoHeadBar';
+import NavPaginas from '../../../../components/antigos/NavPaginas';
+import EditorTsun from '../../../../components/antigos/EditorTsun';
+import EditorMangaTsun from '../../../../components/antigos/EditorMangaTsun';
 import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "../styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import https from "https";
-import API from "services/API";
-import * as ROTAS from "constants/rotas";
+import API from '../../../../pages/api/api';
+import { ROTAS } from '../../../../constants/rotas';
 
 interface Values {
     Id: number;
@@ -99,7 +99,7 @@ const EditarCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>
     }
 
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoHeadBar>
                     <NavPaginas>
@@ -169,7 +169,7 @@ const EditarCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>
                     </SecaoInputs>
                 </ContainerForm>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 

@@ -1,14 +1,14 @@
 import React from 'react';
-import LayoutDashBoard from 'components/LayoutDashBoard';
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
 import Container, {Titulo} from './style';
 
 const DashBoard = () => {
   return (
-    <LayoutDashBoard>
+    <LayoutAdminMain>
       <Container>
         <Titulo>Esse é o Dashboard!!!</Titulo>
       </Container>
-    </LayoutDashBoard>
+    </LayoutAdminMain>
   );
 };
 

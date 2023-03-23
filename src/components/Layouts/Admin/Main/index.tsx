@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import Grid from "./styles";
-import MainHeader from "components/MainHeader";
-import Aside from "components/Aside";
-import Content from '../Content/styles';
-import { DefaultTheme, ThemeProvider } from "styled-components";
-import { combineTheme, dark } from "../../styles/themes";
+import MainHeader from "../../../Admin/MainHeader";
+import Aside from "../../../Admin/Aside";
+import Content from '../../../Admin/Content/styles';
 import { Brightness3, Brightness6, Brightness7 } from "@material-ui/icons";
 
 interface ILayoutDashBoard { children?: React.ReactNode; }
 
-const LayoutDashBoard = ({ children }: ILayoutDashBoard) => {
-  const [theme, setTheme] = useState<DefaultTheme>(combineTheme(dark));
+const LayoutAdminMain = ({ children }: ILayoutDashBoard) => {  
   const [menuAtivo, setMenuAtivo] = useState(true);
 
   const opcoes = [
@@ -34,19 +31,16 @@ const LayoutDashBoard = ({ children }: ILayoutDashBoard) => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid menu={menuAtivo} className="wrapper" >
+    <Grid menu={menuAtivo} className="wrapper" >
         <div className="coluna-grid">
-          <Aside className={classeHide + " aside"} />
-          {/* {menuAtivo && <Aside />} */}
+          <Aside className={classeHide + " aside"} />         
         </div>
         <div className="coluna-grid-main">
-          <MainHeader opcoes={opcoes} setTheme={setTheme} setMenu={setMenuAtivo} />
+          <MainHeader setMenu={setMenuAtivo} />
           <Content>{children}</Content>
         </div>
       </Grid>
-    </ThemeProvider>
   );
 };
 
-export default LayoutDashBoard;
+export default LayoutAdminMain;

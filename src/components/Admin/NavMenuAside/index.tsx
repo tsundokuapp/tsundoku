@@ -4,7 +4,7 @@ import Container, {ItemLista, ListaMenu, ListaSubMenu, ItemSubLista} from "./sty
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import * as ROTAS from "constants/rotas";
+import { ROTAS } from "../../../constants/rotas";
 
 
 const NavMenuAside = () => {
@@ -19,7 +19,7 @@ const NavMenuAside = () => {
     }
   };
 
-  // criar um componente link e trocar os links
+  // TODO: Criar um componente link pass
 
   return (
     <Container>
@@ -27,21 +27,21 @@ const NavMenuAside = () => {
         <ItemLista>
           <DashboardIcon />
           <Link href={ROTAS.DASHBOARD}>
-            <a>Dashboard</a>
+            Dashboard
           </Link>
         </ItemLista>
        <ItemLista className="ativaMenu" onClick={ativaDesativaMenu}>
           <LibraryBooksIcon />
-          <a>Obras</a>                    
+            <a>Obras</a>                    
             <ListaSubMenu> 
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
                 <Link href={ROTAS.OBRAS}>
-                  <a>Ver Obras</a>
+                  Ver Obras
                 </Link>
               </ItemSubLista>
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
                 <Link href={ROTAS.NOVAOBRA}>
-                  <a>Nova Obra</a>
+                  Nova Obra
                 </Link>
               </ItemSubLista>              
             </ListaSubMenu>        
@@ -49,7 +49,7 @@ const NavMenuAside = () => {
         <ItemLista>
           <SupervisorAccountIcon />
           <Link href={ROTAS.USUARIOS}>
-            <a>Usuários</a>
+            Usuários
           </Link>
         </ItemLista>
       </ListaMenu>

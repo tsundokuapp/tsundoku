@@ -4,21 +4,17 @@ import Container, {
   ContainerNav,
   BotaoMenu,
   BotaoSair,
-} from "components/MainHeader/styles";
-import DropDownTemas from "components/DropDownTemas";
-import { DefaultTheme } from "styled-components";
-import { Brightness3 } from "@material-ui/icons";
+} from "./styles";
+
+import { Dropdown } from "@/components/Heading/Dropdown/style";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 
 interface IMainHeader {  
-  opcoes: { indiceTema: string; icone: JSX.Element }[];
-  setTheme: Dispatch<SetStateAction<DefaultTheme>>;
   setMenu:  Dispatch<SetStateAction<boolean>>;
 }
 
-const MainHeader = ({ opcoes, setTheme, setMenu }: IMainHeader) => {
-  const [temaSelecionado, setTemaSelecionado] = useState(<Brightness3 />);
+const MainHeader = ({ setMenu }: IMainHeader) => {  
   const [menuAtivo, setMenuAtivo] = useState(true);
 
   const tiraMenu = () => {    
@@ -32,13 +28,8 @@ const MainHeader = ({ opcoes, setTheme, setMenu }: IMainHeader) => {
         <MenuIcon />
       </BotaoMenu>
       Bem-vindo(a) ao Painel de Controle!
-      <ContainerNav>
-        <DropDownTemas
-          opcoes={opcoes}
-          temaSelecionado={temaSelecionado}
-          setTemaSelecionado={setTemaSelecionado}
-          setTheme={setTheme}
-        />
+      <ContainerNav>       
+        <Dropdown />
         <BotaoSair>
           <ExitToAppRoundedIcon fontSize="small" />
           <Link href="/">Sair!</Link>
