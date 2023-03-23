@@ -6,8 +6,9 @@ const baseDark = {
   border: '0.25rem solid #23272a',
 };
 
-export const defaultTheme: DefaultTheme = {
+export const darkTheme: DefaultTheme = {
   name: 'dark',
+  icon: undefined,
   borderRadius: '0.25rem',
   bodyColor: baseDark.background,
   textColor: '#ffffff',
@@ -45,5 +46,19 @@ export const defaultTheme: DefaultTheme = {
       main: '#202225',
       contrastText: '#ffffff',
     },
+  },
+  title: null,
+  colors: {
+    primaria: null,
+    secundaria: null,
+    terciaria: null,
+    quartiaria: null,
+    quintiaria: null,
+    branca: null,
+    sombra: null,
+    borda: null,
+    sucesso: null,
+    informacao: null,
+    aviso: null,
   },
 };
