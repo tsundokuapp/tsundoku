@@ -1,21 +1,16 @@
-import React from "react";
-import LayoutDashBoard from "components/LayoutDashBoard";
-import Container, {
-    SecaoTitulo,
-    SecaoIndiceCapitulos,
-    BotaoAlteracao,
-    SecaoBotoesAdicao,
-} from "./styles";
-import Acordeon from "components/AcordeonCapitulosDashboard";
-import * as ROTAS from "constants/rotas";
-import { LinkNav } from "components/Common/LinkNav";
-import https from "https";
-import API from "services/API";
+import React from 'react';
+import Link from 'next/link';
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import Container, { SecaoTitulo, SecaoIndiceCapitulos, BotaoAlteracao, SecaoBotoesAdicao} from './styles';
+import AcordeonIndice from '../../../components/Admin/AcordeonIndice';
+import https from 'https';
+import API from '../../../pages/api/api';
+import { ROTAS } from '../../../constants/rotas';
 
 const ListaCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoTitulo>
                     <h1>{data?.titulo}</h1>
@@ -23,25 +18,23 @@ const ListaCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>)
                 <h2>Índice de Capítulos</h2>
 
                 <SecaoBotoesAdicao>
-                    <BotaoAlteracao className="sucesso">
-                        <LinkNav
-                            textoLink="Adicionar Volume"
-                            url={ROTAS.NOVOVOLUME + "/" + data?.id}
-                        />
+                    <BotaoAlteracao className="sucesso">                        
+                        <Link href={ROTAS.NOVOVOLUME + "/" + data?.id}>
+                            Adicionar Volume
+                        </Link>
                     </BotaoAlteracao>
                     
-                    <BotaoAlteracao className="secundaria">
-                        <LinkNav
-                            textoLink="Adicionar Capítulo"
-                            url={ROTAS.NOVOCAPITULO + "/" + data?.id}
-                        />
+                    <BotaoAlteracao className="secundaria">                        
+                        <Link href={ROTAS.NOVOCAPITULO + "/" + data?.id}>
+                            Adicionar Capítulo
+                        </Link>
                     </BotaoAlteracao>
                 </SecaoBotoesAdicao>
 
                 <SecaoIndiceCapitulos>
                     {data?.volumes.map(
                         (volume: any) => (
-                            <Acordeon
+                            <AcordeonIndice
                                 key={volume?.id}
                                 id={volume?.id}
                                 titulo={volume?.titulo}
@@ -54,7 +47,7 @@ const ListaCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>)
                     )}
                 </SecaoIndiceCapitulos>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 

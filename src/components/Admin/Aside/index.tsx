@@ -1,7 +1,7 @@
 import React from "react";
-import Avatar from "components/Avatar";
-import Container from "components/Aside/styles";
-import NavMenuAside from 'components/NavMenuAside';
+import Avatar from "../../Avatar";
+import Container from "./styles";
+import NavMenuAside from '../NavMenuAside';
 
 interface IAside {
   className: string;

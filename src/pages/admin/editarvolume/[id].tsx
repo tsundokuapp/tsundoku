@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import LayoutDashBoard from 'components/LayoutDashBoard';
-import InputFiles from "components/Common/InputFiles/InputFiles";
 import { Formik, Form, Field } from "formik";
 import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoBotoesSubmit, } from "../novaobra/styles";
-import SecaoHeadBar from "components/SecaoHeadBar";
-import NavPaginas from "components/NavPaginas";
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../components/Admin/NavPaginas';
+import Editor from '../../../Utils/Editor';
+import InputFiles from '../../../common/InputFiles/InputFiles';
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import EditorTsun from "components/EditorTsun/index";
 import Blob from 'cross-blob';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import https from "https";
-import API from "services/API";
-import * as ROTAS from "constants/rotas";
+import API from '../../../pages/api/api';
+import { ROTAS } from '../../../constants/rotas';
 
 interface Values {
     Id: string;
@@ -74,7 +74,7 @@ const EditarVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) 
     }    
 
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoHeadBar>
                     <NavPaginas ajuste={true}>
@@ -109,7 +109,7 @@ const EditarVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) 
                                     <Field className="InputCampoDados InputCampoDadosNumber" id="Slug" name="Slug" type="text" disabled={true} />   
 
                                     <label htmlFor="Sinopse" className="label-editor-tsun">Sinopse Volume:</label>                
-                                    <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                                    <Editor larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                                     <SecaoBotoesSubmit>
                                         <button className="botao-submit secundaria" type="submit">Alterar</button>                
@@ -126,7 +126,7 @@ const EditarVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) 
                     </SecaoCapaObra>
                 </ContainerForm>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 

@@ -1,8 +1,8 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import LayoutDashBoard from 'components/LayoutDashBoard';
-import SecaoHeadBar from "components/SecaoHeadBar";
-import NavPaginas from "components/NavPaginas";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../components/Admin/NavPaginas';
 import Container, {
     //Cards
     CardObra,
@@ -22,14 +22,14 @@ import Container, {
     InputPesquisa,
     BotaoPesquisar,
     BotaoTrocaCardLista,
-} from "./styles";
-import * as ROTAS from "constants/rotas";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import { Search } from "@material-ui/icons";
-import AppsIcon from "@material-ui/icons/Apps";
-import DehazeIcon from "@material-ui/icons/Dehaze";
+} from './styles';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import { Search } from '@material-ui/icons';
+import AppsIcon from '@material-ui/icons/Apps';
+import DehazeIcon from '@material-ui/icons/Dehaze';
 import https from 'https';
-import API from 'services/API';
+import API from '../../../pages/api/api';
+import { ROTAS } from '../../../constants/rotas';
 
 interface IObra {
     id: number;
@@ -64,7 +64,7 @@ const Obras = (props: IObras) => {
     };
 
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoHeadBar>
                     <NavPaginas>
@@ -138,7 +138,7 @@ const Obras = (props: IObras) => {
 
                 </SecaoContentLista>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 
