@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from 'components/SecaoHeadBar/styles';
+import Container from './styles';
 
 interface ISecaoHeadBar { children?: React.ReactNode; } 
 

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import LayoutAdminMain from '../../../../components/Layouts/Admin/Main';
-import SecaoHeadBar from '../../../../components/antigos/SecaoHeadBar';
-import NavPaginas from '../../../../components/antigos/NavPaginas';
-import EditorTsun from '../../../../components/antigos/EditorTsun';
-import EditorMangaTsun from '../../../../components/antigos/EditorMangaTsun';
-import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from "../styles";
-import AddBoxIcon from "@material-ui/icons/AddBox";
+import SecaoHeadBar from '../../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../../components/Admin/NavPaginas';
+import Editor from '../../../../Utils/Editor';
+import EditorManga from '../../../../Utils/EditorManga';
+import Container, { ContainerForm, SecaoInputs, SecaoBotoesSubmit } from '../styles';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import https from "https";
+import https from 'https';
 import API from '../../../../pages/api/api';
 import { ROTAS } from '../../../../constants/rotas';
 
@@ -146,8 +146,8 @@ const EditarCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>
                                     <label htmlFor="conteudo">Conteudo: </label>
 
                                     {data?.ehComic
-                                        ? <EditorMangaTsun valorconteudoImagensCapitulo={valorconteudoImagensCapitulo} setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} conteudoImagensCapitulo={initialValues.ConteudoImagensCapitulo} />
-                                        : <EditorTsun larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
+                                        ? <EditorManga valorconteudoImagensCapitulo={valorconteudoImagensCapitulo} setValorconteudoImagensCapitulo={setValorconteudoImagensCapitulo} conteudoImagensCapitulo={initialValues.ConteudoImagensCapitulo} />
+                                        : <Editor larguraEditor='90%' tamanhoEditor='1250px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />}
 
                                     <SecaoBotoesSubmit>
                                         <button className="botao-submit sucesso" type="submit">

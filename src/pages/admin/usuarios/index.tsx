@@ -1,11 +1,11 @@
 import React from "react";
-import LayoutDashBoard from 'components/LayoutDashBoard';
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
 
 const Usuarios = () => {
   return (
-    <LayoutDashBoard>
+    <LayoutAdminMain>
       <h1>Esse é a Listagem de todos os usuários</h1>
-    </LayoutDashBoard>
+    </LayoutAdminMain>
   );
 };
 

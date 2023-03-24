@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Container, {Titulo, Conteudo, CapaVolume, ConteudoCapitulos, ConteudoSinopse, BotaoAlteracao} from './styles';
-import * as ROTAS from "constants/rotas";
-import { LinkNav } from 'components/Common/LinkNav';
+import { ROTAS } from '../../../constants/rotas';
 
-interface IAcordeonCapitulosDashboard {
+interface IAcordeonIndice {
     id: number;
     titulo: string;
     descritivovolume: string;
@@ -13,7 +12,7 @@ interface IAcordeonCapitulosDashboard {
     capitulos: Array<any>;
   }
 
-const AcordeonCapitulosDashboard = ({ id, titulo, descritivovolume, capaVolume, sinopse, capitulos} : IAcordeonCapitulosDashboard) => {
+const AcordeonIndice = ({ id, titulo, descritivovolume, capaVolume, sinopse, capitulos} : IAcordeonIndice) => {
   const [isActive, setIsActive] = useState(false);
   
   return (
@@ -32,8 +31,10 @@ const AcordeonCapitulosDashboard = ({ id, titulo, descritivovolume, capaVolume, 
         <CapaVolume src={capaVolume}/>
         <ConteudoSinopse dangerouslySetInnerHTML={{ __html: sinopse }} />
           {capitulos?.map((capitulo) => (
-              <ConteudoCapitulos key={capitulo?.id}>                  
-                  <LinkNav textoLink={capitulo?.descritivoCapitulo + (capitulo?.titulo === null ? "" : " - " + capitulo?.titulo)} url={ROTAS.EDITARCAPITULO + "/" + capitulo?.id}/>
+              <ConteudoCapitulos key={capitulo?.id}>                                   
+                  <Link href={ROTAS.EDITARCAPITULO + "/" + capitulo?.id}>
+                    {capitulo?.descritivoCapitulo + (capitulo?.titulo === null ? "" : " - " + capitulo?.titulo)}
+                  </Link>
               </ConteudoCapitulos>
           ))}
       </Conteudo>}
@@ -41,4 +42,4 @@ const AcordeonCapitulosDashboard = ({ id, titulo, descritivovolume, capaVolume, 
   );
 };
 
-export default AcordeonCapitulosDashboard;
+export default AcordeonIndice;

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, FieldProps } from "formik";
-import LayoutDashBoard from 'components/LayoutDashBoard';
-import SecaoHeadBar from "components/SecaoHeadBar";
-import NavPaginas from "components/NavPaginas";
-import EditorTsun from "components/EditorTsun/index";
-import InputFiles from "components/Common/InputFiles/InputFiles";
-import Container, { ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from "../novaobra/styles";
+import React, { useState } from 'react';
+import { Formik, Form, Field, FieldProps } from 'formik';
+import InputFiles from '../../../common/InputFiles/InputFiles';
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../components/Admin/NavPaginas';
+import Editor from '../../../Utils/Editor';
+import Container, { ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit, } from '../novaobra/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import Blob from 'cross-blob';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import https from "https";
-import API from "services/API";
-import * as ROTAS from "constants/rotas";
+import https from 'https';
+import API from '../../../pages/api/api';
+import { ROTAS } from '../../../constants/rotas';
 
 interface Values {
     IdObra: string,
@@ -117,7 +117,7 @@ const EditarObra = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
     }
 
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoHeadBar>
                     <NavPaginas ajuste={true}>
@@ -179,7 +179,7 @@ const EditarObra = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
                                     </SecaoGeneros>
 
                                     <label htmlFor="Sinopse">Sinopse:</label>
-                                    <EditorTsun larguraEditor='100%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                                    <Editor larguraEditor='100%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                                     <SecaoOutrasInformacoes>
                                         <label>
@@ -226,7 +226,7 @@ const EditarObra = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
                     </SecaoCapaObra>
                 </ContainerForm>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 

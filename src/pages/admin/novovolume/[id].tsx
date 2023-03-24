@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import LayoutDashBoard from 'components/LayoutDashBoard';
-import { Formik, Form, Field } from "formik";
-import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoBotoesSubmit, } from "../novaobra/styles";
-import SecaoHeadBar from "components/SecaoHeadBar";
-import NavPaginas from "components/NavPaginas";
-import AddBoxIcon from "@material-ui/icons/AddBox";
-import EditorTsun from "components/EditorTsun/index";
-import Blob from 'cross-blob';
+import React, { useState } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import https from "https";
-import API from "services/API";
-import * as ROTAS from "constants/rotas";
+import { Formik, Form, Field } from 'formik';
+import InputFiles from '../../../common/InputFiles/InputFiles';
+import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../components/Admin/NavPaginas';
+import Editor from '../../../Utils/Editor';
+import Container, {ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoBotoesSubmit, } from '../novaobra/styles';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import Blob from 'cross-blob';
+import https from 'https';
+import API from '../../../pages/api/api';
+import { ROTAS } from '../../../constants/rotas';
 
 interface Values {
     ObraId: string;
@@ -22,7 +23,6 @@ interface Values {
 }
 
 import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
-import InputFiles from "components/Common/InputFiles/InputFiles";
 
 const NovoVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {    
     const handleSubmit = (valores: Values) => {        
@@ -65,7 +65,7 @@ const NovoVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
     }
 
     return (
-        <LayoutDashBoard>
+        <LayoutAdminMain>
             <Container>
                 <SecaoHeadBar>
                     <NavPaginas ajuste={true}>
@@ -96,7 +96,7 @@ const NovoVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
                                 <Field className="InputCampoDados InputCampoDadosNumber" id="Numero" name="Numero" type="text"/>   
 
                                 <label htmlFor="Sinopse" className="label-editor-tsun">Sinopse Volume:</label>                
-                                <EditorTsun larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
+                                <Editor larguraEditor='90%' tamanhoEditor='200px' valorConteudoEditor={valorConteudoEditor} setValorConteudoEditor={setValorConteudoEditor} />
 
                                 <SecaoBotoesSubmit>
                                     <button className="botao-submit sucesso" type="submit">
@@ -114,7 +114,7 @@ const NovoVolume = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) =>
                     </SecaoCapaObra>
                 </ContainerForm>
             </Container>
-        </LayoutDashBoard>
+        </LayoutAdminMain>
     );
 };
 

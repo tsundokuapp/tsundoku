@@ -1,4 +1,4 @@
-import InputFiles from "components/Common/InputFiles/InputFiles";
+import InputFiles from '../../common/InputFiles/InputFiles';
 import React, { Dispatch, SetStateAction, useState } from "react";
 import Container, { ContainerImagens, ListaImagens } from "./styles";
 

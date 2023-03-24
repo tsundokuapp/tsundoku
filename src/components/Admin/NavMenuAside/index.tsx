@@ -19,8 +19,6 @@ const NavMenuAside = () => {
     }
   };
 
-  // TODO: Criar um componente link pass
-
   return (
     <Container>
       <ListaMenu>
