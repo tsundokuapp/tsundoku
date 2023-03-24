@@ -1,7 +1,7 @@
-// import { SignInButton } from '../SignInButton';
+import { SignInButton } from '../SignInButton';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HeaderContainer, HeaderContent } from './styles';
+import { HeaderContainer, HeaderContent, SubContainer } from './styles';
 
 // TODO: fazer a troca da logo de acordo com o tema;
 import logo from '@/assets/logo/temaDark.svg';
@@ -23,10 +23,10 @@ export const Navbar = () => {
         </nav>
 
         <SearchBox placeholder="Novel, Comic, Gênero..." />
-        <div>
-          {/* <SignInButton /> */}
+        <SubContainer>
           <DropdownTemas />
-        </div>
+          <SignInButton />
+        </SubContainer>
       </HeaderContent>
     </HeaderContainer>
   );
