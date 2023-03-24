@@ -1,6 +1,7 @@
+// TODO: reavaliar essas rotas, rotas de cadastro e login foram alteradas por necessidade.
 export const ROTAS = {
-  CADASTRO: '/admin/cadastro',
-  LOGIN: '/admin/login',
+  CADASTRO: '/cadastro',
+  LOGIN: '/login',
   USUARIOS: '/admin/usuarios',
   DASHBOARD: '/admin/dashboard',
   OBRAS: '/admin/obras',
