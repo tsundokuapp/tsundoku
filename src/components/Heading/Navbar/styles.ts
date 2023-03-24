@@ -5,6 +5,18 @@ export const HeaderContainer = styled.header`
   border-bottom: 1px solid ${(props) => props.theme.textColor};
 `;
 
+export const SubContainer = styled.div`
+  width: 5rem;
+  height: 5rem;
+  margin: 0 1rem;
+  padding: 0 2rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const HeaderContent = styled.div`
   width: 100%;
   height: 5rem;
