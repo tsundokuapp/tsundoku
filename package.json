@@ -11,7 +11,6 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
-    "@rocketseat/eslint-config": "^1.2.0",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -27,7 +26,7 @@
     "suneditor": "^2.43.9",
     "suneditor-react": "^3.4.0",
     "typescript": "5.0.2",
-    "yup": "^0.32.9"    
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
