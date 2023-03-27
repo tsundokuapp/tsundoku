@@ -12,10 +12,6 @@ A Tsundoku adoraria sua ajuda, apesar do esforço, o projeto é grande e muitos 
 - Clonar o projeto em sua máquina 
 - Rodar o comando "git pull" para se certificar das alterações
 - Rodar o comando "yarn" dentro da pasta
-- Alterar a configuração do eslint no arquivo node_modules/@rocketseat/eslint-config/react.js na linha 33 para " 'semi': true ".
-
-*(note que é preciso fazer isso todas as vezes que reinstalar as dependencias, caso queira, fique a vontade para fazer a configuração do eslint no projeto para que possamos nós livrar da lib do foguete roxo, isso seria de grande ajuda)*
-
 
 ## Orientações sobre Pull Requests
 
