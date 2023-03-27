@@ -4,21 +4,20 @@ export const ContainerSearchBox = styled.label`
   display: flex;
   flex: 1;
 
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.5rem;
   margin: 0 0.5rem;
   border-radius: 1rem;
   max-width: 20rem;
-  align-self: center;
   position: relative;
   max-height: 2rem;
+  align-items: center;
+  justify-content: space-between;
   // TODO: adicinar uma cor no tema para o placeholder
   background-color: ${({ theme }) => theme.textColor};
 `;
 
 export const Input = styled.input`
   color: ${({ theme }) => theme.palette.primary.main};
-  padding: 0 0.25rem;
-  margin: 0 0.25rem;
   background-color: transparent;
   border: none;
   width: 100%;
@@ -27,9 +26,16 @@ export const Input = styled.input`
 `;
 
 export const Icon = styled.div`
+  display: flex;
   font-size: 1rem;
-  padding: 0 0.5rem 0 0.25rem;
   margin: 0 0.25rem;
   height: 100%;
-  color: red;
+  color: ${({ theme }) => theme.palette.primary.main};
+
+  cursor: pointer;
+  transition: opacity 0.3s;
+
+  :hover {
+    opacity: 0.7;
+  }
 `;
