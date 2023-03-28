@@ -14,16 +14,9 @@ import logo from '@/assets/logo/temaDark.svg';
 import { SearchBox } from '../SearchBox';
 import DropdownTemas from '../Dropdown';
 import { useWindowDimensions } from '@/hooks/useWindowDimensions';
-import { useEffect, useState } from 'react';
 
 export const Navbar = () => {
   const { width } = useWindowDimensions();
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <HeaderContainer>
@@ -33,7 +26,7 @@ export const Navbar = () => {
             <Image alt="Logo Tsundoku" src={logo} height="40" />
           </Link>
           <nav>
-            {mounted && width < SIZES_RAW.TABLET ? (
+            {width < SIZES_RAW.TABLET ? (
               <>
                 {width > SIZES_RAW.MOBILE && (
                   <>
