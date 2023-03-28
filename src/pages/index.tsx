@@ -1,4 +1,5 @@
 import { LayoutMain } from '../components/Layouts/Main';
+import { Carousel } from '../components/Carousel';
 // import { Roboto } from 'next/font/google';
 
 // TODO: discutir se usaremos. Essa feature é experimental!
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <LayoutMain title="Tsundoku Traduções">
       <h1> -- TSUN V2 -- </h1>
+      <Carousel />
     </LayoutMain>
   );
 }
