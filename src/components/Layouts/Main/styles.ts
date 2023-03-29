@@ -4,7 +4,7 @@ export const Container = styled.main`
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 2rem;
-  height: calc(100vh - 5rem);
+  height: calc(100% - 5rem);
 
   display: flex;
   flex-direction: column;
@@ -19,6 +19,21 @@ export const BoxContent = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin: 1.5rem 0;
+  margin-top: 1.5rem;
   gap: 1.5rem;
+`;
+
+export const Footer = styled.footer`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+
+  gap: 0.5rem;
+  padding: 1.5rem;
+
+  // TODO: Adicionar essa cor no tema
+  background-color: #3C4148;
 `;
