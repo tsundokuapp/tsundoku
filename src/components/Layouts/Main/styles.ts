@@ -9,16 +9,16 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  // TODO: remover isso depois
-  background-color: ${({ theme }) => theme.sucesso};
+  justify-content: center;
 `;
 
 export const BoxContent = styled.div`
   display: flex;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  margin: 1.5rem 0;
+  gap: 1.5rem;
 `;

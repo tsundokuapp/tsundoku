@@ -4,9 +4,11 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import Image from 'next/image'
 
-import wpp1 from '../../assets/img/carousel/wpp1.jpg'
-import wpp2 from '../../assets/img/carousel/wpp2.jpg'
-import wpp3 from '../../assets/img/carousel/wpp3.jpg'
+import majoA from '@/assets/img/carousel/majoA.png'
+import majoB from '@/assets/img/carousel/majoB.png'
+import majoC from '@/assets/img/carousel/majoC.png'
+
+// TODO: as imagens devem ter tamanho de 1056x300px, adicionar isso na documentação
 
 export const Carousel = () => {
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
@@ -47,15 +49,15 @@ export const Carousel = () => {
 
   return (
     <>
-      <div ref={sliderRef} className="keen-slider">
+      <div style={{borderRadius: "0.5rem"}} ref={sliderRef} className="keen-slider">
         <SliderImage className="keen-slider__slide number-slide1">
-            <Image src={wpp1} alt="exemplo1" fill={true}/>
+            <Image src={majoA} alt="exemplo1" fill={true}/>
         </SliderImage>
         <SliderImage className="keen-slider__slide number-slide2">
-            <Image src={wpp2} alt="exemplo2" fill={true}/>
+            <Image src={majoB} alt="exemplo2" fill={true}/>
         </SliderImage>
         <SliderImage className="keen-slider__slide number-slide3">
-            <Image src={wpp3} alt="exemplo3" fill={true}/>
+            <Image src={majoC} alt="exemplo3" fill={true}/>
         </SliderImage>
       </div>
     </>
