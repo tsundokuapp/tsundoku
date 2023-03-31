@@ -5,9 +5,9 @@ export const ContainerSearchBox = styled.label`
   flex: 1;
 
   padding: 0.5rem 0.5rem;
-  margin: 0 0.5rem;
+  margin: 0;
   border-radius: 1rem;
-  max-width: 20rem;
+  max-width: 22rem;
   position: relative;
   max-height: 2rem;
   align-items: center;

@@ -1,14 +1,32 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.header`
+interface ILinkTextProps {
+  pathName: string;
+  href: string;
+}
+
+interface INavBarProps {
+  isVisible: boolean;
+}
+
+export const HeaderContainer = styled.header<INavBarProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: 0.3s ease-in-out;
   height: 5rem;
+  background: ${(props) => props.theme.palette.primary.main};
+  
   border-bottom: 1px solid ${(props) => props.theme.textColor};
+  top: ${(props) => (props.isVisible ? 0 : 0)};
+  translate: ${(props) => (props.isVisible ? "0 -5rem" : 0)};
 `;
 
 export const SubContainer = styled.div`
   width: 5rem;
   height: 5rem;
-  margin: 0 1rem;
   padding: 0 2rem;
 
   display: flex;
@@ -46,29 +64,34 @@ export const HeaderContent = styled.div`
       display: inline-block;
       position: relative;
       padding: 0 0.5rem;
-      height: 5rem;
       line-height: 5rem;
-      color: ${(props) => props.theme.textColor};
-      // TODO: transição parece meio travada, verificar depois
-      transition: all 0.3s ease-in-out;
-
       & + a {
         margin-left: 1rem;
-      }
-
-      &:hover {
-        font-weight: bold;
-        border-bottom: 3px solid ${(props) => props.theme.textColor};
-      }
-      // TODO: Adicionar lógica de ativado e desativado
-      &.active {
-        font-weight: bold;
-        color: ${(props) => props.theme.aviso};
       }
     }
 
     /* a:last-child {
       margin-right: 5rem;
     } */
+  }
+`;
+
+export const LinkText = styled.p<ILinkTextProps> `
+  border-bottom: ${
+    (props) => 
+      (props.href === props.pathName
+      ? `3px solid ${props.theme.palette.secondary.main}`
+      : "none"
+  )};
+  height: calc(5rem - 1px);
+
+  font-weight: ${(props) => (props.href === props.pathName ? "bold" : "normal")};
+  color: ${(props) => (props.href === props.pathName ? props.theme.palette.secondary.main : props.theme.textColor)};
+  
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    font-weight: bold;
+    border-bottom: 3px solid ${(props) => props.theme.textColor};
   }
 `;

@@ -15,6 +15,11 @@ export const DropdownBtn = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  svg {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
 `;
 
 export const DropdownConteudo = styled.div`
@@ -27,6 +32,11 @@ export const DropdownConteudo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  svg {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
 `;
 
 export const DropdownItem = styled.div`
