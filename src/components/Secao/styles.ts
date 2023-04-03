@@ -5,7 +5,7 @@ interface IContainerSecao {
 }
 
 export const ContainerSecao = styled.section<IContainerSecao>`
-  width: 100%;
+  max-width: 1120px;
   display: flex;
   flex-direction: ${({ direcaoItens }) => direcaoItens};
   align-items: center;
@@ -19,6 +19,6 @@ export const ContainerSecao = styled.section<IContainerSecao>`
 
 // TODO: adicionar uma seção no tema com tamanhos de fontes e bordas
 export const Titulo = styled.strong`
-    font-size: 1.25rem;
-    align-self: start;
+  font-size: 1.25rem;
+  align-self: start;
 `;

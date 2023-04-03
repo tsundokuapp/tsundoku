@@ -1,7 +1,7 @@
 import 'styled-components';
 interface IPalette {
   main: string;
-  contrastText: string;
+  text: string;
 }
 
 // * Alterando o tema default porque ele não está aceitando o extends
@@ -9,7 +9,6 @@ interface IPalette {
 declare module 'styled-components' {
   export interface DefaultTheme {
     name: string;
-    // ! Esse unknown não deveria está aqui, mas não quero atrelar o @material-ui neste projeto
     icon: unknown;
     borderRadius: string;
     bodyColor: string;
@@ -23,6 +22,18 @@ declare module 'styled-components' {
     sucesso: string;
     informacao: string;
     aviso: string;
+    backgroundSec: string;
+
+    // * Medidas padrão
+    espacamento: string;
+    espacamentoMenor: string;
+    espacamentoMaior: string;
+
+    titulo: string;
+    subtitulo: string;
+    texto: string;
+
+    bordaPadrao: string;
 
     palette: {
       common: {

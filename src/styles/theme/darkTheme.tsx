@@ -21,10 +21,20 @@ export const darkTheme: DefaultTheme = {
   sucesso: '#2ba84a',
   informacao: '#ffd819',
   aviso: '#e35053',
+  backgroundSec: '#3C4148',
+
+  // * Tamanhos
+  espacamento: '1rem',
+  espacamentoMenor: '0.5rem',
+  espacamentoMaior: '1.5rem',
+
+  titulo: '2.5rem',
+  subtitulo: '2rem',
+  texto: '1rem',
+
+  bordaPadrao: '0.25rem',
 
   // * Cores do tema
-  // TODO: verificar se mantém "palette" ou "colors"
-  // TODO: ajustar cores do tema, e verificar contraste das fontes
   palette: {
     common: {
       black: '#121212',
@@ -32,19 +42,19 @@ export const darkTheme: DefaultTheme = {
     },
     primary: {
       main: baseDark.background,
-      contrastText: '#ffffff',
+      text: '#ffffff',
     },
     secondary: {
       main: '#259CC1',
-      contrastText: '#ffffff',
+      text: '#ffffff',
     },
     tertiary: {
       main: '#343a40',
-      contrastText: '#ffffff',
+      text: '#ffffff',
     },
     quaternary: {
       main: '#202225',
-      contrastText: '#ffffff',
+      text: '#ffffff',
     },
   },
   title: null,
