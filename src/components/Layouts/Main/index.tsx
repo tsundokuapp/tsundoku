@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { Navbar } from '../../Heading/Navbar';
 import { Container, BoxContent, Footer} from './styles';
 import React from 'react';
 import { useMounted } from '@/hooks/useMounted';
@@ -18,7 +17,6 @@ export const LayoutMain = ({ children, title }: ILayoutMainProps) => {
 
   return (
     <>
-      <Navbar />
       <Container>
         <Head>
           <title>{title}</title>

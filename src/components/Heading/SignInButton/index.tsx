@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ROTAS } from '@/constants/rotas';
-import { Person } from '@material-ui/icons';
+import { FiLogIn } from 'react-icons/fi';
 
 import { LinkButton } from './styles';
 
@@ -12,7 +12,7 @@ export function SignInButton() {
   return (
     <LinkButton>
       <Link href={ROTAS.LOGIN}>
-        <Person />
+        <FiLogIn />
       </Link>
     </LinkButton>
   );

@@ -1,5 +1,5 @@
 import { ContainerSearchBox, Input, Icon } from './styles';
-import { Search } from '@material-ui/icons';
+import { FiSearch } from "react-icons/fi";
 import { useWindowDimensions } from '@/hooks/useWindowDimensions';
 import { SIZES_RAW } from '@/constants/brakingPoints';
 
@@ -16,7 +16,7 @@ export const SearchBox = ({ placeholder }: ISearchBoxProps) => {
         <ContainerSearchBox>
           <>
             <Input placeholder={placeholder} />
-            <Icon>{<Search />}</Icon>
+            <Icon>{<FiSearch />}</Icon>
           </>
         </ContainerSearchBox>
       )}
