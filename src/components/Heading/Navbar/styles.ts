@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface ILinkTextProps {
   pathName: string;
@@ -17,9 +17,9 @@ export const HeaderContainer = styled.header<INavBarProps>`
   z-index: 1000;
   transition: 0.3s ease-in-out;
   height: 5rem;
-  background: ${(props) => props.theme.palette.primary.main};
-  
-  border-bottom: 1px solid ${(props) => props.theme.textColor};
+  background: ${(props) => props.theme.colors.bgComponente};
+
+  border-bottom: 1px solid ${(props) => props.theme.colors.primaria[500]};
   top: ${(props) => (props.isVisible ? 0 : 0)};
   translate: ${(props) => (props.isVisible ? "0 -5rem" : 0)};
 `;
@@ -76,22 +76,24 @@ export const HeaderContent = styled.div`
   }
 `;
 
-export const LinkText = styled.p<ILinkTextProps> `
-  border-bottom: ${
-    (props) => 
-      (props.href === props.pathName
-      ? `3px solid ${props.theme.palette.secondary.main}`
-      : "none"
-  )};
+export const LinkText = styled.p<ILinkTextProps>`
+  border-bottom: ${(props) =>
+    props.href === props.pathName
+      ? `3px solid ${props.theme.colors.primaria[500]}`
+      : "none"};
   height: calc(5rem - 1px);
 
-  font-weight: ${(props) => (props.href === props.pathName ? "bold" : "normal")};
-  color: ${(props) => (props.href === props.pathName ? props.theme.palette.secondary.main : props.theme.textColor)};
-  
+  font-weight: ${(props) =>
+    props.href === props.pathName ? "bold" : "normal"};
+  color: ${(props) =>
+    props.href === props.pathName
+      ? props.theme.colors.primaria[500]
+      : props.theme.colors.text};
+
   transition: all 0.3s ease-in-out;
 
   &:hover {
     font-weight: bold;
-    border-bottom: 3px solid ${(props) => props.theme.textColor};
+    border-bottom: 3px solid ${(props) => props.theme.colors.text};
   }
 `;

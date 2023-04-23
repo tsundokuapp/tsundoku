@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface IContainerProps {
   imagemFundo: string;
@@ -55,7 +55,7 @@ export const ContainerForm = styled.section`
   flex-wrap: wrap;
 `;
 
-export const InputLogin = styled.input.attrs(() => ({ type: 'text' }))`
+export const InputLogin = styled.input.attrs(() => ({ type: "text" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;
@@ -64,7 +64,7 @@ export const InputLogin = styled.input.attrs(() => ({ type: 'text' }))`
   font-size: 100%;
 `;
 
-export const InputEmail = styled.input.attrs(() => ({ type: 'email' }))`
+export const InputEmail = styled.input.attrs(() => ({ type: "email" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;
@@ -74,7 +74,7 @@ export const InputEmail = styled.input.attrs(() => ({ type: 'email' }))`
 `;
 
 export const InputSenha = styled.input.attrs(() => ({
-  type: 'password',
+  type: "password",
 }))`
   height: 50px;
   width: 250px;
@@ -85,7 +85,7 @@ export const InputSenha = styled.input.attrs(() => ({
   border-radius: 5px;
 `;
 
-export const InputSubmit = styled.input.attrs(() => ({ type: 'submit' }))`
+export const InputSubmit = styled.input.attrs(() => ({ type: "submit" }))`
   height: 50px;
   width: 250px;
   margin-bottom: 15px;

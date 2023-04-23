@@ -1,7 +1,7 @@
-import Head from 'next/head';
-import { Container, BoxContent, Footer} from './styles';
-import React from 'react';
-import { useMounted } from '@/hooks/useMounted';
+import Head from "next/head";
+import { Container, BoxContent, Footer } from "./styles";
+import React from "react";
+import { useMounted } from "@/hooks/useMounted";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -9,7 +9,6 @@ interface ILayoutMainProps {
 }
 
 export const LayoutMain = ({ children, title }: ILayoutMainProps) => {
-  
   const hasMounted = useMounted();
   if (!hasMounted) {
     return null;

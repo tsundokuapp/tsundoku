@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.main`
   max-width: 1120px;
@@ -35,5 +35,5 @@ export const Footer = styled.footer`
   padding: 1.5rem;
 
   // TODO: Adicionar essa cor no tema
-  background-color: #3C4148;
+  background-color: #3c4148;
 `;

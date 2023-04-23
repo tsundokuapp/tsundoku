@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from './style';
-import { useTheme } from '@/hooks/useThemeContext';
+import React, { useState } from "react";
+import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
+import { useTheme } from "@/hooks/useThemeContext";
 
 const DropdownTemas = () => {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);

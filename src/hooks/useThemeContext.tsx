@@ -1,10 +1,10 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
-import { DefaultTheme, ThemeProvider } from 'styled-components';
-import { lightTheme } from '@/styles/theme/lightTheme';
-import { defaultTheme } from '@/styles/theme/defaultTheme';
+import React, { createContext, useCallback, useContext, useState } from "react";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import { lightTheme } from "@/styles/theme/lightTheme";
+import { defaultTheme as darkTheme } from "@/styles/theme/defaultTheme";
 
-import { FiSun as IconLightMode } from 'react-icons/fi';
-import { MdDarkMode as IconDarkMode } from 'react-icons/md';
+import { FiSun as IconLightMode } from "react-icons/fi";
+import { MdDarkMode as IconDarkMode } from "react-icons/md";
 
 interface IThemeContext {
   theme: DefaultTheme;
@@ -24,14 +24,14 @@ export const CustomThemeProvider = ({
 }: ICustomThemeProviderProps) => {
   // TODO: implementar lógica para botões serem independentes
   lightTheme.icon = <IconLightMode />;
-  defaultTheme.icon = <IconDarkMode />;
-  const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
+  darkTheme.icon = <IconDarkMode />;
+  const [theme, setTheme] = useState<DefaultTheme>(darkTheme);
 
   const toggleTheme = useCallback(() => {
-    if (theme.name === 'default') {
-      setTheme(defaultTheme);
-    } else if (theme.name === 'dark') {
+    if (theme.name === "default") {
       setTheme(lightTheme);
+    } else if (theme.name === "light") {
+      setTheme(darkTheme);
     }
   }, [theme]);
 

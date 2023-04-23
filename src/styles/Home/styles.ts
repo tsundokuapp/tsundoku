@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 // TODO: Corrigir o inicio da box, pois está com um espaço em branco
 export const Box = styled.div`
   display: flex;

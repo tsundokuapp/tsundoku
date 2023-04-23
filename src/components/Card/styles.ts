@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const tamanhoCard = `14.3rem`;
 
@@ -104,7 +104,7 @@ export const BodyCardInfo = styled.div`
       font-weight: bold;
     }
 
-    p:last-child { 
+    p:last-child {
       font-weight: normal;
       color: #259cc1;
     }

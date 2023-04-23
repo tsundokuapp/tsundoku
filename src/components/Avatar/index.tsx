@@ -1,7 +1,7 @@
-import React from 'react';
-import { Container, ImagemAvatar } from './styles';
+import React from "react";
+import { Container, ImagemAvatar } from "./styles";
 
-import avatar from '@/assets/img/Ichigo_Ulquiorra.jpg';
+import avatar from "@/assets/img/Ichigo_Ulquiorra.jpg";
 
 const Avatar = () => {
   return (

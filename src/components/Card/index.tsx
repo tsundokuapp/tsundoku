@@ -1,15 +1,15 @@
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from "next/image";
 import {
   ContainerCard,
   ContainerInfo,
   HeaderCardInfo,
   TituloCard,
   BodyCardInfo,
-} from './styles';
+} from "./styles";
 
-import { BsBookmark, BsBookmarkCheckFill } from 'react-icons/bs';
-import { useState } from 'react';
-import { TsunBotao } from '../Botao';
+import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
+import { useState } from "react";
+import { TsunBotao } from "../Botao";
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {

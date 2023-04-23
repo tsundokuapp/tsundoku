@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // TODO: verificar o momento de chamada desse hook, a partir do lifecycle do componente
 export function useMounted() {

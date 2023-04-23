@@ -1,7 +1,7 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from "styled-components";
 
 export const lightTheme: DefaultTheme = {
-  name: 'light',
+  name: "light",
   icon: undefined,
 
   espacamento: {
@@ -13,10 +13,10 @@ export const lightTheme: DefaultTheme = {
   },
 
   texto: {
-    titulo: '1.5rem',
-    subtitulo: '1.25rem',
-    paragrafo: '1rem',
-    nota: '0.75rem',
+    titulo: "1.5rem",
+    subtitulo: "1.25rem",
+    paragrafo: "1rem",
+    nota: "0.75rem",
   },
 
   quina: {
@@ -25,7 +25,7 @@ export const lightTheme: DefaultTheme = {
     media: "0.5rem",
     grande: "0.75rem",
     extraGrande: "1rem",
-    redonda: "999rem"
+    redonda: "999rem",
   },
 
   borda: {
@@ -33,7 +33,7 @@ export const lightTheme: DefaultTheme = {
     pequena: "0.031rem",
     media: "0.062rem",
     grande: "0.093rem",
-    extraGrande: "0.125rem"
+    extraGrande: "0.125rem",
   },
 
   colors: {
@@ -82,8 +82,8 @@ export const lightTheme: DefaultTheme = {
         600: "#CC0000",
         700: "#990000",
         default: "#FF0000",
-      }
-    }
+      },
+    },
   },
   title: null,
 };

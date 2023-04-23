@@ -1,12 +1,12 @@
-import { LayoutMain } from '@/components/Layouts/Main';
-import { Card } from '@/components/Card';
-import { Box, BoxAviso } from '@/styles/Home/styles';
-import { Secao } from '@/components/Secao';
-import { useState } from 'react';
-import Image from 'next/image';
+import { LayoutMain } from "@/components/Layouts/Main";
+import { Card } from "@/components/Card";
+import { Box, BoxAviso } from "@/styles/Home/styles";
+import { Secao } from "@/components/Secao";
+import { useState } from "react";
+import Image from "next/image";
 
-import elainaCover from '@/assets/img/elaina8.webp';
-import tremCover from '@/assets/img/trem.webp';
+import elainaCover from "@/assets/img/elaina8.webp";
+import tremCover from "@/assets/img/trem.webp";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
@@ -26,19 +26,19 @@ export default function Novel() {
         <Card
           capa={elainaCover}
           titulo="Bruxa Errante"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 10"
         />
         <Card
           capa={elainaCover}
           titulo="Bruxa Errante"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 10"
         />
         <Card
           capa={elainaCover}
           titulo="Bruxa Errante"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 10"
         />
       </Secao>

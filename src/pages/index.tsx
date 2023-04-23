@@ -1,17 +1,16 @@
-import { LayoutMain } from '../components/Layouts/Main';
-import { Card } from '@/components/Card';
-import { Carousel } from '../components/Carousel';
-import { Box, BoxAviso } from '@/styles/Home/styles';
-import { Secao } from '@/components/Secao';
-import { useState } from 'react';
-import Image from 'next/image';
+import { LayoutMain } from "../components/Layouts/Main";
+import { Card } from "@/components/Card";
+import { Carousel } from "../components/Carousel";
+import { Box, BoxAviso } from "@/styles/Home/styles";
+import { Secao } from "@/components/Secao";
+import { useState } from "react";
+import Image from "next/image";
 
-import elainaCover from '@/assets/img/elaina8.webp';
-import goblinCover from '@/assets/img/goblin.webp';
-import marchaCover from '@/assets/img/marcha.webp';
-import tearCover from '@/assets/img/tear.webp';
-import tremCover from '@/assets/img/trem.webp';
-import { TsunBotao } from '@/components/Botao';
+import elainaCover from "@/assets/img/elaina8.webp";
+import goblinCover from "@/assets/img/goblin.webp";
+import marchaCover from "@/assets/img/marcha.webp";
+import tearCover from "@/assets/img/tear.webp";
+import tremCover from "@/assets/img/trem.webp";
 
 export default function Home() {
   const [temAviso, setTemAviso] = useState(true);

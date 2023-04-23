@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import Container, {
   ContainerLogo,
   InputLogin,
@@ -8,9 +8,9 @@ import Container, {
   ContainerImagemLogo,
   InputSubmit,
   InputBotaoPaginaInicial,
-} from './styles';
+} from "./styles";
 
-import LogoSepia from '@/assets/img/temaSepia.svg';
+import LogoSepia from "@/assets/img/temaSepia.svg";
 // ! Next importa as imagens como StaticImageData e não como string;
 // import imagemFundo from '@/assets/img/backgrounds/SlimeRoxo.png';
 // TODO: refatorar esse código
@@ -18,7 +18,7 @@ import LogoSepia from '@/assets/img/temaSepia.svg';
 
 const TelaLogin = () => {
   return (
-    <Container imagemFundo={'@/assets/img/backgrounds/SlimeRoxo.png'}>
+    <Container imagemFundo={"@/assets/img/backgrounds/SlimeRoxo.png"}>
       <ContainerLogo>
         <ContainerImagemLogo src={LogoSepia} alt="Logo Vermelha" />
       </ContainerLogo>

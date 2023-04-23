@@ -1,9 +1,9 @@
-import type { AppProps } from 'next/app';
-import { CustomThemeProvider } from '@/hooks/useThemeContext';
+import type { AppProps } from "next/app";
+import { CustomThemeProvider } from "@/hooks/useThemeContext";
 // import { useLocalStorage } from "usehooks-ts";
-import { GlobalStyle } from '@/styles/globals';
-import { Navbar } from '@/components/Heading/Navbar';
-import { useMounted } from '@/hooks/useMounted';
+import { GlobalStyle } from "@/styles/globals";
+import { Navbar } from "@/components/Heading/Navbar";
+import { useMounted } from "@/hooks/useMounted";
 
 export default function App({ Component, pageProps }: AppProps) {
   // TODO: verificar se o tema vai ser alterado via localStorage ou DB

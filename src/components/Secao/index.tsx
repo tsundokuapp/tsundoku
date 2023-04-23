@@ -1,4 +1,4 @@
-import { ContainerSecao, Titulo } from './styles';
+import { ContainerSecao, Titulo } from "./styles";
 
 interface ISecaoProps {
   children: React.ReactNode;
@@ -6,19 +6,15 @@ interface ISecaoProps {
   direcaoItens?: string;
 }
 
-
-export const Secao = ({ children, titulo, direcaoItens = "column" }: ISecaoProps) => {
-  
+export const Secao = ({
+  children,
+  titulo,
+  direcaoItens = "column",
+}: ISecaoProps) => {
   return (
     <>
-      {titulo &&
-        <Titulo>
-          {titulo}
-        </Titulo>
-      }
-      <ContainerSecao direcaoItens={direcaoItens}>
-        {children}
-      </ContainerSecao>
+      {titulo && <Titulo>{titulo}</Titulo>}
+      <ContainerSecao direcaoItens={direcaoItens}>{children}</ContainerSecao>
     </>
   );
 };
