@@ -31,7 +31,7 @@ export const Box = styled.div`
 export const BoxAviso = styled.div`
   width: 100%;
   max-width: 55rem;
-  background: ${({ theme }) => theme.palette.secondary.main};
+  background: ${({ theme }) => theme.colors.primaria[500]};
   border-radius: 0.5rem;
   padding: 0.5rem;
   display: flex;
