@@ -41,9 +41,8 @@ export const Navbar = () => {
                 <Link href="/">Home</Link>
                 <Link href="/novels">Novels</Link>
                 <Link href="/comics">Comics</Link>
-                <Link href="/about">Sobre Nós</Link>
                 <Link href="/blog">Blog</Link>
-                <Link href="/contact">Contato</Link>
+                <Link href="/about">Sobre Nós</Link>
               </>
             )}
           </nav>

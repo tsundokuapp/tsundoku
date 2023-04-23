@@ -13,7 +13,7 @@ export const LinkButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.colors.text};
 
   svg {
     width: 30px;

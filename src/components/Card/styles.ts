@@ -8,7 +8,7 @@ export const ContainerCard = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({ theme }) => theme.backgroundSec};
+  background-color: ${({ theme }) => theme.colors.bgComponente};
   border-radius: 1rem;
 
   width: ${tamanhoCard};
@@ -45,16 +45,16 @@ export const HeaderCardInfo = styled.div`
   align-items: center;
   flex-direction: row;
   width: 100%;
-  height: 100%;
+  height: 3rem;
   min-height: 2rem;
   padding: 0 0.5rem;
-  background-color: ${({ theme }) => theme.palette.secondary.main};
+  background-color: ${({ theme }) => theme.colors.primaria[500]};
 
   svg {
     height: 1.2rem;
     width: 1.2rem;
     cursor: pointer;
-    color: ${({ theme }) => theme.palette.common.white};
+    color: ${({ theme }) => theme.colors.especial.branco};
   }
 
   button {
@@ -68,7 +68,7 @@ export const HeaderCardInfo = styled.div`
 `;
 
 export const TituloCard = styled.strong`
-  color: ${({ theme }) => theme.palette.common.white};
+  color: ${({ theme }) => theme.colors.especial.branco};
   display: inline;
   font-size: 1rem;
 
@@ -86,6 +86,10 @@ export const BodyCardInfo = styled.div`
   width: 100%;
   padding: 0.5rem 1rem;
 
+  :last-child {
+    align-items: center;
+  }
+
   span {
     font-size: 1rem;
     margin-bottom: 0.3rem;
@@ -97,19 +101,12 @@ export const BodyCardInfo = styled.div`
 
     p {
       display: inline;
-    }
-
-    p:first-child {
       font-weight: bold;
     }
+
+    p:last-child { 
+      font-weight: normal;
+      color: #259cc1;
+    }
   }
-`;
-export const ButtonCard = styled.button`
-  align-self: center;
-  margin: 1rem 1rem 0 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: ${({ theme }) => theme.palette.secondary.main};
-  color: ${({ theme }) => theme.palette.common.white};
 `;

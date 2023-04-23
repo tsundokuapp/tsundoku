@@ -5,23 +5,23 @@ import {
   HeaderCardInfo,
   TituloCard,
   BodyCardInfo,
-  ButtonCard,
 } from './styles';
 
 import { BsBookmark, BsBookmarkCheckFill } from 'react-icons/bs';
 import { useState } from 'react';
+import { TsunBotao } from '../Botao';
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {
   capa: StaticImageData;
   titulo: string;
-  genero: string[];
+  autor: string;
   volume: string;
 }
 
 const larguraPadrao = 180;
 
-export const Card = ({ capa, titulo, genero, volume }: ICardProps) => {
+export const Card = ({ capa, titulo, autor, volume }: ICardProps) => {
   const [favoritado, setFavoritado] = useState(false);
 
   const adicionaFavorito = () => {
@@ -44,12 +44,12 @@ export const Card = ({ capa, titulo, genero, volume }: ICardProps) => {
         </HeaderCardInfo>
         <BodyCardInfo>
           <span>
-            <p>Gênero: </p> <p>{`${genero[0]}, ${genero[1]}, Suspense`}</p>
+            <p>Autor: </p> <p>{autor}</p>
           </span>
           <span>
             <p>Volume: </p> <p>{volume}</p>
           </span>
-          <ButtonCard>Comece a ler!</ButtonCard>
+          <TsunBotao titulo="Capítulo 07" variante="primaria" />
         </BodyCardInfo>
       </ContainerInfo>
     </ContainerCard>
