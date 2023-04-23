@@ -1,49 +1,93 @@
 import 'styled-components';
-interface IPalette {
-  main: string;
-  text: string;
-}
 
-// * Alterando o tema default porque ele não está aceitando o extends
-// TODO: tirar esse comentário no futuro
 declare module 'styled-components' {
   export interface DefaultTheme {
     name: string;
     icon: unknown;
-    borderRadius: string;
-    bodyColor: string;
-    textColor: string;
+    
+    espacamento: {
+      semEspacamento: string,
+      pequeno: string,
+      medio: string,
+      grande: string,
+      extraGrande: string,
+    }
 
-    // * Componentes
-    borda: string;
-    sombra: string;
+    texto: {
+      titulo: string,
+      subtitulo: string,
+      paragrafo: string,
+      nota: string
+    }
 
-    // * Cores informativas
-    sucesso: string;
-    informacao: string;
-    aviso: string;
-    backgroundSec: string;
+    quina: {
+      semQuina: string,
+      pequena: string,
+      media: string,
+      grande: string,
+      extraGrande: string,
+      redonda: string
+    }
+    
+    borda: {
+      semBorda: string,
+      pequena: string,
+      media: string,
+      grande: string,
+      extraGrande: string,
+    }
 
-    // * Medidas padrão
-    espacamento: string;
-    espacamentoMenor: string;
-    espacamentoMaior: string;
+    colors: {
+      primaria: {
+        300: string,
+        400: string,
+        500: string,
+        600: string,
+        700: string,
+        default: string
+      },
 
-    titulo: string;
-    subtitulo: string;
-    texto: string;
+      background: string,
+      text: string,
+      textSec: string,
+      bgComponente: string,
+      contraste: string,
 
-    bordaPadrao: string;
+      especial: {
+        branco: string,
+        preto: string,
+        textBusca: string,
+        bgBusca: string,
+      }
 
-    palette: {
-      common: {
-        black: string;
-        white: string;
-      };
-      primary: IPalette;
-      secondary: IPalette;
-      tertiary: IPalette;
-      quaternary: IPalette;
-    };
+      feedback: {
+        sucesso: {
+          300: string,
+          400: string,
+          500: string,
+          600: string,
+          700: string,
+          default: string
+        }
+
+        aviso: {
+          300: string,
+          400: string,
+          500: string,
+          600: string,
+          700: string,
+          default: string
+        }
+
+        perigo: {
+          300: string,
+          400: string,
+          500: string,
+          600: string,
+          700: string,
+          default: string 
+        }
+      }
+    }
   }
 }
