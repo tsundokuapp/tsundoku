@@ -6,17 +6,17 @@
   },
   "extends": [
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "standard",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaVersion": "latest",
-      "ecmaFeatures": {
-        "jsx": true
-    }
+    "sourceType": "module"
   },
   "plugins": [
     "react",
@@ -30,7 +30,7 @@
       "singleQuote": true,
       "trailingComma": "all",
       "arrowParens": "always",
-      "semi": true,
+      "semi" : true,
       "endOfLine": "auto"
     }],
     "react/react-in-jsx-scope": "off",

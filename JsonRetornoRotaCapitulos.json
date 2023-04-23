@@ -1,0 +1,44 @@
+// Estrutura
+
+// interface ICapitulos
+// {
+// 	descritivoCapitulo: string;
+// 	descritivoVolume: string;
+// 	slugCapitulo: string;
+// 	slugObra: string;
+// 	slugVolume: string;
+// 	tituloObra: string;
+// 	urlCapaVolume: string;
+// }
+
+// Retorno
+
+[
+    {
+        "descritivoCapitulo": "Cap\u00edtulo 00",
+        "descritivoVolume": "Volume 01",
+        "slugCapitulo": "capitulo-00-ilustracoes",
+        "slugObra": "bruxa-errante-a-jornada-de-elaina",
+        "slugVolume": "volume-1",
+        "tituloObra": "Bruxa Errante, a Jornada de Elaina",
+        "urlCapaVolume": "https://api-tsun-teste-assinatura-01.azurewebsites.net/images\\BruxaErranteAJornadaDeElaina\\Volume-01\\Capa-Volume-1-Obra-BruxaErranteAJornadaDeElaina.jpg"
+    },
+    {
+        "descritivoCapitulo": "Cap\u00edtulo 01",
+        "descritivoVolume": "Volume 01",
+        "slugCapitulo": "capitulo-01-pais-dos-magos",
+        "slugObra": "bruxa-errante-a-jornada-de-elaina",
+        "slugVolume": "volume-1",
+        "tituloObra": "Bruxa Errante, a Jornada de Elaina",
+        "urlCapaVolume": "https://api-tsun-teste-assinatura-01.azurewebsites.net/images\\BruxaErranteAJornadaDeElaina\\Volume-01\\Capa-Volume-1-Obra-BruxaErranteAJornadaDeElaina.jpg"
+    },
+    {
+        "descritivoCapitulo": "Cap\u00edtulo 01",
+        "descritivoVolume": "Volume 01",
+        "slugCapitulo": "capitulo-01",
+        "slugObra": "hinowa-ga-yuku",
+        "slugVolume": "volume-1",
+        "tituloObra": "Hinowa ga Yuku",
+        "urlCapaVolume": "https://api-tsun-teste-assinatura-01.azurewebsites.net/images\\HinowaGaYuku\\Volume-01\\Capa-Volume-1-Obra-HinowaGaYuku.jpg"
+    }
+]

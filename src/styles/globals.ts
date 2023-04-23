@@ -19,8 +19,8 @@ html, body, input, textarea, button {
 }
 
 body {
-    background-color: ${({ theme }) => theme.bodyColor};
-    color: ${({ theme }) => theme.textColor};
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
     -webkit-font-smoothing: antialiased;
   }
 
@@ -31,12 +31,11 @@ a {
 
 button {
   cursor: pointer;
+  border: none;
 }
 
-/* TODO: adicionar cor no focus quando tiver definido no tema*/ 
 :focus {
   outline: 0;
-
 }
 
 @media (max-width: 1080px) {

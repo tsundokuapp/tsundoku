@@ -1,18 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 // TODO: Corrigir o inicio da box, pois está com um espaço em branco
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  
+
   width: 100%;
   height: 100%;
 
   gap: 1.5rem 0;
   margin: 1rem;
 
-  strong { 
+  strong {
     font-size: 1.25rem;
     align-self: start;
   }
@@ -31,7 +31,7 @@ export const Box = styled.div`
 export const BoxAviso = styled.div`
   width: 100%;
   max-width: 55rem;
-  background: ${({ theme }) => theme.palette.secondary.main};
+  background: ${({ theme }) => theme.colors.primaria[500]};
   border-radius: 0.5rem;
   padding: 0.5rem;
   display: flex;
@@ -43,4 +43,4 @@ export const BoxAviso = styled.div`
   h2 {
     margin-bottom: 0.25rem;
   }
-`
+`;

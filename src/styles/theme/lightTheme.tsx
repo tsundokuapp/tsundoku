@@ -1,7 +1,7 @@
 import { DefaultTheme } from 'styled-components';
 
-export const defaultTheme: DefaultTheme = {
-  name: 'default',
+export const lightTheme: DefaultTheme = {
+  name: 'light',
   icon: undefined,
 
   espacamento: {
@@ -45,11 +45,11 @@ export const defaultTheme: DefaultTheme = {
       700: "#00698C",
       default: "#259CC1",
     },
-    background: "#121214",
-    text: "#E1E1E6",
-    textSec: "#CED4DA",
-    bgComponente: "#202024",
-    contraste: "#3E3E45",
+    background: "#F8F9FA",
+    text: "#000000",
+    textSec: "#8D8D99",
+    bgComponente: "#E9ECEF",
+    contraste: "#CBCBCB",
 
     especial: {
       branco: "#FFFFFF",

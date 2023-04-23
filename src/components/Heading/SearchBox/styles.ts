@@ -13,11 +13,11 @@ export const ContainerSearchBox = styled.label`
   align-items: center;
   justify-content: space-between;
   // TODO: adicinar uma cor no tema para o placeholder
-  background-color: ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Input = styled.input`
-  color: ${({ theme }) => theme.palette.primary.main};
+  color: ${({ theme }) => theme.colors.especial.bgBusca};
   background-color: transparent;
   border: none;
   width: 100%;
@@ -30,7 +30,7 @@ export const Icon = styled.div`
   font-size: 1rem;
   margin: 0 0.25rem;
   height: 100%;
-  color: ${({ theme }) => theme.palette.primary.main};
+  color: ${({ theme }) => theme.colors.primaria[500]};
 
   cursor: pointer;
   transition: opacity 0.3s;

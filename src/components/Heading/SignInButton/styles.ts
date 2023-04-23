@@ -13,8 +13,8 @@ export const LinkButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  color: ${(props) => props.theme.textColor};
-  // TODO: adicionar no tema o tamanho padrão para icones como: 30px // 1.875rem
+  color: ${(props) => props.theme.colors.text};
+
   svg {
     width: 1.875rem;
     height: 1.875rem;

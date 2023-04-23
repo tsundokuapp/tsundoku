@@ -1,34 +1,57 @@
 import Image, { StaticImageData } from 'next/image';
-import { ContainerCard, ContainerInfo } from './styles';
+import {
+  ContainerCard,
+  ContainerInfo,
+  HeaderCardInfo,
+  TituloCard,
+  BodyCardInfo,
+} from './styles';
+
+import { BsBookmark, BsBookmarkCheckFill } from 'react-icons/bs';
+import { useState } from 'react';
+import { TsunBotao } from '../Botao';
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {
   capa: StaticImageData;
   titulo: string;
-  genero: string[];
+  autor: string;
   volume: string;
 }
 
-export const Card = ({ capa, titulo , genero, volume}: ICardProps) => {
-  
+const larguraPadrao = 180;
+
+export const Card = ({ capa, titulo, autor, volume }: ICardProps) => {
+  const [favoritado, setFavoritado] = useState(false);
+
+  const adicionaFavorito = () => {
+    setFavoritado(!favoritado);
+  };
   return (
     <ContainerCard>
-				<Image
-          src={capa}
-          alt="capa do volume"
-          // ! Não alterar o aspect ratio => 1.5:1
-          height={270}
-          width={180}
-        />
-        <ContainerInfo>
-            <strong>
-              {titulo}
-            </strong>
-            <div>
-								<span>Gênero: </span> <p>{`${genero[0]}, ${genero[1]}`}</p>
-                <span>Volume: </span> <p>{volume}</p>
-            </div>
-        </ContainerInfo>
+      <Image
+        src={capa}
+        alt="capa do volume"
+        height={larguraPadrao * 1.5}
+        width={larguraPadrao}
+      />
+      <ContainerInfo>
+        <HeaderCardInfo>
+          <TituloCard>{titulo}</TituloCard>
+          <button onClick={adicionaFavorito}>
+            {favoritado ? <BsBookmarkCheckFill /> : <BsBookmark />}
+          </button>
+        </HeaderCardInfo>
+        <BodyCardInfo>
+          <span>
+            <p>Autor: </p> <p>{autor}</p>
+          </span>
+          <span>
+            <p>Volume: </p> <p>{volume}</p>
+          </span>
+          <TsunBotao titulo="Capítulo 07" variante="primaria" />
+        </BodyCardInfo>
+      </ContainerInfo>
     </ContainerCard>
   );
 };
