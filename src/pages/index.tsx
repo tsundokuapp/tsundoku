@@ -11,6 +11,7 @@ import goblinCover from '@/assets/img/goblin.webp';
 import marchaCover from '@/assets/img/marcha.webp';
 import tearCover from '@/assets/img/tear.webp';
 import tremCover from '@/assets/img/trem.webp';
+import { TsunBotao } from '@/components/Botao';
 
 export default function Home() {
   const [temAviso, setTemAviso] = useState(true);
@@ -35,25 +36,25 @@ export default function Home() {
         <Card
           capa={elainaCover}
           titulo="Bruxa Errante"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 10"
         />
         <Card
           capa={goblinCover}
           titulo="Matador de Goblins"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume Único"
         />
         <Card
           capa={tearCover}
           titulo="Império Tearmoon"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 2"
         />
         <Card
           capa={marchaCover}
           titulo="Marcha Mortal"
-          genero={['Fantasia', 'Aventura']}
+          autor="Kazuma Kamachi"
           volume="Volume 5"
         />
       </Secao>
