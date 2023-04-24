@@ -11,7 +11,7 @@ A Tsundoku adoraria sua ajuda, apesar do esforço, o projeto é grande e muitos 
 - Fazer um fork do projeto
 - Clonar o projeto em sua máquina 
 - Rodar o comando "git pull" para se certificar das alterações
-- Rodar o comando "yarn" dentro da pasta
+- Rodar o comando "npm i" dentro da pasta
 
 ## Orientações sobre Pull Requests
 
@@ -56,5 +56,4 @@ git push -f origin main
 
 - Evite mexer em arquivos desconexos dentro de um mesmo commit
 - Não altere versões de libs ou ferramentas.
-- Não mexa em TODOs que iniciem com "determinar/consultar sobre/verificar tal coisa" são TODOs que precisam de informações ainda não definidas.
 - Se precisar de ajuda, pergunte diretamente informando o problema que está tendo.
