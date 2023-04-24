@@ -47,7 +47,7 @@ export const defaultTheme: DefaultTheme = {
     },
     background: "#121214",
     text: "#E1E1E6",
-    textSec: "#CED4DA",
+    textSec: "#8D8D99",
     bgComponente: "#202024",
     contraste: "#3E3E45",
 
