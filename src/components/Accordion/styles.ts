@@ -48,9 +48,13 @@ export const ContentWrapper = styled.div<{ maxHeight: number }>`
 `;
 
 export const Layout = styled.div`
-  padding: 2rem;
-  background: #2e2e2e;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
   min-height: 100%;
+  padding: 2rem;
+  margin-left: 1rem;
 `;
 
 export const Content = styled.div`
@@ -68,7 +72,7 @@ export const AccordionInfo = styled.div`
   display: flex;
   flex-direction: row;
 
-  gap: 1rem;
+  gap: 1.5rem;
 
   img {
     max-width: 300px;
@@ -82,6 +86,7 @@ export const AccordionInfo = styled.div`
     color: ${({ theme }) => theme.colors.text};
     display: inline-flex;
     flex: 1;
+    text-indent: 1em;
   }
 `;
 

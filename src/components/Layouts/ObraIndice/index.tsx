@@ -2,7 +2,6 @@ import Head from "next/head";
 import {
   ContainerIndiceObra,
   Conteudo,
-  Footer,
   Navegacao,
   BoxBody,
   Capa,
@@ -14,6 +13,8 @@ import {
 } from "./styles";
 import React from "react";
 import { useMounted } from "@/hooks/useMounted";
+import { TsunAccordion } from "@/components/Accordion";
+import { Footer } from "@/components/Footer";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -114,15 +115,10 @@ export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
               <p>Em andamento</p>
             </span>
           </DetalhesObra>
+          <TsunAccordion />
         </BoxContentFooter>
       </ContainerIndiceObra>
-      <Footer>
-        <strong>Tsundoku Traduções</strong>
-        <div>
-          <p>aqui vai ter os links de redes sociais</p>
-        </div>
-        <p>© 2023 Tsundoku Traduções</p>
-      </Footer>
+      <Footer />
     </>
   );
 };

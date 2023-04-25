@@ -13,7 +13,7 @@ import { SIZES_RAW } from "@/constants/brakingPoints";
 import { useEffect, useRef, useState } from "react";
 
 // TODO: fazer a troca da logo de acordo com o tema;
-import logo from "@/assets/logo/temaDark.svg";
+import logo from "@/assets/logo/logoDefault.svg";
 import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";

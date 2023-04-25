@@ -20,7 +20,7 @@ const Accordion = ({ title, children }: AccordionProps) => {
   const [isExpanded, setExpand] = useState<boolean>();
 
   const contentRef = useRef<HTMLDivElement>();
-  const contentHeight = isExpanded ? contentRef.current.scrollHeight : 0;
+  const contentHeight = isExpanded ? contentRef.current?.scrollHeight : 0;
 
   const handleExpandToggle = useCallback(() => {
     setExpand(!isExpanded);
@@ -39,56 +39,49 @@ const Accordion = ({ title, children }: AccordionProps) => {
   );
 };
 
+const capaVolume1 =
+  "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Majo-no-Tabitabi-Capa-Volume-01.jpg?ssl=1";
+const capaVolume2 =
+  "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V2_Cover.png?resize=1440%2C2048&ssl=1";
+
 export const TsunAccordion = () => (
   <Layout>
-    <Accordion title="Volume 18">
+    <Accordion title="Volume 1">
       <AccordionInfo>
-        <img
-          src="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg"
-          alt="random"
-        />
+        <img src={capaVolume1} alt="random" />
         <p>
-          Kicked out by his family and wandering the streets, an unemployed
-          34-year-old shut-in thinks he’s hit rock-bottom—just as he’s hit and
-          killed by a speeding truck! Awakening to find himself reborn as an
-          infant in a world of swords and sorcery, but with the memories of his
-          first life intact, Rudeus Greyrat is determined not to repeat his past
-          mistakes. He’s going to make the most of this reincarnation as he sets
-          off on the adventure of a second lifetime!
+          Qual é a sua história favorita? Tem um herói que mata um dragão e
+          salva uma princesa? Ou um filho da profecia destinado à grandeza? Bem,
+          minha história favorita é um pouco diferente. É a história de uma
+          bruxa que viaja pelo mundo, sem buscar nada em particular. Sem busca
+          própria, ela está livre para vagar onde quer que o vento a leve,
+          acrescentando algumas páginas à história de quem quer que ela encontre
+          antes de partir para sua próxima aventura. Ao final de suas viagens, a
+          bruxa acolhe uma aprendiz que um dia iniciará sua própria jornada. E
+          assim o ciclo continua, ou assim continua a história. Agora, a bruxa
+          que recomeça a história... quem poderia ser ela?
         </p>
       </AccordionInfo>
       <ListaCapitulos>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg"
-        >
+        <LinkPersonalizado href="/novels/capitulo-01" urlImgCap={capaVolume1}>
           <div>
             <p>Capítulo 01</p>
             <p>Titulo provisório</p>
           </div>
         </LinkPersonalizado>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg"
-        >
+        <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume1}>
           <div>
             <p>Capítulo 02</p>
             <p>Titulo provisório</p>
           </div>
         </LinkPersonalizado>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg"
-        >
+        <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume1}>
           <div>
             <p>Capítulo 03</p>
             <p>Titulo provisório</p>
           </div>
         </LinkPersonalizado>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg"
-        >
+        <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume1}>
           <div>
             <p>Capítulo 04</p>
             <p>Titulo provisório</p>
@@ -96,36 +89,28 @@ export const TsunAccordion = () => (
         </LinkPersonalizado>
       </ListaCapitulos>
     </Accordion>
-    <Accordion title="Volume 17">
+    <Accordion title="Volume 2">
       <AccordionInfo>
-        <img
-          src="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MT_V17_Capa_01ed.jpg?resize=1403%2C2000&ssl=1"
-          alt="random"
-        />
+        <img src={capaVolume2} alt="random" />
         <p>
-          Kicked out by his family and wandering the streets, an unemployed
-          34-year-old shut-in thinks he’s hit rock-bottom—just as he’s hit and
-          killed by a speeding truck! Awakening to find himself reborn as an
-          infant in a world of swords and sorcery, but with the memories of his
-          first life intact, Rudeus Greyrat is determined not to repeat his past
-          mistakes. He’s going to make the most of this reincarnation as he sets
-          off on the adventure of a second lifetime!
+          Uma princesa fugitiva, uma nação zumbi, um gato divino e muito, muito
+          pão. Estes são apenas alguns dos muitos destaques que colorem as
+          viagens da nossa jovem bruxa. Cada lugar que ela visita é uma nova
+          história esperando para ser contada, repleta de encontros que são tudo
+          menos típicos - e raramente terminam da maneira que alguém espera. Tal
+          é a magia de vagar. Você nunca sabe exatamente onde você vai acabar.
+          Uma história que pode mudar a qualquer momento e se tornar algo
+          completamente diferente...
         </p>
       </AccordionInfo>
       <ListaCapitulos>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MT_V17_Capa_01ed.jpg?resize=1403%2C2000&ssl=1"
-        >
+        <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume2}>
           <div>
             <p>Capítulo 01</p>
             <p>Titulo provisório</p>
           </div>
         </LinkPersonalizado>
-        <LinkPersonalizado
-          href="/marcha-mortal"
-          urlImgCap="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MT_V17_Capa_01ed.jpg?resize=1403%2C2000&ssl=1"
-        >
+        <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume2}>
           <div>
             <p>Capítulo 02</p>
             <p>Titulo provisório</p>

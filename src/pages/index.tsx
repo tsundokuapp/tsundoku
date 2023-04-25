@@ -1,6 +1,5 @@
 import { LayoutMain } from "../components/Layouts/Main";
 import { Card } from "@/components/Card";
-import { TsunAccordion } from "@/components/Accordion";
 import { Carousel } from "../components/Carousel";
 import { Box, BoxAviso } from "@/styles/Home/styles";
 import { Secao } from "@/components/Secao";
@@ -84,7 +83,6 @@ export default function Home() {
           </span>
         </Box>
       </Secao>
-      <TsunAccordion />
     </LayoutMain>
   );
 }

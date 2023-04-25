@@ -36,20 +36,19 @@ export const SubContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  margin: 0 1rem;
-  padding: 0 0.5rem;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  margin: 0 1rem;
+  padding: 0 0.5rem;
 `;
 
 export const HeaderContent = styled.div`
   width: 100%;
   max-width: 1440px;
   height: 5rem;
-  margin: 0 auto;
   padding: 0 2rem;
 
   display: flex;
@@ -58,7 +57,6 @@ export const HeaderContent = styled.div`
 
   nav {
     margin-left: 2rem;
-    height: 5rem;
 
     a {
       display: inline-block;
@@ -69,10 +67,6 @@ export const HeaderContent = styled.div`
         margin-left: 1rem;
       }
     }
-
-    /* a:last-child {
-      margin-right: 5rem;
-    } */
   }
 `;
 
