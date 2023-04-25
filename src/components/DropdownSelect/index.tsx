@@ -7,7 +7,7 @@ import {
 } from "./styles";
 import { FaChevronDown } from "react-icons/fa";
 
-interface DropdownSelectProps {
+interface IDropdownSelectProps {
   label: string;
   values: string[];
   onChange: (value: string) => void;
@@ -17,31 +17,30 @@ export const DropdownSelect = ({
   label,
   values,
   onChange,
-}: DropdownSelectProps) => {
-  const [currentValue, setCurrentValue] = useState<string>("");
-  const [open, setOpen] = useState<boolean>(false);
+}: IDropdownSelectProps) => {
+  const [valorAtual, setValorAtual] = useState<string>("");
+  const [aberto, setAberto] = useState<boolean>(false);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const toggleMenu = () => {
+    setAberto(!aberto);
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const atualizaValor = (value: string) => {
+    setValorAtual(value);
   };
-  const handleValueChange = (value: string) => {
-    setCurrentValue(value);
-  };
+
   const handleChange = (value: string) => {
-    handleValueChange(value);
+    atualizaValor(value);
     if (onChange) onChange(value);
-    handleClose();
+    toggleMenu();
   };
 
   return (
     <SelectContainer>
-      <SelectLabelButton onClick={handleOpen}>
-        {currentValue !== "" ? (
+      <SelectLabelButton onClick={toggleMenu}>
+        {valorAtual !== "" ? (
           <>
-            <p>{currentValue}</p> <FaChevronDown />{" "}
+            <p>{valorAtual}</p> <FaChevronDown />{" "}
           </>
         ) : (
           <>
@@ -49,11 +48,11 @@ export const DropdownSelect = ({
           </>
         )}
       </SelectLabelButton>
-      <DropdownStyle isVisible={open}>
-        {values?.map((value, i) => (
+      <DropdownStyle isVisible={aberto}>
+        {values.map((value, i) => (
           <DropdownItem
             onClick={() => handleChange(value)}
-            active={value === currentValue}
+            active={value === valorAtual}
             key={i}
           >
             {value}
