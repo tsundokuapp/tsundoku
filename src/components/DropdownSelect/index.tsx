@@ -18,19 +18,19 @@ export const DropdownSelect = ({
   values,
   onChange,
 }: IDropdownSelectProps) => {
-  const [valorAtual, setValorAtual] = useState<string>("");
-  const [aberto, setAberto] = useState<boolean>(false);
+  const [currentValue, setCurrentValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
-    setAberto(!aberto);
+    setIsOpen(!isOpen);
   };
 
-  const atualizaValor = (value: string) => {
-    setValorAtual(value);
+  const attValue = (value: string) => {
+    setCurrentValue(value);
   };
 
   const handleChange = (value: string) => {
-    atualizaValor(value);
+    attValue(value);
     if (onChange) onChange(value);
     toggleMenu();
   };
@@ -38,9 +38,9 @@ export const DropdownSelect = ({
   return (
     <SelectContainer>
       <SelectLabelButton onClick={toggleMenu}>
-        {valorAtual !== "" ? (
+        {currentValue !== "" ? (
           <>
-            <p>{valorAtual}</p> <FaChevronDown />{" "}
+            <p>{currentValue}</p> <FaChevronDown />{" "}
           </>
         ) : (
           <>
@@ -48,11 +48,11 @@ export const DropdownSelect = ({
           </>
         )}
       </SelectLabelButton>
-      <DropdownStyle isVisible={aberto}>
+      <DropdownStyle isVisible={isOpen}>
         {values.map((value, i) => (
           <DropdownItem
             onClick={() => handleChange(value)}
-            active={value === valorAtual}
+            active={value === currentValue}
             key={i}
           >
             {value}
