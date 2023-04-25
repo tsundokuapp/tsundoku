@@ -1,4 +1,4 @@
-import { LayoutListagemObra } from "@/components/Layouts/ListagemObra";
+import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
 import { BoxAviso } from "@/styles/Home/styles";
 import { Secao } from "@/components/Secao";
 import { useState } from "react";
@@ -8,7 +8,7 @@ export default function Novel() {
   const [temAviso, setTemAviso] = useState(true);
 
   return (
-    <LayoutListagemObra titulo="Novels - Tsundoku">
+    <LayoutObraIndice titulo="Bruxa Errante - Tsundoku">
       <Secao>
         {temAviso && (
           <BoxAviso>
@@ -17,6 +17,6 @@ export default function Novel() {
           </BoxAviso>
         )}
       </Secao>
-    </LayoutListagemObra>
+    </LayoutObraIndice>
   );
 }

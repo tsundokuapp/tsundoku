@@ -19,7 +19,8 @@ export const HeaderContainer = styled.header<INavBarProps>`
   height: 5rem;
   background: ${(props) => props.theme.colors.bgComponente};
 
-  border-bottom: 1px solid ${(props) => props.theme.colors.primaria[500]};
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
   top: ${(props) => (props.isVisible ? 0 : 0)};
   translate: ${(props) => (props.isVisible ? "0 -5rem" : 0)};
 `;
@@ -40,8 +41,6 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
-  margin: 0 1rem;
   padding: 0 0.5rem;
 `;
 
@@ -50,6 +49,7 @@ export const HeaderContent = styled.div`
   max-width: 1440px;
   height: 5rem;
   padding: 0 2rem;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;

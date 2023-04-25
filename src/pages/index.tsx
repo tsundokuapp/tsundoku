@@ -33,24 +33,28 @@ export default function Home() {
       </Secao>
       <Secao titulo="Adicionados Recentemente" direcaoItens="row">
         <Card
+          href={"/novels/bruxa-errante"}
           capa={elainaCover}
           titulo="Bruxa Errante"
           autor="Kazuma Kamachi"
           volume="Volume 10"
         />
         <Card
+          href={"/novels/bruxa-errante"}
           capa={goblinCover}
           titulo="Matador de Goblins"
           autor="Kazuma Kamachi"
           volume="Volume Único"
         />
         <Card
+          href={"/novels/bruxa-errante"}
           capa={tearCover}
           titulo="Império Tearmoon"
           autor="Kazuma Kamachi"
           volume="Volume 2"
         />
         <Card
+          href={"/novels/bruxa-errante"}
           capa={marchaCover}
           titulo="Marcha Mortal"
           autor="Kazuma Kamachi"

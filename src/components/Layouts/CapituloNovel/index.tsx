@@ -12,6 +12,7 @@ import {
 } from "./styles";
 import React from "react";
 import { TsunBotao } from "@/components/Botao";
+import { TrilhaPath } from "@/components/TrilhaPath";
 
 const capaElaina =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
@@ -39,9 +40,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
         </Capa>
         <Conteudo>
           <Navegacao>
-            <p>
-              NOVELS {">"} BRUXA ERRANTE {">"} VOLUME {">"} CAPÍTULO 01
-            </p>
+            <TrilhaPath />
             <div>
               <TsunBotao titulo="Anterior" variante="secundario" />
               <TsunBotao titulo="Índice" variante="secundario" />

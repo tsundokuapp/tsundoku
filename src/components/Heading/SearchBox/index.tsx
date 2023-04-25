@@ -14,10 +14,8 @@ export const SearchBox = ({ placeholder }: ISearchBoxProps) => {
     <>
       {width > SIZES_RAW.TABLET && (
         <InputBuscar>
-          <>
-            <Input placeholder={placeholder} />
-            <Icon>{<FiSearch />}</Icon>
-          </>
+          <Input placeholder={placeholder} />
+          <Icon>{<FiSearch />}</Icon>
         </InputBuscar>
       )}
     </>

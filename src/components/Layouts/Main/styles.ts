@@ -22,18 +22,3 @@ export const BoxContent = styled.div`
   margin-top: 1.5rem;
   gap: 1.5rem;
 `;
-
-export const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  width: 100%;
-
-  gap: 0.5rem;
-  padding: 1.5rem;
-
-  // TODO: Adicionar essa cor no tema
-  background-color: #3c4148;
-`;

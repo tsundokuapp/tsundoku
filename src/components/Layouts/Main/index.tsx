@@ -1,7 +1,8 @@
-import Head from "next/head";
-import { Container, BoxContent, Footer } from "./styles";
 import React from "react";
-import { useMounted } from "@/hooks/useMounted";
+import Head from "next/head";
+import { Footer } from "@/components/Footer";
+
+import { Container, BoxContent } from "./styles";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -9,11 +10,6 @@ interface ILayoutMainProps {
 }
 
 export const LayoutMain = ({ children, title }: ILayoutMainProps) => {
-  const hasMounted = useMounted();
-  if (!hasMounted) {
-    return null;
-  }
-
   return (
     <>
       <Container>
@@ -29,13 +25,7 @@ export const LayoutMain = ({ children, title }: ILayoutMainProps) => {
 
         <BoxContent>{children}</BoxContent>
       </Container>
-      <Footer>
-        <strong>Tsundoku Traduções</strong>
-        <div>
-          <p>aqui vai ter os links de redes sociais</p>
-        </div>
-        <p>© 2023 Tsundoku Traduções</p>
-      </Footer>
+      <Footer />
     </>
   );
 };

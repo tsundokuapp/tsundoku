@@ -12,9 +12,9 @@ import {
   BoxContentFooter,
 } from "./styles";
 import React from "react";
-import { useMounted } from "@/hooks/useMounted";
 import { TsunAccordion } from "@/components/Accordion";
 import { Footer } from "@/components/Footer";
+import { TrilhaPath } from "@/components/TrilhaPath";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -22,11 +22,6 @@ interface ILayoutMainProps {
 }
 
 export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
-  const hasMounted = useMounted();
-  if (!hasMounted) {
-    return null;
-  }
-
   return (
     <>
       <ContainerIndiceObra>
@@ -41,7 +36,7 @@ export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
         </Head>
         <Conteudo>
           <Navegacao>
-            <p>NOVELS / BRUXA ERRANTE</p>
+            <TrilhaPath />
           </Navegacao>
 
           <BoxBody>
