@@ -3,13 +3,14 @@ import {
   ContainerIndiceObra,
   Conteudo,
   Navegacao,
-  BoxBody,
+  Obra,
   Capa,
-  BoxInfo,
+  Info,
   Titulo,
   Generos,
   DetalhesObra,
   BoxContentFooter,
+  Sinopse,
 } from "./styles";
 import React from "react";
 import { TsunAccordion } from "@/components/Accordion";
@@ -39,14 +40,14 @@ export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
             <TrilhaPath />
           </Navegacao>
 
-          <BoxBody>
+          <Obra>
             <Capa>
               <img
                 src="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/MJ_V8_Capa.jpg"
                 alt="atual volume da obra"
               />
             </Capa>
-            <BoxInfo>
+            <Info>
               <div>
                 <Titulo>
                   <h1>Bruxa Errante, a Jornada de Elaina</h1>
@@ -65,7 +66,7 @@ export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
                   <p>Tragédia</p>
                 </Generos>
               </div>
-              <p>
+              <Sinopse>
                 Em um determinado lugar, havia uma bruxa viajante. Seu nome era
                 Elaina.
                 <br />
@@ -86,9 +87,9 @@ export const LayoutObraIndice = ({ children, titulo }: ILayoutMainProps) => {
                 Devo me apressar.
                 <br />
                 <br />A Bruxa, sim, eu.
-              </p>
-            </BoxInfo>
-          </BoxBody>
+              </Sinopse>
+            </Info>
+          </Obra>
         </Conteudo>
         <BoxContentFooter>
           <DetalhesObra>

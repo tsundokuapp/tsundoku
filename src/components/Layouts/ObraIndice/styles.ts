@@ -42,7 +42,7 @@ export const Navegacao = styled.nav`
   }
 `;
 
-export const BoxBody = styled.div`
+export const Obra = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -66,7 +66,7 @@ export const Capa = styled.div`
   }
 `;
 
-export const BoxInfo = styled.div`
+export const Info = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -80,10 +80,12 @@ export const BoxInfo = styled.div`
 
   gap: 1rem;
   padding-bottom: 0.5rem;
+`;
 
-  > p {
-    margin-top: 1.5rem;
-  }
+export const Sinopse = styled.div`
+  overflow: scroll;
+  text-indent: 2em;
+  margin-top: 1.5rem;
 `;
 
 export const Titulo = styled.div`
