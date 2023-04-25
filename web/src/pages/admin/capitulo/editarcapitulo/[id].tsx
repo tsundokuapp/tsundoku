@@ -69,6 +69,8 @@ const EditarCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>
         }
     }
 
+    console.log("teste");
+
     const initialValues: Values = {
         Id: data?.id,
         Numero: data?.numero,
