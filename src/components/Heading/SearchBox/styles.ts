@@ -1,21 +1,61 @@
-import styled from "styled-components";
+import styled, { DefaultTheme, css } from "styled-components";
 
-export const InputBuscar = styled.label`
+interface IInputBuscaProps {
+  variante: "primaria" | "secundaria";
+  borda: "redonda" | "quadrada";
+}
+
+const bordaVariante = (theme: DefaultTheme, borda = "redonda") =>
+  ({
+    redonda: css`
+      border-radius: ${theme.quina.redonda};
+    `,
+    quadrada: css`
+      border-radius: ${theme.quina.media};
+    `,
+  }[borda]);
+
+const bgVariante = (theme: DefaultTheme, variante = "primaria") =>
+  ({
+    primaria: css`
+      background: ${theme.colors.especial.bgBusca};
+    `,
+    secundaria: css`
+      background: ${theme.colors.bgComponente};
+    `,
+  }[variante]);
+
+export const InputBusca = styled.label<IInputBuscaProps>`
   display: flex;
   flex: 1;
   align-items: center;
 
   padding: 1rem;
-  border-radius: ${({ theme }) => theme.quina.redonda};
+
+  ${({ theme, borda }) => bordaVariante(theme, borda)};
 
   min-width: 18rem;
   max-height: 2rem;
 
-  background: ${({ theme }) => theme.colors.especial.bgBusca};
+  ${({ theme, variante }) => bgVariante(theme, variante)};
 `;
 
-export const Input = styled.input`
-  color: ${({ theme }) => theme.colors.especial.textBusca};
+interface IInputProps {
+  variante: "primaria" | "secundaria";
+}
+
+const colorVariante = (theme: DefaultTheme, variante = "primaria") =>
+  ({
+    primaria: css`
+      color: ${theme.colors.especial.textBusca};
+    `,
+    secundaria: css`
+      color: ${theme.colors.textSec};
+    `,
+  }[variante]);
+
+export const Input = styled.input<IInputProps>`
+  ${({ theme, variante }) => colorVariante(theme, variante)};
   background-color: transparent;
   border: none;
   font-size: ${({ theme }) => theme.texto.paragrafo};

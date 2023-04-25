@@ -49,7 +49,11 @@ export const LayoutListagemObra = ({ children, titulo }: ILayoutMainProps) => {
         <Conteudo>
           <Navegacao>
             <h3>Encontre sua novel na estante da Tsun</h3>
-            <SearchBox placeholder="Pesquisar por título" />
+            <SearchBox
+              placeholder="Pesquisar por título"
+              borda="quadrada"
+              variante="secundaria"
+            />
             <Filtros>
               <DropdownSelect
                 label="Gênero"
