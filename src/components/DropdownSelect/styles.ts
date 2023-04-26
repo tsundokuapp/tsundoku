@@ -16,6 +16,7 @@ export const SelectLabelButton = styled.button`
   gap: 0.5rem;
 
   padding: 0.75rem;
+  margin: 0 0.5rem;
   min-width: 7rem;
   font-size: 0.9rem;
   font-weight: normal;
@@ -69,10 +70,11 @@ export const DropdownItem = styled.div<DropdownItemProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   width: 90%;
-  margin: 0.25rem 0;
-  padding: 0.5rem;
+  margin: 0.25rem;
+  padding: 0.25rem;
   border-radius: ${({ theme }) => theme.quina.pequena};
 
   font-size: 0.9rem;

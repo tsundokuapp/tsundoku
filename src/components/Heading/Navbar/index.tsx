@@ -53,7 +53,16 @@ export const Navbar = () => {
               <ul>
                 {tabs.map((item) => (
                   <li key={item.label} onClick={() => setSelectedTab(item)}>
-                    <Link href={item.href}>{item.label}</Link>
+                    <Link
+                      href={item.href}
+                      style={
+                        item === selectedTab
+                          ? { fontWeight: "bold", color: "#259CC1" }
+                          : { fontWeight: "normal" }
+                      }
+                    >
+                      {item.label}
+                    </Link>
                     {item === selectedTab ? (
                       <Underline as={motion.div} layoutId="underline" />
                     ) : null}
@@ -64,7 +73,16 @@ export const Navbar = () => {
               <ul>
                 {tabs.map((item) => (
                   <li key={item.label} onClick={() => setSelectedTab(item)}>
-                    <Link href={item.href}>{item.label}</Link>
+                    <Link
+                      href={item.href}
+                      style={
+                        item === selectedTab
+                          ? { fontWeight: "bold", color: "#259CC1" }
+                          : { fontWeight: "normal" }
+                      }
+                    >
+                      {item.label}
+                    </Link>
                     {item === selectedTab ? (
                       <Underline
                         as={motion.div}
