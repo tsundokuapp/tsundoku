@@ -1,4 +1,4 @@
-import { LayoutListagemObra } from "@/components/Layouts/ListagemObra";
+import { LayoutListagemObra } from "@/components/Layouts/ObraListagem";
 import { BoxAviso } from "@/styles/Home/styles";
 import { Secao } from "@/components/Secao";
 import { useState } from "react";

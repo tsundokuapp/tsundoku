@@ -1,6 +1,6 @@
 import styled, { DefaultTheme, css } from "styled-components";
 
-export const ContainerBotao = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,7 +52,7 @@ const statusBotao = (theme: DefaultTheme, desativado?: boolean) =>
         transition: filter 0.2s;
       `;
 
-export const Botao = styled.button<IBotao>`
+export const ButtonStyled = styled.button<IBotao>`
   display: flex;
   flex-direction: row;
   align-items: center;

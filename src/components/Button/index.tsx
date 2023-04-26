@@ -1,4 +1,4 @@
-import { ContainerBotao, Botao } from "./styles";
+import { Container, ButtonStyled } from "./styles";
 
 interface IBotaoProps {
   titulo: string;
@@ -7,24 +7,24 @@ interface IBotaoProps {
   desativado?: boolean;
 }
 
-export const TsunBotao = ({
+export const Button = ({
   titulo,
   icone,
   variante = "primaria",
   desativado = false,
 }: IBotaoProps) => {
   return (
-    <ContainerBotao>
+    <Container>
       {variante === "icone" ? (
-        <Botao variante={variante} desativado={desativado}>
+        <ButtonStyled variante={variante} desativado={desativado}>
           {icone}
-        </Botao>
+        </ButtonStyled>
       ) : (
-        <Botao variante={variante} desativado={desativado}>
+        <ButtonStyled variante={variante} desativado={desativado}>
           {icone || null}
           {titulo}
-        </Botao>
+        </ButtonStyled>
       )}
-    </ContainerBotao>
+    </Container>
   );
 };

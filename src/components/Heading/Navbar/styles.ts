@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-interface ILinkTextProps {
-  pathName: string;
-  href: string;
-}
-
 interface INavBarProps {
   isVisible: boolean;
 }
@@ -39,16 +34,58 @@ export const HeaderContent = styled.div`
   nav {
     margin-left: 2rem;
 
+    ul {
+      display: flex;
+      width: 100%;
+    }
+
+    li {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+      width: 100%;
+      min-width: 0;
+      height: 24px;
+
+      padding: 0.5rem;
+
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
     a {
       display: inline-block;
       position: relative;
+
       padding: 0 0.5rem;
       line-height: 5rem;
-      & + a {
-        margin-left: 1rem;
+
+      border-bottom: ${(props) => props.theme.colors.primaria[500]};
+      height: calc(5rem - 1px);
+
+      font-weight: normal;
+      color: ${(props) => props.theme.colors.text};
+
+      transition: 0.2s;
+
+      &:hover {
+        color: ${(props) => props.theme.colors.primaria[500]};
+        font-weight: bold;
       }
     }
   }
+`;
+
+export const Underline = styled.div`
+  position: absolute;
+  border-bottom: 3px solid ${(props) => props.theme.colors.primaria[500]};
+  left: 0;
+  right: 0;
+  height: calc(5rem - 1px);
 `;
 
 export const Container = styled.div`
@@ -67,26 +104,4 @@ export const SubContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-`;
-
-export const LinkText = styled.p<ILinkTextProps>`
-  border-bottom: ${(props) =>
-    props.href === props.pathName
-      ? `3px solid ${props.theme.colors.primaria[500]}`
-      : "none"};
-  height: calc(5rem - 1px);
-
-  font-weight: ${(props) =>
-    props.href === props.pathName ? "bold" : "normal"};
-  color: ${(props) =>
-    props.href === props.pathName
-      ? props.theme.colors.primaria[500]
-      : props.theme.colors.text};
-
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    font-weight: bold;
-    border-bottom: 3px solid ${(props) => props.theme.colors.text};
-  }
 `;

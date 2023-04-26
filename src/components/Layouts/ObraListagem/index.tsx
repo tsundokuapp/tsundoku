@@ -16,6 +16,7 @@ import { Card } from "@/components/Card";
 
 import elainaCover from "@/assets/img/elaina8.webp";
 import goblinCover from "@/assets/img/goblin.webp";
+import { SectionEntryAnimationRight } from "@/animations/SectionEntry";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -79,43 +80,45 @@ export const LayoutListagemObra = ({ children, titulo }: ILayoutMainProps) => {
           </Navegacao>
 
           <Titulo>Novels</Titulo>
-          <Grid>
-            <Card
-              href={"/novels/bruxa-errante"}
-              capa={elainaCover}
-              titulo="Bruxa Errante"
-              autor="Jougi Shiraishi"
-              volume="Volume 8"
-            />
-            <Card
-              href={"/novels/bruxa-errante"}
-              capa={goblinCover}
-              titulo="Matador de Goblins"
-              autor="Kumo Kagyu"
-              volume="Volume 12"
-            />
-            <Card
-              href={"/novels/bruxa-errante"}
-              capa={elainaCover}
-              titulo="Bruxa Errante"
-              autor="Jougi Shiraishi"
-              volume="Volume 8"
-            />
-            <Card
-              href={"/novels/bruxa-errante"}
-              capa={goblinCover}
-              titulo="Matador de Goblins"
-              autor="Kumo Kagyu"
-              volume="Volume 12"
-            />
-            <Card
-              href={"/novels/bruxa-errante"}
-              capa={elainaCover}
-              titulo="Bruxa Errante"
-              autor="Jougi Shiraishi"
-              volume="Volume 8"
-            />
-          </Grid>
+          <SectionEntryAnimationRight>
+            <Grid>
+              <Card
+                href={"/novels/bruxa-errante"}
+                capa={elainaCover}
+                titulo="Bruxa Errante"
+                autor="Jougi Shiraishi"
+                volume="Volume 8"
+              />
+              <Card
+                href={"/novels/bruxa-errante"}
+                capa={goblinCover}
+                titulo="Matador de Goblins"
+                autor="Kumo Kagyu"
+                volume="Volume 12"
+              />
+              <Card
+                href={"/novels/bruxa-errante"}
+                capa={elainaCover}
+                titulo="Bruxa Errante"
+                autor="Jougi Shiraishi"
+                volume="Volume 8"
+              />
+              <Card
+                href={"/novels/bruxa-errante"}
+                capa={goblinCover}
+                titulo="Matador de Goblins"
+                autor="Kumo Kagyu"
+                volume="Volume 12"
+              />
+              <Card
+                href={"/novels/bruxa-errante"}
+                capa={elainaCover}
+                titulo="Bruxa Errante"
+                autor="Jougi Shiraishi"
+                volume="Volume 8"
+              />
+            </Grid>
+          </SectionEntryAnimationRight>
         </Conteudo>
       </Container>
       <Footer />

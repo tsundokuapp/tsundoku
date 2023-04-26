@@ -9,7 +9,7 @@ import {
 
 import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
 import { useState } from "react";
-import { TsunBotao } from "../Botao";
+import { Button } from "../Button";
 import Link from "next/link";
 
 // TODO: alterar StaticImageData para string quando terminar os testes
@@ -52,7 +52,7 @@ export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
             <span>
               <p>Volume: </p> <p>{volume}</p>
             </span>
-            <TsunBotao titulo="Capítulo 07" variante="primaria" />
+            <Button titulo="Capítulo 07" variante="primaria" />
           </BodyCardInfo>
         </ContainerInfo>
       </ContainerCard>

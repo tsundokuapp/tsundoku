@@ -17,6 +17,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "cross-blob": "^3.0.1",
     "formik": "^2.2.9",
+    "framer-motion": "^10.12.4",
     "keen-slider": "^6.8.5",
     "next": "13.2.4",
     "react": "18.2.0",
