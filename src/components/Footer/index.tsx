@@ -7,7 +7,7 @@ export const Footer = () => {
     <Container>
       <strong>Tsundoku Traduções</strong>
       <SocialMidia>
-        <a href="https://www.facebook.com/tsundokutraducoes">
+        <a href="https://twitter.com/tsuntraducoes">
           <FiTwitter />
         </a>
         <a href="https://www.facebook.com/tsundokutraducoes">
@@ -16,7 +16,7 @@ export const Footer = () => {
         <a href="https://www.facebook.com/tsundokutraducoes">
           <FaDiscord />
         </a>
-        <a href="https://www.facebook.com/tsundokutraducoes">
+        <a href="tsundokutraducoes@gmail.com">
           <FiMail />
         </a>
       </SocialMidia>
