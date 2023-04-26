@@ -68,15 +68,21 @@ export const Content = styled.div`
   line-height: 1.5;
 `;
 
-export const AccordionInfo = styled.div`
+interface IAccordionInfoProps {
+  isTablet: boolean;
+}
+
+export const AccordionInfo = styled.div<IAccordionInfoProps>`
   display: flex;
-  flex-direction: row;
+  flex: 1;
+  flex-direction: ${(props) => (props.isTablet ? "column" : "row")};
+  align-items: flex-start;
+  justify-content: center;
 
   gap: 1.5rem;
 
   img {
     max-width: 300px;
-    width: 100%;
     height: 450px;
 
     border-radius: ${({ theme }) => theme.quina.media};
@@ -90,9 +96,14 @@ export const AccordionInfo = styled.div`
   }
 `;
 
-export const ListaCapitulos = styled.section`
+interface IListaCapitulosProps {
+  isTablet: boolean;
+}
+
+export const ListaCapitulos = styled.section<IListaCapitulosProps>`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: ${(props) =>
+    props.isTablet ? "1fr" : "repeat(2, 1fr)"};
   gap: 0.75rem;
 `;
 

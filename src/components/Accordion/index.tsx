@@ -10,6 +10,8 @@ import {
   LinkPersonalizado,
   AccordionInfo,
 } from "./styles";
+import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+import { SIZES_RAW } from "@/constants/brakingPoints";
 
 import { useRouter } from "next/router";
 
@@ -50,10 +52,13 @@ export const TsunAccordion = () => {
     );
   };
 
+  const { width } = useWindowDimensions();
+  const isTablet = width <= SIZES_RAW.TABLET;
+
   return (
     <Layout>
       <Accordion title="Volume 1">
-        <AccordionInfo>
+        <AccordionInfo isTablet={isTablet}>
           <img src={capaVolume1} alt="random" />
           <p>
             Qual é a sua história favorita? Tem um herói que mata um dragão e
@@ -68,7 +73,7 @@ export const TsunAccordion = () => {
             Agora, a bruxa que recomeça a história... quem poderia ser ela?
           </p>
         </AccordionInfo>
-        <ListaCapitulos>
+        <ListaCapitulos isTablet={isTablet}>
           <LinkPersonalizado href={slug} urlImgCap={capaVolume1}>
             <div>
               <p>Capítulo 01</p>
@@ -96,7 +101,7 @@ export const TsunAccordion = () => {
         </ListaCapitulos>
       </Accordion>
       <Accordion title="Volume 2">
-        <AccordionInfo>
+        <AccordionInfo isTablet={isTablet}>
           <img src={capaVolume2} alt="random" />
           <p>
             Uma princesa fugitiva, uma nação zumbi, um gato divino e muito,
@@ -109,7 +114,7 @@ export const TsunAccordion = () => {
             tornar algo completamente diferente...
           </p>
         </AccordionInfo>
-        <ListaCapitulos>
+        <ListaCapitulos isTablet={isTablet}>
           <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume2}>
             <div>
               <p>Capítulo 01</p>
