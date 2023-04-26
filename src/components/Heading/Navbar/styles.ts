@@ -25,25 +25,6 @@ export const HeaderContainer = styled.header<INavBarProps>`
   translate: ${(props) => (props.isVisible ? "0 -5rem" : 0)};
 `;
 
-export const SubContainer = styled.div`
-  width: 5rem;
-  height: 5rem;
-  padding: 0 2rem;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.5rem;
-`;
-
 export const HeaderContent = styled.div`
   width: 100%;
   max-width: 1440px;
@@ -68,6 +49,24 @@ export const HeaderContent = styled.div`
       }
     }
   }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+`;
+
+export const SubContainer = styled.div`
+  padding: 0 1rem;
+  gap: 0.25rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const LinkText = styled.p<ILinkTextProps>`
