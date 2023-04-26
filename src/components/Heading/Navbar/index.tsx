@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { SignInButton } from "../SignInButton";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,21 +10,19 @@ import {
   Underline,
 } from "./styles";
 import { SIZES_RAW } from "@/constants/brakingPoints";
-import { useEffect, useRef, useState } from "react";
-
-// TODO: fazer a troca da logo de acordo com o tema;
 import logo from "@/assets/logo/logoDefault.svg";
 import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { defaultTabs as tabs } from "./ListLink";
+import { defaultTabs, mobileTabs } from "@/constants/ListLink";
 import { motion } from "framer-motion";
 
 export const Navbar = () => {
+  const { width } = useWindowDimensions();
+  const tabs = width < SIZES_RAW.TABLET ? mobileTabs : defaultTabs;
+
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
-
-  const { width } = useWindowDimensions();
 
   const lastScrollY = useRef(0);
 
@@ -67,7 +66,11 @@ export const Navbar = () => {
                   <li key={item.label} onClick={() => setSelectedTab(item)}>
                     <Link href={item.href}>{item.label}</Link>
                     {item === selectedTab ? (
-                      <Underline as={motion.div} layoutId="underline" />
+                      <Underline
+                        as={motion.div}
+                        layoutId="underline"
+                        transition={{ type: "spring", bounce: 0.4 }}
+                      />
                     ) : null}
                   </li>
                 ))}

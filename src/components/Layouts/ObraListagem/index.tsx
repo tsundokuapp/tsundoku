@@ -14,9 +14,9 @@ import { SearchBox } from "@/components/Heading/SearchBox";
 import { DropdownSelect } from "@/components/DropdownSelect";
 import { Card } from "@/components/Card";
 
-import elainaCover from "@/assets/img/elaina8.webp";
-import goblinCover from "@/assets/img/goblin.webp";
-import { SectionEntryAnimationRight } from "@/animations/SectionEntry";
+import { ItemByItemAnimation } from "@/animations/ItemByItem";
+
+import { AllWorksTsun as works } from "@/constants/WorksTsun";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -80,45 +80,19 @@ export const LayoutListagemObra = ({ children, titulo }: ILayoutMainProps) => {
           </Navegacao>
 
           <Titulo>Novels</Titulo>
-          <SectionEntryAnimationRight>
-            <Grid>
-              <Card
-                href={"/novels/bruxa-errante"}
-                capa={elainaCover}
-                titulo="Bruxa Errante"
-                autor="Jougi Shiraishi"
-                volume="Volume 8"
-              />
-              <Card
-                href={"/novels/bruxa-errante"}
-                capa={goblinCover}
-                titulo="Matador de Goblins"
-                autor="Kumo Kagyu"
-                volume="Volume 12"
-              />
-              <Card
-                href={"/novels/bruxa-errante"}
-                capa={elainaCover}
-                titulo="Bruxa Errante"
-                autor="Jougi Shiraishi"
-                volume="Volume 8"
-              />
-              <Card
-                href={"/novels/bruxa-errante"}
-                capa={goblinCover}
-                titulo="Matador de Goblins"
-                autor="Kumo Kagyu"
-                volume="Volume 12"
-              />
-              <Card
-                href={"/novels/bruxa-errante"}
-                capa={elainaCover}
-                titulo="Bruxa Errante"
-                autor="Jougi Shiraishi"
-                volume="Volume 8"
-              />
-            </Grid>
-          </SectionEntryAnimationRight>
+          <Grid>
+            {works.map((item, i) => (
+              <ItemByItemAnimation key={i} order={i}>
+                <Card
+                  href={item.href}
+                  capa={item.cover}
+                  titulo={item.title}
+                  autor={item.author}
+                  volume={`Volume ${item.volume}`}
+                />
+              </ItemByItemAnimation>
+            ))}
+          </Grid>
         </Conteudo>
       </Container>
       <Footer />

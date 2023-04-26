@@ -14,7 +14,7 @@ import Link from "next/link";
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {
-  capa: StaticImageData;
+  capa: StaticImageData | string;
   titulo: string;
   autor: string;
   volume: string;
