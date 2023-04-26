@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
-import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
-import NavPaginas from '../../../components/Admin/NavPaginas';
+import LayoutAdminMain from '../../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../../components/Admin/NavPaginas';
 import Container, {
     //Cards
     CardObra,
@@ -28,8 +28,8 @@ import { Search } from '@material-ui/icons';
 import AppsIcon from '@material-ui/icons/Apps';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import https from 'https';
-import API from '../../../pages/api/api';
-import { ROTAS } from '../../../constants/rotas';
+import API from '../../../api/api';
+import { ROTAS } from '../../../../constants/rotas';
 
 interface IObra {
     id: number;

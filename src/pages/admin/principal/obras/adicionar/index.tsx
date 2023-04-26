@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import InputFiles from '../../../common/InputFiles/InputFiles';
-import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
-import SecaoHeadBar from '../../../components/Admin/SecaoHeadBar';
-import NavPaginas from '../../../components/Admin/NavPaginas';
-import Editor from '../../../Utils/Editor';
+import InputFiles from '../../../../../common/InputFiles/InputFiles';
+import LayoutAdminMain from '../../../../../components/Layouts/Admin/Main';
+import SecaoHeadBar from '../../../../../components/Admin/SecaoHeadBar';
+import NavPaginas from '../../../../../components/Admin/NavPaginas';
+import Editor from '../../../../../Utils/Editor';
 import Container, { ContainerForm, SecaoInputs, SecaoCapaObra, ImagemCapaObraPrincipal, SecaoOutrasInformacoes, SecaoGeneros, SecaoBotoesSubmit } from './styles';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import capaPrincipal from '../../../../public/assets/img/logoTemaLight.svg';
 import Blob from 'cross-blob';
 import https from 'https';
-import API from '../../../pages/api/api';
-import { ROTAS } from '../../../constants/rotas';
+import API from '../../../../api/api';
+import { ROTAS } from '../../../../../constants/rotas';
 
 interface Values {
     ImagemCapa: File | any;

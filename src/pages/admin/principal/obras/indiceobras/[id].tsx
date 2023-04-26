@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import LayoutAdminMain from '../../../components/Layouts/Admin/Main';
+import LayoutAdminMain from '../../../../../components/Layouts/Admin/Main';
 import Container, { SecaoTitulo, SecaoIndiceCapitulos, BotaoAlteracao, SecaoBotoesAdicao} from './styles';
-import AcordeonIndice from '../../../components/Admin/AcordeonIndice';
+import AcordeonIndice from '../../../../../components/Admin/AcordeonIndice';
 import https from 'https';
-import API from '../../../pages/api/api';
-import { ROTAS } from '../../../constants/rotas';
+import API from '../../../../api/api';
+import { ROTAS } from '../../../../../constants/rotas';
 
 const ListaCapitulo = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
