@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 
-import Notification from "@/components/Notification/teste";
+import { Notification } from "@/components/Notification";
 
 interface INotificationContext {
   type: "success" | "error" | "warning" | "info";
@@ -45,6 +45,7 @@ export const useNotify = () => {
 
 const NotificationsContainer = styled.div`
   position: fixed;
+  z-index: 9999;
   top: 16px;
   right: 16px;
   pointer-events: none;

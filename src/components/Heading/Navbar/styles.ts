@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header<INavBarProps>`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 10;
   transition: 0.3s ease-in-out;
   height: 5rem;
   background: ${(props) => props.theme.colors.bgComponente};

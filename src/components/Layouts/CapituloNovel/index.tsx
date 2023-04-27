@@ -57,6 +57,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
         type: "warning",
         title: "Aviso",
         description: "Espaçamento mínimo atingido",
+        onMore: () => alert("teste"),
       });
       return;
     }
