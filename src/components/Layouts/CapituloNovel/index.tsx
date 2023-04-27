@@ -15,6 +15,7 @@ import { Button } from "@/components/Button";
 import { TrilhaPath } from "@/components/TrilhaPath";
 import { CircleIndicator } from "@/animations/ScrollLinked";
 import { MenuControllerText } from "@/components/MenuControllerText";
+import { useNotify } from "@/Context/NotificationProvider";
 
 const capaElaina =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
@@ -28,13 +29,23 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
   const [fontSize, setFontSize] = useState(16);
   const [lineHeight, setLineHeight] = useState(1);
 
+  const notify = useNotify();
+
   const ChangeFontSize = (params: number) => {
     if (params === -1 && fontSize <= 12) {
-      alert("tamnho mínimo atingido");
+      notify({
+        type: "warning",
+        title: "Aviso",
+        description: "Tamanho mínimo atingido",
+      });
       return;
     }
     if (params === 1 && fontSize >= 26) {
-      alert("tamanho máximo atingido");
+      notify({
+        type: "warning",
+        title: "Aviso",
+        description: "Tamanho máximo atingido",
+      });
       return;
     }
     setFontSize(fontSize + params);
@@ -42,11 +53,19 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
 
   const ChangeLineHeight = (params: number) => {
     if (params === -0.5 && lineHeight <= 1) {
-      alert("tamnho mínimo atingido");
+      notify({
+        type: "warning",
+        title: "Aviso",
+        description: "Espaçamento mínimo atingido",
+      });
       return;
     }
     if (params === 0.5 && lineHeight >= 4) {
-      alert("tamanho máximo atingido");
+      notify({
+        type: "warning",
+        title: "Aviso",
+        description: "Espaçamento máximo atingido",
+      });
       return;
     }
     setLineHeight(lineHeight + params);

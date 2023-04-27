@@ -4,6 +4,7 @@ import { CustomThemeProvider } from "@/hooks/useThemeContext";
 import { GlobalStyle } from "@/styles/globals";
 import { Navbar } from "@/components/Heading/Navbar";
 import { useMounted } from "@/hooks/useMounted";
+import NotificationProvider from "@/Context/NotificationProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   // TODO: verificar se o tema vai ser alterado via localStorage ou DB
@@ -19,9 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <CustomThemeProvider>
-        <GlobalStyle />
-        <Navbar />
-        <Component {...pageProps} />
+        <NotificationProvider>
+          <GlobalStyle />
+          <Navbar />
+          <Component {...pageProps} />
+        </NotificationProvider>
       </CustomThemeProvider>
     </>
   );

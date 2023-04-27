@@ -52,7 +52,7 @@ export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
             <span>
               <p>Volume: </p> <p>{volume}</p>
             </span>
-            <Button titulo="Capítulo 07" variante="primaria" />
+            <Button label="Capítulo 07" variant="primaria" />
           </BodyCardInfo>
         </ContainerInfo>
       </ContainerCard>
