@@ -1,12 +1,5 @@
-import React from "react";
-import LayoutAdminMain from '../../../../components/Layouts/Admin/Main';
-
-const Usuarios = () => {
+export default function Usuarios() {
   return (
-    <LayoutAdminMain>
-      <h1>Esse é a Listagem de todos os usuários</h1>
-    </LayoutAdminMain>
+      <><h1>Usuários</h1></>
   );
-};
-
-export default Usuarios;
+}
