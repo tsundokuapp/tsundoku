@@ -10,10 +10,11 @@ import {
   Staff,
   Capitulo,
 } from "./styles";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/Button";
 import { TrilhaPath } from "@/components/TrilhaPath";
 import { CircleIndicator } from "@/animations/ScrollLinked";
+import { MenuControllerText } from "@/components/MenuControllerText";
 
 const capaElaina =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
@@ -24,9 +25,42 @@ interface ILayoutMainProps {
 }
 
 export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
+  const [fontSize, setFontSize] = useState(16);
+  const [lineHeight, setLineHeight] = useState(1);
+
+  const ChangeFontSize = (params: number) => {
+    if (params === -1 && fontSize <= 12) {
+      alert("tamnho mínimo atingido");
+      return;
+    }
+    if (params === 1 && fontSize >= 26) {
+      alert("tamanho máximo atingido");
+      return;
+    }
+    setFontSize(fontSize + params);
+  };
+
+  const ChangeLineHeight = (params: number) => {
+    if (params === -0.5 && lineHeight <= 1) {
+      alert("tamnho mínimo atingido");
+      return;
+    }
+    if (params === 0.5 && lineHeight >= 4) {
+      alert("tamanho máximo atingido");
+      return;
+    }
+    setLineHeight(lineHeight + params);
+  };
+
   return (
     <>
       <CircleIndicator />
+      <MenuControllerText
+        fontMinus={() => ChangeFontSize(-1)}
+        fontPlus={() => ChangeFontSize(1)}
+        lineMinus={() => ChangeLineHeight(-0.5)}
+        linePlus={() => ChangeLineHeight(0.5)}
+      />
       <Container>
         <Head>
           <title>{titulo}</title>
@@ -44,12 +78,20 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
           <Navegacao>
             <TrilhaPath />
             <div>
-              <Button titulo="Anterior" variante="secundario" />
-              <Button titulo="Índice" variante="secundario" />
-              <Button titulo="Próximo" variante="secundario" />
+              <Button
+                label="Anterior"
+                variant="secundario"
+                onClick={() => {}}
+              />
+              <Button label="Índice" variant="secundario" />
+              <Button
+                label="Próximo"
+                variant="secundario"
+                onClick={() => ChangeLineHeight(-0.5)}
+              />
             </div>
           </Navegacao>
-          <Capitulo>
+          <Capitulo fontSize={fontSize} lineHeight={lineHeight}>
             <div>
               <h1>O País dos Magos</h1>
               <p>— Então voar é o meio de transporte preferido daqui, hein?</p>
@@ -406,9 +448,9 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
         </Creditos>
         <Navegacao>
           <div>
-            <Button titulo="Anterior" variante="secundario" />
-            <Button titulo="Índice" variante="secundario" />
-            <Button titulo="Próximo" variante="secundario" />
+            <Button label="Anterior" variant="secundario" />
+            <Button label="Índice" variant="secundario" />
+            <Button label="Próximo" variant="secundario" />
           </div>
         </Navegacao>
       </Container>

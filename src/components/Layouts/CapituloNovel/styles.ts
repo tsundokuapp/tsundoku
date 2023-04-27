@@ -144,7 +144,12 @@ export const Apoiadores = styled.div`
   }
 `;
 
-export const Capitulo = styled.div`
+interface ICapitulosProps {
+  fontSize: number;
+  lineHeight: number;
+}
+
+export const Capitulo = styled.div<ICapitulosProps>`
   text-align: justify;
   text-indent: 2em;
 
@@ -161,8 +166,9 @@ export const Capitulo = styled.div`
   }
 
   p {
-    font-size: ${({ theme }) => theme.texto.paragrafo};
+    font-size: ${(props) => props.fontSize}px;
     color: ${({ theme }) => theme.colors.textSec};
+    line-height: ${(props) => props.lineHeight};
   }
 
   p + p {

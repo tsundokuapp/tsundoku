@@ -1,28 +1,30 @@
 import { Container, ButtonStyled } from "./styles";
 
 interface IBotaoProps {
-  titulo: string;
-  icone?: any;
-  variante?: "primaria" | "secundario" | "icone";
-  desativado?: boolean;
+  label?: string;
+  icon?: any;
+  variant?: "primaria" | "secundario" | "icon";
+  disable?: boolean;
+  onClick?: () => void;
 }
 
 export const Button = ({
-  titulo,
-  icone,
-  variante = "primaria",
-  desativado = false,
+  label,
+  icon,
+  variant = "primaria",
+  disable = false,
+  onClick,
 }: IBotaoProps) => {
   return (
     <Container>
-      {variante === "icone" ? (
-        <ButtonStyled variante={variante} desativado={desativado}>
-          {icone}
+      {variant === "icon" ? (
+        <ButtonStyled variant={variant} desativado={disable} onClick={onClick}>
+          {icon}
         </ButtonStyled>
       ) : (
-        <ButtonStyled variante={variante} desativado={desativado}>
-          {icone || null}
-          {titulo}
+        <ButtonStyled variant={variant} desativado={disable} onClick={onClick}>
+          {icon || null}
+          {label}
         </ButtonStyled>
       )}
     </Container>

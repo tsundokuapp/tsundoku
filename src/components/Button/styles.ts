@@ -10,10 +10,10 @@ export const Container = styled.div`
 
 interface IBotao {
   desativado?: boolean;
-  variante: "primaria" | "secundario" | "icone";
+  variant: "primaria" | "secundario" | "icon";
 }
 
-const estiloVariante = (theme: DefaultTheme, variant = "primaria") =>
+const styleVariant = (theme: DefaultTheme, variant = "primaria") =>
   ({
     primaria: css`
       color: #f8f9fa;
@@ -61,11 +61,10 @@ export const ButtonStyled = styled.button<IBotao>`
   width: 100%;
   white-space: nowrap;
 
-  ${({ theme, variante }) => estiloVariante(theme, variante)};
+  ${({ theme, variant }) => styleVariant(theme, variant)};
 
   border-radius: 0.25rem;
-  padding: ${({ variante }) =>
-    variante === "icone" ? "0.75rem" : "0.5rem 1rem"};
+  padding: ${({ variant }) => (variant === "icon" ? "0.75rem" : "0.5rem 1rem")};
 
   font-size: 1rem;
   font-weight: bold;
@@ -75,6 +74,6 @@ export const ButtonStyled = styled.button<IBotao>`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    margin-right: ${({ variante }) => (variante === "icone" ? "0" : "0.5rem")};
+    margin-right: ${({ variant }) => (variant === "icon" ? "0" : "0.5rem")};
   }
 `;
