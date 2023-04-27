@@ -14,24 +14,36 @@ import {
 import { BiCheckSquare } from "react-icons/bi";
 import { RiCloseFill, RiErrorWarningLine } from "react-icons/ri";
 
-function getIcon(notificationType: string) {
+function getType(notificationType: string) {
+  const opacity = 0.7;
   if (notificationType === "error") {
     return {
       Icon: RiErrorWarningLine,
-      iconColor: "hsl(360,64%,55%)",
+      iconColor: "##FF0000",
+      bodyColor: `rgba(255, 0, 0, ${opacity})`,
+    };
+  }
+
+  if (notificationType === "success") {
+    return {
+      Icon: RiErrorWarningLine,
+      iconColor: "##2BE51A",
+      bodyColor: `rgba(43, 229, 26, ${opacity})`,
     };
   }
 
   if (notificationType === "warning") {
     return {
       Icon: RiErrorWarningLine,
-      iconColor: "hsl(44,92%,63%)",
+      iconColor: "#FF8000",
+      bodyColor: `rgba(255, 128, 0, ${opacity})`,
     };
   }
 
   return {
     Icon: BiCheckSquare,
-    iconColor: "hsl(122, 40%, 52%)",
+    iconColor: "#259CC1",
+    bodyColor: `rgba(37, 156, 193, ${opacity})`,
   };
 }
 
@@ -50,9 +62,8 @@ export const Notification = ({
   type,
   onClose,
   onMore,
-  timePercent,
 }: INotificationProps) => {
-  const { Icon, iconColor } = getIcon(type);
+  const { Icon, iconColor, bodyColor } = getType(type);
 
   return (
     <Base
@@ -65,21 +76,18 @@ export const Notification = ({
       }}
       layout // Reposition after another notification is removed
     >
-      <Progress progress={timePercent} />
+      <Progress progress={0} />
       <IconBox>
         <Icon size={32} style={{ color: iconColor }} />
-        <div>{timePercent}</div>
       </IconBox>
-      <Main>
+      <Main bodyColor={bodyColor}>
         <Header>
           <Title>{title}</Title>
           <ButtonClose onClick={onClose}>
             <RiCloseFill />
           </ButtonClose>
         </Header>
-        <Description>
-          {description} com texto maior pra ver até onde vai
-        </Description>
+        <Description>{description}</Description>
         <Footer>{onMore && <Button onClick={onMore}>Mais...</Button>}</Footer>
       </Main>
     </Base>

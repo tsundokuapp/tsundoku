@@ -7,7 +7,7 @@ export const Base = styled(motion.div)`
   position: relative;
 
   color: white;
-  background: ${(props) => props.theme.colors.primaria[500]};
+  background: rgba(0, 0, 0, 1);
   box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.25);
 
   border-radius: 0.5rem;
@@ -24,11 +24,15 @@ export const IconBox = styled.div`
   z-index: 2;
 `;
 
-export const Main = styled.div`
+interface IMainProps {
+  bodyColor: string;
+}
+export const Main = styled.div<IMainProps>`
   display: flex;
   flex-direction: column;
   flex: 1;
   z-index: 2;
+  background: ${(props) => props.bodyColor};
 
   padding: 1.5rem 1.5rem 1.5rem 0.5rem;
 `;

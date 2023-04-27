@@ -25,8 +25,6 @@ export const useTimer = (time: number = 400) => {
   const percent = Math.floor((timer / time) * 100);
   const inversePercent = 100 - percent;
 
-  console.log("timer", percent);
-
   return {
     originalTime: time,
     timer,
