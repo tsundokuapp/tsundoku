@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 
 import { Notification } from "@/components/Notification";
+import { useTimer } from "@/components/Timer";
 
 interface INotificationContext {
   type: "success" | "error" | "warning" | "info";
@@ -72,6 +73,9 @@ function useNotification() {
     [],
   );
 
+  const timer = useTimer(4000);
+  console.log(timer.inversePercent);
+
   const notify = useCallback(
     ({ type, title, description, onMore }: INotificationContext) => {
       const id = uuidv4();
@@ -89,11 +93,12 @@ function useNotification() {
         description,
         onMore,
         onClose: removeNotification,
+        timePercent: timer.percent,
       };
 
       setNotifications((notifications) => [...notifications, newNotification]);
 
-      setTimeout(removeNotification, 2000);
+      setTimeout(removeNotification, timer.originalTime);
     },
     [],
   );

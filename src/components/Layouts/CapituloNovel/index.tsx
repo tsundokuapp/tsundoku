@@ -30,7 +30,6 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
   const [lineHeight, setLineHeight] = useState(1);
 
   const notify = useNotify();
-
   const ChangeFontSize = (params: number) => {
     if (params === -1 && fontSize <= 12) {
       notify({
@@ -97,6 +96,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
         <Conteudo>
           <Navegacao>
             <TrilhaPath />
+
             <div>
               <Button
                 label="Anterior"

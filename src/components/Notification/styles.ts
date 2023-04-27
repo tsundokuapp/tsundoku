@@ -102,8 +102,12 @@ export const Button = styled.button`
   }
 `;
 
-export const Progress = styled.div`
-  width: 250px;
+interface IProgressProps {
+  progress: number;
+}
+
+export const Progress = styled.div<IProgressProps>`
+  width: ${(props) => props.progress}%;
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.25);

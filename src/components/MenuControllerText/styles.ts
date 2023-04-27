@@ -41,7 +41,7 @@ interface IMotionDivProps {
 
 export const MotionDiv = styled(motion.div)<IMotionDivProps>`
   position: fixed;
-  top: 40%;
+  top: 30%;
   right: 0;
   display: flex;
   background: ${({ theme }) => theme.colors.primaria[500]};
@@ -57,6 +57,8 @@ export const MotionDiv = styled(motion.div)<IMotionDivProps>`
     width: 200px;
     height: 350px;
     border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
+    border: 3px solid rgba(0, 0, 0, 0.25);
   `}
 `;
 

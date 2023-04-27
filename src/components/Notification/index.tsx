@@ -41,6 +41,7 @@ interface INotificationProps {
   type: "success" | "error" | "warning" | "info";
   onClose: () => void;
   onMore?: () => void;
+  timePercent: number;
 }
 
 export const Notification = ({
@@ -49,6 +50,7 @@ export const Notification = ({
   type,
   onClose,
   onMore,
+  timePercent,
 }: INotificationProps) => {
   const { Icon, iconColor } = getIcon(type);
 
@@ -63,9 +65,10 @@ export const Notification = ({
       }}
       layout // Reposition after another notification is removed
     >
-      <Progress />
+      <Progress progress={timePercent} />
       <IconBox>
         <Icon size={32} style={{ color: iconColor }} />
+        <div>{timePercent}</div>
       </IconBox>
       <Main>
         <Header>
