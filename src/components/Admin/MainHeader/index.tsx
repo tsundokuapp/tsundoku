@@ -7,8 +7,7 @@ import Container, {
 } from "./styles";
 
 import { Dropdown } from "@/components/Heading/Dropdown/style";
-import MenuIcon from "@material-ui/icons/Menu";
-import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
+
 
 interface IMainHeader {  
   setMenu:  Dispatch<SetStateAction<boolean>>;
@@ -25,13 +24,12 @@ const MainHeader = ({ setMenu }: IMainHeader) => {
   return (
     <Container>
       <BotaoMenu onClick={tiraMenu} >
-        <MenuIcon />
+        <span>Tira menu</span>
       </BotaoMenu>
       Bem-vindo(a) ao Painel de Controle!
       <ContainerNav>       
         <Dropdown />
-        <BotaoSair>
-          <ExitToAppRoundedIcon fontSize="small" />
+        <BotaoSair>          
           <Link href="/">Sair!</Link>
         </BotaoSair>
       </ContainerNav>
