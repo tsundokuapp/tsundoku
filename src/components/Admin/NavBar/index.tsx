@@ -1,14 +1,8 @@
 import Link from "next/link";
 import React, { useState, Dispatch, SetStateAction } from "react";
 
-import LogoTema from "components/LogoTema";
-import DropDownTemas from "components/DropDownTemas";
-import DropDownAcesso from "components/DropDownAcesso";
-
 import { DefaultTheme } from "styled-components";
 import { Container, ContainerMenuUsuario } from "./styles";
-
-import { Brightness3 } from "@material-ui/icons";
 
 interface INavbarProps {
   tema: string | null;
@@ -17,24 +11,13 @@ interface INavbarProps {
 }
 
 const Navbar = ({ tema, opcoes, setTheme }: INavbarProps) => {
-  const [temaSelecionado, setTemaSelecionado] = useState(<Brightness3 />);
 
   return (
     <Container>
       <Link href="/">
-        <a>
-          <LogoTema tema={tema} />
-        </a>
+        Tema
       </Link>
-      <ContainerMenuUsuario>
-        <DropDownTemas
-            opcoes={opcoes}
-            temaSelecionado={temaSelecionado}
-            setTemaSelecionado={setTemaSelecionado}
-            setTheme={setTheme}
-        />
-        <DropDownAcesso />
-      </ContainerMenuUsuario>
+      <ContainerMenuUsuario />
     </Container>
   );
 };

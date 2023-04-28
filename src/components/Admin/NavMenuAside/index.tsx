@@ -1,10 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Container, {ItemLista, ListaMenu, ListaSubMenu, ItemSubLista} from "./styles";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import { ROTAS } from "../../../constants/rotas";
+import { ROTAS } from "@/constants/rotas";
 
 
 const NavMenuAside = () => {
@@ -22,14 +19,12 @@ const NavMenuAside = () => {
   return (
     <Container>
       <ListaMenu>
-        <ItemLista>
-          <DashboardIcon />
+        <ItemLista>         
           <Link href={ROTAS.DASHBOARD}>
             Dashboard
           </Link>
         </ItemLista>
-       <ItemLista className="ativaMenu" onClick={ativaDesativaMenu}>
-          <LibraryBooksIcon />
+       <ItemLista className="ativaMenu" onClick={ativaDesativaMenu}>          
             <a>Obras</a>                    
             <ListaSubMenu> 
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
@@ -38,14 +33,13 @@ const NavMenuAside = () => {
                 </Link>
               </ItemSubLista>
               <ItemSubLista onClick={() => setSubMenuAtivo(false)}>
-                <Link href={ROTAS.NOVAOBRA}>
+                <Link href={ROTAS.ADICIONAR_OBRA}>
                   Nova Obra
                 </Link>
               </ItemSubLista>              
             </ListaSubMenu>        
         </ItemLista>
-        <ItemLista>
-          <SupervisorAccountIcon />
+        <ItemLista>          
           <Link href={ROTAS.USUARIOS}>
             Usuários
           </Link>
