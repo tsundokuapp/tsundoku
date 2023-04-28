@@ -8,7 +8,7 @@ export const allLinks = [
   { label: "Novels", href: "/novels" },
   { label: "Comics", href: "/comics" },
   { label: "Blog", href: "/blog" },
-  { label: "Sobre Nós", href: "/about" },
+  { label: "Sobre", href: "/about" },
 ];
 
 const [Home, Novels, Comics, Blog, Sobre] = allLinks;

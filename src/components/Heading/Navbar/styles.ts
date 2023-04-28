@@ -41,13 +41,11 @@ export const HeaderContent = styled.div`
 
     li {
       display: flex;
-      flex: 1;
       justify-content: space-between;
       align-items: center;
       position: relative;
 
       width: 100%;
-      min-width: 0;
       height: 24px;
 
       padding: 0.5rem;
