@@ -1,22 +1,31 @@
 import { LayoutMain } from "@/components/Layouts/Main";
 import { Card } from "@/components/Card";
+import { Carousel } from "@/components/Carousel";
 import { Box, BoxAviso } from "@/styles/Home/styles";
 import { Secao } from "@/components/Secao";
 import { useState } from "react";
 import Image from "next/image";
 
 import elainaCover from "@/assets/img/elaina8.webp";
+import goblinCover from "@/assets/img/goblin.webp";
+import marchaCover from "@/assets/img/marcha.webp";
+import tearCover from "@/assets/img/tear.webp";
 import tremCover from "@/assets/img/trem.webp";
 
-export default function Novel() {
-  // eslint-disable-next-line no-unused-vars
+export default function Home() {
   const [temAviso, setTemAviso] = useState(true);
+
+  // TODO: Função temporária
+  const desativaAviso = () => {
+    setTemAviso(false);
+  };
 
   return (
     <LayoutMain title="Tsundoku Traduções">
       <Secao>
+        <Carousel />
         {temAviso && (
-          <BoxAviso>
+          <BoxAviso onClick={desativaAviso}>
             <h2>AVISO</h2>
             <p>Site em construção, em breve uma nova Tsundoku!</p>
           </BoxAviso>
@@ -24,22 +33,32 @@ export default function Novel() {
       </Secao>
       <Secao titulo="Adicionados Recentemente" direcaoItens="row">
         <Card
+          href={"/novels/bruxa-errante"}
           capa={elainaCover}
           titulo="Bruxa Errante"
           autor="Kazuma Kamachi"
           volume="Volume 10"
         />
         <Card
-          capa={elainaCover}
-          titulo="Bruxa Errante"
+          href={"/novels/bruxa-errante"}
+          capa={goblinCover}
+          titulo="Matador de Goblins"
           autor="Kazuma Kamachi"
-          volume="Volume 10"
+          volume="Volume Único"
         />
         <Card
-          capa={elainaCover}
-          titulo="Bruxa Errante"
+          href={"/novels/bruxa-errante"}
+          capa={tearCover}
+          titulo="Império Tearmoon"
           autor="Kazuma Kamachi"
-          volume="Volume 10"
+          volume="Volume 2"
+        />
+        <Card
+          href={"/novels/bruxa-errante"}
+          capa={marchaCover}
+          titulo="Marcha Mortal"
+          autor="Kazuma Kamachi"
+          volume="Volume 5"
         />
       </Secao>
 
@@ -60,11 +79,11 @@ export default function Novel() {
             Kurama, esperando mais uma vez encontrá-la. À medida que a noite
             caía, começamos a trocar histórias sobre coisas estranhas que
             encontramos durante nossas viagens, incluindo a misteriosa série de
-            obras de arte de Kishida Michio, conhecida como Trem da Noite. Neste
-            Romance, Morimi Tomihiko magistralmente tece os fios da juventude
-            junto com histórias de fantasmas de arrepiar os cabelos, tudo
-            envolvendo passeios noturnos. — Não há nenhum lugar que a noite não
-            toque. Todo mundo está em uma noite eterna.
+            obras de arte de Kishida Michio, conhecida como &quotTrem da
+            Noite&quot. Neste Romance, Morimi Tomihiko magistralmente tece os
+            juventude junto com histórias de fantasmas de arrepiar os cabelos,
+            tudo envolvendo passeios noturnos. — Não há nenhum lugar que a noite
+            não toque. Todo mundo está em uma noite eterna.
           </span>
         </Box>
       </Secao>

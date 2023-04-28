@@ -1,29 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { SignInButton } from "../SignInButton";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import {
   HeaderContainer,
   HeaderContent,
   SubContainer,
   Container,
-  LinkText,
+  Underline,
 } from "./styles";
 import { SIZES_RAW } from "@/constants/brakingPoints";
-import { useEffect, useRef, useState } from "react";
-
-// TODO: fazer a troca da logo de acordo com o tema;
-import logo from "@/assets/logo/temaDark.svg";
+import logo from "@/assets/logo/logoDefault.svg";
 import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+import { defaultTabs, mobileTabs } from "@/constants/ListLink";
+import { motion } from "framer-motion";
 
 export const Navbar = () => {
   const { width } = useWindowDimensions();
-  const router = useRouter();
+  const tabs = width < SIZES_RAW.TABLET ? mobileTabs : defaultTabs;
+
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [shouldHideHeader, setShouldHideHeader] = useState(false);
 
   const lastScrollY = useRef(0);
-  const [shouldHideHeader, setShouldHideHeader] = useState(false);
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -49,55 +50,49 @@ export const Navbar = () => {
           </Link>
           <nav>
             {width < SIZES_RAW.TABLET ? (
-              <>
-                {width > SIZES_RAW.MOBILE && (
-                  <>
-                    <Link href="/novels" passHref>
-                      <LinkText href="/novels" pathName={router.pathname}>
-                        Novels
-                      </LinkText>
+              <ul>
+                {tabs.map((item) => (
+                  <li key={item.label} onClick={() => setSelectedTab(item)}>
+                    <Link
+                      href={item.href}
+                      style={
+                        item === selectedTab
+                          ? { fontWeight: "bold", color: "#259CC1" }
+                          : { fontWeight: "normal" }
+                      }
+                    >
+                      {item.label}
                     </Link>
-                    <Link href="/comics" passHref>
-                      <LinkText href="/comics" pathName={router.pathname}>
-                        Comics
-                      </LinkText>
-                    </Link>
-                    <Link href="/blog" passHref>
-                      <LinkText href="/blog" pathName={router.pathname}>
-                        Blog
-                      </LinkText>
-                    </Link>
-                  </>
-                )}
-              </>
+                    {item === selectedTab ? (
+                      <Underline as={motion.div} layoutId="underline" />
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <>
-                <Link href="/" passHref>
-                  <LinkText href="/" pathName={router.pathname}>
-                    Home
-                  </LinkText>
-                </Link>
-                <Link href="/novels" passHref>
-                  <LinkText href="/novels" pathName={router.pathname}>
-                    Novels
-                  </LinkText>
-                </Link>
-                <Link href="/comics" passHref>
-                  <LinkText href="/comics" pathName={router.pathname}>
-                    Comics
-                  </LinkText>
-                </Link>
-                <Link href="/blog" passHref>
-                  <LinkText href="/blog" pathName={router.pathname}>
-                    Blog
-                  </LinkText>
-                </Link>
-                <Link href="/about" passHref>
-                  <LinkText href="/about" pathName={router.pathname}>
-                    Sobre Nós
-                  </LinkText>
-                </Link>
-              </>
+              <ul>
+                {tabs.map((item) => (
+                  <li key={item.label} onClick={() => setSelectedTab(item)}>
+                    <Link
+                      href={item.href}
+                      style={
+                        item === selectedTab
+                          ? { fontWeight: "bold", color: "#259CC1" }
+                          : { fontWeight: "normal" }
+                      }
+                    >
+                      {item.label}
+                    </Link>
+                    {item === selectedTab ? (
+                      <Underline
+                        as={motion.div}
+                        layoutId="underline"
+                        transition={{ type: "spring", bounce: 0.4 }}
+                      />
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
             )}
           </nav>
         </Container>

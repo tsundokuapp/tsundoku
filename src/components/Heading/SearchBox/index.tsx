@@ -1,24 +1,28 @@
-import { ContainerSearchBox, Input, Icon } from "./styles";
+import { InputBusca, Input, Icon } from "./styles";
 import { FiSearch } from "react-icons/fi";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SIZES_RAW } from "@/constants/brakingPoints";
 
 interface ISearchBoxProps {
   placeholder: string;
+  variante?: "primaria" | "secundaria";
+  borda?: "redonda" | "quadrada";
 }
-// TODO: Implementar a lógica de busca
-export const SearchBox = ({ placeholder }: ISearchBoxProps) => {
+
+export const SearchBox = ({
+  placeholder,
+  variante = "primaria",
+  borda = "redonda",
+}: ISearchBoxProps) => {
   const { width } = useWindowDimensions();
 
   return (
     <>
       {width > SIZES_RAW.TABLET && (
-        <ContainerSearchBox>
-          <>
-            <Input placeholder={placeholder} />
-            <Icon>{<FiSearch />}</Icon>
-          </>
-        </ContainerSearchBox>
+        <InputBusca borda={borda} variante={variante}>
+          <Input placeholder={placeholder} variante={variante} />
+          <Icon>{<FiSearch />}</Icon>
+        </InputBusca>
       )}
     </>
   );

@@ -1,41 +1,71 @@
-import styled from "styled-components";
+import styled, { DefaultTheme, css } from "styled-components";
 
-export const ContainerSearchBox = styled.label`
+interface IInputBuscaProps {
+  variante: "primaria" | "secundaria";
+  borda: "redonda" | "quadrada";
+}
+
+const bordaVariante = (theme: DefaultTheme, borda = "redonda") =>
+  ({
+    redonda: css`
+      border-radius: ${theme.quina.redonda};
+    `,
+    quadrada: css`
+      border-radius: ${theme.quina.media};
+    `,
+  }[borda]);
+
+const bgVariante = (theme: DefaultTheme, variante = "primaria") =>
+  ({
+    primaria: css`
+      background: ${theme.colors.especial.bgBusca};
+    `,
+    secundaria: css`
+      background: ${theme.colors.bgComponente};
+    `,
+  }[variante]);
+
+export const InputBusca = styled.label<IInputBuscaProps>`
   display: flex;
   flex: 1;
-
-  padding: 0.5rem 0.5rem;
-  margin: 0;
-  border-radius: 1rem;
-  max-width: 22rem;
-  position: relative;
-  max-height: 2rem;
   align-items: center;
-  justify-content: space-between;
-  // TODO: adicinar uma cor no tema para o placeholder
-  background-color: ${({ theme }) => theme.colors.text};
+
+  padding: 1rem;
+
+  ${({ theme, borda }) => bordaVariante(theme, borda)};
+
+  min-width: 18rem;
+  max-height: 2rem;
+
+  ${({ theme, variante }) => bgVariante(theme, variante)};
 `;
 
-export const Input = styled.input`
-  color: ${({ theme }) => theme.colors.especial.bgBusca};
+interface IInputProps {
+  variante: "primaria" | "secundaria";
+}
+
+const colorVariante = (theme: DefaultTheme, variante = "primaria") =>
+  ({
+    primaria: css`
+      color: ${theme.colors.especial.textBusca};
+    `,
+    secundaria: css`
+      color: ${theme.colors.textSec};
+    `,
+  }[variante]);
+
+export const Input = styled.input<IInputProps>`
+  ${({ theme, variante }) => colorVariante(theme, variante)};
   background-color: transparent;
   border: none;
-  width: 100%;
-  height: 100%;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.texto.paragrafo};
 `;
 
-export const Icon = styled.div`
-  display: flex;
+export const Icon = styled.span`
   font-size: 1rem;
-  margin: 0 0.25rem;
-  height: 100%;
-  color: ${({ theme }) => theme.colors.primaria[500]};
+
+  margin-left: auto;
+  color: ${({ theme }) => theme.colors.especial.textBusca};
 
   cursor: pointer;
-  transition: opacity 0.3s;
-
-  :hover {
-    opacity: 0.7;
-  }
 `;

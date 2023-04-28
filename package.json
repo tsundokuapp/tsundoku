@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -19,6 +17,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "cross-blob": "^3.0.1",
     "formik": "^2.2.9",
+    "framer-motion": "^10.12.4",
     "keen-slider": "^6.8.5",
     "next": "13.2.4",
     "react": "18.2.0",
@@ -27,9 +26,11 @@
     "styled-components": "^5.3.9",
     "suneditor": "^2.43.9",
     "suneditor-react": "^3.4.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "eslint": "^8.37.0",
