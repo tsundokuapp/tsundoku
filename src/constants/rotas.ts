@@ -8,7 +8,7 @@ export const ROTAS = {
   USUARIOS: '/admin/admin/usuarios',
   ADICIONAR_USUARIOS: '/admin/admin/usuarios/adicionar',
   EDITAR_USUARIOS: '/admin/admin/usuarios/editar',
-  CATEGORIAS:'/adminblog/categoorias',
+  CATEGORIAS:'/admin/blog/categorias',
   POSTS:'/admin/blog/posts',
   ADICIONAR_POSTS:'/admin/blog/posts/adicionar',
   EDITAR_POSTS:'/admin/blog/posts/editar',
