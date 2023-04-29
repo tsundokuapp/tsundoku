@@ -1,26 +1,26 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    color: ${(props) => props.theme.colors.branca};
-    background-color: ${props => props.theme.colors.terciaria};
-    //padding: 25px;
-    padding: 10px 0 0 0;
-    height: 90vh;
-    
-    overflow-y: scroll;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.bgComponente};
+  //padding: 25px;
+  padding: 10px 0 0 0;
+  height: 90vh;
 
-    ::-webkit-scrollbar{
-        width: 10px;
-    }
+  overflow-y: scroll;
 
-    ::-webkit-scrollbar-thumb{
-        background-color: ${props => props.theme.colors.secundaria};
-        border-radius: 10px;        
-    }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-    ::-webkit-scrollbar-track{
-        background-color: ${props => props.theme.colors.terciaria};
-    }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primaria[500]};
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.primaria[500]};
+  }
 `;
 
 export default Container;

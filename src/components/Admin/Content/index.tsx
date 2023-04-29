@@ -1,5 +1,5 @@
-import React from 'react';
-import Container from './styles';
+import React from "react";
+import Container from "./styles";
 
 interface IContent {
   children?: React.ReactNode;

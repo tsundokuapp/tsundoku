@@ -1,6 +1,5 @@
-import React from "react";
 import LayoutAdminMain from "@/components/Layouts/Admin/Main";
-import {Container, Titulo} from "./style";
+import { Container, Titulo } from "./style";
 
 const DashBoard = () => {
   return (

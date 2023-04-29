@@ -1,4 +1,4 @@
-import { Container, ButtonStyled } from "./styles";
+import { ButtonStyled, Container } from "./styles";
 
 interface IBotaoProps {
   label?: string;
