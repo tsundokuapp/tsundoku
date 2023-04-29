@@ -1,15 +1,22 @@
-import React from "react";
-import { Container, ImagemAvatar } from "./styles";
+import Image, { StaticImageData } from "next/image";
+import { Container, ContainerImageAvatar } from "./styles";
 
-import avatar from "@/assets/img/Ichigo_Ulquiorra.jpg";
+interface IAvatar{
+  image: StaticImageData;
+  user: string;
+  retractMenuAdmin?: Boolean
+}
 
-const Avatar = () => {
+export default function Avatar({image, user, retractMenuAdmin}: IAvatar){
+  console.log(retractMenuAdmin)
   return (
+    
     <Container>
-      <ImagemAvatar src={avatar} />
-      <p>Bravo</p>
+      <ContainerImageAvatar retractMenuAdmin={retractMenuAdmin === true ? true : false}>
+        
+        <Image alt="Imagem Perfil" src={image} />
+      </ContainerImageAvatar>
+      <span>{user}</span>
     </Container>
   );
 };
-
-export default Avatar;
