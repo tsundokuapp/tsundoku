@@ -40,6 +40,7 @@ interface DropdownStyleProps {
 
 export const DropdownStyle = styled.span<DropdownStyleProps>`
   position: absolute;
+  z-index: 4;
   top: 2rem;
   left: 0;
   max-height: 30vmax;

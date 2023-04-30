@@ -72,3 +72,54 @@ export const AllWorksTsun = [
     href: "/novels/bruxa-errante",
   },
 ];
+
+export interface IPostsBlog {
+  cover: string;
+  title: string;
+  href: string;
+}
+
+export const AllPostsBlog = [
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
+    title:
+      "Sugaru Miaki: por que se tornou o autor preferido da Equipe Tsun? Confira as opiniões dos membros sobre o mestre da melancolia.",
+    href: "/blogs/review-sugaru-miaki",
+  },
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg",
+    title:
+      "A controversa obra de Mushoku Tensei, os pontos altos e baixos do grande sucesso da light novel.",
+    href: "/blogs/review-mushoku-tensei",
+  },
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Majo-no-Tabitabi-Capa-Volume-03.jpg?resize=1000%2C1422&ssl=1",
+    title:
+      "Entrevista: Uma conversa com Jougi Shiraishi, autor de Bruxa Errante: A Jornada de Elaina.",
+    href: "/blogs/interview-majo-no-tabitabi",
+  },
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
+    title:
+      "Sugaru Miaki: por que se tornou o autor preferido da Equipe Tsun? Confira as opiniões dos membros sobre o mestre da melancolia.",
+    href: "/blogs/review-sugaru-miaki",
+  },
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2023/04/MT_V18_Capa_01.jpg",
+    title:
+      "A controversa obra de Mushoku Tensei, os pontos altos e baixos do grande sucesso da light novel.",
+    href: "/blogs/review-mushoku-tensei",
+  },
+  {
+    cover:
+      "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Majo-no-Tabitabi-Capa-Volume-03.jpg?resize=1000%2C1422&ssl=1",
+    title:
+      "Entrevista: Uma conversa com Jougi Shiraishi, autor de Bruxa Errante: A Jornada de Elaina.",
+    href: "/blogs/interview-majo-no-tabitabi",
+  },
+];

@@ -9,6 +9,8 @@ import { MdDarkMode as IconDarkMode } from "react-icons/md";
 interface IThemeContext {
   theme: DefaultTheme;
   toggleTheme: () => void;
+  activeDarkTheme: () => void;
+  activeLightTheme: () => void;
 }
 
 interface ICustomThemeProviderProps {
@@ -23,8 +25,10 @@ export const CustomThemeProvider = ({
   children,
 }: ICustomThemeProviderProps) => {
   // TODO: implementar lógica para botões serem independentes
-  lightTheme.icon = <IconLightMode />;
-  darkTheme.icon = <IconDarkMode />;
+  lightTheme.icon.darkIcon = <IconDarkMode />;
+  lightTheme.icon.lightIcon = <IconLightMode />;
+  darkTheme.icon.lightIcon = <IconLightMode />;
+  darkTheme.icon.darkIcon = <IconDarkMode />;
   const [theme, setTheme] = useState<DefaultTheme>(darkTheme);
 
   const toggleTheme = useCallback(() => {
@@ -35,8 +39,22 @@ export const CustomThemeProvider = ({
     }
   }, [theme]);
 
+  const activeDarkTheme = useCallback(() => {
+    if (theme.name === "default") return;
+
+    setTheme(darkTheme);
+  }, [theme]);
+
+  const activeLightTheme = useCallback(() => {
+    if (theme.name === "light") return;
+
+    setTheme(lightTheme);
+  }, [theme]);
+
   return (
-    <ThemeContext.Provider value={{ toggleTheme, theme }}>
+    <ThemeContext.Provider
+      value={{ toggleTheme, theme, activeDarkTheme, activeLightTheme }}
+    >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );

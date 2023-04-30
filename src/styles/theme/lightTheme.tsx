@@ -2,7 +2,10 @@ import { DefaultTheme } from "styled-components";
 
 export const lightTheme: DefaultTheme = {
   name: "light",
-  icon: undefined,
+  icon: {
+    darkIcon: null,
+    lightIcon: null,
+  },
 
   espacamento: {
     semEspacamento: "0rem",

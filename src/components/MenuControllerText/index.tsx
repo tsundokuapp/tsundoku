@@ -2,7 +2,8 @@ import { useState } from "react";
 import { RiSoundModuleFill, RiCloseFill } from "react-icons/ri";
 import { MenuStyled, MotionDiv, MotionDivChild, MotionButton } from "./styles";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-
+import { useTheme } from "@/hooks/useThemeContext";
+import { useNotify } from "@/Context/NotificationProvider";
 interface IMenuControllerTextProps {
   fontMinus: () => void;
   fontPlus: () => void;
@@ -17,6 +18,32 @@ export const MenuControllerText = ({
   linePlus,
 }: IMenuControllerTextProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { activeDarkTheme, activeLightTheme, theme } = useTheme();
+
+  const notify = useNotify();
+
+  function ChangeTheme(targetTheme: string) {
+    if (targetTheme === "light") {
+      if (theme.name === "light") {
+        notify({
+          title: "Tema Ativo",
+          description: "O tema light já está ativo",
+          type: "info",
+        });
+      }
+      activeLightTheme();
+    }
+    if (targetTheme === "dark") {
+      if (theme.name === "default") {
+        notify({
+          title: "Tema Ativo",
+          description: "O tema dark já está ativo",
+          type: "info",
+        });
+      }
+      activeDarkTheme();
+    }
+  }
 
   const scaleButton = 0.8;
 
@@ -69,14 +96,16 @@ export const MenuControllerText = ({
             <MotionButton
               whileTap={{ scale: scaleButton }}
               transition={{ type: "spring", stiffness: 700, damping: 30 }}
+              onClick={() => ChangeTheme("light")}
             >
-              A
+              <>{theme.icon.lightIcon}</>
             </MotionButton>
             <MotionButton
               whileTap={{ scale: scaleButton }}
               transition={{ type: "spring", stiffness: 700, damping: 30 }}
+              onClick={() => ChangeTheme("dark")}
             >
-              B
+              <>{theme.icon.darkIcon}</>
             </MotionButton>
           </li>
         </ul>

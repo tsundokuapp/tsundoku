@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { SignInButton } from "../SignInButton";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
 import {
   HeaderContainer,
   HeaderContent,
@@ -9,20 +10,36 @@ import {
   Container,
   Underline,
 } from "./styles";
+
+import { SignInButton } from "../SignInButton";
 import { SIZES_RAW } from "@/constants/brakingPoints";
 import logo from "@/assets/logo/logoDefault.svg";
 import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { defaultTabs, mobileTabs } from "@/constants/ListLink";
-import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+
+interface ITabsProps {
+  label: string;
+  href: string;
+}
 
 export const Navbar = () => {
   const { width } = useWindowDimensions();
   const tabs = width < SIZES_RAW.TABLET ? mobileTabs : defaultTabs;
 
-  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [selectedTab, setSelectedTab] = useState<ITabsProps | null>(null);
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const tab = tabs.find((item) => item.href === router.pathname);
+    if (tab) {
+      setSelectedTab(tab);
+    }
+  }, []);
 
   const lastScrollY = useRef(0);
 
