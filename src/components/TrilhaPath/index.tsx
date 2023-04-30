@@ -8,7 +8,10 @@ export const TrilhaPath = () => {
   const router = useRouter();
   const path = router.pathname;
 
-  const listaPath = path.replace(/-/g, " ").split("/");
+  const { id } = router.query;
+  const truePath = id ? path.replace("[id]", id.toString()) : path;
+
+  const listaPath = truePath.replace(/-/g, " ").split("/");
   listaPath.shift();
 
   const reconstruirPath = (path: string) => {
@@ -16,7 +19,7 @@ export const TrilhaPath = () => {
 
     const pathConstruido = listaPath.reduce((acc, item) => {
       if (listaPath.indexOf(item) > indexPathAtual) return acc;
-      if (item.includes(" ")) item = item.replace(" ", "-");
+      if (item.includes(" ")) item = item.replace(/ +/g, "-");
 
       const path = `${acc}/${item}`;
       return path;
