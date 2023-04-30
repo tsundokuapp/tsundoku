@@ -2,8 +2,7 @@ import { useState } from "react";
 import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { ItemByItemAnimation } from "@/animations/ItemByItem";
 import { Card } from "@/components/Card";
-import { AllWorksTsun as works } from "@/constants/WorksTsun";
-
+import { AllMangas as mangas } from "@/constants/WorksDetails";
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
   const [temAviso, setTemAviso] = useState(true);
@@ -18,14 +17,14 @@ export default function Novel() {
       altCover="imagem da obra A Eminencia nas Sombras, mostra todas as personagens que seguem o protagonista"
       filter="default"
     >
-      {works.map((item, i) => (
+      {mangas.map((item, i) => (
         <ItemByItemAnimation key={i} order={i}>
           <Card
             href={item.href}
-            capa={item.cover}
-            titulo={item.title}
+            capa={item.hrefCover}
+            titulo={item.titleWork}
             autor={item.author}
-            volume={`Volume ${item.volume}`}
+            volume={`Volume 1`}
           />
         </ItemByItemAnimation>
       ))}

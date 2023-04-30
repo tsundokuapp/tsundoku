@@ -1,10 +1,11 @@
-import { LayoutMain } from "../components/Layouts/Main";
-import { Card } from "@/components/Card";
-import { Carousel } from "../components/Carousel";
-import { Box, BoxAviso } from "@/styles/Home/styles";
-import { Secao } from "@/components/Secao";
 import { useState } from "react";
 import Image from "next/image";
+
+import { Box, BoxAviso } from "@/styles/Home/styles";
+import { LayoutMain } from "@/components/Layouts/Main";
+import { Section } from "@/components/Section";
+import { Carousel } from "@/components/Carousel";
+import { Card } from "@/components/Card";
 
 import elainaCover from "@/assets/img/elaina8.webp";
 import goblinCover from "@/assets/img/goblin.webp";
@@ -22,7 +23,7 @@ export default function Home() {
 
   return (
     <LayoutMain title="Tsundoku Traduções">
-      <Secao>
+      <Section>
         <Carousel />
         {temAviso && (
           <BoxAviso onClick={desativaAviso}>
@@ -30,8 +31,8 @@ export default function Home() {
             <p>Site em construção, em breve uma nova Tsundoku!</p>
           </BoxAviso>
         )}
-      </Secao>
-      <Secao titulo="Adicionados Recentemente" direcaoItens="row">
+      </Section>
+      <Section title="Adicionados Recentemente" directionItems="row">
         <Card
           href={"/novels/bruxa-errante"}
           capa={elainaCover}
@@ -60,9 +61,9 @@ export default function Home() {
           autor="Kazuma Kamachi"
           volume="Volume 5"
         />
-      </Secao>
+      </Section>
 
-      <Secao titulo="Recomendação da Tsundoku" direcaoItens="row">
+      <Section title="Recomendação da Tsundoku" directionItems="row">
         <Image
           src={tremCover}
           alt="capa do volume"
@@ -86,7 +87,7 @@ export default function Home() {
             não toque. Todo mundo está em uma noite eterna.
           </span>
         </Box>
-      </Secao>
+      </Section>
     </LayoutMain>
   );
 }

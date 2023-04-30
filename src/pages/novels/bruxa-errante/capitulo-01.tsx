@@ -1,6 +1,6 @@
 import { LayoutCapituloNovel } from "@/components/Layouts/CapituloNovel";
 import { BoxAviso } from "@/styles/Home/styles";
-import { Secao } from "@/components/Secao";
+import { Secao } from "@/components/Section";
 import { useState } from "react";
 
 export default function Novel() {

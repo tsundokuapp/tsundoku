@@ -80,10 +80,13 @@ export const TsunAccordion = () => {
               <p>Titulo provisório</p>
             </div>
           </LinkPersonalizado>
-          <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume1}>
+          <LinkPersonalizado
+            href="/comics/hinowa-ga-yuku/chapter-01"
+            urlImgCap={capaVolume1}
+          >
             <div>
               <p>Capítulo 02</p>
-              <p>Titulo provisório</p>
+              <p>Capítulo da Hinowa</p>
             </div>
           </LinkPersonalizado>
           <LinkPersonalizado href="/marcha-mortal" urlImgCap={capaVolume1}>
