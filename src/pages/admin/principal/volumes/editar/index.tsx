@@ -8,16 +8,16 @@ const Editar = () => {
   return (
     <LayoutAdminMain>
       <Navbar
-        title="Editar Usuário"
+        title="Editar Volume"
         placeholderSearchbox=""
         showSearhBox={false}
         titleLinkNavigation="Voltar"
         showLinkNavigation={true}
-        urlLinkNavigation={ROTAS.USUARIOS}
+        urlLinkNavigation={ROTAS.VOLUMES}
         icon={<BiArrowBack />}
       />
       <Container>
-        <Titulo>Editar Usuários</Titulo>
+        <Titulo>Editar Volume</Titulo>
       </Container>
     </LayoutAdminMain>
   );
