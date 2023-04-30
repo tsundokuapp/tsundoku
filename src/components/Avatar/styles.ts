@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`  
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,16 +13,16 @@ export const Container = styled.div`
   }
 `;
 
-interface IContainerImageAvatar{
+interface IContainerImageAvatar {
   retractMenuAdmin?: boolean | undefined;
 }
 
 export const ContainerImageAvatar = styled.div<IContainerImageAvatar>`
-  margin-bottom: 0.6rem; 
+  margin-bottom: 0.6rem;
 
   img {
-    width: ${(props) => props.retractMenuAdmin ? "4rem" : "6.25rem"};
-    height: ${(props) => props.retractMenuAdmin ? "4rem" : "6.25rem"};
+    width: ${(props) => (props.retractMenuAdmin ? "4rem" : "6.25rem")};
+    height: ${(props) => (props.retractMenuAdmin ? "4rem" : "6.25rem")};
     border: 2px solid ${(props) => props.theme.colors.primaria[500]};
     border-radius: ${({ theme }) => theme.quina.media};
   }

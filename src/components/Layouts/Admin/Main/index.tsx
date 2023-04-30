@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Grid from "./styles";
 import Content from "@/components/Admin/Content/styles";
 import SideMenu from "@/components/Admin/SideMenu";
+import React from "react";
+import Grid from "./styles";
 
 interface ILayoutDashBoard {
   children?: React.ReactNode;
