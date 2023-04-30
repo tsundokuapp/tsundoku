@@ -4,23 +4,23 @@ import { ROTAS } from "@/constants/rotas";
 import { BiArrowBack } from "react-icons/bi";
 import { Container, Titulo } from "../styles";
 
-const Editar = () => {
+const Adicionar = () => {
   return (
     <LayoutAdminMain>
       <Navbar
-        title="Editar Usuário"
+        title="Adicionar Capitulo"
         placeholderSearchbox=""
         showSearhBox={false}
         titleLinkNavigation="Voltar"
         showLinkNavigation={true}
-        urlLinkNavigation={ROTAS.USUARIOS}
+        urlLinkNavigation={ROTAS.CAPITULOS}
         icon={<BiArrowBack />}
       />
       <Container>
-        <Titulo>Editar Usuários</Titulo>
+        <Titulo>Adicionar Capítulos</Titulo>
       </Container>
     </LayoutAdminMain>
   );
 };
 
-export default Editar;
+export default Adicionar;

@@ -8,7 +8,6 @@ interface IAvatar {
 }
 
 export default function Avatar({ image, user, retractMenuAdmin }: IAvatar) {
-  console.log(retractMenuAdmin);
   return (
     <Container>
       <ContainerImageAvatar retractMenuAdmin={retractMenuAdmin === true}>
