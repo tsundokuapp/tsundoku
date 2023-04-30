@@ -13,7 +13,11 @@ const DropdownTemas = () => {
   return (
     <Dropdown>
       <DropdownBtn onClick={() => setDropdownIsOpen(!dropdownIsOpen)}>
-        {theme.icon as React.ReactNode}
+        <>
+          {theme.name === "default"
+            ? theme.icon.darkIcon
+            : theme.icon.lightIcon}
+        </>
       </DropdownBtn>
 
       {dropdownIsOpen && (
@@ -24,7 +28,11 @@ const DropdownTemas = () => {
               setDropdownIsOpen(false);
             }}
           >
-            {theme.icon as React.ReactNode}
+            <>
+              {theme.name === "default"
+                ? theme.icon.lightIcon
+                : theme.icon.darkIcon}
+            </>
           </DropdownItem>
         </DropdownConteudo>
       )}

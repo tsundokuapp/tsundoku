@@ -2,7 +2,6 @@ import Head from "next/head";
 import {
   Container,
   Conteudo,
-  Footer,
   Navegacao,
   Capa,
   Apoiadores,
@@ -16,6 +15,9 @@ import { TrilhaPath } from "@/components/TrilhaPath";
 import { CircleIndicator } from "@/animations/ScrollLinked";
 import { MenuControllerText } from "@/components/MenuControllerText";
 import { useNotify } from "@/Context/NotificationProvider";
+import { ModalImage } from "@/animations/Modal/ModalImage";
+import { useRouter } from "next/router";
+import { Footer } from "@/components/Footer";
 
 const capaElaina =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
@@ -28,6 +30,12 @@ interface ILayoutMainProps {
 export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
   const [fontSize, setFontSize] = useState(16);
   const [lineHeight, setLineHeight] = useState(1);
+
+  const router = useRouter();
+
+  const Navigation = (path: string) => {
+    router.push(path);
+  };
 
   const notify = useNotify();
   const ChangeFontSize = (params: number) => {
@@ -71,6 +79,20 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
     setLineHeight(lineHeight + params);
   };
 
+  const NavigationButtons = () => {
+    return (
+      <div>
+        <Button label="Anterior" variant="secundario" onClick={() => {}} />
+        <Button
+          label="Índice"
+          variant="secundario"
+          onClick={() => Navigation("/novels/bruxa-errante")}
+        />
+        <Button label="Próximo" variant="secundario" onClick={() => {}} />
+      </div>
+    );
+  };
+
   return (
     <>
       <CircleIndicator />
@@ -96,20 +118,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
         <Conteudo>
           <Navegacao>
             <TrilhaPath />
-
-            <div>
-              <Button
-                label="Anterior"
-                variant="secundario"
-                onClick={() => {}}
-              />
-              <Button label="Índice" variant="secundario" />
-              <Button
-                label="Próximo"
-                variant="secundario"
-                onClick={() => ChangeLineHeight(-0.5)}
-              />
-            </div>
+            <NavigationButtons />
           </Navegacao>
           <Capitulo fontSize={fontSize} lineHeight={lineHeight}>
             <div>
@@ -317,9 +326,10 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
             </p>
             <p>https://tsundoku.com.br</p>
             &nbsp;
-            <img
+            <ModalImage
               src="http://tsundoku.com.br/wp-content/uploads/2021/12/MJ_V1_Cap01_Img1.jpg"
-              alt=""
+              altImg="teste"
+              id="id"
             />
             <div>
               <p>Chegara o dia.</p>
@@ -429,58 +439,48 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
               <p>— Estarei esperando para te ver… Saya.</p>
             </div>
           </Capitulo>
+          <Creditos>
+            <Staff>
+              <h2>Equipe Tsundoku</h2>
+              <span>
+                <p>Tradutor:</p>
+                <p>Roel</p>
+              </span>
+              <span>
+                <p>Revisor:</p>
+                <p>Nero</p>
+              </span>
+              <span>
+                <p>QC:</p>
+                <p>Axios</p>
+              </span>
+              <span>
+                <p>Editor:</p>
+                <p>Axios</p>
+              </span>
+            </Staff>
+            <Apoiadores>
+              <h3>
+                A Tsundoku agradece à todos os nossos apoiadores, isso mantém o
+                site vivo e nossa staff motivada:
+              </h3>
+              <span>
+                Nero, Daruma, Arthur, Fulano, Jhones, Marcos, Estela, Mia,
+                Bruno, Alberto, Nero, Daruma, Arthur, Fulano, Jhones, Marcos,
+                Estela, Mia, Bruno, Alberto, Nero, Daruma.....
+              </span>
+              <h3>
+                Conheça as vantagens de ser um(a) apoiador(a) neste link:&nbsp;
+                <a href="http://tsundoku.com.br">tsundoku.com.br/apoiador</a>
+              </h3>
+            </Apoiadores>
+          </Creditos>
+          <Navegacao>
+            <NavigationButtons />
+          </Navegacao>
         </Conteudo>
-        <Creditos>
-          <Staff>
-            <h2>Equipe Tsundoku</h2>
-            <span>
-              <p>Tradutor:</p>
-              <p>Roel</p>
-            </span>
-            <span>
-              <p>Revisor:</p>
-              <p>Nero</p>
-            </span>
-            <span>
-              <p>QC:</p>
-              <p>Axios</p>
-            </span>
-            <span>
-              <p>Editor:</p>
-              <p>Axios</p>
-            </span>
-          </Staff>
-          <Apoiadores>
-            <h3>
-              A Tsundoku agradece à todos os nossos apoiadores, isso mantém o
-              site vivo e nossa staff motivada:
-            </h3>
-            <span>
-              Nero, Daruma, Arthur, Fulano, Jhones, Marcos, Estela, Mia, Bruno,
-              Alberto, Nero, Daruma, Arthur, Fulano, Jhones, Marcos, Estela,
-              Mia, Bruno, Alberto, Nero, Daruma.....
-            </span>
-            <h3>
-              Conheça as vantagens de ser um(a) apoiador(a) neste link:&nbsp;
-              <a href="http://tsundoku.com.br">tsundoku.com.br/apoiador</a>
-            </h3>
-          </Apoiadores>
-        </Creditos>
-        <Navegacao>
-          <div>
-            <Button label="Anterior" variant="secundario" />
-            <Button label="Índice" variant="secundario" />
-            <Button label="Próximo" variant="secundario" />
-          </div>
-        </Navegacao>
       </Container>
-      <Footer>
-        <strong>Tsundoku Traduções</strong>
-        <div>
-          <p>aqui vai ter os links de redes sociais</p>
-        </div>
-        <p>© 2023 Tsundoku Traduções</p>
-      </Footer>
+      <Footer />
     </>
   );
 };

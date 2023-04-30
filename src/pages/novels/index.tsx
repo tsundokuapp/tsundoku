@@ -1,22 +1,34 @@
-import { LayoutListagemObra } from "@/components/Layouts/ObraListagem";
-import { BoxAviso } from "@/styles/Home/styles";
-import { Secao } from "@/components/Secao";
+import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { useState } from "react";
+import { AllWorksTsun as works } from "@/constants/WorksTsun";
+import { Card } from "@/components/Card";
+import { ItemByItemAnimation } from "@/animations/ItemByItem";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
   const [temAviso, setTemAviso] = useState(true);
 
   return (
-    <LayoutListagemObra titulo="Novels - Tsundoku">
-      <Secao>
-        {temAviso && (
-          <BoxAviso>
-            <h2>AVISO</h2>
-            <p>Site em construção, em breve uma nova Tsundoku!</p>
-          </BoxAviso>
-        )}
-      </Secao>
-    </LayoutListagemObra>
+    <LayoutListagem
+      titleWeb="Novels - Tsundoku"
+      titleSession="Novels"
+      columns={4}
+      sloganSession="Encotre sua próxima novel na estante da Tsun"
+      hrefCover="https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Ligth-Novel-Mushoku-Tensei-Volume-12-Imagem-01.jpg?resize=2000%2C1425&ssl=1"
+      altCover="imagem da obra Mushoku Tensei, mostra o protagonista e sua esposa"
+      filter="default"
+    >
+      {works.map((item, i) => (
+        <ItemByItemAnimation key={i} order={i}>
+          <Card
+            href={item.href}
+            capa={item.cover}
+            titulo={item.title}
+            autor={item.author}
+            volume={`Volume ${item.volume}`}
+          />
+        </ItemByItemAnimation>
+      ))}
+    </LayoutListagem>
   );
 }

@@ -12,21 +12,6 @@ export const Container = styled.main`
   justify-content: center;
 `;
 
-export const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  width: 100%;
-
-  gap: 0.5rem;
-  padding: 1.5rem;
-  margin-top: auto;
-
-  background-color: ${({ theme }) => theme.colors.bgComponente};
-`;
-
 export const Conteudo = styled.div`
   max-width: 1120px;
   display: flex;

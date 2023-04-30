@@ -3,7 +3,10 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     name: string;
-    icon: unknown;
+    icon: {
+      darkIcon: unknown;
+      lightIcon: unknown;
+    };
 
     espacamento: {
       semEspacamento: string;

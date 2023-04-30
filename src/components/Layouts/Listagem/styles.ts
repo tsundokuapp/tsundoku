@@ -13,7 +13,7 @@ export const Container = styled.main`
   justify-content: center;
 `;
 
-export const Capa = styled.div`
+export const Cover = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@ export const Capa = styled.div`
   }
 `;
 
-export const Conteudo = styled.div`
+export const Content = styled.div`
   display: flex;
   align-content: center;
   justify-content: flex-start;
@@ -40,7 +40,7 @@ export const Conteudo = styled.div`
   gap: 1rem;
 `;
 
-export const Navegacao = styled.nav`
+export const Navigation = styled.nav`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -56,16 +56,20 @@ export const Navegacao = styled.nav`
   }
 `;
 
-export const Filtros = styled.div`
+export const Filters = styled.div`
   display: flex;
   flex-direction: row;
   gap: 3rem;
   margin: 0.5rem auto;
 `;
 
-export const Grid = styled.div`
+interface IGridProps {
+  columns: number;
+}
+
+export const Grid = styled.div<IGridProps>`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(${(props) => props.columns}, 1fr);
   gap: 1.5rem;
   margin: 0 2.5rem;
 `;
