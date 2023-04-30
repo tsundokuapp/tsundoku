@@ -1,22 +1,20 @@
 import Image, { StaticImageData } from "next/image";
 import { Container, ContainerImageAvatar } from "./styles";
 
-interface IAvatar{
+interface IAvatar {
   image: StaticImageData;
   user: string;
-  retractMenuAdmin?: Boolean
+  retractMenuAdmin?: Boolean;
 }
 
-export default function Avatar({image, user, retractMenuAdmin}: IAvatar){
-  console.log(retractMenuAdmin)
+export default function Avatar({ image, user, retractMenuAdmin }: IAvatar) {
+  console.log(retractMenuAdmin);
   return (
-    
     <Container>
-      <ContainerImageAvatar retractMenuAdmin={retractMenuAdmin === true ? true : false}>
-        
+      <ContainerImageAvatar retractMenuAdmin={retractMenuAdmin === true}>
         <Image alt="Imagem Perfil" src={image} />
       </ContainerImageAvatar>
       <span>{user}</span>
     </Container>
   );
-};
+}

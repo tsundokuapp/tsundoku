@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
 import { useTheme } from "@/hooks/useThemeContext";
+import { useState } from "react";
+import { Dropdown, DropdownBtn, DropdownConteudo, DropdownItem } from "./style";
 
 const DropdownTemas = () => {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const DropdownTemas = () => {
   return (
     <Dropdown>
       <DropdownBtn onClick={() => setDropdownIsOpen(!dropdownIsOpen)}>
-        {theme.icon as React.ReactNode}
+        <>{theme.icon}</>
       </DropdownBtn>
 
       {dropdownIsOpen && (
@@ -24,7 +24,7 @@ const DropdownTemas = () => {
               setDropdownIsOpen(false);
             }}
           >
-            {theme.icon as React.ReactNode}
+            <>{theme.icon}</>
           </DropdownItem>
         </DropdownConteudo>
       )}
