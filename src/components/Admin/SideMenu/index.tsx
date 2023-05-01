@@ -17,7 +17,7 @@ import {
 import avatar from "@/assets/img/Lelouch.jpg";
 
 // TODO: Criar ação para deixar o backgound dos links ativas
-export default function SideMenu() {
+export const SideMenu = () => {
   const [retractMenuStatus, setRetractMenu] = useState(false);
   const user = retractMenuStatus ? "" : "Bravo";
 
@@ -70,4 +70,4 @@ export default function SideMenu() {
       ))}
     </Container>
   );
-}
+};
