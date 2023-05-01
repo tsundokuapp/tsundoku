@@ -6,6 +6,9 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Titulo = styled.h1`
-  color: ${({ theme }) => theme.colors.primaria[500]};
+export const ContainerCardsHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 62.5rem;
+  margin: 1rem 0 2rem 0;
 `;

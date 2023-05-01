@@ -6,7 +6,7 @@ interface IContainer {
 
 export const Container = styled.div<IContainer>`
   width: ${(props) => (props.retractMenuStatus ? "5.5rem" : "12.5rem")};
-  height: auto;
+  height: 100vh;
   padding-top: 3rem;
   background: ${({ theme }) => theme.colors.bgComponente};
   display: flex;
@@ -58,7 +58,7 @@ interface IContainerMenu {
 export const ContainerMenu = styled.nav<IContainerMenu>`
   width: 100%;
   margin-top: ${(props) =>
-    props.setFooter ? (props.retractMenuStatus ? "2.7rem" : "3.7rem") : 0};
+    props.setFooter ? (props.retractMenuStatus ? "1.5rem" : "2.5rem") : 0};
 
   .title-menu-navigation {
     margin-left: ${(props) => (props.retractMenuStatus ? ".75rem" : "1.25rem")};
@@ -94,7 +94,7 @@ export const ItemList = styled.li<IContainer>`
             padding-left: 0.75rem;
         `
         : `
-            width: 11.25rem;
+            width: 10rem;
             padding-left: 1.5rem;
             margin-left: .5rem;        
         `};
