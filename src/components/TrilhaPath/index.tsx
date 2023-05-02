@@ -35,12 +35,12 @@ export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
   return (
     <Box>
       {!isAdmin
-        ? listaPath.map((item, i) => (
+        ? pathList.map((item, i) => (
             <>
-              <Link href={`${reconstruirPath(item)}`} key={item + i}>
+              <Link href={`${reconstructorPath(item)}`} key={item + i}>
                 <LinkStyled>{item.toUpperCase()}</LinkStyled>
               </Link>
-              {i !== listaPath.length - 1 && (
+              {i !== pathList.length - 1 && (
                 <span>
                   &nbsp;
                   <FaChevronRight />
@@ -49,16 +49,16 @@ export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
               )}
             </>
           ))
-        : listaPath.map((item, i) => (
+        : pathList.map((item, i) => (
             <>
               {isAdmin && i > 1 && (
                 <span>
-                  <Link href={`${reconstruirPath(item)}`} key={item + i}>
+                  <Link href={`${reconstructorPath(item)}`} key={item + i}>
                     <LinkStyled isAdmin={isAdmin}>
                       {item.toUpperCase()}
                     </LinkStyled>
                   </Link>
-                  {i !== listaPath.length - 1 && (
+                  {i !== pathList.length - 1 && (
                     <span>&nbsp; {" / "} &nbsp;</span>
                   )}
                 </span>
