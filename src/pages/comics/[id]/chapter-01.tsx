@@ -1,14 +1,15 @@
-import { LayoutCapituloNovel } from "@/components/Layouts/CapituloNovel";
+import { useState } from "react";
+
+import { LayoutMangaChapter } from "@/components/Layouts/MangaChapter";
 import { BoxAviso } from "@/styles/Home/styles";
 import { Section } from "@/components/Section";
-import { useState } from "react";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
   const [temAviso, setTemAviso] = useState(true);
 
   return (
-    <LayoutCapituloNovel titulo="Bruxa Errante - Tsundoku">
+    <LayoutMangaChapter title="Bruxa Errante - Tsundoku">
       <Section>
         {temAviso && (
           <BoxAviso>
@@ -17,6 +18,6 @@ export default function Novel() {
           </BoxAviso>
         )}
       </Section>
-    </LayoutCapituloNovel>
+    </LayoutMangaChapter>
   );
 }

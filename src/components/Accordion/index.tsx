@@ -22,7 +22,12 @@ interface AccordionProps {
 
 export const TsunAccordion = () => {
   const router = useRouter();
-  const slug = `${router.pathname}/capitulo-01`;
+  const path = router.pathname;
+  const { id } = router.query;
+
+  const truthPath = id ? path.replace("[id]", id.toString()) : path;
+
+  const slug = `${truthPath}/chapter-01`;
 
   const capaVolume1 =
     "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Majo-no-Tabitabi-Capa-Volume-01.jpg?ssl=1";
@@ -74,16 +79,16 @@ export const TsunAccordion = () => {
           </p>
         </AccordionInfo>
         <ListaCapitulos isTablet={isTablet}>
-          <LinkPersonalizado href={slug} urlImgCap={capaVolume1}>
+          <LinkPersonalizado
+            href="/novels/bruxa-errante/capitulo-01"
+            urlImgCap={capaVolume1}
+          >
             <div>
               <p>Capítulo 01</p>
               <p>Titulo provisório</p>
             </div>
           </LinkPersonalizado>
-          <LinkPersonalizado
-            href="/comics/hinowa-ga-yuku/chapter-01"
-            urlImgCap={capaVolume1}
-          >
+          <LinkPersonalizado href={slug} urlImgCap={capaVolume1}>
             <div>
               <p>Capítulo 02</p>
               <p>Capítulo da Hinowa</p>

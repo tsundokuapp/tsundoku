@@ -1,22 +1,21 @@
-import {
-  ContainerIndiceObra,
-  Conteudo,
-  Navegacao,
-  Obra,
-  Capa,
-  Info,
-  Titulo,
-  Generos,
-  DetalhesObra,
-  BoxContentFooter,
-  Sinopse,
-} from "./styles";
 import React from "react";
-import { TsunAccordion } from "@/components/Accordion";
 import { Footer } from "@/components/Footer";
 import { TrilhaPath } from "@/components/TrilhaPath";
 import { SectionEntryAnimation } from "@/animations/SectionEntry";
 import { HeadTsun } from "@/components/Head";
+import {
+  Container,
+  Content,
+  Navigation,
+  Work,
+  Cover,
+  Info,
+  Title,
+  Genres,
+  WorkDetails,
+  Details,
+  Synopsis,
+} from "./styles";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -49,38 +48,38 @@ export const LayoutObraIndiceGeral = ({
 }: ILayoutMainProps) => {
   return (
     <>
-      <ContainerIndiceObra>
+      <Container>
         <HeadTsun title={titleWeb} />
         <SectionEntryAnimation>
-          <Conteudo>
-            <Navegacao>
+          <Content>
+            <Navigation>
               <TrilhaPath />
-            </Navegacao>
-            <Obra>
-              <Capa>
+            </Navigation>
+            <Work>
+              <Cover>
                 <img src={hrefCover} alt={altCover} />
-              </Capa>
+              </Cover>
               <Info>
                 <div>
-                  <Titulo>
+                  <Title>
                     <h1>{titleWork}</h1>
                     <p>{titleWorkAlternative}</p>
-                  </Titulo>
-                  <Generos>
+                  </Title>
+                  <Genres>
                     {genres.map((genre, i) => (
                       <p key={i}>{genre}</p>
                     ))}
-                  </Generos>
+                  </Genres>
                 </div>
-                <Sinopse>{synopsis}</Sinopse>
+                <Synopsis>{synopsis}</Synopsis>
               </Info>
-            </Obra>
-          </Conteudo>
+            </Work>
+          </Content>
         </SectionEntryAnimation>
 
-        <BoxContentFooter>
+        <Details>
           <SectionEntryAnimation delay={true}>
-            <DetalhesObra>
+            <WorkDetails>
               <h2>Detalhes da Obra</h2>
               <span>
                 <p>Tipo:</p>
@@ -98,13 +97,11 @@ export const LayoutObraIndiceGeral = ({
                 <p>Status:</p>
                 <p>{status}</p>
               </span>
-            </DetalhesObra>
+            </WorkDetails>
           </SectionEntryAnimation>
-          <SectionEntryAnimation delay={true}>
-            <TsunAccordion />
-          </SectionEntryAnimation>
-        </BoxContentFooter>
-      </ContainerIndiceObra>
+          {children}
+        </Details>
+      </Container>
       <Footer />
     </>
   );

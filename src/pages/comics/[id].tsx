@@ -1,3 +1,5 @@
+import { SectionEntryAnimation } from "@/animations/SectionEntry";
+import { TsunAccordion } from "@/components/Accordion";
 import { LayoutObraIndiceGeral } from "@/components/Layouts/ObraIndiceGeral";
 import { defaultMangas } from "@/constants/WorksDetails";
 import { useRouter } from "next/router";
@@ -7,6 +9,7 @@ export default function Novel() {
 
   const router = useRouter();
   const { id } = router.query;
+
   const currentWork = defaultMangas.find((item) => item.id === id);
   return (
     <>
@@ -24,7 +27,9 @@ export default function Novel() {
           type={currentWork.type}
           synopsis={currentWork.synopsis}
         >
-          <div>obra vem aqui</div>
+          <SectionEntryAnimation delay={true}>
+            <TsunAccordion />
+          </SectionEntryAnimation>
         </LayoutObraIndiceGeral>
       ) : (
         <>

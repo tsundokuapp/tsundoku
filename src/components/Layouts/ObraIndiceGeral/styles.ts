@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerIndiceObra = styled.main`
-  //max-width: 1120px;
+export const Container = styled.main`
   max-width: 1920px;
   margin: 0 auto;
   padding: 3.5rem 0 0 0;
@@ -13,14 +12,14 @@ export const ContainerIndiceObra = styled.main`
   justify-content: center;
 `;
 
-export const Conteudo = styled.div`
+export const Content = styled.div`
   display: flex;
   align-content: center;
   justify-content: flex-start;
   flex-direction: column;
+  flex-grow: 1;
 
   width: 100%;
-  height: 100%;
 
   margin-top: 1.5rem;
   padding-bottom: 1rem;
@@ -30,7 +29,7 @@ export const Conteudo = styled.div`
   background: ${({ theme }) => theme.colors.primaria[500]};
 `;
 
-export const Navegacao = styled.nav`
+export const Navigation = styled.nav`
   display: flex;
   align-items: center;
   padding: 0.5rem 2.5rem;
@@ -42,7 +41,7 @@ export const Navegacao = styled.nav`
   }
 `;
 
-export const Obra = styled.div`
+export const Work = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -55,7 +54,7 @@ export const Obra = styled.div`
   height: 100%;
   max-height: 380px;
 `;
-export const Capa = styled.div`
+export const Cover = styled.div`
   display: flex;
   width: 300px;
   height: 450px;
@@ -82,13 +81,13 @@ export const Info = styled.div`
   padding-bottom: 0.5rem;
 `;
 
-export const Sinopse = styled.div`
+export const Synopsis = styled.div`
   overflow: scroll;
   text-indent: 2em;
   margin-top: 1.5rem;
 `;
 
-export const Titulo = styled.div`
+export const Title = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -102,7 +101,7 @@ export const Titulo = styled.div`
   }
 `;
 
-export const Generos = styled.div`
+export const Genres = styled.div`
   font-size: ${({ theme }) => theme.texto.paragrafo};
   display: inline-flex;
   p {
@@ -114,7 +113,7 @@ export const Generos = styled.div`
   }
 `;
 
-export const BoxContentFooter = styled.div`
+export const Details = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -125,7 +124,7 @@ export const BoxContentFooter = styled.div`
   padding: 0 2.5rem;
 `;
 
-export const DetalhesObra = styled.div`
+export const WorkDetails = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
