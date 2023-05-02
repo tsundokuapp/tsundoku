@@ -4,6 +4,7 @@ import LayoutAdminMain from "@/components/Layouts/Admin/Main";
 import { BoxAviso } from "@/styles/Home/styles";
 import { useState } from "react";
 import { Container, ContainerCardsHead } from "./style";
+import { TrilhaPath } from "@/components/TrilhaPath";
 
 const DashBoard = () => {
   const [temAviso, setTemAviso] = useState(true);
@@ -25,6 +26,7 @@ const DashBoard = () => {
         icon=""
       />
       <Container>
+        <TrilhaPath isAdmin={true} />
         {temAviso && (
           <BoxAviso onClick={desativaAviso}>
             <h2>AVISO</h2>

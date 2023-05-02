@@ -1,6 +1,5 @@
 import DropdownTemas from "@/components/Heading/Dropdown";
 import { SearchBox } from "@/components/Heading/SearchBox";
-import { TrilhaPath } from "@/components/TrilhaPath";
 import { ROTAS } from "@/constants/rotas";
 import Link from "next/link";
 import { LinkNavigation } from "../LinkNavigation";
@@ -30,8 +29,6 @@ export const Navbar = ({
       <BoxHead>
         <span className="navigation">
           <Link href={ROTAS.DASHBOARD}>ADMIN</Link>
-          <p>&nbsp;&nbsp;/&nbsp;&nbsp;</p>
-          <TrilhaPath isAdmin={true} />
         </span>
         <DropdownTemas />
       </BoxHead>
