@@ -14,7 +14,7 @@ import { DropdownSelect } from "@/components/DropdownSelect";
 import { defaultFilters, blogFilters } from "@/constants/filters";
 import { HeadTsun } from "@/components/Head";
 
-interface ILayoutMainProps {
+interface ILayoutListingProps {
   children: React.ReactNode;
   columns: number;
   titleSession: string;
@@ -34,7 +34,7 @@ export const LayoutListagem = ({
   hrefCover,
   altCover,
   filter,
-}: ILayoutMainProps) => {
+}: ILayoutListingProps) => {
   return (
     <>
       <Container>

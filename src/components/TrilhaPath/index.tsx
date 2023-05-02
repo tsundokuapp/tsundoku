@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaChevronRight } from "react-icons/fa";
+
 import { Box, LinkStyled } from "./styles";
 
 interface ITrilhaPath {
@@ -11,21 +12,24 @@ export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
   const router = useRouter();
   const path = router.pathname;
 
-  const listaPath = path.replace(/-/g, " ").split("/");
-  listaPath.shift();
+  const { id } = router.query;
+  const truePath = id ? path.replace("[id]", id.toString()) : path;
 
-  const reconstruirPath = (path: string) => {
-    const indexPathAtual = listaPath.indexOf(path);
+  const pathList = truePath.replace(/-/g, " ").split("/");
+  pathList.shift();
 
-    const pathConstruido = listaPath.reduce((acc, item) => {
-      if (listaPath.indexOf(item) > indexPathAtual) return acc;
-      if (item.includes(" ")) item = item.replace(" ", "-");
+  const reconstructorPath = (path: string) => {
+    const indexCurrentPath = pathList.indexOf(path);
+
+    const reconstructedPath = pathList.reduce((acc, item) => {
+      if (pathList.indexOf(item) > indexCurrentPath) return acc;
+      if (item.includes(" ")) item = item.replace(/ +/g, "-");
 
       const path = `${acc}/${item}`;
       return path;
     }, "");
 
-    return pathConstruido;
+    return reconstructedPath;
   };
 
   return (

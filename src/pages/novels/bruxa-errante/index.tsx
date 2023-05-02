@@ -1,7 +1,7 @@
 import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
 import { LayoutObraIndiceMobile } from "@/components/Layouts/Mobile/ObraIndice";
 import { BoxAviso } from "@/styles/Home/styles";
-import { Secao } from "@/components/Secao";
+import { Secao } from "@/components/Section";
 import { useState } from "react";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SIZES_RAW } from "@/constants/brakingPoints";
