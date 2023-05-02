@@ -6,20 +6,20 @@ import { LayoutMain } from "@/components/Layouts/Main";
 import { Section } from "@/components/Section";
 import { Carousel } from "@/components/Carousel";
 import { Card } from "@/components/Card";
-
-import elainaCover from "@/assets/img/elaina8.webp";
-import goblinCover from "@/assets/img/goblin.webp";
-import marchaCover from "@/assets/img/marcha.webp";
-import tearCover from "@/assets/img/tear.webp";
+import { AllWorksTsun as works } from "@/constants/WorksTsun";
+import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import tremCover from "@/assets/img/trem.webp";
 
 export default function Home() {
   const [temAviso, setTemAviso] = useState(true);
+  const { isMobile, isTablet } = useWindowDimensions();
 
   // TODO: Função temporária
   const desativaAviso = () => {
     setTemAviso(false);
   };
+
+  const itensVisibles = isTablet ? 4 : isMobile ? 3 : 2;
 
   return (
     <LayoutMain title="Tsundoku Traduções">
@@ -33,34 +33,16 @@ export default function Home() {
         )}
       </Section>
       <Section title="Adicionados Recentemente" directionItems="row">
-        <Card
-          href={"/novels/bruxa-errante"}
-          capa={elainaCover}
-          titulo="Bruxa Errante"
-          autor="Kazuma Kamachi"
-          volume="Volume 10"
-        />
-        <Card
-          href={"/novels/bruxa-errante"}
-          capa={goblinCover}
-          titulo="Matador de Goblins"
-          autor="Kazuma Kamachi"
-          volume="Volume Único"
-        />
-        <Card
-          href={"/novels/bruxa-errante"}
-          capa={tearCover}
-          titulo="Império Tearmoon"
-          autor="Kazuma Kamachi"
-          volume="Volume 2"
-        />
-        <Card
-          href={"/novels/bruxa-errante"}
-          capa={marchaCover}
-          titulo="Marcha Mortal"
-          autor="Kazuma Kamachi"
-          volume="Volume 5"
-        />
+        {works.slice(0, itensVisibles).map((item, i) => (
+          <Card
+            key={i}
+            href={item.href}
+            capa={item.cover}
+            titulo={item.title}
+            autor={item.author}
+            volume={`Volume ${item.volume}`}
+          />
+        ))}
       </Section>
 
       <Section title="Recomendação da Tsundoku" directionItems="row">

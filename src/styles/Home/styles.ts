@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// TODO: Corrigir o inicio da box, pois está com um espaço em branco
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@ export const Box = styled.div`
   justify-content: flex-start;
 
   width: 100%;
-  height: 100%;
 
   gap: 1.5rem 0;
   margin: 1rem;
