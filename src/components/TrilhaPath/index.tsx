@@ -1,11 +1,14 @@
-import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaChevronRight } from "react-icons/fa";
 
 import { Box, LinkStyled } from "./styles";
 
-export const TrilhaPath = () => {
+interface ITrilhaPath {
+  isAdmin?: boolean;
+}
+
+export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
   const router = useRouter();
   const path = router.pathname;
 
@@ -31,20 +34,37 @@ export const TrilhaPath = () => {
 
   return (
     <Box>
-      {pathList.map((item, i) => (
-        <>
-          <Link href={`${reconstructorPath(item)}`} key={item + i}>
-            <LinkStyled>{item.toUpperCase()}</LinkStyled>
-          </Link>
-          {i !== pathList.length - 1 && (
-            <span>
-              &nbsp;
-              <FaChevronRight />
-              &nbsp;
-            </span>
-          )}
-        </>
-      ))}
+      {!isAdmin
+        ? listaPath.map((item, i) => (
+            <>
+              <Link href={`${reconstruirPath(item)}`} key={item + i}>
+                <LinkStyled>{item.toUpperCase()}</LinkStyled>
+              </Link>
+              {i !== listaPath.length - 1 && (
+                <span>
+                  &nbsp;
+                  <FaChevronRight />
+                  &nbsp;
+                </span>
+              )}
+            </>
+          ))
+        : listaPath.map((item, i) => (
+            <>
+              {isAdmin && i > 1 && (
+                <span>
+                  <Link href={`${reconstruirPath(item)}`} key={item + i}>
+                    <LinkStyled isAdmin={isAdmin}>
+                      {item.toUpperCase()}
+                    </LinkStyled>
+                  </Link>
+                  {i !== listaPath.length - 1 && (
+                    <span>&nbsp; {" / "} &nbsp;</span>
+                  )}
+                </span>
+              )}
+            </>
+          ))}
     </Box>
   );
 };

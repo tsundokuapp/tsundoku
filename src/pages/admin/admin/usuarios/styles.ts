@@ -6,6 +6,6 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Titulo = styled.h1`  
-      color: ${({ theme }) => theme.colors.primaria[500]};
+export const Titulo = styled.h1`
+  color: ${({ theme }) => theme.colors.primaria[500]};
 `;

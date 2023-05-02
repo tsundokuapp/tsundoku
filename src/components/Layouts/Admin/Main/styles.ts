@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
-const Grid = styled.div`
-  &.wrapper {
-    display: flex;
-  }
+export const Container = styled.div`
+  display: flex;
+  width: 100%;
 
-  .coluna-grid-main {
+  .content-main {
     display: flex;
-    width: 100%;
+    flex-direction: column;
   }
 `;
-
-export default Grid;
