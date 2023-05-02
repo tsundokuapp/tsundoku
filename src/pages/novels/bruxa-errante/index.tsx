@@ -1,10 +1,10 @@
 import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
 import { LayoutObraIndiceMobile } from "@/components/Layouts/Mobile/ObraIndice";
 import { BoxAviso } from "@/styles/Home/styles";
-import { Secao } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { useState } from "react";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { SIZES_RAW } from "@/constants/brakingPoints";
+import { SIZES_RAW } from "@/constants/breakingPoints";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
@@ -15,25 +15,25 @@ export default function Novel() {
     <>
       {width > SIZES_RAW.TABLET ? (
         <LayoutObraIndice titulo="Bruxa Errante - Tsundoku">
-          <Secao>
+          <Section>
             {temAviso && (
               <BoxAviso>
                 <h2>AVISO</h2>
                 <p>Site em construção, em breve uma nova Tsundoku!</p>
               </BoxAviso>
             )}
-          </Secao>
+          </Section>
         </LayoutObraIndice>
       ) : (
         <LayoutObraIndiceMobile titulo="Bruxa Errante">
-          <Secao>
+          <Section>
             {temAviso && (
               <BoxAviso>
                 <h2>AVISO</h2>
                 <p>Site em construção, em breve uma nova Tsundoku!</p>
               </BoxAviso>
             )}
-          </Secao>
+          </Section>
         </LayoutObraIndiceMobile>
       )}
     </>
