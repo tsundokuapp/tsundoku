@@ -1,7 +1,7 @@
 import { InputBusca, Input, Icon } from "./styles";
 import { FiSearch } from "react-icons/fi";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { SIZES_RAW } from "@/constants/brakingPoints";
+import { SIZES_RAW } from "@/constants/breakingPoints";
 
 interface ISearchBoxProps {
   placeholder: string;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { SIZES_RAW } from "@/constants/brakingPoints";
+import { SIZES_RAW } from "@/constants/breakingPoints";
 
 type WindowDimensions = {
   width: number;

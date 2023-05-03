@@ -8,7 +8,7 @@ export const Container = styled.section<IContainer>`
   max-width: 1120px;
   display: flex;
   flex-direction: ${({ directionItems }) => directionItems};
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 1.5rem 0;
 

@@ -12,7 +12,7 @@ import {
 } from "./styles";
 
 import { SignInButton } from "../SignInButton";
-import { SIZES_RAW } from "@/constants/brakingPoints";
+import { SIZES_RAW } from "@/constants/breakingPoints";
 import logo from "@/assets/logo/logoDefault.svg";
 import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";

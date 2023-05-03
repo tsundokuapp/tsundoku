@@ -11,7 +11,7 @@ import {
   AccordionInfo,
 } from "./styles";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { SIZES_RAW } from "@/constants/brakingPoints";
+import { SIZES_RAW } from "@/constants/breakingPoints";
 
 import { useRouter } from "next/router";
 
