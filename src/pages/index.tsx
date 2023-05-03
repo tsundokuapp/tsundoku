@@ -8,18 +8,21 @@ import { Carousel } from "@/components/Carousel";
 import { Card } from "@/components/Card";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import tremCover from "@/assets/img/trem.webp";
 
 export default function Home() {
   const [temAviso, setTemAviso] = useState(true);
   const { isMobile, isTablet } = useWindowDimensions();
+
+  const myLoader = () => {
+    return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
+  };
 
   // TODO: Função temporária
   const desativaAviso = () => {
     setTemAviso(false);
   };
 
-  const itensVisibles = isTablet ? 4 : isMobile ? 3 : 2;
+  const itensVisibles = isMobile ? 2 : isTablet ? 3 : 4;
 
   return (
     <LayoutMain title="Tsundoku Traduções">
@@ -47,10 +50,12 @@ export default function Home() {
 
       <Section title="Recomendação da Tsundoku" directionItems="row">
         <Image
-          src={tremCover}
+          loader={myLoader}
+          src="volume.png"
           alt="capa do volume"
           width={240}
           height={240 * 1.5}
+          style={{ borderRadius: "0.5rem" }}
         />
         <Box>
           <strong>Trem da Noite</strong>
@@ -61,13 +66,13 @@ export default function Home() {
             Dez anos depois, os cinco que restaram voltaram a se encontrar em
             Kurama, esperando mais uma vez encontrá-la. À medida que a noite
             caía, começamos a trocar histórias sobre coisas estranhas que
-            encontramos durante nossas viagens, incluindo a misteriosa série de
-            obras de arte de Kishida Michio, conhecida como &quotTrem da
-            Noite&quot. Neste Romance, Morimi Tomihiko magistralmente tece os
-            juventude junto com histórias de fantasmas de arrepiar os cabelos,
-            tudo envolvendo passeios noturnos. — Não há nenhum lugar que a noite
-            não toque. Todo mundo está em uma noite eterna.
+            encontramos durante nossas viagens.
           </span>
+          <span>
+            Staff: Essa é sem dúvida a melhor novel da Tsun, fico feliz de ter
+            traduzido alguns capítulos.
+          </span>
+          <strong>Nota Staff: 7.5</strong>
         </Box>
       </Section>
     </LayoutMain>

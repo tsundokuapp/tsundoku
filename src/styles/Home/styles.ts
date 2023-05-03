@@ -2,10 +2,7 @@ import styled from "styled-components";
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  width: 100%;
+  align-self: flex-start;
 
   gap: 1.5rem 0;
   margin: 1rem;
