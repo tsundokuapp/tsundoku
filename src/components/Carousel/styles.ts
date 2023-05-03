@@ -4,7 +4,9 @@ export const SliderImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
-  max-height: 100vh;
+
+  max-height: 300px;
   border-radius: 0.5rem;
+
+  aspect-ratio: 3.5/1;
 `;
