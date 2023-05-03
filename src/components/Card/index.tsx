@@ -1,27 +1,24 @@
-import Image, { StaticImageData } from "next/image";
 import {
-  ContainerCard,
+  Container,
   ContainerInfo,
   HeaderCardInfo,
   TituloCard,
   BodyCardInfo,
 } from "./styles";
 
-import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
 import { useState } from "react";
-import { Button } from "../Button";
 import Link from "next/link";
+import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
+import { Button } from "../Button";
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {
-  capa: StaticImageData | string;
+  capa: string;
   titulo: string;
   autor: string;
   volume: string;
   href: string;
 }
-
-const larguraPadrao = 180;
 
 export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
   const [favoritado, setFavoritado] = useState(false);
@@ -31,13 +28,9 @@ export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
   };
   return (
     <Link href={href}>
-      <ContainerCard>
-        <Image
-          src={capa}
-          alt="capa do volume"
-          height={larguraPadrao * 1.5}
-          width={larguraPadrao}
-        />
+      <Container>
+        <img src={capa} alt="capa do volume" />
+
         <ContainerInfo>
           <HeaderCardInfo>
             <TituloCard>{titulo}</TituloCard>
@@ -55,7 +48,7 @@ export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
             <Button label="Capítulo 07" variant="primaria" />
           </BodyCardInfo>
         </ContainerInfo>
-      </ContainerCard>
+      </Container>
     </Link>
   );
 };

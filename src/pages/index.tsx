@@ -23,6 +23,7 @@ export default function Home() {
   };
 
   const itensVisibles = isMobile ? 2 : isTablet ? 3 : 4;
+  const adaptativeView = isMobile ? "column" : "row";
 
   return (
     <LayoutMain title="Tsundoku Traduções">
@@ -48,7 +49,11 @@ export default function Home() {
         ))}
       </Section>
 
-      <Section title="Recomendação da Tsundoku" directionItems="row">
+      <Section
+        title="Recomendação da Tsundoku"
+        directionItems={adaptativeView}
+        wrap={false}
+      >
         <Image
           loader={myLoader}
           src="volume.png"

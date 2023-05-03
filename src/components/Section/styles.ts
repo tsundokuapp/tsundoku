@@ -2,15 +2,18 @@ import styled from "styled-components";
 
 interface IContainer {
   directionItems: string;
+  wrap: boolean;
 }
 
 export const Container = styled.section<IContainer>`
-  max-width: 1120px;
   display: flex;
   flex-direction: ${({ directionItems }) => directionItems};
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  gap: 1.5rem 0;
+  flex-wrap: ${({ wrap }) => (wrap ? "wrap" : "nowrap")};
+
+  max-width: 1120px;
+  gap: 1rem 0;
 
   &:last-child {
     margin-bottom: 1.5rem;

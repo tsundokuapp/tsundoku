@@ -8,5 +8,5 @@ export const SliderImage = styled.div`
   max-height: 300px;
   border-radius: 0.5rem;
 
-  aspect-ratio: 3.5/1;
+  aspect-ratio: 3/1;
 `;

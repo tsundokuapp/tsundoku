@@ -4,8 +4,9 @@ export const Box = styled.div`
   flex-direction: column;
   align-self: flex-start;
 
-  gap: 1.5rem 0;
+  gap: 1rem 0;
   margin: 1rem;
+  margin-top: 0;
 
   strong {
     font-size: 1.25rem;
