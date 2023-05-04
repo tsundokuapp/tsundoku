@@ -13,18 +13,28 @@ import { motion } from "framer-motion";
 //   align-items: center;
 // }
 
-export const Background = styled(motion.div)`
+const zIndexPosition = 99;
+
+interface IBackgroundProps {
+  isVisible: boolean;
+}
+
+export const Background = styled(motion.div)<IBackgroundProps>`
   position: absolute;
+  z-index: ${zIndexPosition - 1};
   top: 0;
   left: 0;
   bottom: 0;
   width: 300px;
-  background: #fff;
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+  background: ${(props) => (props.isVisible ? "#fff" : "transparent")};
+  border-radius: 0 0 1rem 0;
 `;
 
 // Componente do index.tsx
 export const Nav = styled(motion.nav)`
   position: absolute;
+  z-index: ${zIndexPosition};
   top: 0;
   left: 0;
   bottom: 0;
@@ -35,6 +45,7 @@ export const Nav = styled(motion.nav)`
 export const Button = styled.button`
   outline: none;
   border: none;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -46,6 +57,7 @@ export const Button = styled.button`
   height: 50px;
   border-radius: 50%;
   background: transparent;
+  z-index: ${zIndexPosition};
 `;
 
 // Componente do Navigation
@@ -54,6 +66,7 @@ export const Ul = styled(motion.ul)`
   padding: 0;
   padding: 25px;
   position: absolute;
+  z-index: ${zIndexPosition};
   top: 100px;
   width: 230px;
 `;
@@ -67,6 +80,7 @@ export const Li = styled(motion.li)`
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: ${zIndexPosition};
 `;
 
 export const IconPlaceholder = styled.div`
@@ -75,6 +89,7 @@ export const IconPlaceholder = styled.div`
   border-radius: 50%;
   flex: 40px 0;
   margin-right: 20px;
+  z-index: ${zIndexPosition};
 `;
 
 export const TextPlaceholder = styled.div`
@@ -82,19 +97,5 @@ export const TextPlaceholder = styled.div`
   width: 200px;
   height: 20px;
   flex: 1;
+  z-index: ${zIndexPosition};
 `;
-
-// .refresh {
-//   padding: 10px;
-//   position: absolute;
-//   background: rgba(0, 0, 0, 0.4);
-//   border-radius: 10px;
-//   width: 20px;
-//   height: 20px;
-//   top: 10px;
-//   right: 10px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-// }

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useCycle } from "framer-motion";
 
 import { useDimensions } from "@/hooks/useWindowDimensions";
@@ -26,10 +26,22 @@ const sidebar = {
   },
 };
 
-export const SideMenuMobile = () => {
+interface ISideMenuMobileProps {
+  externalController: boolean;
+}
+
+export const SideMenuMobile = ({
+  externalController,
+}: ISideMenuMobileProps) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+
+  useEffect(() => {
+    if (externalController !== isOpen) {
+      toggleOpen();
+    }
+  }, [externalController, isOpen, toggleOpen]);
 
   return (
     <Nav
@@ -38,7 +50,7 @@ export const SideMenuMobile = () => {
       custom={height}
       ref={containerRef}
     >
-      <Background variants={sidebar} />
+      <Background variants={sidebar} isVisible={isOpen} />
       <Navigation />
       <MenuToggle toggle={() => toggleOpen()} />
     </Nav>

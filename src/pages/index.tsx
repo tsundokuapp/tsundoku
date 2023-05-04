@@ -8,6 +8,7 @@ import { Carousel } from "@/components/Carousel";
 import { Card } from "@/components/Card";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+import { SideMenuMobile } from "@/components/Heading/SideMenu";
 
 export default function Home() {
   const [temAviso, setTemAviso] = useState(true);
@@ -27,6 +28,7 @@ export default function Home() {
 
   return (
     <LayoutMain title="Tsundoku Traduções">
+      <SideMenuMobile />
       <Section>
         <Carousel />
         {temAviso && (
