@@ -1,7 +1,7 @@
 // TODO: mover esses valores para um arquivo de configuração do tema
 
 const sizes = {
-  EXTRA_MOBILE: 365,
+  EXTRA_MOBILE: 480,
   MOBILE: 768,
   TABLET: 1024,
   DESKTOP: 1280,
