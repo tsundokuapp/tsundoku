@@ -1,4 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  MutableRefObject,
+} from "react";
 import { SIZES_RAW } from "@/constants/breakingPoints";
 
 type WindowDimensions = {
@@ -29,6 +35,23 @@ export function useWindowDimensions(): WindowDimensions {
   return dimensions;
 }
 
+interface IDimensions {
+  width: number;
+  height: number;
+}
+// Função que retorna as dimensões de um elemento mesmo após o resize da tela
+export const useDimensions = (ref: MutableRefObject<any>) => {
+  const dimensions = useRef<IDimensions>({ width: 0, height: 0 });
+
+  useEffect(() => {
+    dimensions.current.width = ref.current.offsetWidth;
+    dimensions.current.height = ref.current.offsetHeight;
+  }, [ref]);
+
+  return dimensions.current;
+};
+
+// Função que retorna as dimensões da tela
 function getWindowDimensions(): WindowDimensions {
   if (typeof window === "undefined") {
     return {

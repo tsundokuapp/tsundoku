@@ -21,6 +21,7 @@ export const HeaderContainer = styled.header<INavBarProps>`
 `;
 
 export const HeaderContent = styled.div`
+  position: relative;
   width: 100%;
   max-width: 1440px;
   height: 5rem;
@@ -88,6 +89,7 @@ export const Underline = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  position: relative;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

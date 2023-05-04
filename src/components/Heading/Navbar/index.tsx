@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { FiMenu } from "react-icons/fi";
 
 import {
   HeaderContainer,
@@ -19,6 +18,7 @@ import { SearchBox } from "../SearchBox";
 import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { defaultTabs, mobileTabs } from "@/constants/ListLink";
+import { SideMenuMobile } from "../SideMenu";
 
 interface ITabsProps {
   label: string;
@@ -63,7 +63,7 @@ export const Navbar = () => {
       <HeaderContent>
         <Container>
           {isTablet ? (
-            <FiMenu size={24} />
+            <SideMenuMobile />
           ) : (
             <>
               <Link href="/" passHref>
