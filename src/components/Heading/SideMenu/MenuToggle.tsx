@@ -1,5 +1,6 @@
 import * as React from "react";
 import { SVGMotionProps, motion } from "framer-motion";
+import { Button } from "./styles";
 
 interface IMenuToggleProps {
   toggle: () => void;
@@ -23,7 +24,7 @@ const Path = (props: IPathProps) => (
 );
 
 export const MenuToggle = ({ toggle }: IMenuToggleProps) => (
-  <button onClick={toggle}>
+  <Button onClick={toggle}>
     <svg width="23" height="23" viewBox="0 0 23 23">
       <Path
         variants={{
@@ -46,5 +47,5 @@ export const MenuToggle = ({ toggle }: IMenuToggleProps) => (
         }}
       />
     </svg>
-  </button>
+  </Button>
 );
