@@ -24,7 +24,7 @@ export const HeaderContent = styled.div`
   width: 100%;
   max-width: 1440px;
   height: 5rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   margin: 0 auto;
 
   display: flex;
@@ -32,7 +32,7 @@ export const HeaderContent = styled.div`
   justify-content: space-between;
 
   nav {
-    margin-left: 2rem;
+    margin-left: 1rem;
 
     ul {
       display: flex;
@@ -95,7 +95,7 @@ export const Container = styled.div`
 `;
 
 export const SubContainer = styled.div`
-  padding: 0 1rem;
+  padding-left: 1rem;
   gap: 0.25rem;
 
   display: flex;
