@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useCycle } from "framer-motion";
 
 import { useDimensions } from "@/hooks/useWindowDimensions";
-import { MenuToggle } from "./MenuToggle";
+// import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
 import { Background, Nav } from "./styles";
 
@@ -52,7 +52,7 @@ export const SideMenuMobile = ({
     >
       <Background variants={sidebar} isVisible={isOpen} />
       <Navigation />
-      <MenuToggle toggle={() => toggleOpen()} />
+      {/* <MenuToggle toggle={() => toggleOpen()} /> */}
     </Nav>
   );
 };
