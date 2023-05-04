@@ -52,7 +52,7 @@ export default function Home() {
       <Section
         title="Recomendação da Tsundoku"
         directionItems={adaptativeView}
-        wrap={false}
+        wrapContent={false}
       >
         <Image
           loader={myLoader}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface IContainer {
   directionItems: string;
-  wrap: boolean;
+  wrapContent: boolean;
 }
 
 export const Container = styled.section<IContainer>`
@@ -10,7 +10,7 @@ export const Container = styled.section<IContainer>`
   flex-direction: ${({ directionItems }) => directionItems};
   align-items: center;
   justify-content: center;
-  flex-wrap: ${({ wrap }) => (wrap ? "wrap" : "nowrap")};
+  flex-wrap: ${({ wrapContent }) => (wrapContent ? "wrap" : "nowrap")};
 
   max-width: 1120px;
   gap: 1rem 0;

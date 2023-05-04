@@ -5,19 +5,19 @@ interface ISectionProps {
   children: React.ReactNode;
   title?: string;
   directionItems?: string;
-  wrap?: boolean;
+  wrapContent?: boolean;
 }
 
 export const Section = ({
   children,
   title,
   directionItems = "column",
-  wrap = true,
+  wrapContent = true,
 }: ISectionProps) => {
   return (
     <>
       {title && <Title>{title}</Title>}
-      <Container directionItems={directionItems} wrap={wrap}>
+      <Container directionItems={directionItems} wrapContent={wrapContent}>
         {children}
       </Container>
     </>
