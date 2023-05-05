@@ -2,7 +2,9 @@ import React, { createContext, useCallback, useContext, useState } from "react";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
 
 interface IModalContext {
-  toggleMenu: () => void;
+  closeModal: () => void;
+  openModal: () => void;
+  modalOpen: boolean;
 }
 
 interface IModalProviderProps {
@@ -14,15 +16,19 @@ const ModalContext = createContext<IModalContext>({} as IModalContext);
 export const useModal = () => useContext(ModalContext);
 
 export const ModalProvider = ({ children }: IModalProviderProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const toggleMenu = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const openModal = useCallback(() => {
+    setModalOpen(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalOpen(false);
+  }, []);
 
   return (
-    <ModalContext.Provider value={{ toggleMenu }}>
-      <SideMenuMobile externalController={isOpen} />
+    <ModalContext.Provider value={{ openModal, closeModal, modalOpen }}>
+      <SideMenuMobile />
       {children}
     </ModalContext.Provider>
   );

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { useCycle } from "framer-motion";
+import React, { useRef } from "react";
 
 import { useDimensions } from "@/hooks/useWindowDimensions";
-// import { MenuToggle } from "./MenuToggle";
+import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
 import { Background, Nav } from "./styles";
+import { useModal } from "@/Context/ContextModal";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -26,33 +26,23 @@ const sidebar = {
   },
 };
 
-interface ISideMenuMobileProps {
-  externalController: boolean;
-}
+export const SideMenuMobile = () => {
+  const { closeModal, modalOpen } = useModal();
 
-export const SideMenuMobile = ({
-  externalController,
-}: ISideMenuMobileProps) => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
-
-  useEffect(() => {
-    if (externalController !== isOpen) {
-      toggleOpen();
-    }
-  }, [externalController, isOpen, toggleOpen]);
 
   return (
     <Nav
       initial={false}
-      animate={isOpen ? "open" : "closed"}
+      animate={modalOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
+      isVisible={modalOpen}
     >
-      <Background variants={sidebar} isVisible={isOpen} />
+      <Background variants={sidebar} isVisible={modalOpen} />
       <Navigation />
-      {/* <MenuToggle toggle={() => toggleOpen()} /> */}
+      <MenuToggle toggle={() => closeModal()} isVisible={modalOpen} />
     </Nav>
   );
 };

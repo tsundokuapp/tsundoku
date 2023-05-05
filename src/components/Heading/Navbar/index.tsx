@@ -28,7 +28,7 @@ interface ITabsProps {
 }
 
 export const Navbar = () => {
-  const { toggleMenu } = useModal();
+  const { openModal } = useModal();
   const { isTablet } = useWindowDimensions();
   const tabs = isTablet ? mobileTabs : defaultTabs;
 
@@ -42,7 +42,7 @@ export const Navbar = () => {
     if (tab) {
       setSelectedTab(tab);
     }
-  }, []);
+  }, [router.pathname, tabs]);
 
   const lastScrollY = useRef(0);
 
@@ -61,17 +61,16 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const testemenu = () => {
-    toggleMenu();
-  };
-
   return (
     <>
       <HeaderContainer isVisible={shouldHideHeader}>
         <HeaderContent>
           <Container>
             {isTablet ? (
-              <button onClick={() => testemenu()}>
+              <button
+                onClick={() => openModal()}
+                style={{ backgroundColor: "transparent" }}
+              >
                 <Image alt="Logo Tsundoku" src={logo} height="40" />
               </button>
             ) : (

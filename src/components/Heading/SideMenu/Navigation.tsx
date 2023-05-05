@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MenuItem } from "./MenuItem";
 import { Ul } from "./styles";
+import { defaultTabs } from "@/constants/ListLink";
 
 const variants = {
   open: {
@@ -13,10 +14,8 @@ const variants = {
 
 export const Navigation = () => (
   <Ul variants={variants}>
-    {itemIds.map((i) => (
-      <MenuItem i={i} key={i} />
+    {defaultTabs.map((item, i) => (
+      <MenuItem i={i} key={i} label={item.label} href={item.href} />
     ))}
   </Ul>
 );
-
-const itemIds = [0, 1, 2, 3, 4];

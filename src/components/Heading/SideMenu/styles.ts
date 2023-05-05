@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-// body {
+// Body {
 //   width: 100vw;
 //   height: 100vh;
 //   background: linear-gradient(180deg, #0055ff 0%, rgb(0, 153, 255) 100%);
@@ -13,61 +13,82 @@ import { motion } from "framer-motion";
 //   align-items: center;
 // }
 
-const zIndexPosition = 99;
+const zIndexPosition = 20;
 
 interface IBackgroundProps {
   isVisible: boolean;
 }
 
 export const Background = styled(motion.div)<IBackgroundProps>`
+  display: ${(props) => (props.isVisible ? "block" : "none")};
   position: absolute;
   z-index: ${zIndexPosition - 1};
+
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
-  display: ${(props) => (props.isVisible ? "block" : "none")};
-  background: ${(props) => (props.isVisible ? "#fff" : "transparent")};
+  width: 270px;
+
   border-radius: 0 0 1rem 0;
+  background: ${(props) => props.theme.colors.background};
+  opacity: 0.8;
 `;
 
 // Componente do index.tsx
-export const Nav = styled(motion.nav)`
+export const Nav = styled(motion.nav)<IBackgroundProps>`
+  display: ${(props) => (props.isVisible ? "flex" : "none")};
   position: absolute;
   z-index: ${zIndexPosition};
+
+  width: 270px;
+
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
+  background: "transparent";
 `;
 
 // Componente do MenuToggle
-export const Button = styled.button`
+export const Button = styled.button<IBackgroundProps>`
+  display: ${(props) => (props.isVisible ? "flex" : "none")};
+  z-index: ${zIndexPosition};
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 0 1.5rem;
+  top: 0.7rem;
+  left: 0px;
+  height: 50px;
+  background: transparent;
+
+  cursor: pointer;
+
   outline: none;
   border: none;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  cursor: pointer;
-  position: absolute;
-  top: 18px;
-  left: 15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: transparent;
-  z-index: ${zIndexPosition};
+`;
+
+export const Logo = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+
+  color: ${(props) => props.theme.colors.text};
 `;
 
 // Componente do Navigation
 export const Ul = styled(motion.ul)`
   margin: 0;
-  padding: 0;
-  padding: 25px;
+  padding: 1.5rem;
   position: absolute;
   z-index: ${zIndexPosition};
-  top: 100px;
+  top: 70px;
   width: 230px;
 `;
 
@@ -76,7 +97,7 @@ export const Li = styled(motion.li)`
   margin: 0;
   padding: 0;
   list-style: none;
-  margin-bottom: 20px;
+  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -88,14 +109,13 @@ export const IconPlaceholder = styled.div`
   height: 40px;
   border-radius: 50%;
   flex: 40px 0;
-  margin-right: 20px;
+  margin-right: 10px;
   z-index: ${zIndexPosition};
 `;
 
 export const TextPlaceholder = styled.div`
   border-radius: 5px;
-  width: 200px;
-  height: 20px;
   flex: 1;
+  padding: 0.25rem;
   z-index: ${zIndexPosition};
 `;

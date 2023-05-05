@@ -1,5 +1,7 @@
 import * as React from "react";
 import { IconPlaceholder, TextPlaceholder, Li } from "./styles";
+import Link from "next/link";
+import { ILinksProps } from "@/constants/ListLink";
 
 const variants = {
   open: {
@@ -20,11 +22,11 @@ const variants = {
 
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
 
-interface IMenuItemProps {
+interface IMenuItemProps extends ILinksProps {
   i: number;
 }
 
-export const MenuItem = ({ i }: IMenuItemProps) => {
+export const MenuItem = ({ href, label, i }: IMenuItemProps) => {
   const style = { border: `2px solid ${colors[i]}` };
   return (
     <Li
@@ -32,8 +34,18 @@ export const MenuItem = ({ i }: IMenuItemProps) => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
-      <IconPlaceholder style={style} />
-      <TextPlaceholder style={style} />
+      <Link
+        href={href}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "90%",
+        }}
+      >
+        <IconPlaceholder style={style}></IconPlaceholder>
+        <TextPlaceholder style={style}>{label}</TextPlaceholder>
+      </Link>
     </Li>
   );
 };
