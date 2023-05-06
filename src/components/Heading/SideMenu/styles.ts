@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-// Body {
-//   width: 100vw;
-//   height: 100vh;
-//   background: linear-gradient(180deg, #0055ff 0%, rgb(0, 153, 255) 100%);
-//   overflow: hidden;
-//   padding: 0;
-//   margin: 0;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
 const zIndexPosition = 20;
-
 interface IBackgroundProps {
   isVisible: boolean;
 }
+
+// Componente do index.tsx
+export const Nav = styled(motion.nav)<IBackgroundProps>`
+  display: ${(props) => (props.isVisible ? "flex" : "none")};
+  position: fixed;
+  z-index: ${zIndexPosition};
+
+  width: 270px;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: "transparent";
+`;
 
 export const Background = styled(motion.div)<IBackgroundProps>`
   display: ${(props) => (props.isVisible ? "block" : "none")};
@@ -32,20 +33,6 @@ export const Background = styled(motion.div)<IBackgroundProps>`
   border-radius: 0 0 1rem 0;
   background: ${(props) => props.theme.colors.background};
   opacity: 0.8;
-`;
-
-// Componente do index.tsx
-export const Nav = styled(motion.nav)<IBackgroundProps>`
-  display: ${(props) => (props.isVisible ? "flex" : "none")};
-  position: absolute;
-  z-index: ${zIndexPosition};
-
-  width: 270px;
-
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: "transparent";
 `;
 
 // Componente do MenuToggle
