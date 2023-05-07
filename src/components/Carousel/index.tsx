@@ -55,13 +55,28 @@ export const Carousel = () => {
         className="keen-slider"
       >
         <SliderImage className="keen-slider__slide number-slide1">
-          <Image src={majoA} alt="exemplo1" fill={true} priority={true} />
+          <Image
+            src={majoA}
+            alt="Banner da obra feita pela tsundoku 0"
+            fill={true}
+            priority={true}
+          />
         </SliderImage>
         <SliderImage className="keen-slider__slide number-slide2">
-          <Image src={majoB} alt="exemplo2" fill={true} priority={true} />
+          <Image
+            src={majoB}
+            alt="Banner da obra feita pela tsundoku 1"
+            fill={true}
+            priority={true}
+          />
         </SliderImage>
         <SliderImage className="keen-slider__slide number-slide3">
-          <Image src={majoC} alt="exemplo3" fill={true} priority={true} />
+          <Image
+            src={majoC}
+            alt="Banner da obra feita pela tsundoku 2"
+            fill={true}
+            priority={true}
+          />
         </SliderImage>
       </div>
     </>
