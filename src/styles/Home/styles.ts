@@ -23,20 +23,3 @@ export const Box = styled.div`
     display: inline-block;
   }
 `;
-
-export const BoxAviso = styled.div`
-  width: 100%;
-  max-width: 55rem;
-  background: ${({ theme }) => theme.colors.primaria[500]};
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  cursor: default;
-
-  h2 {
-    margin-bottom: 0.25rem;
-  }
-`;

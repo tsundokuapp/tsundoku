@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { Box, BoxAviso } from "@/styles/Home/styles";
+import { Box } from "@/styles/Home/styles";
 import { LayoutMain } from "@/components/Layouts/Main";
 import { Section } from "@/components/Section";
 import { Carousel } from "@/components/Carousel";
@@ -9,34 +9,38 @@ import { Card } from "@/components/Card";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
+import { Warning } from "@/components/Warning";
 
 export default function Home() {
-  const [temAviso, setTemAviso] = useState(true);
-  const { isMobile, isTablet } = useWindowDimensions();
+  const { isExtraMobile, isTablet } = useWindowDimensions();
+  const [itensVisibles, setItensVisibles] = useState(2);
+  const [adaptativeView, setAdaptativeView] = useState("column");
+
+  // TODO: os valores de itensVisibles e adaptativeView estão retornando com verificação errada devido uma renderização forçada quando se navega para telas de novels e retorna para a home, talvez a troca de tela para layouts não adaptados para mobile esteja influenciando na verificação das condições de dimensionamento de tela visto que não ocorre quando se navega para uma tela de indice de novel e retorna para a home. Nota: useEffect não existia originalmente, foi adicionado na tentativa de corrigir o problema, porém não deu certo. Caso o problema seja os layouts, remover os useEffect e o useState fazendo const para minimizar processamento.
+
+  useEffect(() => {
+    const newItensVisibles = isExtraMobile ? 2 : isTablet ? 3 : 4;
+    const newAdaptativeView = isExtraMobile ? "column" : "row";
+    setItensVisibles(newItensVisibles);
+    setAdaptativeView(newAdaptativeView);
+  }, [isExtraMobile, isTablet]);
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
   };
 
-  // TODO: Função temporária
-  const desativaAviso = () => {
-    setTemAviso(false);
-  };
-
-  const itensVisibles = isMobile ? 2 : isTablet ? 3 : 4;
-  const adaptativeView = isMobile ? "column" : "row";
+  // const itensVisibles = isExtraMobile ? 2 : isTablet ? 3 : 4;
+  // const adaptativeView = isExtraMobile ? "column" : "row";
 
   return (
     <LayoutMain title="Tsundoku Traduções">
       <SideMenuMobile />
       <Section>
         <Carousel />
-        {temAviso && (
-          <BoxAviso onClick={desativaAviso}>
-            <h2>AVISO</h2>
-            <p>Site em construção, em breve uma nova Tsundoku!</p>
-          </BoxAviso>
-        )}
+        <Warning
+          important={false}
+          message="Site em construção, em breve uma nova Tsundoku!"
+        />
       </Section>
       <Section title="Adicionados Recentemente" directionItems="row">
         {works.slice(0, itensVisibles).map((item, i) => (

@@ -12,7 +12,7 @@ export const Nav = styled(motion.nav)<IBackgroundProps>`
   position: fixed;
   z-index: ${zIndexPosition};
 
-  width: 270px;
+  width: 250px;
 
   top: 0;
   left: 0;
@@ -28,11 +28,11 @@ export const Background = styled(motion.div)<IBackgroundProps>`
   top: 0;
   left: 0;
   bottom: 0;
-  width: 270px;
+  width: 250px;
 
   border-radius: 0 0 1rem 0;
-  background: ${(props) => props.theme.colors.background};
-  opacity: 0.8;
+  background: ${(props) => props.theme.colors.bgComponente};
+  opacity: 1;
 `;
 
 // Componente do MenuToggle
@@ -47,13 +47,13 @@ export const Button = styled.button<IBackgroundProps>`
   padding: 0 1.5rem;
   top: 0.7rem;
   left: 0px;
-  height: 50px;
+  height: 4.4rem;
   background: transparent;
+  border-bottom: 1px solid ${(props) => props.theme.colors.background};
 
   cursor: pointer;
 
   outline: none;
-  border: none;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -81,21 +81,26 @@ export const Ul = styled(motion.ul)`
 
 // Componentes do MenuItem
 export const Li = styled(motion.li)`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  margin-bottom: 0.5rem;
   display: flex;
-  align-items: center;
-  cursor: pointer;
+  flex: 1;
   z-index: ${zIndexPosition};
+  align-items: center;
+
+  padding: 0.25rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+  list-style: none;
 `;
 
 export const IconPlaceholder = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  flex: 40px 0;
+  flex: 25px 0;
   margin-right: 10px;
   z-index: ${zIndexPosition};
 `;
