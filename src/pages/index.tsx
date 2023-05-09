@@ -11,7 +11,7 @@ import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { Warning } from "@/components/Warning";
 
 export default function Home() {
-  const { isMobile, isTablet } = useWindowDimensions();
+  const { isMobile, isExtraMobile } = useWindowDimensions();
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
@@ -19,7 +19,7 @@ export default function Home() {
 
   // TODO: os valores de itensVisibles e adaptativeView estão retornando com verificação errada devido uma renderização forçada quando se navega para telas de novels e retorna para a home, talvez a troca de tela para layouts não adaptados para mobile esteja influenciando na verificação das condições de dimensionamento de tela visto que não ocorre quando se navega para uma tela de indice de novel e retorna para a home. Nota: useEffect não existia originalmente, foi adicionado na tentativa de corrigir o problema, porém não deu certo. Caso o problema seja os layouts, remover os useEffect e o useState fazendo const para minimizar processamento.
 
-  const itensVisibles = isMobile ? 2 : isTablet ? 3 : 4;
+  const itensVisibles = isExtraMobile ? 2 : 4;
   const adaptativeView = isMobile ? "column" : "row";
 
   return (
