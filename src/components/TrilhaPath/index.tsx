@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { FaChevronRight } from "react-icons/fa";
 
 import { Box, LinkStyled } from "./styles";
-
 interface ITrilhaPath {
   isAdmin?: boolean;
 }
@@ -11,18 +10,19 @@ interface ITrilhaPath {
 export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
   const router = useRouter();
   const path = router.pathname;
+  const separator = isAdmin ? "/" : <FaChevronRight />;
 
   const { id } = router.query;
   const truePath = id ? path.replace("[id]", id.toString()) : path;
 
-  const pathList = truePath.replace(/-/g, " ").split("/");
-  pathList.shift();
+  const listaPath = truePath.replace(/-/g, " ").split("/");
+  listaPath.shift();
 
   const reconstructorPath = (path: string) => {
-    const indexCurrentPath = pathList.indexOf(path);
+    const indexCurrentPath = listaPath.indexOf(path);
 
-    const reconstructedPath = pathList.reduce((acc, item) => {
-      if (pathList.indexOf(item) > indexCurrentPath) return acc;
+    const reconstructedPath = listaPath.reduce((acc, item) => {
+      if (listaPath.indexOf(item) > indexCurrentPath) return acc;
       if (item.includes(" ")) item = item.replace(/ +/g, "-");
 
       const path = `${acc}/${item}`;
@@ -34,37 +34,20 @@ export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
 
   return (
     <Box>
-      {!isAdmin
-        ? pathList.map((item, i) => (
-            <>
-              <Link href={`${reconstructorPath(item)}`} key={item + i}>
-                <LinkStyled>{item.toUpperCase()}</LinkStyled>
-              </Link>
-              {i !== pathList.length - 1 && (
-                <span>
-                  &nbsp;
-                  <FaChevronRight />
-                  &nbsp;
-                </span>
-              )}
-            </>
-          ))
-        : pathList.map((item, i) => (
-            <>
-              {isAdmin && i > 1 && (
-                <span>
-                  <Link href={`${reconstructorPath(item)}`} key={item + i}>
-                    <LinkStyled isAdmin={isAdmin}>
-                      {item.toUpperCase()}
-                    </LinkStyled>
-                  </Link>
-                  {i !== pathList.length - 1 && (
-                    <span>&nbsp; {" / "} &nbsp;</span>
-                  )}
-                </span>
-              )}
-            </>
-          ))}
+      {listaPath.map((item, i) => (
+        <>
+          <Link href={`${reconstructorPath(item)}`} key={item + i}>
+            <LinkStyled>{item.toUpperCase()}</LinkStyled>
+          </Link>
+          {i !== listaPath.length - 1 && (
+            <span>
+              &nbsp;
+              {separator}
+              &nbsp;
+            </span>
+          )}
+        </>
+      ))}
     </Box>
   );
 };

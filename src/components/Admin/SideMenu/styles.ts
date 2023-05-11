@@ -6,7 +6,7 @@ interface IContainer {
 
 export const Container = styled.div<IContainer>`
   width: ${(props) => (props.retractMenuStatus ? "5.5rem" : "12.5rem")};
-  height: 100vh;
+  height: 100dvh;
   padding-top: 3rem;
   background: ${({ theme }) => theme.colors.bgComponente};
   display: flex;
