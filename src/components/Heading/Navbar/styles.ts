@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header<INavBarProps>`
   right: 0;
   z-index: 10;
   transition: 0.3s ease-in-out;
-  height: 5rem;
+  min-height: 5rem;
   background: ${(props) => props.theme.colors.bgComponente};
 
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -21,59 +21,69 @@ export const HeaderContainer = styled.header<INavBarProps>`
 `;
 
 export const HeaderContent = styled.div`
+  //position: relative;
   width: 100%;
   max-width: 1440px;
   height: 5rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   margin: 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
 
-  nav {
-    margin-left: 2rem;
+export const Container = styled.div`
+  display: flex;
+  //position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+`;
 
-    ul {
-      display: flex;
-      width: 100%;
-    }
+export const Nav = styled.nav`
+  margin-left: 1rem;
+`;
 
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
+export const Ul = styled.ul`
+  display: flex;
+  width: 100%;
+`;
 
-      width: 100%;
-      height: 24px;
+export const Li = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 
-      padding: 0.5rem;
+  width: 100%;
+  height: 24px;
 
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-    }
+  padding: 0.5rem;
 
-    a {
-      display: inline-block;
-      position: relative;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
 
-      padding: 0 0.5rem;
-      line-height: 5rem;
+  a {
+    display: inline-block;
+    position: relative;
 
-      border-bottom: ${(props) => props.theme.colors.primaria[500]};
-      height: calc(5rem - 1px);
+    padding: 0 0.5rem;
+    line-height: 5rem;
 
-      font-weight: normal;
-      color: ${(props) => props.theme.colors.text};
+    border-bottom: ${(props) => props.theme.colors.primaria[500]};
+    height: calc(5rem - 1px);
 
-      transition: 0.2s;
+    font-weight: normal;
+    color: ${(props) => props.theme.colors.text};
 
-      &:hover {
-        color: ${(props) => props.theme.colors.primaria[500]};
-        font-weight: bold;
-      }
+    transition: 0.2s;
+
+    &:hover {
+      color: ${(props) => props.theme.colors.primaria[500]};
+      font-weight: bold;
     }
   }
 `;
@@ -86,16 +96,8 @@ export const Underline = styled.div`
   height: calc(5rem - 1px);
 `;
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.5rem;
-`;
-
 export const SubContainer = styled.div`
-  padding: 0 1rem;
+  padding-left: 1rem;
   gap: 0.25rem;
 
   display: flex;

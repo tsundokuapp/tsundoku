@@ -1,4 +1,4 @@
-export interface Links {
+export interface ILinksProps {
   label: string;
   href: string;
 }

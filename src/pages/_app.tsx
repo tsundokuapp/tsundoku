@@ -7,6 +7,7 @@ import { useMounted } from "@/hooks/useMounted";
 import NotificationProvider from "@/Context/NotificationProvider";
 
 import { useRouter } from "next/router";
+import ModalProvider from "@/Context/ContextModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   // TODO: verificar se o tema vai ser alterado via localStorage ou DB
@@ -26,9 +27,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <CustomThemeProvider>
         <NotificationProvider>
-          <GlobalStyle />
-          {isAdmin ? null : <Navbar />}
-          <Component {...pageProps} />
+          <ModalProvider>
+            <GlobalStyle />
+            {isAdmin ? null : <Navbar />}
+            <Component {...pageProps} />
+          </ModalProvider>
         </NotificationProvider>
       </CustomThemeProvider>
     </>

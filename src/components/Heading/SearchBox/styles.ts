@@ -35,7 +35,12 @@ export const InputBusca = styled.label<IInputBuscaProps>`
   ${({ theme, borda }) => bordaVariante(theme, borda)};
 
   min-width: 18rem;
+  width: 100%;
   max-height: 2rem;
+
+  @media (max-width: 500px) {
+    min-width: 12rem;
+  }
 
   ${({ theme, variante }) => bgVariante(theme, variante)};
 `;
@@ -59,6 +64,10 @@ export const Input = styled.input<IInputProps>`
   background-color: transparent;
   border: none;
   font-size: ${({ theme }) => theme.texto.paragrafo};
+
+  @media (max-width: 500px) {
+    font-size: ${({ theme }) => theme.texto.nota};
+  }
 `;
 
 export const Icon = styled.span`
