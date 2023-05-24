@@ -25,7 +25,7 @@ interface IPinProps {
   id: number;
   position: string;
   member: string;
-  favorites: string;
+  favorites: string[];
   bio: string;
 }
 
@@ -122,7 +122,7 @@ function DataStaff() {
     image: getRandomItem(images),
     position: getRandomItem(positions),
     member: getRandomItem(members),
-    favorites: getRandomItem(favorites),
+    favorites: new Array(5).fill(0).map(() => getRandomItem(favorites)),
     bio: getRandomItem(bios),
     size: getRandomItem(size),
   };

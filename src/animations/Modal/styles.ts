@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export const ImageButton = styled(motion.img)`
-  width: 400px;
-  height: 100%;
+  width: 80dvw;
+  max-width: 500px;
   position: relative;
   cursor: pointer;
   object-fit: cover;
@@ -24,7 +24,8 @@ export const ModalView = styled(motion.div)`
   align-items: flex-start;
 
   img {
-    height: 100%;
+    height: 100dvh;
+    width: 90dvw;
     object-fit: contain;
   }
 `;

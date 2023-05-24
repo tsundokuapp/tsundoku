@@ -1,13 +1,14 @@
 import Head from "next/head";
 import {
   Container,
-  Conteudo,
-  Navegacao,
-  Capa,
+  Content,
+  SectionNavigation,
+  Cover,
   Apoiadores,
   Creditos,
   Staff,
   Capitulo,
+  SectionButtonNavigation,
 } from "./styles";
 import React, { useState } from "react";
 import { Button } from "@/components/Button";
@@ -81,7 +82,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
 
   const NavigationButtons = () => {
     return (
-      <div>
+      <SectionButtonNavigation>
         <Button label="Anterior" variant="secundario" onClick={() => {}} />
         <Button
           label="Índice"
@@ -89,7 +90,7 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
           onClick={() => Navigation("/novels/bruxa-errante")}
         />
         <Button label="Próximo" variant="secundario" onClick={() => {}} />
-      </div>
+      </SectionButtonNavigation>
     );
   };
 
@@ -112,14 +113,14 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Capa>
+        <Cover>
           <img src={capaElaina} alt="atual volume da obra" />
-        </Capa>
-        <Conteudo>
-          <Navegacao>
+        </Cover>
+        <Content>
+          <SectionNavigation>
             <TrilhaPath />
             <NavigationButtons />
-          </Navegacao>
+          </SectionNavigation>
           <Capitulo fontSize={fontSize} lineHeight={lineHeight}>
             <div>
               <h1>O País dos Magos</h1>
@@ -475,10 +476,10 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
               </h3>
             </Apoiadores>
           </Creditos>
-          <Navegacao>
+          <SectionNavigation>
             <NavigationButtons />
-          </Navegacao>
-        </Conteudo>
+          </SectionNavigation>
+        </Content>
       </Container>
       <Footer />
     </>

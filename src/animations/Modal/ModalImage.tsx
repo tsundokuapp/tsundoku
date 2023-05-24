@@ -12,7 +12,15 @@ export const ModalImage = ({ src, id, altImg, tipOn = true }: IItemProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
-    <div style={{ textAlign: "center", margin: "1rem" }}>
+    <div
+      style={{
+        textAlign: "center",
+        margin: "1rem",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
       <ImageButton
         src={src}
         alt={altImg}

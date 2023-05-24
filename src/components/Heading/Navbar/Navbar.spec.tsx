@@ -40,11 +40,18 @@ describe("Navbar", () => {
     expect(screen.getByText("Home")).toHaveStyle(
       "font-weight: bold; color: #259CC1",
     );
+  });
 
-    // Esse teste mostra com essa função está mal escrita, pois não importa a rota, que aqui é sempre "/", a tab altera seu estilo apenas por ser clicada.
-    fireEvent.click(screen.getByText("Novels"));
+  it("desactivates selectedTab when another tab is clicked", () => {
+    jest.spyOn(require("next/router"), "useRouter").mockImplementation(() => ({
+      pathname: "/comics",
+    }));
 
-    expect(screen.getByText("Novels")).toHaveStyle(
+    renderComponent();
+
+    fireEvent.click(screen.getByText("Comics"));
+
+    expect(screen.getByText("Novels")).not.toHaveStyle(
       "font-weight: bold; color: #259CC1",
     );
   });

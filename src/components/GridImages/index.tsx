@@ -1,5 +1,6 @@
 import { Pin } from "./Pin";
 import { Container } from "./styles";
+
 import { DataStaffs } from "@/constants/DataStaff";
 
 export const GridImages = () => {
@@ -10,6 +11,7 @@ export const GridImages = () => {
       {data.map((staff) => (
         <Pin
           key={staff.id}
+          id={staff.id}
           src={staff.image}
           size={staff.size}
           position={staff.position}
