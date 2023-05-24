@@ -14,7 +14,7 @@ export default function Novel() {
       columns={3}
       titleSession="Blog"
       sloganSession="Notícias, entrevistas, rumores e muitos posts de qualidade duvidosa"
-      hrefCover="https://i.imgur.com/eaHhcfP.jpeg"
+      hrefCover="https://i.imgur.com/5oBScRq.jpeg"
       altCover="imagem de uma menina de cabelos branco sentada de costas para o observador com vários livros ao seu redor"
       filter="blog"
     >

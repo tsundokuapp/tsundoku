@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.main`
   max-width: 1920px;
   margin: 0 auto;
-  padding: 3.5rem 0 0 0;
+  padding: 3.5rem 1rem 1rem 1rem;
   height: calc(100% - 5rem);
 
   display: flex;
@@ -12,7 +12,7 @@ export const Container = styled.main`
   justify-content: center;
 `;
 
-export const Conteudo = styled.div`
+export const Content = styled.div`
   max-width: 1120px;
   display: flex;
   align-content: center;
@@ -27,34 +27,32 @@ export const Conteudo = styled.div`
   gap: 1rem;
 `;
 
-export const Navegacao = styled.nav`
+export const SectionNavigation = styled.nav`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   gap: 1rem;
-  padding: 0.5rem 2.5rem;
+  padding: 0.5rem;
   margin: 1rem 0 0 0;
 
   width: 100%;
+
+  @media (max-width: 650px) {
+    font-size: ${({ theme }) => theme.texto.nota};
+  }
 
   p {
     font-size: ${({ theme }) => theme.texto.paragrafo};
     cursor: pointer;
   }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    margin: 0.5rem auto;
-  }
 `;
 
-export const Capa = styled.div`
+export const Cover = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  height: 400px;
+  height: 100%;
+  max-height: 400px;
   overflow: hidden;
 
   img {
@@ -68,8 +66,13 @@ export const Staff = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 
-  width: 300px;
+  width: 100%;
+  min-width: 300px;
   height: 100%;
+
+  @media (max-width: 650px) {
+    align-items: center;
+  }
 
   h2 {
     font-size: ${({ theme }) => theme.texto.subtitulo};
@@ -101,16 +104,25 @@ export const Creditos = styled.div`
 
   width: 100%;
   max-width: 1120px;
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
 `;
 
 export const Apoiadores = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 600px;
   gap: 1rem;
 
-  h3 {
-    text-align: right;
+  text-align: right;
+
+  @media (max-width: 650px) {
+    text-align: center;
   }
 
   span {
@@ -118,6 +130,7 @@ export const Apoiadores = styled.div`
     text-align: right;
     color: ${({ theme }) => theme.colors.textSec};
   }
+
   a {
     display: block;
     color: ${({ theme }) => theme.colors.primaria[500]};
@@ -159,4 +172,13 @@ export const Capitulo = styled.div<ICapitulosProps>`
   p + p {
     margin-bottom: 1rem;
   }
+`;
+
+export const SectionButtonNavigation = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem auto;
 `;

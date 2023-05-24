@@ -20,15 +20,22 @@ export const Container = styled.div`
   padding: 0;
   margin: 0.5rem;
 
-  cursor: pointer;
   transition: transform 0.3s;
 
-  img {
-    margin-top: 1rem;
-    border-radius: 0.5rem 0.5rem 0 0;
-    max-width: 180px;
-    width: 90%;
-    aspect-ratio: 2/3;
+  a {
+    display: flex;
+    justify-content: center;
+    img {
+      margin-top: 1rem;
+      border-radius: 0.5rem 0.5rem 0 0;
+      max-width: 180px;
+      width: 90%;
+      aspect-ratio: 2/3;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
   }
 
   :hover {
@@ -46,7 +53,7 @@ export const ContainerInfo = styled.div`
 
 export const HeaderCardInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 3rem;
   min-height: 2rem;
@@ -77,6 +84,7 @@ export const TituloCard = styled.strong`
   display: inline;
   font-size: 1rem;
 
+  text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

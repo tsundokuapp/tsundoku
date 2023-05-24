@@ -18,7 +18,8 @@ export const Cover = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 450px;
+  height: 100%;
+  max-height: 450px;
 
   img {
     width: 100%;
@@ -51,6 +52,7 @@ export const Navigation = styled.nav`
   gap: 1rem;
 
   h3 {
+    text-align: center;
     color: ${({ theme }) => theme.colors.text};
     font-size: ${({ theme }) => theme.texto.subtitulo};
   }
@@ -59,8 +61,10 @@ export const Navigation = styled.nav`
 export const Filters = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 3rem;
+  justify-content: center;
+  gap: 1rem;
   margin: 0.5rem auto;
+  flex-wrap: wrap-reverse;
 `;
 
 interface IGridProps {
@@ -72,9 +76,23 @@ export const Grid = styled.div<IGridProps>`
   grid-template-columns: repeat(${(props) => props.columns}, 1fr);
   gap: 1.5rem;
   margin: 0 2.5rem;
+
+  @media screen and (max-width: 1050px) {
+    grid-template-columns: repeat(
+      ${(props) => props.columns - 1},
+      minmax(0, 1fr)
+    );
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(
+      ${(props) => props.columns - 2},
+      minmax(0, 1fr)
+    );
+  }
 `;
 
-export const Titulo = styled.div`
+export const Title = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.texto.titulo};
   font-weight: bold;

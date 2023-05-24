@@ -2,7 +2,7 @@ import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { useState } from "react";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { Card } from "@/components/Card";
-import { ItemByItemAnimation } from "@/animations/ItemByItem";
+import { ItemByItemLeftAnimation } from "@/animations/ItemByItem";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
@@ -19,7 +19,7 @@ export default function Novel() {
       filter="default"
     >
       {works.map((item, i) => (
-        <ItemByItemAnimation key={i} order={i}>
+        <ItemByItemLeftAnimation key={i} order={i}>
           <Card
             href={item.href}
             capa={item.cover}
@@ -27,7 +27,7 @@ export default function Novel() {
             autor={item.author}
             volume={`Volume ${item.volume}`}
           />
-        </ItemByItemAnimation>
+        </ItemByItemLeftAnimation>
       ))}
     </LayoutListagem>
   );

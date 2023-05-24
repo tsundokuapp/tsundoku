@@ -4,7 +4,7 @@ import {
   Navigation,
   Grid,
   Cover,
-  Titulo,
+  Title,
   Filters,
 } from "./styles";
 import React from "react";
@@ -77,7 +77,7 @@ export const LayoutListagem = ({
             </Filters>
           </Navigation>
 
-          <Titulo>{titleSession}</Titulo>
+          <Title>{titleSession}</Title>
           <Grid columns={columns}>{children}</Grid>
         </Content>
       </Container>

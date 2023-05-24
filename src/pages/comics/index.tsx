@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LayoutListagem } from "@/components/Layouts/Listagem";
-import { ItemByItemAnimation } from "@/animations/ItemByItem";
+import { ItemByItemLeftAnimation } from "@/animations/ItemByItem";
 import { Card } from "@/components/Card";
 import { AllMangas as mangas } from "@/constants/WorksDetails";
 export default function Novel() {
@@ -18,7 +18,7 @@ export default function Novel() {
       filter="default"
     >
       {mangas.map((item, i) => (
-        <ItemByItemAnimation key={i} order={i}>
+        <ItemByItemLeftAnimation key={i} order={i}>
           <Card
             href={item.href}
             capa={item.hrefCover}
@@ -26,7 +26,7 @@ export default function Novel() {
             autor={item.author}
             volume={`Volume 1`}
           />
-        </ItemByItemAnimation>
+        </ItemByItemLeftAnimation>
       ))}
     </LayoutListagem>
   );

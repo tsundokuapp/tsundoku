@@ -9,6 +9,7 @@ import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { Warning } from "@/components/Warning";
+import Link from "next/link";
 
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
@@ -50,14 +51,16 @@ export default function Home() {
         directionItems={adaptativeView}
         wrapContent={false}
       >
-        <Image
-          loader={myLoader}
-          src="volume.png"
-          alt="capa do volume"
-          width={240}
-          height={240 * 1.5}
-          style={{ borderRadius: "0.5rem" }}
-        />
+        <Link href={"/novels/bruxa-errante"}>
+          <Image
+            loader={myLoader}
+            src="volume.png"
+            alt="capa do volume"
+            width={240}
+            height={240 * 1.5}
+            style={{ borderRadius: "0.5rem" }}
+          />
+        </Link>
         <Box>
           <strong>Trem da Noite</strong>
           <span>

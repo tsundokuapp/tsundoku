@@ -1,10 +1,10 @@
 import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
 import { LayoutObraIndiceMobile } from "@/components/Layouts/Mobile/ObraIndice";
-import { BoxAviso } from "@/styles/Home/styles";
 import { Section } from "@/components/Section";
 import { useState } from "react";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SIZES_RAW } from "@/constants/breakingPoints";
+import { Warning } from "@/components/Warning";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
@@ -17,10 +17,10 @@ export default function Novel() {
         <LayoutObraIndice titulo="Bruxa Errante - Tsundoku">
           <Section>
             {temAviso && (
-              <BoxAviso>
-                <h2>AVISO</h2>
-                <p>Site em construção, em breve uma nova Tsundoku!</p>
-              </BoxAviso>
+              <Warning
+                important={true}
+                message="Bruxa Errante: A Jornada de Elaina recebeu uma adaptação para anime em 2020."
+              />
             )}
           </Section>
         </LayoutObraIndice>
@@ -28,10 +28,10 @@ export default function Novel() {
         <LayoutObraIndiceMobile titulo="Bruxa Errante">
           <Section>
             {temAviso && (
-              <BoxAviso>
-                <h2>AVISO</h2>
-                <p>Site em construção, em breve uma nova Tsundoku!</p>
-              </BoxAviso>
+              <Warning
+                important={true}
+                message="Bruxa Errante: A Jornada de Elaina recebeu uma adaptação para anime em 2020."
+              />
             )}
           </Section>
         </LayoutObraIndiceMobile>

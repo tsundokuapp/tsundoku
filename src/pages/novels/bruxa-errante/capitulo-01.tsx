@@ -1,6 +1,6 @@
 import { LayoutCapituloNovel } from "@/components/Layouts/CapituloNovel";
-import { BoxAviso } from "@/styles/Home/styles";
 import { Section } from "@/components/Section";
+import { Warning } from "@/components/Warning";
 import { useState } from "react";
 
 export default function Novel() {
@@ -11,10 +11,10 @@ export default function Novel() {
     <LayoutCapituloNovel titulo="Bruxa Errante - Tsundoku">
       <Section>
         {temAviso && (
-          <BoxAviso>
-            <h2>AVISO</h2>
-            <p>Site em construção, em breve uma nova Tsundoku!</p>
-          </BoxAviso>
+          <Warning
+            important={true}
+            message="Bruxa Errante: A Jornada de Elaina recebeu uma adaptação para anime em 2020."
+          />
         )}
       </Section>
     </LayoutCapituloNovel>

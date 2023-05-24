@@ -22,27 +22,15 @@ import DropdownTemas from "../Dropdown";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { defaultTabs, mobileTabs } from "@/constants/ListLink";
 import { useModal } from "@/Context/ContextModal";
-interface ITabsProps {
-  label: string;
-  href: string;
-}
 
 export const Navbar = () => {
   const { openModal } = useModal();
   const { isTablet } = useWindowDimensions();
   const tabs = isTablet ? mobileTabs : defaultTabs;
 
-  const [selectedTab, setSelectedTab] = useState<ITabsProps | null>(null);
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
 
   const router = useRouter();
-
-  useEffect(() => {
-    const tab = tabs.find((item) => item.href === router.pathname);
-    if (tab) {
-      setSelectedTab(tab);
-    }
-  }, [router.pathname, tabs]);
 
   const lastScrollY = useRef(0);
 
@@ -81,18 +69,18 @@ export const Navbar = () => {
                 <Nav>
                   <Ul>
                     {tabs.map((item) => (
-                      <Li key={item.label} onClick={() => setSelectedTab(item)}>
+                      <Li key={item.label}>
                         <Link
                           href={item.href}
                           style={
-                            item === selectedTab
+                            item.href === router.pathname
                               ? { fontWeight: "bold", color: "#259CC1" }
                               : { fontWeight: "normal" }
                           }
                         >
                           {item.label}
                         </Link>
-                        {item === selectedTab ? (
+                        {item.href === router.pathname ? (
                           <Underline
                             as={motion.div}
                             layoutId="underline"
