@@ -29,8 +29,8 @@ export const Cover = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  align-content: center;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 
   max-width: 1120px;
@@ -74,8 +74,8 @@ interface IGridProps {
 export const Grid = styled.div<IGridProps>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.columns}, 1fr);
-  gap: 1.5rem;
-  margin: 0 2.5rem;
+  gap: 1.5rem 1rem;
+  padding: 1rem 0;
 
   @media screen and (max-width: 1050px) {
     grid-template-columns: repeat(
@@ -84,7 +84,7 @@ export const Grid = styled.div<IGridProps>`
     );
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 370px) {
     grid-template-columns: repeat(
       ${(props) => props.columns - 2},
       minmax(0, 1fr)
@@ -96,5 +96,6 @@ export const Title = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.texto.titulo};
   font-weight: bold;
-  margin-left: 1rem;
+  margin-left: 8%;
+  align-self: flex-start;
 `;

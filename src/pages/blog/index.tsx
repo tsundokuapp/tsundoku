@@ -1,8 +1,9 @@
 import { useState } from "react";
+
+import { ItemByItemAnimation } from "@/animations/ItemByItem";
+import { CardBlog } from "@/components/CardBlog";
 import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { AllPostsBlog as posts } from "@/constants/WorksTsun";
-import { CardBlog } from "@/components/CardBlog";
-import { ItemByItemAnimation } from "@/animations/ItemByItem";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars
@@ -20,7 +21,7 @@ export default function Novel() {
     >
       {posts.map((item, i) => (
         <ItemByItemAnimation key={i} order={i}>
-          <CardBlog href={item.href} capa={item.cover} titulo={item.title} />
+          <CardBlog href={item.href} cover={item.cover} title={item.title} />
         </ItemByItemAnimation>
       ))}
     </LayoutListagem>

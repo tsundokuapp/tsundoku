@@ -1,28 +1,27 @@
-import Image, { StaticImageData } from "next/image";
-import { Container, Shadow, Title } from "./styles";
-
 import Link from "next/link";
 
+import { Container, Shadow, Title } from "./styles";
+
 interface ICardBlogProps {
-  capa: StaticImageData | string;
-  titulo: string;
+  cover: string;
+  title: string;
   href: string;
 }
 
-const larguraPadrao = 320;
+const defaultWidth = 320;
 
-export const CardBlog = ({ capa, titulo, href }: ICardBlogProps) => {
+export const CardBlog = ({ cover, title, href }: ICardBlogProps) => {
   return (
     <Link href={href}>
       <Container>
-        <Image
-          src={capa}
+        <img
+          src={cover}
           alt="capa do volume"
-          height={larguraPadrao}
-          width={larguraPadrao}
+          height={defaultWidth}
+          width={defaultWidth}
         />
         <Shadow>
-          <Title>{titulo}</Title>
+          <Title>{title}</Title>
         </Shadow>
       </Container>
     </Link>
