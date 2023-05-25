@@ -1,13 +1,12 @@
 import Image from "next/image";
 
+import logoPadrim from "@/assets/logo/logoPadrim.jpg";
+import logoPix from "@/assets/logo/logoPix.png";
+import logoStripe from "@/assets/logo/logoStripe.png";
+import { GridImages } from "@/components/GridImages";
 import { LayoutMain } from "@/components/Layouts/Main";
 import { Section } from "@/components/Section";
 import { Info, Logos, Team } from "@/styles/About/styles";
-import { GridImages } from "@/components/GridImages";
-
-import logoPadrim from "@/assets/logo/logoPadrim.jpg";
-import logoStripe from "@/assets/logo/logoStripe.png";
-import logoPix from "@/assets/logo/logoPix.png";
 
 const logoTsun =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/banner_950x540-1.jpg?resize=855%2C486&ssl=1";
@@ -20,8 +19,8 @@ export default function Home() {
           <Image
             src={logoTsun}
             alt="Um livro aberto com uma chama, todo o desenho é colorido em tons de azul, embaixo o nome Tsundoku."
-            width={450}
-            height={250}
+            width={350}
+            height={200}
           />
           <Info>
             <h2>Bem vindo a Tsundoku!</h2>

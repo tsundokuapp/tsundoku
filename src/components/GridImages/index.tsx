@@ -1,7 +1,7 @@
+import { DataStaffs } from "@/constants/DataStaff";
+
 import { Pin } from "./Pin";
 import { Container } from "./styles";
-
-import { DataStaffs } from "@/constants/DataStaff";
 
 export const GridImages = () => {
   const data = DataStaffs(20);
