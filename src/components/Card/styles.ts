@@ -79,20 +79,25 @@ export const HeaderCardInfo = styled.div`
   }
 `;
 
-export const TituloCard = styled.strong`
-  color: ${({ theme }) => theme.colors.especial.branco};
-  display: inline;
+export const CardTitle = styled.strong`
+  display: -webkit-box;
   font-size: 1rem;
 
   text-align: center;
-  white-space: nowrap;
+  white-space: wrap;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
   max-width: calc(${tamanhoCard} - 2rem);
 
-  @media (max-width: 380px) {
-    font-size: 0.9rem;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  color: ${({ theme }) => theme.colors.especial.branco};
+
+  @media (max-width: 400px) {
+    font-size: ${({ theme }) => theme.texto.nota};
   }
 `;
 

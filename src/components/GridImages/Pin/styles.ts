@@ -92,9 +92,10 @@ export const ModalContent = styled(motion.div)`
   justify-content: space-around;
 
   background: ${({ theme }) => theme.colors.bgComponente};
-  width: 60%;
+  width: 70%;
   max-width: 500px;
-  height: 500px;
+  height: 100%;
+  max-height: 400px;
 
   padding: 1rem;
 

@@ -1,8 +1,9 @@
-import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { useState } from "react";
-import { AllWorksTsun as works } from "@/constants/WorksTsun";
-import { Card } from "@/components/Card";
+
 import { ItemByItemLeftAnimation } from "@/animations/ItemByItem";
+import { Card } from "@/components/Card";
+import { LayoutListagem } from "@/components/Layouts/Listagem";
+import { AllWorksTsun as works } from "@/constants/WorksTsun";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars

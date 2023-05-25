@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+import { Button } from "../Button";
+
 import {
   Container,
   ContainerInfo,
   HeaderCardInfo,
-  TituloCard,
+  CardTitle,
   BodyCardInfo,
 } from "./styles";
 
 // import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
-import { Button } from "../Button";
 
 // TODO: alterar StaticImageData para string quando terminar os testes
 interface ICardProps {
@@ -39,7 +41,7 @@ export const Card = ({ capa, titulo, autor, volume, href }: ICardProps) => {
 
       <ContainerInfo>
         <HeaderCardInfo>
-          <TituloCard>{titulo}</TituloCard>
+          <CardTitle>{titulo}</CardTitle>
           {/* <button onClick={adicionaFavorito}>
               {favoritado ? <BsBookmarkCheckFill /> : <BsBookmark />}
             </button> */}
