@@ -95,7 +95,7 @@ export const ModalContent = styled(motion.div)`
   width: 70%;
   max-width: 500px;
   height: 100%;
-  max-height: 400px;
+  max-height: 450px;
 
   padding: 1rem;
 
@@ -136,7 +136,7 @@ export const BoxInfoStaff = styled(motion.div)`
   height: 100%;
   width: 100%;
 
-  padding: 1.5rem;
+  padding: 1rem;
 
   overflow-y: scroll;
 
