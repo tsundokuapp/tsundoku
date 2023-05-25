@@ -8,18 +8,11 @@ interface ICardBlogProps {
   href: string;
 }
 
-const defaultWidth = 320;
-
 export const CardBlog = ({ cover, title, href }: ICardBlogProps) => {
   return (
     <Link href={href}>
       <Container>
-        <img
-          src={cover}
-          alt="capa do volume"
-          height={defaultWidth}
-          width={defaultWidth}
-        />
+        <img src={cover} alt="capa do volume" />
         <Shadow>
           <Title>{title}</Title>
         </Shadow>
