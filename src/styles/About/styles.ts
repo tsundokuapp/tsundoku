@@ -29,14 +29,19 @@ export const Logos = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-
-  width: 100%;
+  justify-content: center;
 
   img {
-    width: 100%;
-    max-width: 300px;
     height: auto;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 470px) {
+    img {
+      max-width: 120px;
+    }
   }
 `;
 

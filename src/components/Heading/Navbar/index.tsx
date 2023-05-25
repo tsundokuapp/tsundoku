@@ -1,27 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
-import {
-  HeaderContainer,
-  HeaderContent,
-  SubContainer,
-  Container,
-  Underline,
-  Nav,
-  Ul,
-  Li,
-} from "./styles";
-
-import { SignInButton } from "../SignInButton";
 import logo from "@/assets/logo/logoDefault.svg";
-import { SearchBox } from "../SearchBox";
-import DropdownTemas from "../Dropdown";
-import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { defaultTabs, mobileTabs } from "@/constants/ListLink";
 import { useModal } from "@/Context/ContextModal";
+import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+
+import DropdownTemas from "../Dropdown";
+import { SearchBox } from "../SearchBox";
+import { SignInButton } from "../SignInButton";
+
+import {
+  Container,
+  HeaderContainer,
+  HeaderContent,
+  Li,
+  Nav,
+  SubContainer,
+  Ul,
+  Underline,
+} from "./styles";
 
 export const Navbar = () => {
   const { openModal } = useModal();

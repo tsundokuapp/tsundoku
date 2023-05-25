@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+
 import { AnimatePresence } from "framer-motion";
+
 import {
   PinBox,
   ModalMember,
@@ -45,47 +47,45 @@ export const Pin = ({
   const idConvert = String(id);
 
   return (
-    <>
-      <AnimatePresence>
-        <PinBox
-          size={size}
-          onClick={() => setSelectedId(idConvert)}
-          data-testid="pin-box"
-        >
-          <img
-            src={src}
-            alt="Imagem de uma personagem de anime escolhido pelo membro da staff"
-          />
-          <div>
-            <strong>{position}</strong>
-            <strong>{member}</strong>
-          </div>
-        </PinBox>
+    <AnimatePresence>
+      <PinBox
+        size={size}
+        onClick={() => setSelectedId(idConvert)}
+        data-testid="pin-box"
+      >
+        <img
+          src={src}
+          alt="Imagem de uma personagem de anime escolhido pelo membro da staff"
+        />
+        <div>
+          <strong>{position}</strong>
+          <strong>{member}</strong>
+        </div>
+      </PinBox>
 
-        {selectedId && (
-          <ModalMember
-            onClick={() => setSelectedId(null)}
-            data-testid="modal-member"
-          >
-            <ModalContent>
-              <BoxImageStaff>
-                <img
-                  src={src}
-                  alt="Imagem de uma personagem de anime escolhido pelo membro da staff"
-                />
-                <strong>{position}</strong>
-                <strong>{member}</strong>
-              </BoxImageStaff>
-              <BoxInfoStaff>
-                <strong>Obras Favoritas</strong>
-                <p>{favorites}</p>
-                <strong>Bio</strong>
-                <p>{bio}</p>
-              </BoxInfoStaff>
-            </ModalContent>
-          </ModalMember>
-        )}
-      </AnimatePresence>
-    </>
+      {selectedId && (
+        <ModalMember
+          onClick={() => setSelectedId(null)}
+          data-testid="modal-member"
+        >
+          <ModalContent>
+            <BoxImageStaff>
+              <img
+                src={src}
+                alt="Imagem de uma personagem de anime escolhido pelo membro da staff"
+              />
+              <strong>{position}</strong>
+              <strong>{member}</strong>
+            </BoxImageStaff>
+            <BoxInfoStaff>
+              <strong>Obras Favoritas</strong>
+              <p>{favorites}</p>
+              <strong>Bio</strong>
+              <p>{bio}</p>
+            </BoxInfoStaff>
+          </ModalContent>
+        </ModalMember>
+      )}
+    </AnimatePresence>
   );
 };

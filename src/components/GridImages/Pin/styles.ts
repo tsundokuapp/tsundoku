@@ -1,11 +1,11 @@
-import styled, { DefaultTheme, css } from "styled-components";
 import { motion } from "framer-motion";
+import styled, { css } from "styled-components";
 
 interface PinBoxProps {
   size: "small" | "medium" | "large" | string;
 }
 
-const sizeVariant = (theme: DefaultTheme, size = "small") =>
+const sizeVariant = (size = "small") =>
   ({
     small: css`
       grid-row-end: span 26;
@@ -25,7 +25,7 @@ export const PinBox = styled(motion.div)<PinBoxProps>`
   border-radius: 0.5rem;
   border: 2px solid ${({ theme }) => theme.colors.primaria[500]};
 
-  ${({ theme, size }) => sizeVariant(theme, size)};
+  ${({ size }) => sizeVariant(size)};
 
   img {
     width: 100%;
@@ -92,9 +92,10 @@ export const ModalContent = styled(motion.div)`
   justify-content: space-around;
 
   background: ${({ theme }) => theme.colors.bgComponente};
-  width: 60%;
+  width: 70%;
   max-width: 500px;
-  height: 500px;
+  height: 100%;
+  max-height: 450px;
 
   padding: 1rem;
 
@@ -135,7 +136,7 @@ export const BoxInfoStaff = styled(motion.div)`
   height: 100%;
   width: 100%;
 
-  padding: 1.5rem;
+  padding: 1rem;
 
   overflow-y: scroll;
 

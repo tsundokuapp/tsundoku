@@ -11,11 +11,19 @@ export const Container = styled.div`
 
   background-color: ${({ theme }) => theme.colors.primaria[500]};
   border-radius: 1rem;
-
-  width: ${tamanhoCard};
-  height: ${tamanhoCard};
-
   margin: 0.5rem;
+
+  height: 100%;
+  aspect-ratio: 1/1;
+  max-width: ${tamanhoCard};
+
+  @media (max-width: 600px) {
+    width: 200px;
+  }
+
+  @media (max-width: 450px) {
+    width: 150px;
+  }
 
   cursor: pointer;
   transition: transform 0.3s;
@@ -56,4 +64,8 @@ export const Title = styled.strong`
   white-space: wrapping;
   width: 100%;
   padding: 0.25rem;
+
+  @media (max-width: 450px) {
+    font-size: ${({ theme }) => theme.texto.nota};
+  }
 `;

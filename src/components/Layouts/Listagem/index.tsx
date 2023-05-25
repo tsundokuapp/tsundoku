@@ -1,3 +1,11 @@
+import React from "react";
+
+import { DropdownSelect } from "@/components/DropdownSelect";
+import { Footer } from "@/components/Footer";
+import { HeadTsun } from "@/components/Head";
+import { SearchBox } from "@/components/Heading/SearchBox";
+import { defaultFilters, blogFilters } from "@/constants/filters";
+
 import {
   Container,
   Content,
@@ -7,12 +15,6 @@ import {
   Title,
   Filters,
 } from "./styles";
-import React from "react";
-import { Footer } from "@/components/Footer";
-import { SearchBox } from "@/components/Heading/SearchBox";
-import { DropdownSelect } from "@/components/DropdownSelect";
-import { defaultFilters, blogFilters } from "@/constants/filters";
-import { HeadTsun } from "@/components/Head";
 
 interface ILayoutListingProps {
   children: React.ReactNode;

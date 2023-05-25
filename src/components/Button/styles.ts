@@ -1,4 +1,4 @@
-import styled, { DefaultTheme, css } from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
+  padding-bottom: 0.25rem;
 `;
 
 interface IBotao {
@@ -13,7 +14,7 @@ interface IBotao {
   variant: "primaria" | "secundario" | "icon";
 }
 
-const styleVariant = (theme: DefaultTheme, variant = "primaria") =>
+const styleVariant = (variant = "primaria") =>
   ({
     primaria: css`
       color: #f8f9fa;
@@ -41,7 +42,7 @@ const styleVariant = (theme: DefaultTheme, variant = "primaria") =>
     `,
   }[variant]);
 
-const statusBotao = (theme: DefaultTheme, desativado?: boolean) =>
+const statusBotao = (desativado?: boolean) =>
   desativado
     ? css`
         cursor: not-allowed;
@@ -58,10 +59,10 @@ export const ButtonStyled = styled.button<IBotao>`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  width: 90%;
   white-space: nowrap;
 
-  ${({ theme, variant }) => styleVariant(theme, variant)};
+  ${({ variant }) => styleVariant(variant)};
 
   border-radius: 0.25rem;
   padding: ${({ variant }) => (variant === "icon" ? "0.75rem" : "0.5rem 1rem")};
@@ -69,7 +70,7 @@ export const ButtonStyled = styled.button<IBotao>`
   font-size: 1rem;
   font-weight: bold;
 
-  ${({ theme, desativado }) => statusBotao(theme, desativado)};
+  ${({ desativado }) => statusBotao(desativado)};
 
   svg {
     width: 1.25rem;

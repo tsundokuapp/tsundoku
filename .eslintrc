@@ -33,6 +33,40 @@
       "semi": true,
       "endOfLine": "auto"
     }],
+    "import/order": [
+      "error",
+      {
+        "groups": [ "builtin", "external", "internal", ["parent", "sibling"] ],
+        "pathGroups": [
+          {
+            "pattern": "react+(|-native)",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "../*",
+            "group": "parent",
+            "position": "after"
+          },
+          {
+            "pattern": "./*",
+            "group": "parent",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "jsx-a11y/alt-text": [
