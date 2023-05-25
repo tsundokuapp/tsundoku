@@ -13,13 +13,11 @@ const DropdownTemas = () => {
   return (
     <Dropdown>
       <DropdownBtn onClick={() => setDropdownIsOpen(!dropdownIsOpen)}>
-      
         <>
           {theme.name === "default"
             ? theme.icon.darkIcon
             : theme.icon.lightIcon}
         </>
-
       </DropdownBtn>
 
       {dropdownIsOpen && (

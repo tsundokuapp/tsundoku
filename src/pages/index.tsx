@@ -10,9 +10,21 @@ import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { Warning } from "@/components/Warning";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useWarn } from "@/Context/ContextWarning";
 
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
+
+  const warn = useWarn();
+
+  useEffect(() => {
+    warn({
+      group: "all",
+      isImportant: false,
+      msg: "Warning de teste",
+    });
+  }, []);
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
@@ -28,6 +40,7 @@ export default function Home() {
       <SideMenuMobile />
       <Section>
         <Carousel />
+
         <Warning
           important={false}
           message="Site em construção, em breve uma nova Tsundoku!"

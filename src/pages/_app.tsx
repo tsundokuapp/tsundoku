@@ -8,6 +8,7 @@ import NotificationProvider from "@/Context/NotificationProvider";
 
 import { useRouter } from "next/router";
 import ModalProvider from "@/Context/ContextModal";
+import WarningProvider from "@/Context/ContextWarning";
 
 export default function App({ Component, pageProps }: AppProps) {
   // TODO: verificar se o tema vai ser alterado via localStorage ou DB
@@ -27,11 +28,13 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <CustomThemeProvider>
         <NotificationProvider>
-          <ModalProvider>
-            <GlobalStyle />
-            {isAdmin ? null : <Navbar />}
-            <Component {...pageProps} />
-          </ModalProvider>
+          <WarningProvider>
+            <ModalProvider>
+              <GlobalStyle />
+              {isAdmin ? null : <Navbar />}
+              <Component {...pageProps} />
+            </ModalProvider>
+          </WarningProvider>
         </NotificationProvider>
       </CustomThemeProvider>
     </>

@@ -1,7 +1,7 @@
 import { CardContent } from "@/components/Admin/CardContent";
 import { Header } from "@/components/Admin/Heading/Header";
 import LayoutAdminMain from "@/components/Layouts/Admin/Main";
-import { BoxAviso } from "@/styles/Home/styles";
+import { Warning } from "@/components/Warning";
 import { useState } from "react";
 import { Container, ContainerCardsHead } from "./style";
 
@@ -26,10 +26,10 @@ const DashBoard = () => {
       />
       <Container>
         {temAviso && (
-          <BoxAviso onClick={desativaAviso}>
-            <h2>AVISO</h2>
-            <p>Aceitamos sugestões os conteúdos da Dashboard!</p>
-          </BoxAviso>
+          <Warning
+            important={false}
+            message="Aceitamos sugestões os conteúdos da Dashboard!"
+          />
         )}
         <ContainerCardsHead>
           <CardContent width="18.75rem" height="10rem" title="Conteúdo 01">
