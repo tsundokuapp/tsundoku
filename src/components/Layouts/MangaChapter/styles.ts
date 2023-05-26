@@ -29,24 +29,19 @@ export const Content = styled.div`
 
 export const Navigation = styled.nav`
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.5rem 2.5rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 0.5rem;
   margin: 1rem 0 0 0;
 
   width: 100%;
 
-  p {
-    font-size: ${({ theme }) => theme.texto.paragrafo};
-    cursor: pointer;
-  }
-
   div {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
-    margin: 0.5rem auto;
+    align-items: center;
+    gap: 1rem;
   }
 `;
 

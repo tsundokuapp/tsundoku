@@ -1,15 +1,12 @@
 import React, { Suspense, useState } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { Button } from "@/components/Button";
-import { TrilhaPath } from "@/components/TrilhaPath";
+import { TrilhaPathManga } from "@/components/TrilhaPath";
 import { Footer } from "@/components/Footer";
 
-import { Container, Content, Navigation, Cover, Chapter } from "./styles";
-
-const capaElaina =
-  "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
+import { Container, Content, Navigation, Chapter } from "./styles";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface ILayoutMainProps {
   children: React.ReactNode;
@@ -21,37 +18,25 @@ type TypeViewPage = "singlePage" | "longStrip";
 export const LayoutMangaChapter = ({ children, title }: ILayoutMainProps) => {
   const [viewMode, setViewMode] = useState<TypeViewPage>("singlePage");
 
-  const router = useRouter();
-  const { id } = router.query;
-
-  const GoToNavigation = (path: string) => {
-    router.push(path);
-  };
-
   const toggleViewMode = () => {
     if (viewMode === "singlePage") {
       setViewMode("longStrip");
       return;
     }
-
     setViewMode("singlePage");
   };
 
-  const NavigationButtons = () => {
+  const NavigationSection = () => {
     return (
-      <div>
-        <Button label="Anterior" variant="secundario" onClick={() => {}} />
-        <Button
-          label="Índice"
-          variant="secundario"
-          onClick={() => GoToNavigation(`/comics/${id}`)}
-        />
-        <Button
-          label="Próximo"
-          variant="secundario"
-          onClick={() => toggleViewMode()}
-        />
-      </div>
+      <Navigation>
+        <TrilhaPathManga />
+        <div>
+          <FaChevronLeft size={20} onClick={() => alert("volta")} />
+          <h3>Página 12 de 33</h3>
+          <FaChevronRight size={20} onClick={() => alert("avança")} />
+        </div>
+        <Button label="Reportar Error" />
+      </Navigation>
     );
   };
 
@@ -67,14 +52,8 @@ export const LayoutMangaChapter = ({ children, title }: ILayoutMainProps) => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Cover>
-          <img src={capaElaina} alt="atual volume da obra" />
-        </Cover>
         <Content>
-          <Navigation>
-            <TrilhaPath />
-            <NavigationButtons />
-          </Navigation>
+          <NavigationSection />
           <Chapter>
             <div>
               <Suspense fallback={<div>Carregando...</div>}>
@@ -82,9 +61,7 @@ export const LayoutMangaChapter = ({ children, title }: ILayoutMainProps) => {
               </Suspense>
             </div>
           </Chapter>
-          <Navigation>
-            <NavigationButtons />
-          </Navigation>
+          <NavigationSection />
         </Content>
       </Container>
       <Footer />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import { Box, LinkStyled } from "./styles";
 interface ITrilhaPath {
@@ -48,6 +48,27 @@ export const TrilhaPath = ({ isAdmin }: ITrilhaPath) => {
           )}
         </>
       ))}
+    </Box>
+  );
+};
+
+export const TrilhaPathManga = () => {
+  const router = useRouter();
+
+  const { id } = router.query;
+  const trueName = (id ? id.toString() : "Mangá")
+    .toUpperCase()
+    .replace(/-/g, " ")
+    .split("/");
+
+  return (
+    <Box onClick={router.back}>
+      <span>
+        &nbsp;
+        <FaChevronLeft />
+        &nbsp;
+      </span>
+      <LinkStyled>{trueName}</LinkStyled>
     </Box>
   );
 };
