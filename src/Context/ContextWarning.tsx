@@ -1,8 +1,15 @@
 import React, { createContext, useState, useCallback, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+type groupType =
+  | "reader"
+  | "staff"
+  | "admin"
+  | "padrim"
+  | "all"
+  | "bruxa-errante";
 interface IWarningContext {
-  group: "reader" | "staff" | "admin" | "padrim" | "all";
+  group: groupType;
   isImportant: boolean;
   msg: string;
   id?: string;
@@ -12,19 +19,24 @@ interface IWarningContext {
 interface IWarningProviderProps {
   children: React.ReactNode;
 }
-
-export const WarningContext = createContext<unknown>(() => {
-  throw new Error("WarningContext must be used inside WarningProvider");
+const WarningContext = createContext<{
+  warn: ({ group, isImportant, msg }: IWarningContext) => void;
+  warnings: IWarningContext[];
+}>({
+  warn: () => {
+    throw new Error("warn function must be used within a WarningProvider");
+  },
+  warnings: [],
 });
 
 export const useWarn = () => {
-  const warn = useContext(WarningContext) as (warning: IWarningContext) => void;
+  const context = useContext(WarningContext);
 
-  if (!warn) {
-    throw new Error("useWarn must be used inside WarningProvider");
+  if (!context) {
+    throw new Error("useWarn must be used within a WarningProvider");
   }
 
-  return warn;
+  return context;
 };
 
 function useWarning() {

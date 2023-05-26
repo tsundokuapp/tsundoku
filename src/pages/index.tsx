@@ -16,15 +16,20 @@ import { useWarn } from "@/Context/ContextWarning";
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
 
-  const warn = useWarn();
+  const { warn, warnings } = useWarn();
 
   useEffect(() => {
     warn({
-      group: "all",
-      isImportant: false,
+      group: "reader",
+      isImportant: true,
       msg: "Warning de teste",
     });
-  }, []);
+    warn({
+      group: "bruxa-errante",
+      isImportant: false,
+      msg: "Warning elaina teste",
+    });
+  }, [warn]);
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
@@ -35,16 +40,21 @@ export default function Home() {
   const itensVisibles = isExtraMobile ? 2 : 4;
   const adaptativeView = isMobile ? "column" : "row";
 
+  const warningsReaders = warnings.filter((item) => item.group === "reader");
+
   return (
     <LayoutMain title="Tsundoku Traduções">
       <SideMenuMobile />
       <Section>
         <Carousel />
-
-        <Warning
-          important={false}
-          message="Site em construção, em breve uma nova Tsundoku!"
-        />
+        {warningsReaders.length > 0 &&
+          warningsReaders.map((item, i) => (
+            <Warning
+              key={i}
+              important={item.isImportant}
+              message={item.msg + " " + item.id}
+            />
+          ))}
       </Section>
       <Section title="Adicionados Recentemente" directionItems="row">
         {works.slice(0, itensVisibles).map((item, i) => (

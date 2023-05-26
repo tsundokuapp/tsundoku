@@ -9,6 +9,7 @@ export const Container = styled.section<IContainer>`
   flex-direction: column;
   align-items: center;
   position: relative;
+  margin: 0.5rem auto;
 
   max-width: 55rem;
   width: 100%;

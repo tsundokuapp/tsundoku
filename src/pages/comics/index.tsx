@@ -3,7 +3,7 @@ import { LayoutListagem } from "@/components/Layouts/Listagem";
 import { ItemByItemLeftAnimation } from "@/animations/ItemByItem";
 import { Card } from "@/components/Card";
 import { AllMangas as mangas } from "@/constants/WorksDetails";
-export default function Novel() {
+export default function ComicList() {
   // eslint-disable-next-line no-unused-vars
   const [temAviso, setTemAviso] = useState(true);
 
