@@ -1,13 +1,16 @@
+import { MantineProvider } from "@mantine/core";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+
+import { Navbar } from "@/components/Heading/Navbar";
+import ModalProvider from "@/Context/ContextModal";
+import NotificationProvider from "@/Context/NotificationProvider";
+import { useMounted } from "@/hooks/useMounted";
 import { CustomThemeProvider } from "@/hooks/useThemeContext";
 // import { useLocalStorage } from "usehooks-ts";
 import { GlobalStyle } from "@/styles/globals";
-import { Navbar } from "@/components/Heading/Navbar";
-import { useMounted } from "@/hooks/useMounted";
-import NotificationProvider from "@/Context/NotificationProvider";
 
-import { useRouter } from "next/router";
-import ModalProvider from "@/Context/ContextModal";
+import "@mantine/carousel/styles.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   // TODO: verificar se o tema vai ser alterado via localStorage ou DB
@@ -26,13 +29,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <CustomThemeProvider>
-        <NotificationProvider>
-          <ModalProvider>
-            <GlobalStyle />
-            {isAdmin ? null : <Navbar />}
-            <Component {...pageProps} />
-          </ModalProvider>
-        </NotificationProvider>
+        <MantineProvider>
+          <NotificationProvider>
+            <ModalProvider>
+              <GlobalStyle />
+              {isAdmin ? null : <Navbar />}
+              <Component {...pageProps} />
+            </ModalProvider>
+          </NotificationProvider>
+        </MantineProvider>
       </CustomThemeProvider>
     </>
   );

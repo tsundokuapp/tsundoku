@@ -1,15 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 
-import { Box } from "@/styles/Home/styles";
+import { Card } from "@/components/Card";
+import { Carousel } from "@/components/Carousel";
+import { Demo } from "@/components/Carousel2";
+import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { LayoutMain } from "@/components/Layouts/Main";
 import { Section } from "@/components/Section";
-import { Carousel } from "@/components/Carousel";
-import { Card } from "@/components/Card";
+import { Warning } from "@/components/Warning";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { SideMenuMobile } from "@/components/Heading/SideMenu";
-import { Warning } from "@/components/Warning";
-import Link from "next/link";
+import { Box } from "@/styles/Home/styles";
 
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
@@ -27,7 +28,7 @@ export default function Home() {
     <LayoutMain title="Tsundoku Traduções">
       <SideMenuMobile />
       <Section>
-        <Carousel />
+        <Demo />
         <Warning
           important={false}
           message="Site em construção, em breve uma nova Tsundoku!"

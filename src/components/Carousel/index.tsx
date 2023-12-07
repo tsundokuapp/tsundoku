@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SliderImage } from "./styles";
+
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import majoA from "@/assets/img/carousel/majoA.png";
 import majoB from "@/assets/img/carousel/majoB.png";
 import majoC from "@/assets/img/carousel/majoC.png";
 
+import { SliderImage } from "./styles";
 // TODO: as imagens devem ter tamanho de 1056x300px, adicionar isso na documentação
 
 export const Carousel = () => {
