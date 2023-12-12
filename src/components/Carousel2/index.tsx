@@ -1,91 +1,79 @@
-import Image from "next/image";
+// import elaina from "@/assets/img/carousel/elaina.jpeg";
+// import goblins from "@/assets/img/carousel/goblins.jpeg";
+// import mushoku from "@/assets/img/carousel/mushoku.jpeg";
+// import parasita from "@/assets/img/carousel/parasita.jpeg";
+// import tearmoon from "@/assets/img/carousel/Tearmoon.jpeg";
 
-import elaina from "@/assets/img/carousel/elaina.jpeg";
-import goblins from "@/assets/img/carousel/goblins.jpeg";
-import mushoku from "@/assets/img/carousel/mushoku.jpeg";
-import parasita from "@/assets/img/carousel/parasita.jpeg";
-import tearmoon from "@/assets/img/carousel/Tearmoon.jpeg";
-
-import { SliderImage, SliderContainer } from "./styles";
-
-// TODO: as imagens devem ter tamanho de 1056x300px, adicionar isso na documentação
+import {
+  SliderWrapper,
+  SliderAccordion,
+  SliderAccordionPanel,
+  SliderAccordionContent,
+  ButtonAccordionController,
+  ImageAccordion,
+} from "./styles";
 
 export const Demo = () => {
-  // const [sliderRef] = useKeenSlider<HTMLDivElement>(
-  //   {
-  //     loop: true,
-  //   },
-  //   [
-  //     (slider) => {
-  //       let timeout: ReturnType<typeof setTimeout>;
-  //       let mouseOver = false;
-  //       function clearNextTimeout() {
-  //         clearTimeout(timeout);
-  //       }
-  //       function nextTimeout() {
-  //         clearTimeout(timeout);
-  //         if (mouseOver) return;
-  //         timeout = setTimeout(() => {
-  //           slider.next();
-  //         }, 2000);
-  //       }
-  //       slider.on("created", () => {
-  //         slider.container.addEventListener("mouseover", () => {
-  //           mouseOver = true;
-  //           clearNextTimeout();
-  //         });
-  //         slider.container.addEventListener("mouseout", () => {
-  //           mouseOver = false;
-  //           nextTimeout();
-  //         });
-  //         nextTimeout();
-  //       });
-  //       slider.on("dragStarted", clearNextTimeout);
-  //       slider.on("animationEnded", nextTimeout);
-  //       slider.on("updated", nextTimeout);
-  //     },
-  //   ],
-  // );
-
+  // <SliderImage>
+  //         <Image
+  //           src={mushoku}
+  //           alt="Banner da obra feita pela tsundoku 2"
+  //           height={450}
+  //         />
+  //       </SliderImage>
   return (
-    <>
-      <SliderContainer>
-        <SliderImage>
-          <Image
-            src={elaina}
-            alt="Banner da obra feita pela tsundoku 0"
-            fill={true}
-          />
-        </SliderImage>
-        <SliderImage>
-          <Image
-            src={goblins}
-            alt="Banner da obra feita pela tsundoku 1"
-            fill={true}
-          />
-        </SliderImage>
-        <SliderImage>
-          <Image
-            src={parasita}
-            alt="Banner da obra feita pela tsundoku 2"
-            fill={true}
-          />
-        </SliderImage>
-        <SliderImage>
-          <Image
-            src={tearmoon}
-            alt="Banner da obra feita pela tsundoku 2"
-            fill={true}
-          />
-        </SliderImage>
-        <SliderImage>
-          <Image
-            src={mushoku}
-            alt="Banner da obra feita pela tsundoku 2"
-            fill={true}
-          />
-        </SliderImage>
-      </SliderContainer>
-    </>
+    <SliderWrapper>
+      <SliderAccordion>
+        <SliderAccordionPanel>
+          <h2 id="panel1-heading">
+            <ButtonAccordionController
+              className="accordion-trigger"
+              aria-controls="panel1-content"
+              aria-expanded="true"
+            >
+              <span id="panel1-title">Click me</span>
+            </ButtonAccordionController>
+          </h2>
+          <SliderAccordionContent
+            id="panel1-content"
+            aria-labelledby="panel1-heading"
+            aria-hidden="false"
+            role="region"
+          >
+            <p>algo generico para exemplo</p>
+            <img
+              className="accordion-image"
+              src="assets/img/carousel/elaina.jpeg"
+              alt="Uma garota sentada"
+            />
+          </SliderAccordionContent>
+        </SliderAccordionPanel>
+
+        <SliderAccordionPanel>
+          <h2 id="panel1-heading">
+            <ButtonAccordionController
+              className="accordion-trigger"
+              aria-controls="panel1-content"
+              aria-expanded="true"
+            >
+              <span id="panel1-title">Click me</span>
+            </ButtonAccordionController>
+          </h2>
+          <SliderAccordionContent
+            id="panel1-content"
+            aria-labelledby="panel1-heading"
+            aria-hidden="false"
+            role="region"
+          >
+            <p>algo generico para exemplo</p>
+            <ImageAccordion
+              className="accordion-image"
+              src="assets/img/carousel/elaina.jpeg"
+              alt="Uma garota sentada"
+            />
+          </SliderAccordionContent>
+        </SliderAccordionPanel>
+      </SliderAccordion>
+    </SliderWrapper>
   );
 };
