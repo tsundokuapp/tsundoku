@@ -13,7 +13,23 @@ import {
   ImageAccordion,
 } from "./styles";
 
-export const Demo = () => {
+// const imageDefault = "https://i.imgur.com/9EYs9Nn.jpeg";
+interface SliderImageProps {
+  src: string;
+  alt: string;
+  isActive: boolean;
+  clickToActive?: () => void;
+}
+
+export const MagicAccordion = ({
+  src,
+  alt,
+  isActive,
+  clickToActive,
+}: SliderImageProps) => {
+  // const accordion = document.querySelector(".accordion");
+  // accordion.addEventListener("click", (e) => { });
+
   // <SliderImage>
   //         <Image
   //           src={mushoku}
@@ -24,7 +40,7 @@ export const Demo = () => {
   return (
     <SliderWrapper>
       <SliderAccordion>
-        <SliderAccordionPanel>
+        <SliderAccordionPanel isActive={isActive} onClick={clickToActive}>
           <h2 id="panel1-heading">
             <ButtonAccordionController
               className="accordion-trigger"
@@ -35,42 +51,14 @@ export const Demo = () => {
             </ButtonAccordionController>
           </h2>
           <SliderAccordionContent
+            isActive={isActive}
             id="panel1-content"
             aria-labelledby="panel1-heading"
             aria-hidden="false"
             role="region"
           >
             <p>algo generico para exemplo</p>
-            <img
-              className="accordion-image"
-              src="assets/img/carousel/elaina.jpeg"
-              alt="Uma garota sentada"
-            />
-          </SliderAccordionContent>
-        </SliderAccordionPanel>
-
-        <SliderAccordionPanel>
-          <h2 id="panel1-heading">
-            <ButtonAccordionController
-              className="accordion-trigger"
-              aria-controls="panel1-content"
-              aria-expanded="true"
-            >
-              <span id="panel1-title">Click me</span>
-            </ButtonAccordionController>
-          </h2>
-          <SliderAccordionContent
-            id="panel1-content"
-            aria-labelledby="panel1-heading"
-            aria-hidden="false"
-            role="region"
-          >
-            <p>algo generico para exemplo</p>
-            <ImageAccordion
-              className="accordion-image"
-              src="assets/img/carousel/elaina.jpeg"
-              alt="Uma garota sentada"
-            />
+            <ImageAccordion src={src} alt={alt} />
           </SliderAccordionContent>
         </SliderAccordionPanel>
       </SliderAccordion>

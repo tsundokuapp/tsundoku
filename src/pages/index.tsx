@@ -1,9 +1,11 @@
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import { Card } from "@/components/Card";
-import { Carousel } from "@/components/Carousel";
-import { Demo } from "@/components/Carousel2";
+// import { Carousel } from "@/components/Carousel";
+import { MagicAccordion } from "@/components/Carousel2";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { LayoutMain } from "@/components/Layouts/Main";
 import { Section } from "@/components/Section";
@@ -14,6 +16,28 @@ import { Box } from "@/styles/Home/styles";
 
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
+  const [accordionActive, setAccordionActive] = useState(1);
+
+  const arrayAccordion = [
+    {
+      id: 0,
+      src: "https://i.imgur.com/9EYs9Nn.jpeg",
+      alt: "elaina",
+      isActive: true,
+    },
+    {
+      id: 1,
+      src: "https://i.imgur.com/ZabdhjT.jpeg",
+      alt: "elaina",
+      isActive: false,
+    },
+    {
+      id: 2,
+      src: "https://i.imgur.com/9EYs9Nn.jpeg",
+      alt: "elaina",
+      isActive: false,
+    },
+  ];
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
@@ -28,7 +52,16 @@ export default function Home() {
     <LayoutMain title="Tsundoku Traduções">
       <SideMenuMobile />
       <Section>
-        <Demo />
+        {arrayAccordion.map((item) => (
+          <MagicAccordion
+            key={item.id}
+            src={item.src}
+            alt={item.alt}
+            isActive={item.id === accordionActive}
+            clickToActive={() => setAccordionActive(item.id)}
+          />
+        ))}
+
         <Warning
           important={false}
           message="Site em construção, em breve uma nova Tsundoku!"
