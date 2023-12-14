@@ -4,6 +4,8 @@
 // import parasita from "@/assets/img/carousel/parasita.jpeg";
 // import tearmoon from "@/assets/img/carousel/Tearmoon.jpeg";
 
+import { useState } from "react";
+
 import {
   SliderWrapper,
   SliderAccordion,
@@ -15,52 +17,79 @@ import {
 
 // const imageDefault = "https://i.imgur.com/9EYs9Nn.jpeg";
 interface SliderImageProps {
+  id: number;
   src: string;
   alt: string;
   isActive: boolean;
-  clickToActive?: () => void;
+  title: string;
+  description: string;
+  // clickToActive?: () => void;
 }
 
-export const MagicAccordion = ({
-  src,
-  alt,
-  isActive,
-  clickToActive,
-}: SliderImageProps) => {
-  // const accordion = document.querySelector(".accordion");
-  // accordion.addEventListener("click", (e) => { });
+export const MagicAccordion = () => {
+  const [accordionActive, setAccordionActive] = useState(1);
 
-  // <SliderImage>
-  //         <Image
-  //           src={mushoku}
-  //           alt="Banner da obra feita pela tsundoku 2"
-  //           height={450}
-  //         />
-  //       </SliderImage>
+  const arrayAccordion: SliderImageProps[] = [
+    {
+      id: 0,
+      src: "https://i.imgur.com/9EYs9Nn.jpeg",
+      alt: "elaina",
+      isActive: true,
+      title: "Elaina",
+      description: "algo generico para exemplo",
+    },
+    {
+      id: 1,
+      src: "https://i.imgur.com/ZabdhjT.jpeg",
+      alt: "elaina",
+      isActive: false,
+      title: "Bruxa",
+      description: "algo generico para exemplo",
+    },
+    {
+      id: 2,
+      src: "https://i.imgur.com/9EYs9Nn.jpeg",
+      alt: "elaina",
+      isActive: false,
+      title: "Errante",
+      description: "algo generico para exemplo",
+    },
+  ];
+
+  const clickToActive = (id: number) => {
+    setAccordionActive(id);
+  };
+
   return (
     <SliderWrapper>
       <SliderAccordion>
-        <SliderAccordionPanel isActive={isActive} onClick={clickToActive}>
-          <h2 id="panel1-heading">
-            <ButtonAccordionController
-              className="accordion-trigger"
-              aria-controls="panel1-content"
-              aria-expanded="true"
-            >
-              <span id="panel1-title">Click me</span>
-            </ButtonAccordionController>
-          </h2>
-          <SliderAccordionContent
-            isActive={isActive}
-            id="panel1-content"
-            aria-labelledby="panel1-heading"
-            aria-hidden="false"
-            role="region"
+        {arrayAccordion.map((item) => (
+          <SliderAccordionPanel
+            key={item.id}
+            isActive={item.id === accordionActive}
+            onClick={() => clickToActive(item.id)}
           >
-            <p>algo generico para exemplo</p>
-            <ImageAccordion src={src} alt={alt} />
-          </SliderAccordionContent>
-        </SliderAccordionPanel>
+            <h2 id="panel1-heading">
+              <ButtonAccordionController
+                className="accordion-trigger"
+                aria-controls="panel1-content"
+                aria-expanded="true"
+              >
+                <span id="panel1-title">{item.title}</span>
+              </ButtonAccordionController>
+            </h2>
+            <SliderAccordionContent
+              isActive={item.id === accordionActive}
+              id="panel1-content"
+              aria-labelledby="panel1-heading"
+              aria-hidden="false"
+              role="region"
+            >
+              <p>{item.description}</p>
+              <ImageAccordion src={item.src} alt={item.alt} />
+            </SliderAccordionContent>
+          </SliderAccordionPanel>
+        ))}
       </SliderAccordion>
     </SliderWrapper>
   );

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,28 +14,6 @@ import { Box } from "@/styles/Home/styles";
 
 export default function Home() {
   const { isMobile, isExtraMobile } = useWindowDimensions();
-  const [accordionActive, setAccordionActive] = useState(1);
-
-  const arrayAccordion = [
-    {
-      id: 0,
-      src: "https://i.imgur.com/9EYs9Nn.jpeg",
-      alt: "elaina",
-      isActive: true,
-    },
-    {
-      id: 1,
-      src: "https://i.imgur.com/ZabdhjT.jpeg",
-      alt: "elaina",
-      isActive: false,
-    },
-    {
-      id: 2,
-      src: "https://i.imgur.com/9EYs9Nn.jpeg",
-      alt: "elaina",
-      isActive: false,
-    },
-  ];
 
   const myLoader = () => {
     return "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2021/12/Tsundoku-Traducoes-Web-Novel-Re-Zero-Volume-01-Capa.png";
@@ -52,15 +28,7 @@ export default function Home() {
     <LayoutMain title="Tsundoku Traduções">
       <SideMenuMobile />
       <Section>
-        {arrayAccordion.map((item) => (
-          <MagicAccordion
-            key={item.id}
-            src={item.src}
-            alt={item.alt}
-            isActive={item.id === accordionActive}
-            clickToActive={() => setAccordionActive(item.id)}
-          />
-        ))}
+        <MagicAccordion />
 
         <Warning
           important={false}

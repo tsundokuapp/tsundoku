@@ -29,6 +29,11 @@ export const SliderAccordion = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin: 0;
+
+  @media (min-width: 45em) {
+    flex-direction: row;
+    height: 30rem;
+  }
 `;
 
 interface SliderAccordionPanelProps {
@@ -48,20 +53,22 @@ export const SliderAccordionPanel = styled.div<SliderAccordionPanelProps>`
 
   ${({ isActive }) =>
     isActive &&
-    `flex-basis:clamp(15rem, 40vw, 20rem);
+    `
+    flex-basis:clamp(15rem, 40vw, 20rem);
+    flex-grow: 1;
       img { filter: brightness(0.6);
         @media (prefers-reduced-motion: no-preference) {
           transition: filter 0.5s ease-in-out;
         };
       }
-  `}
+    `}
 
   :hover {
     box-shadow: rgba(255, 255, 255, 0.25) 0px 4px 8px -2px;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: flex-basis 0.5s ease-in-out;
+    transition: flex-basis 0.5s ease-in-out, flex-grow 0.5s ease-in-out;
   }
 `;
 
@@ -74,10 +81,30 @@ export const ButtonAccordionController = styled.button`
   border: 0;
   padding: 0;
   color: red;
+`;
 
+export const AccordionTitle = styled.span`
   span {
     font-size: 1.25rem;
     font-weight: 700;
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+  }
+
+  @media (max-width: 44.999em) {
+    ::after {
+      content: "";
+      position: absolute;
+      left: calc((var(--_panel-gap) + var(--_button-size)) * -1);
+      width: calc(100% + (var(--_button-size) * 2));
+      height: var(--_button-size);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+      border-radius: 100vw;
+    }
   }
 `;
 
@@ -85,12 +112,10 @@ export const SliderAccordionContent = styled.div<SliderAccordionPanelProps>`
   p {
     transform: translateY(2rem);
     opacity: 0;
-    margin-left: varr(--_panel-gap);
+    margin-left: var(--_panel-gap);
 
-    ${({ isActive }) => isActive && `transform: translateY(0); opacity: 1;`}
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: transform 0.5s 0.25s, opacity 0.5s 0.25s;
-    }
+    ${({ isActive }) =>
+    isActive &&
+    `transform: translateY(0); opacity: 1; @media (prefers-reduced-motion: no-preference) { transition: transform 0.5s 0.5s, opacity 0.5s 0.5s;}`}
   }
 `;
