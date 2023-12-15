@@ -14,7 +14,7 @@ export const ImageAccordion = styled.img`
 `;
 
 export const SliderWrapper = styled.div`
-  max-width: 50rem;
+  max-width: 55rem;
   width: 100%;
   margin-inline: auto;
   padding-inline: 1rem;
@@ -23,11 +23,12 @@ export const SliderWrapper = styled.div`
 export const SliderAccordion = styled.div`
   --_button-size: 3rem;
   --_panel-padding: 0.75rem;
-  --_panel-gap: 1rem;
+  --_panel-gap: 0.25rem;
 
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  gap: var(--_panel-gap);
   margin: 0;
 
   @media (min-width: 45em) {
@@ -44,8 +45,9 @@ export const SliderAccordionPanel = styled.div<SliderAccordionPanelProps>`
   position: relative;
   isolation: isolate;
   width: 100%;
-  flex-basis: calc((var(--_panel-padding) * 2) + var(--_button-size));
-  border-radius: calc(((var(--_panel-padding) * 2) + var(--_button-size)) / 2);
+  flex-basis: calc((var(--_panel-padding) * 4) + var(--_button-size));
+  //border-radius: calc(((var(--_panel-padding) * 2) + var(--_button-size)) / 2);
+  border-radius: 0;
   overflow: hidden;
   padding: var(--_panel-padding);
   padding-right: calc(var(--_panel-padding) * 4);
@@ -55,12 +57,14 @@ export const SliderAccordionPanel = styled.div<SliderAccordionPanelProps>`
     isActive &&
     `
     flex-basis:clamp(15rem, 40vw, 20rem);
-    flex-grow: 1;
+    height: 100%;
+    //flex-grow: 1;
       img { filter: brightness(0.6);
         @media (prefers-reduced-motion: no-preference) {
           transition: filter 0.5s ease-in-out;
         };
       }
+    h2 { transform: rotate(0deg); opacity: 1; white-space: normal;}
     `}
 
   :hover {
@@ -83,16 +87,22 @@ export const ButtonAccordionController = styled.button`
   color: red;
 `;
 
-export const AccordionTitle = styled.span`
-  span {
-    font-size: 1.25rem;
-    font-weight: 700;
+export const AccordionTitle = styled.h2`
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
 
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    align-items: center;
-  }
+  margin-left: var(--_panel-gap);
+  position: relative;
+  isolation: isolate;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  align-items: center;
+  transform: rotate(90deg);
+  transform-origin: center left;
+  opacity: 0;
+
+  transition: all 0.5s ease-in-out;
 
   @media (max-width: 44.999em) {
     ::after {
@@ -103,7 +113,8 @@ export const AccordionTitle = styled.span`
       height: var(--_button-size);
       background: rgba(0, 0, 0, 0.5);
       z-index: -1;
-      border-radius: 100vw;
+      // border-radius: 100vw;
+      border-radius: 0;
     }
   }
 `;
