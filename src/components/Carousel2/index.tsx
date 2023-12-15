@@ -28,6 +28,7 @@ interface SliderImageProps {
 
 export const MagicAccordion = () => {
   const [accordionActive, setAccordionActive] = useState("ghi");
+  const [mouseOver, setMouseOver] = useState(false);
 
   const arrayAccordion: SliderImageProps[] = [
     {
@@ -73,7 +74,22 @@ export const MagicAccordion = () => {
     },
   ];
 
-  const clickToActive = (id: string) => {
+  setTimeout(() => {
+    if (mouseOver) return;
+
+    const idActive = accordionActive;
+    const slideActive = arrayAccordion.findIndex(
+      (item) => item.id === idActive,
+    );
+    const nextSlide = slideActive + 1;
+    const nextSlideId = arrayAccordion[nextSlide]
+      ? arrayAccordion[nextSlide].id
+      : arrayAccordion[0].id;
+
+    nextSlider(nextSlideId);
+  }, 3000);
+
+  const nextSlider = (id: string) => {
     setAccordionActive(id);
   };
 
@@ -84,7 +100,13 @@ export const MagicAccordion = () => {
           <SliderAccordionPanel
             key={item.id}
             isActive={item.id === accordionActive}
-            onClick={() => clickToActive(item.id)}
+            onClick={() => nextSlider(item.id)}
+            onMouseOver={() => {
+              if (item.id === accordionActive) setMouseOver(true);
+            }}
+            onMouseLeave={() => {
+              if (item.id === accordionActive) setMouseOver(false);
+            }}
           >
             <AccordionTitle id="panel1-title">{item.title}</AccordionTitle>
             <SliderAccordionContent
