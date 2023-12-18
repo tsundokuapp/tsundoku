@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 import { LayoutCapituloNovel } from "@/components/Layouts/CapituloNovel";
 import { Section } from "@/components/Section";
 import { Warning } from "@/components/Warning";
-import { useState } from "react";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars

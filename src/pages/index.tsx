@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import { Card } from "@/components/Card";
 // import { Carousel } from "@/components/Carousel";
-import { MagicAccordion } from "@/components/Carousel2";
 import { SideMenuMobile } from "@/components/Heading/SideMenu";
 import { LayoutMain } from "@/components/Layouts/Main";
+import { MagicAccordion } from "@/components/MagicAccordion";
 import { Section } from "@/components/Section";
 import { Warning } from "@/components/Warning";
 import { AllWorksTsun as works } from "@/constants/WorksTsun";

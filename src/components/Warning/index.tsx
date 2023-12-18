@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Container } from "./styles";
+
 import { RiCloseFill } from "react-icons/ri";
+
+import { Container } from "./styles";
 
 // "Important" apenas muda a cor do aviso para vermelho;
 interface IWarningProps {

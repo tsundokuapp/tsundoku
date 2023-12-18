@@ -1,10 +1,11 @@
-import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
-import { LayoutObraIndiceMobile } from "@/components/Layouts/Mobile/ObraIndice";
-import { Section } from "@/components/Section";
 import { useState } from "react";
-import { useWindowDimensions } from "@/hooks/useWindowDimensions";
-import { SIZES_RAW } from "@/constants/breakingPoints";
+
+import { LayoutObraIndiceMobile } from "@/components/Layouts/Mobile/ObraIndice";
+import { LayoutObraIndice } from "@/components/Layouts/ObraIndice";
+import { Section } from "@/components/Section";
 import { Warning } from "@/components/Warning";
+import { SIZES_RAW } from "@/constants/breakingPoints";
+import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 
 export default function Novel() {
   // eslint-disable-next-line no-unused-vars

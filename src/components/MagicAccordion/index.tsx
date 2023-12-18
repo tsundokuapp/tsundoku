@@ -1,10 +1,4 @@
-// import elaina from "@/assets/img/carousel/elaina.jpeg";
 import { useState } from "react";
-
-// import goblins from "@/assets/img/carousel/goblins.jpeg";
-// import mushoku from "@/assets/img/carousel/mushoku.jpeg";
-// import parasita from "@/assets/img/carousel/parasita.jpeg";
-// import tearmoon from "@/assets/img/carousel/Tearmoon.jpeg";
 
 import {
   SliderWrapper,
@@ -15,7 +9,6 @@ import {
   AccordionTitle,
 } from "./styles";
 
-// const imageDefault = "https://i.imgur.com/9EYs9Nn.jpeg";
 interface SliderImageProps {
   id: string;
   src: string;
@@ -23,14 +16,23 @@ interface SliderImageProps {
   isActive: boolean;
   title: string;
   description: string;
-  // clickToActive?: () => void;
 }
 
 export const MagicAccordion = () => {
   const [accordionActive, setAccordionActive] = useState("ghi");
-  const [mouseOver, setMouseOver] = useState(false);
+  // const [resetTimeout, setResetTimeout] = useState(false);
 
+  const imageDefault = "https://i.imgur.com/9EYs9Nn.jpeg";
   const arrayAccordion: SliderImageProps[] = [
+    {
+      id: "mna",
+      src: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
+      alt: "Uma menina com fone de ouvido",
+      isActive: false,
+      title: "Parasita Apaixonado",
+      description:
+        "A historia é sobre um homem do qual suas tendências compulsivas o fazem virar um vagabundo, e uma garota que largou a escola e é apaixonada por insetos.",
+    },
     {
       id: "abc",
       src: "https://i3.wp.com/tsundoku.com.br/wp-content/uploads/2023/11/edMT_V20_Capa.jpg",
@@ -72,24 +74,31 @@ export const MagicAccordion = () => {
       description:
         "A historia é sobre um homem do qual suas tendências compulsivas o fazem virar um vagabundo, e uma garota que largou a escola e é apaixonada por insetos.",
     },
+    {
+      id: "mnb",
+      src: "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2022/01/parasita.jpg",
+      alt: "Uma menina com fone de ouvido",
+      isActive: false,
+      title: "Parasita Apaixonado",
+      description:
+        "A historia é sobre um homem do qual suas tendências compulsivas o fazem virar um vagabundo, e uma garota que largou a escola e é apaixonada por insetos.",
+    },
   ];
 
-  setTimeout(() => {
-    if (mouseOver) return;
-
-    const idActive = accordionActive;
-    const slideActive = arrayAccordion.findIndex(
-      (item) => item.id === idActive,
-    );
-    const nextSlide = slideActive + 1;
-    const nextSlideId = arrayAccordion[nextSlide]
-      ? arrayAccordion[nextSlide].id
-      : arrayAccordion[0].id;
-
-    nextSlider(nextSlideId);
-  }, 3000);
+  // setTimeout(() => {
+  //   const slideActive = arrayAccordion.findIndex(
+  //     (item) => item.id === accordionActive,
+  //   );
+  //   const nextTarget = slideActive + 1;
+  //   const nextSlideId = arrayAccordion[nextTarget]
+  //     ? arrayAccordion[nextTarget].id
+  //     : arrayAccordion[0].id;
+  //   // if (resetTimeout) return setResetTimeout(false);
+  //   nextSlider(nextSlideId);
+  // }, 3000);
 
   const nextSlider = (id: string) => {
+    // setResetTimeout(true);
     setAccordionActive(id);
   };
 
@@ -101,12 +110,6 @@ export const MagicAccordion = () => {
             key={item.id}
             isActive={item.id === accordionActive}
             onClick={() => nextSlider(item.id)}
-            onMouseOver={() => {
-              if (item.id === accordionActive) setMouseOver(true);
-            }}
-            onMouseLeave={() => {
-              if (item.id === accordionActive) setMouseOver(false);
-            }}
           >
             <AccordionTitle id="panel1-title">{item.title}</AccordionTitle>
             <SliderAccordionContent
@@ -117,7 +120,7 @@ export const MagicAccordion = () => {
               role="region"
             >
               <p>{item.description}</p>
-              <ImageAccordion src={item.src} alt={item.alt} />
+              <ImageAccordion src={item.src || imageDefault} alt={item.alt} />
             </SliderAccordionContent>
           </SliderAccordionPanel>
         ))}

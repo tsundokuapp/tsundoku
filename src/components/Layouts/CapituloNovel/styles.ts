@@ -102,6 +102,9 @@ export const Creditos = styled.div`
   align-items: flex-start;
   justify-content: space-between;
 
+  border-top: 1px solid ${({ theme }) => theme.colors.textSec};
+  padding-top: 1rem;
+
   width: 100%;
   max-width: 1120px;
 

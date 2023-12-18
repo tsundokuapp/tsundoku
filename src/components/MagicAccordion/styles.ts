@@ -46,7 +46,6 @@ export const SliderAccordionPanel = styled.div<SliderAccordionPanelProps>`
   isolation: isolate;
   width: 100%;
   flex-basis: calc((var(--_panel-padding) * 4) + var(--_button-size));
-  //border-radius: calc(((var(--_panel-padding) * 2) + var(--_button-size)) / 2);
   border-radius: 0;
   overflow: hidden;
   padding: var(--_panel-padding);
@@ -105,17 +104,6 @@ export const AccordionTitle = styled.h2`
   transition: all 0.5s ease-in-out;
 
   @media (max-width: 44.999em) {
-    ::after {
-      content: "";
-      position: absolute;
-      left: calc((var(--_panel-gap) + var(--_button-size)) * -1);
-      width: calc(100% + (var(--_button-size) * 2));
-      height: var(--_button-size);
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-      // border-radius: 100vw;
-      border-radius: 0;
-    }
   }
 `;
 
@@ -126,7 +114,7 @@ export const SliderAccordionContent = styled.div<SliderAccordionPanelProps>`
     margin-left: var(--_panel-gap);
 
     ${({ isActive }) =>
-    isActive &&
-    `transform: translateY(0); opacity: 1; @media (prefers-reduced-motion: no-preference) { transition: transform 0.5s 0.5s, opacity 0.5s 0.5s;}`}
+      isActive &&
+      `transform: translateY(0); opacity: 1; @media (prefers-reduced-motion: no-preference) { transition: transform 0.5s 0.5s, opacity 0.5s 0.5s;}`}
   }
 `;

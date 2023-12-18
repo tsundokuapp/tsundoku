@@ -1,4 +1,16 @@
+import React, { useState } from "react";
+
 import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { ModalImage } from "@/animations/Modal/ModalImage";
+import { CircleIndicator } from "@/animations/ScrollLinked";
+import { Button } from "@/components/Button";
+import { Footer } from "@/components/Footer";
+import { MenuControllerText } from "@/components/MenuControllerText";
+import { TrilhaPath } from "@/components/TrilhaPath";
+import { useNotify } from "@/Context/NotificationProvider";
+
 import {
   Container,
   Content,
@@ -10,15 +22,6 @@ import {
   Capitulo,
   SectionButtonNavigation,
 } from "./styles";
-import React, { useState } from "react";
-import { Button } from "@/components/Button";
-import { TrilhaPath } from "@/components/TrilhaPath";
-import { CircleIndicator } from "@/animations/ScrollLinked";
-import { MenuControllerText } from "@/components/MenuControllerText";
-import { useNotify } from "@/Context/NotificationProvider";
-import { ModalImage } from "@/animations/Modal/ModalImage";
-import { useRouter } from "next/router";
-import { Footer } from "@/components/Footer";
 
 const capaElaina =
   "https://i0.wp.com/tsundoku.com.br/wp-content/uploads/2021/01/Tsundoku-Traducoes-Light-Novel-Majo-no-Tabitabi-Volume-04-Imagem-03_-scaled.jpg?resize=2560%2C1821&ssl=1";
@@ -83,13 +86,14 @@ export const LayoutCapituloNovel = ({ children, titulo }: ILayoutMainProps) => {
   const NavigationButtons = () => {
     return (
       <SectionButtonNavigation>
-        <Button label="Anterior" variant="secundario" onClick={() => {}} />
+        {/* o eslint vai parar de reclamar quando tiver algo dentro da chamada de função */}
+        <Button label="Anterior" variant="secundario" onClick={() => { }} />
         <Button
           label="Índice"
           variant="secundario"
           onClick={() => Navigation("/novels/bruxa-errante")}
         />
-        <Button label="Próximo" variant="secundario" onClick={() => {}} />
+        <Button label="Próximo" variant="secundario" onClick={() => { }} />
       </SectionButtonNavigation>
     );
   };
