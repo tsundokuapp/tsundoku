@@ -24,7 +24,7 @@
       "singleQuote": true,
       "trailingComma": "all",
       "arrowParens": "always",
-      "semi": false,
+      "semi": true,
       "endOfLine": "auto"
     }],
     "jsx-a11y/alt-text": [
@@ -46,7 +46,31 @@
     },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
-    }
+    },
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin", "external"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
   }
   
 }
