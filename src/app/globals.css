@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  color:  #1f2937
+}
+/*
+@media (prefers-color-scheme: dark) {
+  body{
+    background-color: #101828;
+    color: #ffffff;
+  }
+}
+*/
