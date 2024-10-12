@@ -1,10 +1,11 @@
-import Link from 'next/link';
-import { HeaderIcon } from './header-icon';
 import {
   MagnifyingGlass,
   DiscordLogo,
   User,
 } from '@phosphor-icons/react/dist/ssr';
+import Link from 'next/link';
+
+import { HeaderIcon } from './header-icon';
 import { HeaderLink } from './header-link';
 
 export function Header() {

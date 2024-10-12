@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { FooterLink } from './footer-link';
 export function Footer() {
   return (
