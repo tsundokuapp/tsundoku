@@ -24,11 +24,11 @@ export function Header() {
         </Link>
       </div>
       <div className="flex items-center gap-8">
-        <HeaderLink text="Home" active />
-        <HeaderLink text="Novels" action="novels/" />
-        <HeaderLink text="Comics" action="comics/" />
-        <HeaderLink text="Blog" action="blog/" />
-        <HeaderLink text="Sobre Nós" action="about/" />
+        <HeaderLink text="Home" />
+        <HeaderLink text="Novels" action="/novels" />
+        <HeaderLink text="Comics" action="/comics" />
+        <HeaderLink text="Blog" action="/blog" />
+        <HeaderLink text="Sobre Nós" action="/about" />
       </div>
       <div className="flex items-center gap-4">
         <HeaderIcon>
