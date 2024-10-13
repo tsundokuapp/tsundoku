@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { FooterLink } from './footer-link';
+import { FooterLink } from './FooterLink';
 export function Footer() {
   return (
     <footer className="flex items-center justify-between bg-gray-300 h-[120px] px-[180px]">

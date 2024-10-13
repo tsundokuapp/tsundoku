@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { Footer } from '@/components/footer/footer';
-import { Header } from '@/components/header/header';
+import { Footer } from '@/components/footer/Footer';
+import { Header } from '@/components/header/Header';
 
 export default function webappLayout({ children }: { children: ReactNode }) {
   return (

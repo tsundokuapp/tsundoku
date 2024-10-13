@@ -5,10 +5,10 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 
-import { ThemeToggle } from '../theme/theme-toogle';
+import { ThemeToggle } from '../theme/ThemeToogle';
 
-import { HeaderIcon } from './header-icon';
-import { HeaderLink } from './header-link';
+import { HeaderIcon } from './HeaderIcon';
+import { HeaderLink } from './HeaderLink';
 
 export function Header() {
   return (
