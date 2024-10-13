@@ -17,12 +17,12 @@ export function HeaderLink({ text, action = '/', ...props }: HeaderLinkProps) {
       {...props}
       href={action}
       className={
-        'relative text-white font-bold text-xl uppercase transition-all duration-300 group'
+        'group relative text-xl font-bold uppercase text-white transition-all duration-300'
       }
     >
       {text}
       <span
-        className={`absolute left-0 bottom-0 w-full h-[2px] bg-sky-600 transform transition-transform duration-300 ${
+        className={`absolute bottom-0 left-0 h-[2px] w-full transform bg-sky-600 transition-transform duration-300 ${
           isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
         }`}
       />
