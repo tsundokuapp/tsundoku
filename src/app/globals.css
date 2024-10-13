@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  color:  #1f2937
+:root {
+  --transition-duration: 100ms;
 }
-/*
-@media (prefers-color-scheme: dark) {
-  body{
-    background-color: #101828;
-    color: #ffffff;
-  }
+
+/* Adiciona uma transição para quando o tema mudar */
+.transition-theme {
+  transition: background-color var(--transition-duration) ease-in-out, 
+              color var(--transition-duration) ease-in-out;
 }
-*/

@@ -5,12 +5,14 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 
+import { ThemeToggle } from '../theme/theme-toogle';
+
 import { HeaderIcon } from './header-icon';
 import { HeaderLink } from './header-link';
 
 export function Header() {
   return (
-    <div className="flex items-center justify-between bg-slate-900 h-[120px] px-[180px]">
+    <header className="flex items-center justify-between bg-slate-900 h-[120px] px-[180px]">
       <div className="flex items-center">
         <Link
           className="flex items-center gap-2 text-2xl font-extrabold text-white"
@@ -38,7 +40,8 @@ export function Header() {
         <HeaderIcon>
           <User size={24}></User>
         </HeaderIcon>
+        <ThemeToggle />
       </div>
-    </div>
+    </header>
   );
 }
