@@ -15,7 +15,7 @@ export function Breadcrump() {
         <li>
           <Link
             href="/"
-            className="hover:underline hover:decoration-sky-500 hover:decoration-dashed hover:decoration-2 hover:underline-offset-4"
+            className="hover:underline hover:decoration-sky-500 hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
           >
             Home
           </Link>
@@ -26,13 +26,21 @@ export function Breadcrump() {
             const pathLink = `/${paths.slice(0, pathIndex + 1).join('/')}`;
             const isLastItem = pathIndex === paths.length - 1;
             return (
-              <li key={pathLink} className="flex flex-row items-center gap-4">
+              <li
+                key={pathLink}
+                className="flex flex-row items-center gap-4 capitalize"
+              >
                 <DotOutline size={24} weight="fill" />
 
                 {isLastItem ? (
-                  <span className="font-bold capitalize">{pathName}</span>
+                  <span className="font-bold">{pathName}</span>
                 ) : (
-                  <Link href={pathLink}>{pathName}</Link>
+                  <Link
+                    href={pathLink}
+                    className="hover:underline hover:decoration-sky-500 hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
+                  >
+                    {pathName}
+                  </Link>
                 )}
               </li>
             );
