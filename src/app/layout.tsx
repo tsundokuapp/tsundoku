@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={inter.variable} lang="pt">
-      <body className="bg-white text-gray-800 dark:bg-slate-900 dark:text-white transition-colors duration-1000">
+      <body className="bg-white text-gray-800 transition-colors duration-1000 dark:bg-slate-900 dark:text-white">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
