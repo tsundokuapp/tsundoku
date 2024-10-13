@@ -8,6 +8,7 @@
 
 /* Adiciona uma transição para quando o tema mudar */
 .transition-theme {
-  transition: background-color var(--transition-duration) ease-in-out, 
-              color var(--transition-duration) ease-in-out;
+  transition: transform var(--transition-duration) ease-in-out, 
+              opacity var(--transition-duration) ease-in-out;
+  transform-origin: top;
 }

@@ -36,7 +36,8 @@
         "trailingComma": "all",
         "arrowParens": "always",
         "semi": true,
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "plugins": ["prettier-plugin-tailwindcss"]
       }
     ],
     "jsx-a11y/alt-text": [

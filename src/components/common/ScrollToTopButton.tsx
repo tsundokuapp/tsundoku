@@ -33,7 +33,7 @@ export function ScrollToTopButton() {
     isVisible && (
       <button
         onClick={handleScrollToTop}
-        className="fixed bottom-5 right-5 p-3 flex items-center rounded-full bg-slate-700 text-white w-10 h-10 justify-center shadow-lg transition-opacity duration-300"
+        className="fixed bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-slate-700 p-3 text-white shadow-lg transition-opacity duration-300"
       >
         <CaretDoubleUp size={24} />
       </button>

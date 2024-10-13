@@ -17,11 +17,11 @@ export function ThemeToggle() {
 
   return (
     <button
-      className="flex items-center rounded-full bg-slate-700 text-white w-10 h-10 justify-center"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-700 text-white hover:bg-gradient-to-b hover:from-slate-700 hover:to-slate-800"
       onClick={() => handleThemeToggle()}
     >
       <Sun size={24} className="hidden dark:block" />
-      <Moon size={24} className="block dark:hidden " />
+      <Moon size={24} className="block dark:hidden" />
     </button>
   );
 }

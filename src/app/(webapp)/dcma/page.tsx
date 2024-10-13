@@ -1,8 +1,8 @@
 export default function DCMA() {
   return (
-    <div className="flex flex-1 items-center flex-col gap-8">
-      <div className="flex flex-col gap-4 w-[600px] ">
-        <h1 className="text-2xl uppercase font-bold mb-6">DCMA</h1>
+    <div className="flex flex-1 flex-col items-center gap-8">
+      <div className="flex w-[600px] flex-col gap-4">
+        <h1 className="mb-6 text-2xl font-bold uppercase">DCMA</h1>
         <p>
           A Tsundoku Traduções é um grupo amador que realiza traduções de fã
           para fã sem qualquer fim comercial ou lucrativo. Caso alguma obra de

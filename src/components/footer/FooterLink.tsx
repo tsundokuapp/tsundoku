@@ -10,7 +10,7 @@ export function FooterLink({ text, action = '/' }: FooterLinkProps) {
     <Link
       href={action}
       className={
-        'text-gray-800 font-bold text-xl uppercase hover:underline hover:underline-offset-8'
+        'text-xl font-bold uppercase text-gray-800 hover:underline hover:underline-offset-8'
       }
     >
       {text}
