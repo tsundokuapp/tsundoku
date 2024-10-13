@@ -1,9 +1,0 @@
-/*.js
-node_modules
-dist
-.next
-.vscode
-.git
-/web
-
-JsonRetornoRotaCapitulos.json

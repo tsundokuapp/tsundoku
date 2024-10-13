@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --transition-duration: 100ms;
+}
+
+/* Adiciona uma transição para quando o tema mudar */
+.transition-theme {
+  transition: background-color var(--transition-duration) ease-in-out, 
+              color var(--transition-duration) ease-in-out;
+}

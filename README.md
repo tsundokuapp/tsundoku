@@ -1,4 +1,4 @@
-## Tsundoku Traduções V2
+## Tsundoku Traduções V3
 Tsundoku é um site voltado para leitura de Light Novels e Mangás, que já está ativo no link [Tsundoku](https://tsundoku.com.br/).
 Este repo é a atualização do site para uma interface mais moderna e única com objetivos de solucionar problemas e limitações enfrentados no site atual.
 
@@ -53,7 +53,3 @@ git push -f origin main
 
 
 ## Lembrentes
-
-- Evite mexer em arquivos desconexos dentro de um mesmo commit
-- Não altere versões de libs ou ferramentas.
-- Se precisar de ajuda, pergunte diretamente informando o problema que está tendo.
