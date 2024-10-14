@@ -8,11 +8,10 @@ import {
 import Link from 'next/link';
 import React, { useState, useRef, useEffect } from 'react';
 
-import { ThemeToggle } from '../theme/ThemeToogle';
-
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
 import { HeaderSearch } from './HeaderSearch'; // Certifique-se de ter este componente
+import { ThemeToggle } from '../theme/ThemeToogle';
 
 export function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);

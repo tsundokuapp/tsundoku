@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 export function Breadcrump() {
   const pathname = usePathname();
   const paths = pathname.split('/').filter((x) => x.trim().length > 0);
-  console.log(paths);
 
   return (
     <nav>

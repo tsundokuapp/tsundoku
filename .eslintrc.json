@@ -62,9 +62,11 @@
           "builtin",
           "external",
           "internal",
+          [
           "parent",
           "sibling",
           "index"
+        ]
         ],
         "pathGroups": [
           {
@@ -77,7 +79,7 @@
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
-          "caseInsensitive": true
+          "caseInsensitive": false
         }
       }
     ]
