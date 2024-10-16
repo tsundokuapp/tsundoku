@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AddressBookTabs,
   Checkerboard,
@@ -7,6 +9,7 @@ import {
   Users,
 } from '@phosphor-icons/react/dist/ssr';
 
+import { TsunButton } from '@/components/common/button/TsunButton';
 import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
 
 import styles from './styles.module.css';
@@ -49,8 +52,9 @@ export default function Dashboard() {
           action="/usermanagement"
         />
       </Sidebar>
-      <div>
+      <div className={styles.containerDash}>
         <h1>Admin Page</h1>
+        <TsunButton onClick={() => alert('clicked')}>Iniciar</TsunButton>
       </div>
     </main>
   );
