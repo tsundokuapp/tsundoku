@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 
 import { Tag } from '../common/Tag';
 
-interface ChapterProps {
-  number: number;
+export interface ChapterProps {
+  number: string;
   date: Date;
   variant?: 'regular' | 'fill';
 }

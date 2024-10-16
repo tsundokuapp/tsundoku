@@ -8,7 +8,7 @@ interface ProjectDataProps {
   title: string;
   altTitle: string[];
   description: string;
-  status: string;
+  status: 'Em andamento' | 'Em hiato' | 'Cancelado' | 'Concluído';
   author: string;
   artist: string;
   tags: string[];
@@ -45,15 +45,19 @@ export function ProjectData({
 
         <CollapseText>{description}</CollapseText>
 
-        <ul className="flex flex-row gap-8 text-sm">
+        <ul className="flex flex-row items-center gap-8 text-sm">
           <li>
             <span className="font-bold">Autor:</span> {author}
           </li>
           <li>
             <span className="font-bold">Artista:</span> {artist}
           </li>
-          <li>
+          <li className="items-center">
             <span className="font-bold">Status:</span> {status}
+            <span
+              data-status={status}
+              className="mx-2 inline-block h-2 w-2 rounded-full bg-green-700"
+            />
           </li>
         </ul>
 
