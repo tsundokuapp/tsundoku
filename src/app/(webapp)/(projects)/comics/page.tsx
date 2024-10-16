@@ -15,6 +15,7 @@ export default function Comics() {
           src="/cover-shadow.webp"
           title="Kage no Jitsuryokusha ni Naritakute"
           category="Mangá"
+          action="comics/kage-no-jitsuryokusha-ni-naritakute"
         />
         <Cover
           src="/cover-seven.webp"
