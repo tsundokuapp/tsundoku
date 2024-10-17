@@ -13,7 +13,7 @@ import { HeaderLink } from './HeaderLink';
 import { HeaderSearch } from './HeaderSearch'; // Certifique-se de ter este componente
 import { ThemeToggle } from '../theme/ThemeToogle';
 
-export function Header() {
+export function HeaderBar() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
