@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { Chapter, type ChapterProps } from './Chapter';
 import { Title } from '../common/Title';
+import { TitleContainer } from '../common/TitleContainer';
 
 interface SortListProps {
   title: string;
@@ -27,7 +28,8 @@ export function SortList({ title, items }: SortListProps) {
 
   return (
     <div>
-      <Title title={title} className="mb-12 pr-6">
+      <TitleContainer className="mb-12 pr-6">
+        <Title title={title} />
         <button onClick={handleSorting}>
           {isAscending ? (
             <SortDescending size={24} />
@@ -35,7 +37,7 @@ export function SortList({ title, items }: SortListProps) {
             <SortAscending size={24} />
           )}
         </button>
-      </Title>
+      </TitleContainer>
 
       <div>
         {sortedItems

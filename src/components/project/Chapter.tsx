@@ -31,7 +31,7 @@ export function Chapter({ number, date, variant = 'regular' }: ChapterProps) {
         <span className="text-sm">{formatDate}</span>
       </div>
       <span>
-        <Tag variant={variant}>{tagText}</Tag>
+        <Tag variant={variant} text={tagText} />
       </span>
     </Link>
   );

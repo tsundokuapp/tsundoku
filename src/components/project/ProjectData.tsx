@@ -65,7 +65,7 @@ export function ProjectData({
           <p className="mb-2 text-sm font-bold">Tags:</p>
           <p className="flex flex-row gap-2">
             {tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
+              <Tag key={tag} text={tag} />
             ))}
           </p>
         </div>
