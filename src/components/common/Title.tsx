@@ -1,18 +1,17 @@
-import type { ReactNode } from 'react';
+import type { ComponentProps } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-interface TitleProps {
+interface TitleProps extends ComponentProps<'div'> {
   title: string;
-  children?: ReactNode;
 }
-export function Title({ title, children }: TitleProps) {
+export function Title({ title, className, ...props }: TitleProps) {
   return (
-    <div className="flex flex-1 flex-row justify-between">
-      <div className="flex flex-row gap-2 text-2xl font-black">
-        <span className="text-sky-500">/</span>
-        <span className="uppercase">{title}</span>
-      </div>
-
-      {children}
+    <div
+      className={twMerge('flex flex-row gap-4 text-2xl font-black', className)}
+      {...props}
+    >
+      <span className="text-sky-500">/</span>
+      <span className="uppercase">{title}</span>
     </div>
   );
 }

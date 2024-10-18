@@ -24,6 +24,8 @@ export function Breadcrump() {
           paths.map((pathName, pathIndex) => {
             const pathLink = `/${paths.slice(0, pathIndex + 1).join('/')}`;
             const isLastItem = pathIndex === paths.length - 1;
+            pathName = pathName.replace(/-/g, ' ');
+
             return (
               <li
                 key={pathLink}

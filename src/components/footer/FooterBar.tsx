@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { FooterLink } from './FooterLink';
-export function Footer() {
+export function FooterBar() {
   return (
     <footer className="flex h-[120px] items-center justify-between bg-gray-300 px-[180px]">
       <div className="flex items-center">
