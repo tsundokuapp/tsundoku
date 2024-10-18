@@ -3,12 +3,12 @@ import { twMerge } from 'tailwind-merge';
 
 interface TagProps extends ComponentProps<'span'> {
   variant?: 'regular' | 'fill';
-  children: React.ReactNode;
+  text: string;
 }
 
 export function Tag({
   variant = 'regular',
-  children,
+  text,
   className,
   ...props
 }: TagProps) {
@@ -21,7 +21,7 @@ export function Tag({
       )}
       {...props}
     >
-      {children}
+      {text}
     </span>
   );
 }
