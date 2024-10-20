@@ -57,7 +57,7 @@ export default function Dashboard() {
     return (
       <div
         className={cn(
-          'flex flex-col items-center justify-between rounded-md bg-gray-50 p-4',
+          'flex flex-col items-center justify-between rounded-md bg-gray-50 p-4 dark:bg-gray-800',
           className,
         )}
       >
@@ -106,9 +106,10 @@ export default function Dashboard() {
       </Sidebar>
       <div className="flex flex-1 flex-col">
         <HeaderDashboard />
-        <CardDashboard className="flex-row gap-x-2 bg-transparent">
+
+        <CardDashboard className="dark:bg-tranparent flex-row gap-x-2 bg-transparent">
           <CardTransactions />
-          <div className="flex flex-col rounded-md bg-gray-50 p-4">
+          <div className="flex flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
             <div className="flex flex-row items-center justify-between">
               <TsunButton onClick={() => toogleChart()}>
                 Trocar Gráfico
@@ -123,6 +124,7 @@ export default function Dashboard() {
             </div>
             <DataCharts type={currentChart.type} data={currentChart.data} />
           </div>
+
           <CardDashboard className="gap-2">
             <CardInfo
               icon={<UsersFour size={24} />}
@@ -141,6 +143,7 @@ export default function Dashboard() {
             />
           </CardDashboard>
         </CardDashboard>
+
         <TableActivityStaff />
         <div>
           <ModalContent title="Gráficos Comparativos">

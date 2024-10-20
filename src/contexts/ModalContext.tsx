@@ -1,7 +1,13 @@
 'use client';
 
 import { X } from '@phosphor-icons/react/dist/ssr';
-import { useState, createContext, ReactNode, useContext } from 'react';
+import {
+  useState,
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+} from 'react';
 
 interface ModalProps {
   title?: string;
@@ -20,6 +26,20 @@ const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isModalOpen && event.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isModalOpen]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -27,12 +47,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  addEventListener('keydown', (event) => {
-    if (isModalOpen && event.key === 'Escape') {
-      closeModal();
-    }
-  });
 
   const ModalContent = ({ children, title }: ModalProps) => {
     return (

@@ -1,8 +1,9 @@
 import { DownloadSimple, UploadSimple } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
-import { BadgePosition } from './BadgePosition';
+import { colorByRole, StaffMembers } from '@/helpers/Util';
 
+import { BadgePosition } from './BadgePosition';
 interface LineTableProps {
   name: string;
   inHouse: string;
@@ -10,6 +11,7 @@ interface LineTableProps {
   activity: string;
   typeActivity: 'up' | 'down';
   date: string;
+  imageAvatar: string;
 }
 
 export const TableActivityStaff = () => {
@@ -20,7 +22,9 @@ export const TableActivityStaff = () => {
     activity,
     typeActivity,
     date,
+    imageAvatar,
   }: LineTableProps) => {
+    const color = colorByRole(position);
     return (
       <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
         <th
@@ -31,7 +35,7 @@ export const TableActivityStaff = () => {
             width={10}
             height={10}
             className="h-10 w-10 rounded-full"
-            src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=2866&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={imageAvatar}
             alt="Avatar"
           />
           <div className="ps-3">
@@ -40,7 +44,7 @@ export const TableActivityStaff = () => {
           </div>
         </th>
         <td className="px-6 py-4">
-          <BadgePosition position={position} />
+          <BadgePosition color={color} position={position} />
         </td>
         <td className="px-6 py-4">
           <div className="flex items-center">
@@ -91,50 +95,18 @@ export const TableActivityStaff = () => {
           </tr>
         </thead>
         <tbody>
-          <LineTable
-            name="Axios"
-            inHouse="Tsundoku"
-            position="Admin"
-            activity="Download: Raw Chihara 51"
-            typeActivity="down"
-            date="21/10/2024"
-          />
-
-          <LineTable
-            name="Axios"
-            inHouse="Tsundoku - Aprendiz"
-            position="Admin"
-            activity="Download: Raw Chihara 51"
-            typeActivity="down"
-            date="21/10/2024"
-          />
-
-          <LineTable
-            name="Axios"
-            inHouse="Tsundoku"
-            position="Admin"
-            activity="Download: Raw Chihara 51"
-            typeActivity="up"
-            date="21/10/2024"
-          />
-
-          <LineTable
-            name="Axios"
-            inHouse="Tsundoku"
-            position="Admin"
-            activity="Download: Raw Chihara 51"
-            typeActivity="up"
-            date="21/10/2024"
-          />
-
-          <LineTable
-            name="Axios"
-            inHouse="Parceiro - Scan Name"
-            position="Admin"
-            activity="Download: Raw Chihara 51"
-            typeActivity="down"
-            date="21/10/2024"
-          />
+          {StaffMembers.map((staff) => (
+            <LineTable
+              key={staff.id}
+              name={staff.name}
+              inHouse={staff.inHouse}
+              position={staff.role}
+              activity={staff.activity}
+              typeActivity={staff.typeActivity as 'up' | 'down'}
+              date={staff.date}
+              imageAvatar={staff.avatar}
+            />
+          ))}
         </tbody>
       </table>
     </div>

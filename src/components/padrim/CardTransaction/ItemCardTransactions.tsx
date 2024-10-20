@@ -37,14 +37,16 @@ export const ItemCardTransactions = ({
   return (
     <div
       className={cn(
-        'flex flex-row items-center justify-between p-4 odd:bg-gray-50 even:bg-white hover:cursor-pointer hover:bg-[#F0F0F0]',
+        'flex flex-row items-center justify-between p-4 odd:bg-gray-50 even:bg-white hover:cursor-pointer hover:bg-[#F0F0F0] dark:odd:bg-gray-800 dark:even:bg-gray-700',
         className,
       )}
     >
       <div className="flex flex-row items-center gap-3">
-        <span className={`rounded-full p-1 text-black`}>{iconStatusUser}</span>
+        <span className={`rounded-full p-1 text-black dark:text-white`}>
+          {iconStatusUser}
+        </span>
         <span>
-          <strong className="text-sm text-black">{user}</strong>
+          <strong className="text-sm text-black dark:text-white">{user}</strong>
           <p className="text-xs text-gray-400">{date}</p>
         </span>
       </div>
