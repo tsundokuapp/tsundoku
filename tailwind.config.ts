@@ -7,7 +7,18 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        primaryContrast: 'var(--color-primary-contrast)',
+        background: 'var(--color-background)',
+        error: 'var(--color-error)',
+        success: 'var(--color-success)',
+      },
+    },
+  },
   plugins: [],
 };
 export default config;

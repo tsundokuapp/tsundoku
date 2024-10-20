@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "@types/chart.js": "^2.9.41",
+    "chart.js": "^4.2.1",
     "next": "14.2.14",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
@@ -23,6 +26,7 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "clsx": "^2.1.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.14",
     "eslint-config-prettier": "^9.1.0",
@@ -37,6 +41,7 @@
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
+    "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.8.1"
