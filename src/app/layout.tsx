@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { ModalProvider } from '@/contexts/ModalContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,7 @@ export default function RootLayout({
           enableColorScheme
           enableSystem
         >
-          {children}
+          <ModalProvider>{children}</ModalProvider>
         </ThemeProvider>
       </body>
     </html>

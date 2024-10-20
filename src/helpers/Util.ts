@@ -43,3 +43,38 @@ export const years = (config: any) => {
 
   return values;
 };
+
+const ROLES = [
+  'Admin',
+  'Editor',
+  'Tradutor', // #ad1473
+  'Revisor',
+  'Moderador',
+  'Staff',
+  'User',
+  'Apoiador',
+  'Parceiro', // #a500f2
+];
+
+interface configRoles {
+  section: 'staff' | 'user' | 'partner' | 'all';
+}
+
+export const roles = (config: configRoles) => {
+  const cfg = config || {};
+  const values = [];
+  let i, value;
+
+  for (i = 0; i < ROLES.length; i++) {
+    value = ROLES[i];
+    if (cfg.section === 'staff' && i < 6) {
+      values.push(value);
+    } else if (cfg.section === 'user' && i > 5 && i < 8) {
+      values.push(value);
+    } else if (cfg.section === 'partner' && i === 8) {
+      values.push(value);
+    } else if (cfg.section === 'all') {
+      values.push(value);
+    }
+  }
+};

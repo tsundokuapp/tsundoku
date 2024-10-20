@@ -20,10 +20,11 @@ import {
   lineDataChartYear,
 } from '@/components/dashboard/chart/mockData';
 import { HeaderDashboard } from '@/components/dashboard/header/HeaderDashboard';
+import { TableActivityStaff } from '@/components/dashboard/table/TableActivity';
 import { CardTransactions } from '@/components/padrim/CardTransaction/CardTransactions';
 import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
+import { useModal } from '@/contexts/ModalContext';
 import { cn } from '@/helpers/twUtils';
-import { TableActivityStaff } from '@/components/dashboard/table/TableActivity';
 
 interface ChartProps {
   type: keyof ChartTypeRegistry;
@@ -42,6 +43,8 @@ export default function Dashboard() {
     data: lineDataChart,
   });
 
+  const { ModalContent, openModal } = useModal();
+
   const toogleChart = () => {
     if (currentChart.type === 'line') {
       setCurrentChart({ type: 'bar', data: lineDataChartYear });
@@ -54,7 +57,7 @@ export default function Dashboard() {
     return (
       <div
         className={cn(
-          'flex flex-col items-center justify-between rounded-md bg-[#F8FAFC] p-4',
+          'flex flex-col items-center justify-between rounded-md bg-gray-50 p-4',
           className,
         )}
       >
@@ -105,13 +108,13 @@ export default function Dashboard() {
         <HeaderDashboard />
         <CardDashboard className="flex-row gap-x-2 bg-transparent">
           <CardTransactions />
-          <div className="flex flex-col rounded-md bg-[#F8FAFC] p-4">
+          <div className="flex flex-col rounded-md bg-gray-50 p-4">
             <div className="flex flex-row items-center justify-between">
               <TsunButton onClick={() => toogleChart()}>
                 Trocar Gráfico
               </TsunButton>
               <TsunButton
-                onClick={() => toogleChart()}
+                onClick={openModal}
                 icon={<FrameCorners size={24} />}
                 sideIcon="right"
               >
@@ -125,23 +128,27 @@ export default function Dashboard() {
               icon={<UsersFour size={24} />}
               title="Total Visitas do Mês"
               data={{ value: '540' }}
-              textTooltip="Staffs com mais de 1 mês sem atividade, porcentagem quanto maior, pior."
             />
             <CardInfo
               icon={<UsersFour size={24} />}
               title="Total Visitas do Mês Anterior"
               data={{ value: '371' }}
-              textTooltip="Staffs com mais de 1 mês sem atividade, porcentagem quanto maior, pior."
             />
             <CardInfo
               icon={<UsersFour size={24} />}
               title="Total Visitas do Ano"
               data={{ value: '9341' }}
-              textTooltip="Staffs com mais de 1 mês sem atividade, porcentagem quanto maior, pior."
             />
           </CardDashboard>
         </CardDashboard>
         <TableActivityStaff />
+        <div>
+          <ModalContent title="Gráficos Comparativos">
+            <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8">
+              <DataCharts type={currentChart.type} data={currentChart.data} />
+            </div>
+          </ModalContent>
+        </div>
       </div>
     </main>
   );

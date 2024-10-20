@@ -42,7 +42,7 @@ const transactions: MockTransactions[] = [
 
 export const CardTransactions = () => {
   return (
-    <div className="flex h-full w-72 flex-col rounded-md bg-[#F8FAFC] p-1">
+    <div className="flex h-full w-72 flex-col rounded-md bg-gray-50 p-1">
       <header className="p-4">
         <h6 className="text-sm font-bold text-black">Padrinhos</h6>
         <p className="text-xs text-gray-400">Transações recentes</p>

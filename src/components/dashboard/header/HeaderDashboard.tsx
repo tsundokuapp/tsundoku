@@ -4,7 +4,7 @@ import { CardInfo } from '../cardInfo/CardInfo';
 
 export const HeaderDashboard = () => {
   return (
-    <div className="row flex h-64 justify-between rounded-b-2xl bg-background px-16 py-8">
+    <div className="row flex h-64 justify-between rounded-b-2xl bg-background px-16 py-8 transition-all dark:border-b-2 dark:border-b-slate-700">
       <div className="flex flex-col justify-between">
         <h1 className="text-4xl font-bold capitalize text-white">
           Bem-vindo, Usuário!

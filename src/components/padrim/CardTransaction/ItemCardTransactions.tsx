@@ -37,7 +37,7 @@ export const ItemCardTransactions = ({
   return (
     <div
       className={cn(
-        'flex flex-row items-center justify-between p-4 odd:bg-[#F8FAFC] even:bg-white hover:cursor-pointer hover:bg-[#F0F0F0]',
+        'flex flex-row items-center justify-between p-4 odd:bg-gray-50 even:bg-white hover:cursor-pointer hover:bg-[#F0F0F0]',
         className,
       )}
     >

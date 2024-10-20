@@ -9,7 +9,7 @@ interface CardInfoProps {
   title: string;
   data: { value: string };
   positive?: boolean;
-  textTooltip: string;
+  textTooltip?: string;
 }
 
 export const CardInfo = ({
@@ -23,7 +23,11 @@ export const CardInfo = ({
     <div className="flex w-full flex-col justify-between gap-5 rounded-md bg-primaryContrast px-4 py-4">
       <header className="flex flex-row items-center justify-start gap-1">
         <div className="mx-2 flex rounded-full bg-slate-900 p-2 text-white">
-          <Tooltip text={textTooltip}>{icon as JSX.Element}</Tooltip>
+          {textTooltip ? (
+            <Tooltip text={textTooltip}>{icon as JSX.Element}</Tooltip>
+          ) : (
+            (icon as JSX.Element)
+          )}
         </div>
         <p className="max-w-20 text-wrap text-sm text-white">{title}</p>
       </header>
