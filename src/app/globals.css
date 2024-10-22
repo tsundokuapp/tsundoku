@@ -4,11 +4,17 @@
 
 :root {
   --transition-duration: 100ms;
+  --color-primary: #0284C7;
+  --color-primary-contrast: #334155;
+  --color-secondary: #FF0074;
+  --color-background: #0F172A;
+  --color-error: #b91c1c;
+  --color-success: #16a34a;
 }
 
 /* Adiciona uma transição para quando o tema mudar */
 .transition-theme {
-  transition: transform var(--transition-duration) ease-in-out, 
+  transition: transform var(--transition-duration) ease-in-out,
               opacity var(--transition-duration) ease-in-out;
   transform-origin: top;
 }

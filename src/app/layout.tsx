@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { ModalProvider } from '@/contexts/ModalContext';
+import { SearchBarProvider } from '@/contexts/SearchBarContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +31,9 @@ export default function RootLayout({
           enableColorScheme
           enableSystem
         >
-          {children}
+          <SearchBarProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </SearchBarProvider>
         </ThemeProvider>
       </body>
     </html>
