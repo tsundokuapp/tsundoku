@@ -19,7 +19,7 @@ export function HeaderLink({ text, action = '/', ...props }: HeaderLinkProps) {
       {...props}
       href={action}
       className={
-        'group relative text-lg font-bold uppercase text-white transition-all duration-300'
+        'group relative text-sm font-bold uppercase text-white transition-all duration-300 lg:text-lg'
       }
     >
       {text}

@@ -1,14 +1,22 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+
+import { cn } from '@/helpers/twUtils';
 
 interface HeaderIconProps {
   action?: string;
   children: ReactNode;
   onClick?: () => void;
+  className?: CSSProperties | string;
 }
-export function HeaderIcon({ action, children, ...props }: HeaderIconProps) {
+export function HeaderIcon({
+  action,
+  children,
+  className,
+  ...props
+}: HeaderIconProps) {
   return (
-    <>
+    <div className={cn(className)}>
       {action ? (
         <Link href={action}>
           <span
@@ -26,6 +34,6 @@ export function HeaderIcon({ action, children, ...props }: HeaderIconProps) {
           {children}
         </span>
       )}
-    </>
+    </div>
   );
 }

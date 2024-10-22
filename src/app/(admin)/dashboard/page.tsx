@@ -107,9 +107,9 @@ export default function Dashboard() {
       <div className="flex flex-1 flex-col">
         <HeaderDashboard />
 
-        <CardDashboard className="dark:bg-tranparent flex-row gap-x-2 bg-transparent">
+        <CardDashboard className="dark:bg-tranparent w-full flex-row gap-x-2 bg-transparent">
           <CardTransactions />
-          <div className="flex flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="flex-1 flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
             <div className="flex flex-row items-center justify-between">
               <TsunButton onClick={() => toogleChart()}>
                 Trocar Gráfico
@@ -125,7 +125,7 @@ export default function Dashboard() {
             <DataCharts type={currentChart.type} data={currentChart.data} />
           </div>
 
-          <CardDashboard className="gap-2">
+          <CardDashboard className="hidden gap-2 lg:flex">
             <CardInfo
               icon={<UsersFour size={24} />}
               title="Total Visitas do Mês"
@@ -147,7 +147,7 @@ export default function Dashboard() {
         <TableActivityStaff />
         <div>
           <ModalContent title="Gráficos Comparativos">
-            <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8">
+            <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8 dark:bg-gray-800">
               <DataCharts type={currentChart.type} data={currentChart.data} />
             </div>
           </ModalContent>

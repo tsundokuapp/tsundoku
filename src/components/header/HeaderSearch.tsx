@@ -3,7 +3,7 @@ export function HeaderSearch({ ...props }) {
     <form className="flex w-[320px] items-center gap-3 rounded-full bg-slate-700 px-5 py-3 ring-slate-900">
       <input
         type="text"
-        placeholder="Buscar obra..."
+        placeholder="Buscar..."
         className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
         {...props}
       />

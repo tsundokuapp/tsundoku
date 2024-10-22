@@ -45,52 +45,64 @@ export const years = (config: any) => {
   return values;
 };
 
-// -------------------------------
+export const formatDate = (
+  date: Date,
+  extense: boolean,
+  includesDayOfWeek: boolean,
+) => {
+  const day = date.getDate();
+  const monthNumber = date.getMonth() + 1;
+  const dayOfWeek = [
+    'Domingo',
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado',
+  ][date.getDay()];
+  const month = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ][date.getMonth()];
+  const year = date.getFullYear();
 
-const ROLES = [
-  'Admin', // #FFFFFF
-  'Editor', // #3498DB -> confirmado
-  'Tradutor', // #ad1473 -> confirmado
-  'Revisor', // #9B59B6 -> confirmado
-  'Moderador', // #2FF438 -> confirmado
-  'Staff', // #fc2ccc
-  'User', // #faf234
-  'Apoiador', // #f50057
-  'Parceiro', // #a500f2 -> confirmado
-];
+  const stringForExtense = extense
+    ? `${day} de ${month} de ${year}`
+    : `${day}/${monthNumber}/${year}`;
+
+  const result = `${includesDayOfWeek ? `${dayOfWeek}, ` : ''} ${stringForExtense}`;
+
+  return result;
+};
+
+// -------------------------------
 
 export const colorByRole = (role: string) => {
   const rolesMap = {
-    Admin: '#FFD700',
-    Editor: '#3498DB',
-    Tradutor: '#ad1473',
-    Revisor: '#9B59B6',
-    Moderador: '#2FF438',
-    Staff: '#fc2ccc',
-    User: '#faf234',
-    Apoiador: '#f50057',
-    Parceiro: '#a500f2',
+    // Ordernado por importância
+    Admin: '#D4AF37',
+    Staff: '##1e40af',
+    Moderador: '#92400e',
+    Tradutor: '#9d174d',
+    Revisor: '#86198f',
+    Editor: '#0284c7',
+    Parceiro: '#4b5563',
+    Apoiador: '#065f46',
+    User: '#3f6212',
   };
+
   return rolesMap[role as keyof typeof rolesMap];
-};
-
-export const roles = (config: any) => {
-  const cfg = config || {};
-  const values = [];
-  let i, value;
-
-  for (i = 0; i < ROLES.length; i++) {
-    value = ROLES[i];
-    if (cfg.section === 'staff' && i < 6) {
-      values.push(value);
-    } else if (cfg.section === 'user' && i > 5 && i < 8) {
-      values.push(value);
-    } else if (cfg.section === 'partner' && i === 8) {
-      values.push(value);
-    } else if (cfg.section === 'all') {
-      values.push(value);
-    }
-  }
 };
 
 export const StaffMembers = [

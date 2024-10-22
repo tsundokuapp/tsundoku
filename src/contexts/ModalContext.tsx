@@ -29,6 +29,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (isModalOpen && event.key === 'Escape') {
+        event.preventDefault();
         closeModal();
       }
     };
@@ -68,7 +69,11 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     return (
       <header className="flex flex-col items-center justify-between">
         <div className="flex h-10 w-full flex-1 flex-row justify-between gap-8">
-          {title && <h1 className="text-2xl font-bold text-black">{title}</h1>}
+          {title && (
+            <h1 className="text-2xl font-bold text-black dark:text-white">
+              {title}
+            </h1>
+          )}
 
           <button onClick={closeModal}>
             <X size={24} />
@@ -81,7 +86,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   const ModalWrapper = ({ children }: { children: ReactNode }) => {
     return (
-      <div className="flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-white p-8">
+      <div className="flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-white p-8 dark:bg-gray-900">
         {children}
       </div>
     );

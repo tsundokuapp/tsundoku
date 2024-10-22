@@ -7,6 +7,8 @@ import { ReactNode, useContext, useState, createContext } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
+import { LogoLink } from '../common/logoLink/LogoLink';
+
 interface SidebarProps {
   children?: ReactNode;
 }
@@ -42,7 +44,7 @@ export function Sidebar({ children }: SidebarProps) {
               },
             )}
           >
-            <p>Área Admin</p>
+            <LogoLink className="text-xl" />
           </span>
           <button
             onClick={() => setExpanded((prev) => !prev)}

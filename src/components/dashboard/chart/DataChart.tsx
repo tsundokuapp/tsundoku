@@ -22,7 +22,7 @@ export const DataCharts = (props: ChartConfiguration) => {
     }
   }, [data]);
 
-  return <canvas ref={chartRef} className="h-[23rem]" />;
+  return <canvas ref={chartRef} className="max-h-[23rem]" />;
 };
 
 Chart.register(...registerables);

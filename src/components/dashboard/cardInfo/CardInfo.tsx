@@ -20,9 +20,9 @@ export const CardInfo = ({
   textTooltip,
 }: CardInfoProps) => {
   return (
-    <div className="flex w-full flex-col justify-between gap-5 rounded-md bg-primaryContrast px-4 py-4">
+    <div className="flex w-full flex-row justify-between gap-5 rounded-md bg-primaryContrast p-2 md:flex-col md:p-4">
       <header className="flex flex-row items-center justify-start gap-1">
-        <div className="mx-2 flex rounded-full bg-slate-900 p-2 text-white">
+        <div className="mx-2 hidden rounded-full bg-slate-900 p-2 text-white md:flex">
           {textTooltip ? (
             <Tooltip text={textTooltip}>{icon as JSX.Element}</Tooltip>
           ) : (
@@ -33,8 +33,10 @@ export const CardInfo = ({
       </header>
 
       <div className="ml-4 flex flex-row items-center justify-between">
-        <p className="text-3xl font-bold text-white">{data.value}</p>
-        <div className="flex justify-center">
+        <p className="text-2xl font-bold text-white md:text-3xl">
+          {data.value}
+        </p>
+        <div className="hidden justify-center md:flex">
           <span>
             {
               <ArrowFatUp
