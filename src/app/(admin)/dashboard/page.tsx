@@ -20,7 +20,7 @@ import {
   lineDataChartYear,
 } from '@/components/dashboard/chart/mockData';
 import { HeaderDashboard } from '@/components/dashboard/header/HeaderDashboard';
-import { TableActivityStaff } from '@/components/dashboard/table/TableActivity';
+import { TableActivityStaff } from '@/components/dashboard/table/TableActivityStaff';
 import { CardTransactions } from '@/components/padrim/CardTransaction/CardTransactions';
 import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
 import { useModal } from '@/contexts/ModalContext';
