@@ -32,8 +32,8 @@ export function Sidebar({ children }: SidebarProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <aside className="h-full">
-      <nav className="flex h-full flex-col border-r bg-slate-700 shadow-sm">
+    <aside className="fixed z-50 h-full">
+      <nav className="flex h-dvh flex-col border-r bg-slate-700">
         <div className="item-center flex justify-between p-4 pb-2">
           <span
             className={cn(
