@@ -1,9 +1,9 @@
 import { DownloadSimple, UploadSimple } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
+import { BadgeRole } from '@/components/badge/BadgeRole';
 import { colorByRole, StaffMembers } from '@/helpers/Util';
 
-import { BadgePosition } from './BadgePosition';
 interface LineTableProps {
   name: string;
   inHouse: string;
@@ -43,11 +43,11 @@ export const TableActivityStaff = () => {
             <div className="font-normal text-gray-500">{inHouse}</div>
           </div>
           <div className="ml-4 flex font-light md:hidden">
-            <BadgePosition color={color} position={position} />
+            <BadgeRole color={color} role={position} />
           </div>
         </th>
         <td className="px-auto hidden py-4 md:table-cell">
-          <BadgePosition color={color} position={position} />
+          <BadgeRole color={color} role={position} />
         </td>
         <td className="px-auto py-4">
           <div className="flex items-center">
