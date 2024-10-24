@@ -1,15 +1,15 @@
 interface BadgePositionProps {
-  position: string;
+  role: string;
   color: string;
 }
 
-export const BadgePosition = ({ position, color }: BadgePositionProps) => {
+export const BadgeRole = ({ role, color }: BadgePositionProps) => {
   return (
     <span
       className="rounded-md px-2 py-1 text-xs text-black"
       style={{ background: color }}
     >
-      {position}
+      {role}
     </span>
   );
 };
