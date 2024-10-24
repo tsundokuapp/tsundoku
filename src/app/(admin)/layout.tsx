@@ -7,7 +7,7 @@ import { HeaderBar } from '@/components/header/HeaderBar';
 export default function webappLayout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto grid min-h-screen w-full max-w-[1600px] grid-rows-[min-content_1fr_min-content]">
-      <HeaderBar />
+      <HeaderBar className="border-b-2 border-b-slate-700" />
       <main className="flex flex-col font-normal">{children}</main>
       <ScrollToTopButton />
       <FooterBar />
