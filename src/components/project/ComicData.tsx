@@ -7,12 +7,12 @@ import { Chapter, type ChapterProps } from './Chapter';
 import { Title } from '../common/Title';
 import { TitleContainer } from '../common/TitleContainer';
 
-interface SortListProps {
+interface ComicDataProps {
   title: string;
   items: ChapterProps[];
 }
 
-export function SortList({ title, items }: SortListProps) {
+export function ComicData({ title, items }: ComicDataProps) {
   const [sortedItems, setSortedItems] = useState<ChapterProps[]>(items);
   const [isAscending, setIsAscending] = useState<boolean>(false);
 

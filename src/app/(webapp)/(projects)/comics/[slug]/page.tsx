@@ -1,14 +1,14 @@
 import type { ChapterProps } from '@/components/project/Chapter';
+import { ComicData } from '@/components/project/ComicData';
 import { ProjectData } from '@/components/project/ProjectData';
-import { SortList } from '@/components/project/SortList';
 
-interface ComicsProps {
+interface ComicProps {
   params: {
     slug: string;
   };
 }
 
-export default function Comics(props: ComicsProps) {
+export default function Comic(props: ComicProps) {
   const exampleChapterList: ChapterProps[] = [
     { number: '1', date: new Date('2019-09-01'), variant: 'fill' },
     { number: '2', date: new Date('2019-10-01'), variant: 'fill' },
@@ -52,7 +52,7 @@ export default function Comics(props: ComicsProps) {
         tags={['Ação', 'Aventura', 'Comédia', 'Drama', 'Fantasia', 'Romance']}
       />
 
-      <SortList title="Mangá" items={exampleChapterList} />
+      <ComicData title="Mangá" items={exampleChapterList} />
     </div>
   );
 }
