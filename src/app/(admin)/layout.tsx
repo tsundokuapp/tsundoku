@@ -12,7 +12,7 @@ import { ScrollToTopButton } from '@/components/common/ScrollToTopButton';
 import { HeaderBar } from '@/components/header/HeaderBar';
 import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
 
-export default function webappLayout({ children }: { children: ReactNode }) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-row">
       <Sidebar>

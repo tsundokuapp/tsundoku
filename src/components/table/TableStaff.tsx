@@ -1,10 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { CSSProperties } from 'react';
 
 import { BadgeRole } from '@/components/badge/BadgeRole';
 import { colorByRole, StaffMembers } from '@/helpers/Util';
 import { cn } from '@/helpers/twUtils';
+
+interface TableStaffProps {
+  withModal: () => void;
+}
 
 interface LineTableProps {
   name: string;
@@ -17,6 +22,7 @@ interface LineTableProps {
 interface TitleColProps {
   title: string;
   reorder: boolean;
+  className?: CSSProperties | string;
 }
 
 interface CelNavegationProps {
@@ -26,7 +32,7 @@ interface CelNavegationProps {
   active?: boolean;
 }
 
-export const TableStaff = () => {
+export const TableStaff = ({ withModal }: TableStaffProps) => {
   const LineTable = ({
     name,
     inHouse,
@@ -37,7 +43,7 @@ export const TableStaff = () => {
     const color = colorByRole(position);
     return (
       <tr
-        onClick={() => alert(name)}
+        onClick={() => withModal()}
         className="cursor-pointer border-b bg-white transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <th
@@ -81,9 +87,9 @@ export const TableStaff = () => {
     );
   };
 
-  const TitleCol = ({ title, reorder }: TitleColProps) => {
+  const TitleCol = ({ title, reorder, className }: TitleColProps) => {
     return (
-      <th scope="col" className="py-3 pl-3">
+      <th scope="col" className={cn('py-3 pl-3', className)}>
         <div className="flex items-center">
           {title}
           {reorder && (
@@ -135,7 +141,7 @@ export const TableStaff = () => {
         className="flex-column flex flex-wrap items-center justify-between pt-4 dark:bg-gray-900 md:flex-row"
         aria-label="Table navigation"
       >
-        <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
+        <span className="mb-4 hidden w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:block md:w-auto">
           Mostrando{' '}
           <span className="font-semibold text-gray-900 dark:text-white">
             1-10
@@ -180,7 +186,7 @@ export const TableStaff = () => {
           <input
             type="text"
             id="table-search"
-            className="block w-80 rounded-lg border border-gray-300 bg-gray-50 py-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            className="block w-72 rounded-lg border border-gray-300 bg-gray-50 py-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             placeholder="Buscar por nome..."
           />
         </div>
@@ -200,7 +206,7 @@ export const TableStaff = () => {
           <h5 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
             Staffs
           </h5>
-          <p className="text-sm text-gray-400 dark:text-gray-400">
+          <p className="hidden text-sm text-gray-400 dark:text-gray-400 md:block">
             Listagem de membros, inclui parceiros e moderadores.
           </p>
         </div>
@@ -212,10 +218,14 @@ export const TableStaff = () => {
         <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <TitleCol title="Nome" reorder />
-            <TitleCol title="Cargo" reorder />
+            <TitleCol title="Cargo" reorder className="hidden md:table-cell" />
             <TitleCol title="Permissões" reorder />
-            <TitleCol title="Pontos" reorder />
-            <TitleCol title="Data Entrada" reorder />
+            <TitleCol title="Pontos" reorder className="hidden md:table-cell" />
+            <TitleCol
+              title="Data Entrada"
+              reorder
+              className="hidden lg:table-cell"
+            />
           </tr>
         </thead>
         <tbody>
