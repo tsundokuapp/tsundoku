@@ -2,16 +2,25 @@
 import { BookOpenText, DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 
 import { Tag } from '../common/Tag';
 
-export interface ChapterProps {
+export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
   number: string;
   date: Date;
   variant?: 'regular' | 'fill';
+  border?: 'bottom' | 'full';
 }
 
-export function Chapter({ number, date, variant = 'regular' }: ChapterProps) {
+export function Chapter({
+  number,
+  date,
+  variant = 'regular',
+  border = 'bottom',
+  className,
+  ...props
+}: ChapterProps) {
   // Caso o back-end forneça o link, não é necessário usar o hook usePathname e nem 'use client'
   const pathname = usePathname();
   const chapterLink = `${pathname}/${number}`;
@@ -20,8 +29,13 @@ export function Chapter({ number, date, variant = 'regular' }: ChapterProps) {
 
   return (
     <Link
+      data-border={border}
       href={chapterLink}
-      className="flex flex-row items-center justify-between border-b border-slate-200 px-6 py-4 hover:bg-slate-100 dark:border-slate-800 dark:hover:bg-slate-800"
+      className={twMerge(
+        'flex flex-row items-center justify-between border-slate-200 px-6 py-4 hover:bg-slate-100 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b dark:border-slate-800 dark:hover:bg-slate-800 data-[border=full]:dark:bg-slate-800 data-[border=full]:dark:hover:bg-slate-900',
+        className,
+      )}
+      {...props}
     >
       <div className="flex flex-row items-center gap-2">
         <BookOpenText size={24} weight={variant} />
