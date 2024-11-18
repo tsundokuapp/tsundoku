@@ -32,7 +32,7 @@ export function Chapter({
       data-border={border}
       href={chapterLink}
       className={twMerge(
-        'flex flex-row items-center justify-between border-slate-200 px-6 py-4 hover:bg-slate-100 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b dark:border-slate-800 dark:hover:bg-slate-800 data-[border=full]:dark:bg-slate-800 data-[border=full]:dark:hover:bg-slate-900',
+        'flex flex-row items-center justify-between border-slate-200 px-6 py-4 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b hover:bg-slate-100 dark:border-slate-800 data-[border=full]:dark:bg-slate-800 dark:hover:bg-slate-800 data-[border=full]:dark:hover:bg-slate-900',
         className,
       )}
       {...props}
