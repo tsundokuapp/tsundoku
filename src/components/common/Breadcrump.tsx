@@ -3,13 +3,36 @@
 import { DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { ComponentProps } from 'react';
 
-export function Breadcrump() {
+interface BreadcrumpProps extends ComponentProps<'nav'> {
+  removeList?: string[];
+  sufixList?: string[];
+  className?: string;
+}
+
+export function Breadcrump({
+  removeList = [],
+  sufixList = [],
+  className,
+  ...props
+}: BreadcrumpProps) {
   const pathname = usePathname();
   const paths = pathname.split('/').filter((x) => x.trim().length > 0);
 
+  removeList.forEach((removeItem) => {
+    const index = paths.indexOf(removeItem);
+    if (index > -1) {
+      paths.splice(index, 1);
+    }
+  });
+
+  while (sufixList.length < paths.length) {
+    sufixList.unshift('');
+  }
+
   return (
-    <nav>
+    <nav className={className} {...props}>
       <ol className="flex flex-row gap-4">
         <li>
           <Link
@@ -25,6 +48,11 @@ export function Breadcrump() {
             const pathLink = `/${paths.slice(0, pathIndex + 1).join('/')}`;
             const isLastItem = pathIndex === paths.length - 1;
             pathName = pathName.replace(/-/g, ' ');
+            const pathNameWithSuffix = `${sufixList[pathIndex]} ${pathName}`;
+
+            if (removeList.includes(pathName)) {
+              return null;
+            }
 
             return (
               <li
@@ -34,13 +62,13 @@ export function Breadcrump() {
                 <DotOutline size={24} weight="fill" />
 
                 {isLastItem ? (
-                  <span className="font-bold">{pathName}</span>
+                  <span className="font-bold">{pathNameWithSuffix}</span>
                 ) : (
                   <Link
                     href={pathLink}
                     className="hover:underline hover:decoration-sky-500 hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
                   >
-                    {pathName}
+                    {pathNameWithSuffix}
                   </Link>
                 )}
               </li>
