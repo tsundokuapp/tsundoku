@@ -14,16 +14,16 @@ export function GenerateSinglePageList({
   const pageListGap = 1;
 
   for (let index = 0; index < pageListTotalItems; index++) {
-    const PageListItemIndex: number = index + pageListGap;
+    const pageListItemIndex: number = index + pageListGap;
 
-    const PageListItemValue: string = GetPageLabelOnSingleList({
-      showPage: PageListItemIndex,
+    const pageListItemValue: string = GetPageLabelOnSingleList({
+      showPage: pageListItemIndex,
       totalPages,
     });
 
     pageList.push({
-      PageListItemIndex,
-      PageListItemLabel: PageListItemValue,
+      pageListItemIndex,
+      pageListItemLabel: pageListItemValue,
     });
   }
   return pageList;

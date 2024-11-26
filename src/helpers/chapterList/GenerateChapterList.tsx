@@ -14,13 +14,13 @@ export function GenerateChapterList({
   const chapterListGap = 1;
 
   for (let index = 0; index < chapterListTotalItems; index++) {
-    const ChapterListItemIndex: number = index + chapterListGap;
+    const chapterListItemIndex: number = index + chapterListGap;
 
-    const ChapterListItemUrl = `${projectSlug}/${ChapterListItemIndex}`;
+    const chapterListItemUrl = `${projectSlug}/${chapterListItemIndex}`;
 
     chapterList.push({
-      ChapterListItemIndex,
-      ChapterListItemUrl,
+      chapterListItemIndex,
+      chapterListItemUrl,
     });
   }
   return chapterList;

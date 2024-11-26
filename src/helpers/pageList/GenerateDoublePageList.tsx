@@ -13,18 +13,18 @@ export function GenerateDoublePageList({
 
   // Itera apenas pelos valores ímpares até o total de páginas
   for (
-    let PageListItemIndex = 1;
-    PageListItemIndex <= totalPages;
-    PageListItemIndex += 2
+    let pageListItemIndex = 1;
+    pageListItemIndex <= totalPages;
+    pageListItemIndex += 2
   ) {
-    const PageListItemValue: string = GetPageLabelOnDoubleList({
-      showPage: PageListItemIndex,
+    const pageListItemValue: string = GetPageLabelOnDoubleList({
+      showPage: pageListItemIndex,
       totalPages,
     });
 
     pageList.push({
-      PageListItemIndex,
-      PageListItemLabel: PageListItemValue,
+      pageListItemIndex,
+      pageListItemLabel: pageListItemValue,
     });
   }
 
