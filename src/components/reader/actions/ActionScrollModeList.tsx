@@ -38,6 +38,7 @@ export function ActionScrollModeList({
           action={() => {
             handleScrollModeChange(scrollModeListItem.value);
           }}
+          selected={scrollModeListItem.value === scrollMode}
         />
       ))}
     </DropdownContainer>
