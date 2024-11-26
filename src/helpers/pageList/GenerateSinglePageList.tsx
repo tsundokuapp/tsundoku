@@ -1,4 +1,4 @@
-import type { PageListItem } from '@/@types/PageListItem';
+import type { IPageListItem } from '@/@types/PageListItem';
 
 import { GetPageLabelOnSingleList } from './GetPageLabelOnSingleList';
 
@@ -8,22 +8,22 @@ interface GenerateSinglePageListProps {
 
 export function GenerateSinglePageList({
   totalPages,
-}: GenerateSinglePageListProps): PageListItem[] {
-  const pageList: PageListItem[] = [];
+}: GenerateSinglePageListProps): IPageListItem[] {
+  const pageList: IPageListItem[] = [];
   const pageListTotalItems = totalPages;
   const pageListGap = 1;
 
   for (let index = 0; index < pageListTotalItems; index++) {
-    const pageListItemIndex: number = index + pageListGap;
+    const PageListItemIndex: number = index + pageListGap;
 
-    const pageListItemValue: string = GetPageLabelOnSingleList({
-      showPage: pageListItemIndex,
+    const PageListItemValue: string = GetPageLabelOnSingleList({
+      showPage: PageListItemIndex,
       totalPages,
     });
 
     pageList.push({
-      pageListItemIndex,
-      pageListItemLabel: pageListItemValue,
+      PageListItemIndex,
+      PageListItemLabel: PageListItemValue,
     });
   }
   return pageList;

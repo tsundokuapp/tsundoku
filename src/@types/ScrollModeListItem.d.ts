@@ -1,6 +1,6 @@
 import type { ScrollMode } from './ScrollMode';
 
-export interface ScrollModeListItem {
+export interface IScrollModeListItem {
   label: string;
   value: ScrollMode;
 }

@@ -1,4 +1,4 @@
-import type { PageListItem } from '@/@types/PageListItem';
+import type { IPageListItem } from '@/@types/PageListItem';
 
 import { GetPageLabelOnDoubleList } from './GetPageLabelOnDoubleList';
 
@@ -8,23 +8,23 @@ interface GenerateDoublePageListProps {
 
 export function GenerateDoublePageList({
   totalPages,
-}: GenerateDoublePageListProps): PageListItem[] {
-  const pageList: PageListItem[] = [];
+}: GenerateDoublePageListProps): IPageListItem[] {
+  const pageList: IPageListItem[] = [];
 
   // Itera apenas pelos valores ímpares até o total de páginas
   for (
-    let pageListItemIndex = 1;
-    pageListItemIndex <= totalPages;
-    pageListItemIndex += 2
+    let PageListItemIndex = 1;
+    PageListItemIndex <= totalPages;
+    PageListItemIndex += 2
   ) {
-    const pageListItemValue: string = GetPageLabelOnDoubleList({
-      showPage: pageListItemIndex,
+    const PageListItemValue: string = GetPageLabelOnDoubleList({
+      showPage: PageListItemIndex,
       totalPages,
     });
 
     pageList.push({
-      pageListItemIndex,
-      pageListItemLabel: pageListItemValue,
+      PageListItemIndex,
+      PageListItemLabel: PageListItemValue,
     });
   }
 

@@ -1,4 +1,4 @@
-export interface ChapterListItem {
-  chapterListItemIndex: number;
-  chapterListItemUrl: string;
+export interface IChapterListItem {
+  ChapterListItemIndex: number;
+  ChapterListItemUrl: string;
 }

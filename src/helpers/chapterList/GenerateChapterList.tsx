@@ -1,4 +1,4 @@
-import type { ChapterListItem } from '@/@types/ChapterListItem';
+import type { IChapterListItem } from '@/@types/ChapterListItem';
 
 interface GenerateChapterListProps {
   projectSlug: string;
@@ -8,19 +8,19 @@ interface GenerateChapterListProps {
 export function GenerateChapterList({
   projectSlug,
   totalChapters,
-}: GenerateChapterListProps): ChapterListItem[] {
-  const chapterList: ChapterListItem[] = [];
+}: GenerateChapterListProps): IChapterListItem[] {
+  const chapterList: IChapterListItem[] = [];
   const chapterListTotalItems = totalChapters;
   const chapterListGap = 1;
 
   for (let index = 0; index < chapterListTotalItems; index++) {
-    const chapterListItemIndex: number = index + chapterListGap;
+    const ChapterListItemIndex: number = index + chapterListGap;
 
-    const chapterListItemUrl = `${projectSlug}/${chapterListItemIndex}`;
+    const ChapterListItemUrl = `${projectSlug}/${ChapterListItemIndex}`;
 
     chapterList.push({
-      chapterListItemIndex,
-      chapterListItemUrl,
+      ChapterListItemIndex,
+      ChapterListItemUrl,
     });
   }
   return chapterList;
