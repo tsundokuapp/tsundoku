@@ -12,7 +12,7 @@ import { ComicInfiniteView } from '@/components/reader/comic/ComicInfiniteView';
 import { ComicSingleView } from '@/components/reader/comic/ComicSingleView';
 import { ProgressBar } from '@/components/reader/utils/ProgressBar';
 import { fakeComicChapter } from '@/fakeApi/comicChapter';
-import { ScrollPage } from '@/helpers/scrollPage';
+import { ScrollPage } from '@/helpers/ScrollPage';
 
 interface ComicReaderProps {
   params: {
