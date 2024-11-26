@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import type { ScrollMode } from '@/@types/ScrollMode';
 import { ActionsBarContainer } from '@/components/reader/ActionsBarContainer';
@@ -12,6 +12,7 @@ import { ComicInfiniteView } from '@/components/reader/comic/ComicInfiniteView';
 import { ComicSingleView } from '@/components/reader/comic/ComicSingleView';
 import { ProgressBar } from '@/components/reader/utils/ProgressBar';
 import { fakeComicChapter } from '@/fakeApi/comicChapter';
+import { ScrollPage } from '@/helpers/scrollPage';
 
 interface ComicReaderProps {
   params: {
@@ -35,21 +36,26 @@ export default function ComicReader({ images }: ComicReaderProps) {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    if (scrollMode === 'infinite' && comicContainerRef.current) {
-      const targetElement = comicContainerRef.current.querySelector(
-        `#page-${page}`,
-      );
-      if (targetElement) {
-        const offsetTop =
-          targetElement.getBoundingClientRect().top + window.scrollY - 72;
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-      }
-    }
+    ScrollPage(scrollMode, comicContainerRef, page);
   };
 
   const handlePageOnRead = (page: number) => {
     setCurrentPage(page);
   };
+
+  // Fix double scroll mode when currentPage is even
+  useEffect(() => {
+    if (scrollMode === 'double' && currentPage % 2 === 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [scrollMode, currentPage]);
+
+  // Scroll to the current page when the scroll mode changes
+  useEffect(() => {
+    if (scrollMode === 'infinite' && comicContainerRef.current) {
+      ScrollPage(scrollMode, comicContainerRef, currentPage);
+    }
+  }, [scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div ref={comicContainerRef} className="relative">
