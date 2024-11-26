@@ -53,7 +53,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
   // Scroll to the current page when the scroll mode changes
   useEffect(() => {
     if (scrollMode === 'infinite' && comicContainerRef.current) {
-      ScrollPage(scrollMode, comicContainerRef, currentPage);
+      ScrollPage(scrollMode, comicContainerRef, currentPage, 'instant');
     }
   }, [scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
 

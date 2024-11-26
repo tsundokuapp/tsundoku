@@ -2,6 +2,7 @@ export function ScrollPage(
   scrollMode: string,
   comicContainerRef: React.RefObject<HTMLElement>,
   page: number,
+  behavior: 'smooth' | 'instant' | 'auto' = 'smooth',
 ) {
   if (scrollMode === 'infinite' && comicContainerRef.current) {
     const targetElement = comicContainerRef.current.querySelector(
@@ -10,7 +11,7 @@ export function ScrollPage(
     if (targetElement) {
       const offsetTop =
         targetElement.getBoundingClientRect().top + window.scrollY - 72;
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      window.scrollTo({ top: offsetTop, behavior });
     }
   }
 }
