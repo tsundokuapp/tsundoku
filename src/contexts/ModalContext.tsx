@@ -1,6 +1,7 @@
 'use client';
 
 import { X } from '@phosphor-icons/react/dist/ssr';
+import { motion } from 'motion/react';
 import {
   useState,
   createContext,
@@ -19,7 +20,7 @@ interface ModalContextProps {
   isModalOpen: boolean;
   openModal: () => void;
   closeModal: () => void;
-  ModalContent: ({ children, title, side }: ModalProps) => ReactNode;
+  Modal: ({ children, title, side }: ModalProps) => ReactNode;
 }
 
 const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);
@@ -50,60 +51,48 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsModalOpen(false);
   };
 
-  const ModalContent = ({ children, title, side }: ModalProps) => {
+  const Modal = ({ children, title }: ModalProps) => {
     return (
-      isModalOpen && (
-        <div
-          className="fixed bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center"
-          style={{ background: 'rgba(0, 0, 0, 0.5)' }}
-          onClick={closeModal}
-        >
-          <ModalWrapper>
-            {side ? (
-              <ModalSide>{children}</ModalSide>
-            ) : (
-              <Modal title={title}>{children}</Modal>
-            )}
-          </ModalWrapper>
-        </div>
-      )
+      <>
+        {isModalOpen ? (
+          <div
+            className="fixed bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center"
+            style={{
+              background: 'rgba(0, 0, 0, 0.5)',
+              justifyContent: 'flex-end',
+            }}
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ opacity: 1, x: 300 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 1, x: 300 }}
+              transition={{ duration: 0.3, type: 'easeInOut' }}
+            >
+              <div
+                className="flex h-full min-h-96 w-full max-w-[700px] flex-col gap-4 rounded-lg border-2 bg-white p-4 dark:border-slate-700 dark:bg-slate-900"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="flex items-center justify-between border-b-[1px]">
+                  <h2 className="dark:text-default-textDark text-xl font-bold">
+                    {title}
+                  </h2>
+                  <button onClick={closeModal}>
+                    <X size={24} className="transition hover:scale-125" />
+                  </button>
+                </div>
+                {children}
+              </div>
+            </motion.div>
+          </div>
+        ) : null}
+      </>
     );
-  };
-
-  const Modal = ({ title, children }: ModalProps) => {
-    return (
-      <header className="flex flex-col items-center justify-between gap-4">
-        <div className="flex h-10 w-full flex-1 flex-row justify-between">
-          {title && (
-            <h1 className="text-2xl font-bold text-black dark:text-white">
-              {title}
-            </h1>
-          )}
-
-          <button onClick={closeModal}>
-            <X size={24} />
-          </button>
-        </div>
-        {children}
-      </header>
-    );
-  };
-
-  const ModalWrapper = ({ children }: { children: ReactNode }) => {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 dark:bg-gray-900">
-        {children}
-      </div>
-    );
-  };
-
-  const ModalSide = ({ children }: { children: ReactNode }) => {
-    return <div>{children};</div>;
   };
 
   return (
     <ModalContext.Provider
-      value={{ isModalOpen, openModal, closeModal, ModalContent }}
+      value={{ isModalOpen, openModal, closeModal, Modal }}
     >
       {children}
     </ModalContext.Provider>

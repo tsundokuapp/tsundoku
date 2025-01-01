@@ -1,22 +1,19 @@
 'use client';
 
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { CSSProperties } from 'react';
 
-import { BadgeRole } from '@/components/badge/BadgeRole';
-import { colorByRole, StaffMembers } from '@/helpers/Util';
+import { NovelsList } from '@/helpers/Util';
 import { cn } from '@/helpers/twUtils';
 
-interface TableStaffProps {
-  withModal: () => void;
-}
-
 interface LineTableProps {
-  name: string;
-  inHouse: string;
-  position: string;
+  title: string;
+  creator: string;
+  status: string;
+  type: string;
+  privacy: string;
   date: string;
-  imageAvatar: string;
+  url: string;
 }
 
 interface TitleColProps {
@@ -32,51 +29,51 @@ interface CelNavegationProps {
   active?: boolean;
 }
 
-export const TableStaff = ({ withModal }: TableStaffProps) => {
+export const TableNovel = () => {
+  const router = useRouter();
+
   const LineTable = ({
-    name,
-    inHouse,
-    position,
+    title,
+    creator,
+    status,
+    privacy,
     date,
-    imageAvatar,
+    type,
+    url,
   }: LineTableProps) => {
-    const color = colorByRole(position);
     return (
       <tr
-        onClick={() => withModal()}
-        className="cursor-pointer border-b bg-white transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        onClick={() => router.push(url)}
+        className="cursor-pointer border-b bg-white transition-all hover:bg-slate-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <th
           scope="row"
           className="flex items-center whitespace-nowrap py-4 pl-3 text-gray-900 dark:text-white"
         >
-          <Image
-            width={10}
-            height={10}
-            className="h-10 w-10 rounded-full"
-            src={imageAvatar}
-            alt="Avatar"
-          />
           <div className="ps-3">
-            <div className="text-base font-semibold">{name}</div>
-            <div className="font-normal text-gray-500">{inHouse}</div>
+            <div className="text-base font-semibold">{title}</div>
+            <div className="font-normal text-gray-500">{type}</div>
           </div>
-          <div className="ml-4 flex font-light md:hidden">
-            <BadgeRole color={color} role={position} />
-          </div>
+          <div className="ml-4 flex font-light md:hidden">{creator}</div>
         </th>
-        <td className="px-auto hidden py-4 md:table-cell">
-          <BadgeRole color={color} role={position} />
-        </td>
+        <td className="px-auto hidden py-4 md:table-cell">{creator}</td>
         <td className="px-auto py-4">
-          <div className="flex items-center gap-x-1">
-            <BadgeRole color={color} role={position} />
-            <BadgeRole color={color} role={position} />
-            <BadgeRole color={color} role={position} />
+          <div className="relative flex items-center gap-x-1">
+            <div
+              className={cn('right-2 top-2 h-2 w-2 rounded bg-primary', {
+                'bg-primary': status === 'Concluído',
+                'bg-success': status === 'Em andamento',
+                'bg-yellow-400': status === 'Hiato',
+                'bg-error': status === 'Cancelado',
+              })}
+            />
+            {status}
           </div>
         </td>
         <td className="px-auto hidden py-4 md:table-cell">
-          <span className="font-medium text-black dark:text-gray-400">120</span>
+          <span className="font-medium text-black dark:text-gray-400">
+            {privacy}
+          </span>
         </td>
         <td className="px-auto hidden py-4 lg:table-cell">
           <span className="font-medium text-black dark:text-gray-400">
@@ -121,7 +118,7 @@ export const TableStaff = ({ withModal }: TableStaffProps) => {
     return (
       <li
         className={cn(
-          'ms-0 flex h-8 cursor-pointer items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white',
+          'ms-0 flex h-8 cursor-pointer items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-slate-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white',
           {
             'rounded-s-lg': firstChildren,
             'rounded-e-lg': lastChildren,
@@ -204,10 +201,10 @@ export const TableStaff = ({ withModal }: TableStaffProps) => {
       <div className="flex-column flex flex-wrap items-center justify-between space-x-4 space-y-4 bg-white p-4 pb-4 dark:bg-gray-900 md:flex-row md:space-y-0">
         <div className="flex flex-row items-center gap-4">
           <h5 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-            Staffs
+            Novels
           </h5>
           <p className="hidden text-sm text-gray-400 dark:text-gray-400 md:block">
-            Listagem de membros, inclui parceiros e moderadores.
+            Inclui novels pausadas e canceladas.
           </p>
         </div>
 
@@ -215,12 +212,20 @@ export const TableStaff = ({ withModal }: TableStaffProps) => {
       </div>
       {/* Table */}
       <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-        <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="bg-slate-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <TitleCol title="Nome" reorder />
-            <TitleCol title="Cargo" reorder className="hidden md:table-cell" />
-            <TitleCol title="Permissões" reorder />
-            <TitleCol title="Pontos" reorder className="hidden md:table-cell" />
+            <TitleCol
+              title="Criador"
+              reorder
+              className="hidden md:table-cell"
+            />
+            <TitleCol title="Status" reorder />
+            <TitleCol
+              title="Privacidade"
+              reorder
+              className="hidden md:table-cell"
+            />
             <TitleCol
               title="Data Entrada"
               reorder
@@ -229,14 +234,16 @@ export const TableStaff = ({ withModal }: TableStaffProps) => {
           </tr>
         </thead>
         <tbody>
-          {StaffMembers.map((staff) => (
+          {NovelsList.map((novel) => (
             <LineTable
-              key={staff.id}
-              name={staff.name}
-              inHouse={staff.inHouse}
-              position={staff.role}
-              date={staff.date}
-              imageAvatar={staff.avatar}
+              key={novel.id}
+              title={novel.title}
+              creator={novel.creator}
+              status={novel.status}
+              privacy={novel.privacy}
+              type={novel.type}
+              date={novel.date}
+              url={novel.url}
             />
           ))}
         </tbody>

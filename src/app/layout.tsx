@@ -5,6 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
 import { SearchBarProvider } from '@/contexts/SearchBarContext';
+import { ToasterProvider } from '@/contexts/ToasterContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,9 +32,11 @@ export default function RootLayout({
           enableColorScheme
           enableSystem
         >
-          <SearchBarProvider>
-            <ModalProvider>{children}</ModalProvider>
-          </SearchBarProvider>
+          <ToasterProvider>
+            <SearchBarProvider>
+              <ModalProvider>{children}</ModalProvider>
+            </SearchBarProvider>
+          </ToasterProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 import { DownloadSimple, UploadSimple } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
-import { BadgeRole } from '@/components/badge/BadgeRole';
+import { BadgeRole } from '@/components/admin/badge/BadgeRole';
 import { colorByRole, StaffMembers } from '@/helpers/Util';
 
 interface LineTableProps {

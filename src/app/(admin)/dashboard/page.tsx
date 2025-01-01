@@ -34,7 +34,7 @@ export default function Dashboard() {
     data: lineDataChart,
   });
 
-  const { ModalContent, openModal } = useModal();
+  const { Modal, openModal } = useModal();
 
   const toogleChart = () => {
     if (currentChart.type === 'line') {
@@ -101,11 +101,11 @@ export default function Dashboard() {
       <TableActivityStaff />
 
       <div>
-        <ModalContent title="Gráficos Comparativos">
+        <Modal title="Gráficos Comparativos">
           <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8 dark:bg-gray-800">
             <DataCharts type={currentChart.type} data={currentChart.data} />
           </div>
-        </ModalContent>
+        </Modal>
       </div>
     </div>
   );
