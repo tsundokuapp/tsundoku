@@ -17,7 +17,7 @@ export const TitleColTable = ({
 }: TitleColProps) => {
   return (
     <th scope="col" className={cn('py-3 pl-3', className)}>
-      <div className="flex items-center">
+      <div className="flex items-center justify-center">
         {title}
         {reorder && (
           <span

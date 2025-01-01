@@ -12,7 +12,9 @@ import {
   FormTextArea,
   DragAndDropSingleImage,
 } from '@/components/admin/form';
+import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
 import { NavTabs, Tab } from '@/components/common/tab';
+import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
 import {
   status,
@@ -22,8 +24,6 @@ import {
   nationality,
   cargoObraDiscord,
 } from '@/helpers/Util';
-import { useToaster } from '@/contexts/ToasterContext';
-import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
 
 interface ISession {
   title: string;
@@ -62,8 +62,8 @@ export default function Project() {
 
     // TODO: adicionar toaster de sucesso ao finalizar o envio do formulário
     toaster({
-      type: "success",
-      msg: "Toaster da Sorte",
+      type: 'success',
+      msg: 'Toaster da Sorte',
     });
   };
 
@@ -78,8 +78,8 @@ export default function Project() {
     event.preventDefault();
 
     toaster({
-      type: "success",
-      msg: "Imagens enviadas com sucesso",
+      type: 'success',
+      msg: 'Imagens enviadas com sucesso',
     });
 
     console.log(getValues());
@@ -125,7 +125,6 @@ export default function Project() {
     !!errors.description;
   const errorExtras =
     !!errors['hex-color'] || !!errors.nationality || !!errors.adult;
-
 
   return (
     <div className="flex flex-row gap-6 p-4">

@@ -13,6 +13,7 @@ import {
 } from '@/components/common/table';
 import { Debounce } from '@/helpers/Debounce';
 import { ChaptersList } from '@/helpers/Util';
+import { cn } from '@/helpers/twUtils';
 
 interface LineTableProps {
   name: string;
@@ -20,6 +21,11 @@ interface LineTableProps {
   privacy: string;
   date: string;
   url: string;
+}
+
+interface TdDefaultProps {
+  children: React.ReactNode;
+  main?: boolean;
 }
 
 // TODO: Usar essa tabela como base
@@ -57,31 +63,30 @@ export const TableChapterAdmin = () => {
     debouncedHandleChange(value);
   };
 
+  const TdDefault = ({ children, main }: TdDefaultProps) => {
+    return (
+      <td className="px-auto hidden py-4 text-center lg:table-cell">
+        <span
+          className={cn('font-medium text-black dark:text-gray-400', {
+            'font-semibold text-gray-900 dark:text-white': main,
+          })}
+        >
+          {children}
+        </span>
+      </td>
+    );
+  };
+
   const LineTable = ({ name, author, privacy, date, url }: LineTableProps) => {
     return (
       <tr
         onClick={() => goToChapter(url)}
         className="cursor-pointer border-b bg-white transition-all hover:bg-slate-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
-        <th
-          scope="row"
-          className="flex items-center whitespace-nowrap py-4 pl-3 text-gray-900 dark:text-white"
-        >
-          <div className="ps-3">
-            <div className="text-base font-semibold">{name}</div>
-          </div>
-        </th>
-        <td className="px-auto hidden py-4 md:table-cell">{author}</td>
-        <td className="px-auto hidden py-4 md:table-cell">
-          <span className="font-medium text-black dark:text-gray-400">
-            {privacy}
-          </span>
-        </td>
-        <td className="px-auto hidden py-4 lg:table-cell">
-          <span className="font-medium text-black dark:text-gray-400">
-            {date}
-          </span>
-        </td>
+        <TdDefault main>{name}</TdDefault>
+        <TdDefault>{author}</TdDefault>
+        <TdDefault>{privacy}</TdDefault>
+        <TdDefault>{date}</TdDefault>
       </tr>
     );
   };

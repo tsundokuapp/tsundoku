@@ -239,7 +239,7 @@ export const NovelsList = Array.from({ length: 10 }, () => ({
 
 export const ChaptersList = Array.from({ length: 10 }, () => ({
   id: randomId(),
-  name: randomOptions(titles),
+  name: `Capítulo ${randomId()}`,
   author: randomOptions(staff),
   privacy: randomOptions(privacy),
   date: '21/10/2024',
