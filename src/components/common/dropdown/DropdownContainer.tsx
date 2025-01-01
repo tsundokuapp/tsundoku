@@ -8,6 +8,7 @@ import {
   type ComponentProps,
 } from 'react';
 
+import { EnterAnimation } from '@/animation/EnterAnimation';
 import { cn } from '@/helpers/twUtils';
 
 interface DropdownContainerProps extends ComponentProps<'div'> {
@@ -70,30 +71,32 @@ export function DropdownContainer({
         </button>
       </div>
       {isOpen && (
-        <div
-          className={cn(
-            'wright-0 absolute z-10 mt-2 w-56 origin-top-right rounded-md border border-slate-100 bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:border-slate-900 dark:bg-slate-800',
-            menuClassname,
-          )}
-        >
+        <EnterAnimation delay={0.3} className="absolute z-10">
           <div
             className={cn(
-              'scrollbar-thin scrollbar-track-white scrollbar-thumb-zinc-500 dark:scrollbar-track-zinc-800 max-h-[400px] overflow-y-auto',
-              scrollbarClassname,
+              'wright-0 mt-2 w-56 origin-top-right rounded-md border border-slate-100 bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:border-slate-900 dark:bg-slate-800',
+              menuClassname,
             )}
           >
-            {React.Children.map(children, (child) =>
-              React.isValidElement(child)
-                ? React.cloneElement(
-                  child as React.ReactElement<{
-                    setIsOpen: SetState<boolean>;
-                  }>,
-                  { setIsOpen },
-                )
-                : child,
-            )}
+            <div
+              className={cn(
+                'scrollbar-thin scrollbar-track-white scrollbar-thumb-zinc-500 dark:scrollbar-track-zinc-800 max-h-[400px] overflow-y-auto',
+                scrollbarClassname,
+              )}
+            >
+              {React.Children.map(children, (child) =>
+                React.isValidElement(child)
+                  ? React.cloneElement(
+                    child as React.ReactElement<{
+                      setIsOpen: SetState<boolean>;
+                    }>,
+                    { setIsOpen },
+                  )
+                  : child,
+              )}
+            </div>
           </div>
-        </div>
+        </EnterAnimation>
       )}
     </div>
   );

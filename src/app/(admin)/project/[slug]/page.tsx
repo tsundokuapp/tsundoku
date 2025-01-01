@@ -165,7 +165,7 @@ export default function Project() {
         </Session>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-slate-100 p-4 dark:bg-slate-800">
-        <NavTabs defaultActiveKey="Capitulos">
+        <NavTabs defaultActiveKey="Geral">
           <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
             <div className="flex flex-col justify-between">
               <form
