@@ -11,21 +11,15 @@ import {
   THeadTable,
   TitleColTable,
 } from '@/components/common/table';
+import { TdDefault } from '@/components/common/table/TdDefault';
 import { Debounce } from '@/helpers/Debounce';
 import { ChaptersList } from '@/helpers/Util';
-import { cn } from '@/helpers/twUtils';
-
 interface LineTableProps {
   name: string;
   author: string;
   privacy: string;
   date: string;
   url: string;
-}
-
-interface TdDefaultProps {
-  children: React.ReactNode;
-  main?: boolean;
 }
 
 // TODO: Usar essa tabela como base
@@ -61,20 +55,6 @@ export const TableChapterAdmin = () => {
   const handleChange = (value: string) => {
     setSearch(value);
     debouncedHandleChange(value);
-  };
-
-  const TdDefault = ({ children, main }: TdDefaultProps) => {
-    return (
-      <td className="px-auto hidden py-4 text-center lg:table-cell">
-        <span
-          className={cn('font-medium text-black dark:text-gray-400', {
-            'font-semibold text-gray-900 dark:text-white': main,
-          })}
-        >
-          {children}
-        </span>
-      </td>
-    );
   };
 
   const LineTable = ({ name, author, privacy, date, url }: LineTableProps) => {

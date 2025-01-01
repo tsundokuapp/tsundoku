@@ -7,6 +7,7 @@ interface TitleColProps {
   reorder: boolean;
   className?: CSSProperties | string;
   onClick?: () => void;
+  position?: 'left' | 'right' | 'center';
 }
 
 export const TitleColTable = ({
@@ -14,10 +15,17 @@ export const TitleColTable = ({
   reorder,
   className,
   onClick,
+  position = 'center',
 }: TitleColProps) => {
   return (
     <th scope="col" className={cn('py-3 pl-3', className)}>
-      <div className="flex items-center justify-center">
+      <div
+        className={cn('flex items-center px-3', {
+          'justify-start': position === 'left',
+          'justify-end': position === 'right',
+          'justify-center': position === 'center',
+        })}
+      >
         {title}
         {reorder && (
           <span

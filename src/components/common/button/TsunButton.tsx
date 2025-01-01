@@ -24,7 +24,7 @@ export const TsunButton = ({
     <button
       onClick={onClick}
       className={cn(
-        'focus:ring-3 mb-2 me-2 flex h-7 w-fit items-center justify-center gap-2 rounded bg-primary px-5 py-2.5 text-sm text-white hover:bg-blue-700 focus:ring-blue-300 dark:hover:bg-blue-600 dark:focus:ring-blue-800',
+        'disable:bg-slate-300 hover:bg-hoverBgLight dark:hover:bg-hoverBgDark flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors dark:border-slate-700 dark:bg-slate-900 dark:text-textDark',
         {
           className,
         },

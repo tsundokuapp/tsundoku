@@ -15,6 +15,8 @@ const config: Config = {
         bgLight: '#FFFFFF', // white
         textLight: '#1F2937', // gray-800
         textDark: '#FFFFFF', // white
+        hoverBgLight: '#f1f5f9', // slate-100
+        hoverBgDark: '#475569', // slate-600
         // Custom colors
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
