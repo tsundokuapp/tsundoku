@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { useState, useRef } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 
-import { ValidateVerticalImage } from '@/helpers/ValidateVerticalImage';
 import { useToaster } from '@/contexts/ToasterContext';
+import { ValidateVerticalImage } from '@/helpers/ValidateVerticalImage';
 
 interface DragAndDropSingleImageProps {
   title: string;
@@ -35,16 +35,16 @@ export const DragAndDropSingleImage = ({
 
     if (notImage) {
       return toaster({
-        type: "error",
-        msg: "Apenas imagens PNG ou JPG são aceitas.",
+        type: 'error',
+        msg: 'Apenas imagens PNG ou JPG são aceitas.',
       });
-    };
+    }
 
     const isVertical = await ValidateVerticalImage(file);
     if (!isVertical) {
       return toaster({
-        type: "error",
-        msg: "A imagem deve ser vertical.",
+        type: 'error',
+        msg: 'A imagem deve ser vertical.',
       });
     }
 
@@ -80,8 +80,8 @@ export const DragAndDropSingleImage = ({
     const isVertical = await ValidateVerticalImage(file);
     if (!isVertical) {
       return toaster({
-        type: "error",
-        msg: "A imagem deve ser vertical.",
+        type: 'error',
+        msg: 'A imagem deve ser vertical.',
       });
     }
 

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent, ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
 import {
   FormButton,
   FormDropdown,
@@ -11,10 +12,8 @@ import {
   FormMultiSelect,
   FormTextArea,
   DragAndDropSingleImage,
-} from '@/components/admin/form';
-import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
+} from '@/components/common/form';
 import { NavTabs, Tab } from '@/components/common/tab';
-import { useModal } from '@/contexts/ModalContext';
 import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
 import {
@@ -126,8 +125,6 @@ export default function Project() {
     !!errors.description;
   const errorExtras =
     !!errors['hex-color'] || !!errors.nationality || !!errors.adult;
-
-  const { Modal } = useModal();
 
   return (
     <div className="flex flex-row gap-6 p-4">
@@ -347,9 +344,6 @@ export default function Project() {
           </Tab>
         </NavTabs>
       </aside>
-      <Modal title="Capítulo">
-        <p>capitulo aberto</p>
-      </Modal>
     </div>
   );
 }

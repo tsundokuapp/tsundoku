@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEditStaff } from '@/components/admin/form/FormEditStaff';
+import { FormEditStaff } from '@/components/common/form/FormEditStaff';
 import { Avatar } from '@/components/common/Avatar';
 import { TableStaff } from '@/components/dashboard/table';
 import { useModal } from '@/contexts/ModalContext';

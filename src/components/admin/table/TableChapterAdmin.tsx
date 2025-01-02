@@ -12,6 +12,7 @@ import {
   TitleColTable,
 } from '@/components/common/table';
 import { TdDefault } from '@/components/common/table/TdDefault';
+import { useModal } from '@/contexts/ModalContext';
 import { Debounce } from '@/helpers/Debounce';
 import { ChaptersList } from '@/helpers/Util';
 interface LineTableProps {
@@ -28,16 +29,18 @@ export const TableChapterAdmin = () => {
   // const router = useRouter();
   const [search, setSearch] = useState('');
   const [items, setItems] = useState(ChaptersList);
+  const { openModal, Modal } = useModal();
+
   const columns = ['Nome', 'Autor', 'Privacidade', 'Data Entrada'];
 
   const reorderList = () => {
     alert(`Reorder by: `);
   };
 
-  const goToChapter = (url: string) => {
-    alert(`Go to chapter with id: ${url}`);
-    // router.push(`/admin/chapter/${url}`);
-  };
+  // const goToChapter = (url: string) => {
+  //   alert(`Go to chapter with id: ${url}`);
+  //   // router.push(`/admin/chapter/${url}`);
+  // };
 
   const debouncedHandleChange = Debounce((value: string) => {
     if (value === '') {
@@ -57,10 +60,16 @@ export const TableChapterAdmin = () => {
     debouncedHandleChange(value);
   };
 
+  const handleOpenModal = (url: string) => {
+    // TODO: temporario para testes
+    console.log(url);
+    openModal();
+  };
+
   const LineTable = ({ name, author, privacy, date, url }: LineTableProps) => {
     return (
       <tr
-        onClick={() => goToChapter(url)}
+        onClick={() => handleOpenModal(url)}
         className="cursor-pointer border-b bg-white transition-all hover:bg-slate-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <TdDefault main>{name}</TdDefault>
@@ -103,6 +112,9 @@ export const TableChapterAdmin = () => {
         </tbody>
       </Table>
       <FooterTable />
+      <Modal title="Capítulo">
+        <p>capitulo aberto</p>
+      </Modal>
     </div>
   );
 };
