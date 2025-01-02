@@ -14,6 +14,7 @@ import {
   DragAndDropSingleImage,
 } from '@/components/common/form';
 import { NavTabs, Tab } from '@/components/common/tab';
+import { Volumes } from '@/components/dashboard/abaVolumes/Volumes';
 import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
 import {
@@ -339,8 +340,14 @@ export default function Project() {
               </form>
             </div>
           </Tab>
+          <Tab title="Volumes" eventKey="Volumes">
+            <Volumes />
+          </Tab>
           <Tab title="Capítulos" eventKey="Capitulos">
             <TableChapterAdmin />
+          </Tab>
+          <Tab title="Registros" eventKey="Logs">
+            <h1>Logs para admins</h1>
           </Tab>
         </NavTabs>
       </aside>
