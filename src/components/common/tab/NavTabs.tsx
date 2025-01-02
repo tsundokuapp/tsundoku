@@ -64,11 +64,18 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
         onKeyDown={(e) => handleKeyDown(e, eventKey)}
       >
         {alert && (
-          <div
-            className={cn(
-              'absolute right-[-1px] top-[-1px] h-2 w-2 rounded bg-error',
-            )}
-          />
+          <>
+            <div
+              className={cn(
+                'absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded bg-error',
+              )}
+            />
+            <div
+              className={cn(
+                'absolute right-[-1px] top-[-1px] h-2 w-2 rounded bg-error',
+              )}
+            />
+          </>
         )}
         {title}
       </a>
