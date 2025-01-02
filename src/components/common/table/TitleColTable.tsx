@@ -4,7 +4,7 @@ import { cn } from '@/helpers/twUtils';
 
 interface TitleColProps {
   title: string;
-  reorder: boolean;
+  reorder?: boolean;
   className?: CSSProperties | string;
   onClick?: () => void;
   position?: 'left' | 'right' | 'center';

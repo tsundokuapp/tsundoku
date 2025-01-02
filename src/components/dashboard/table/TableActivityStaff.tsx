@@ -2,6 +2,13 @@ import { DownloadSimple, UploadSimple } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
 import { BadgeRole } from '@/components/admin/badge/BadgeRole';
+import {
+  HeaderTable,
+  Table,
+  THeadTable,
+  TitleColTable,
+} from '@/components/common/table';
+import { TdDefault } from '@/components/common/table/TdDefault';
 import { colorByRole, StaffMembers } from '@/helpers/Util';
 
 interface LineTableProps {
@@ -15,6 +22,8 @@ interface LineTableProps {
 }
 
 export const TableActivityStaff = () => {
+  const columns = ['Nome', 'Cargo', 'Atividade', 'Data'];
+
   const LineTable = ({
     name,
     inHouse,
@@ -26,7 +35,7 @@ export const TableActivityStaff = () => {
   }: LineTableProps) => {
     const color = colorByRole(position);
     return (
-      <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <tr className="hover:bg-hoverBgLight dark:hover:bg-hoverBgDark border-b bg-bgLight dark:border-gray-700 dark:bg-bgDark">
         <th
           scope="row"
           className="flex items-center whitespace-nowrap py-4 pl-3 text-gray-900 dark:text-white"
@@ -42,15 +51,13 @@ export const TableActivityStaff = () => {
             <div className="text-base font-semibold">{name}</div>
             <div className="font-normal text-gray-500">{inHouse}</div>
           </div>
-          <div className="ml-4 flex font-light md:hidden">
-            <BadgeRole color={color} role={position} />
-          </div>
         </th>
-        <td className="px-auto hidden py-4 md:table-cell">
+        <TdDefault>
           <BadgeRole color={color} role={position} />
-        </td>
+        </TdDefault>
+
         <td className="px-auto py-4">
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             {typeActivity === 'down' ? (
               <DownloadSimple className="me-2 h-5 w-5 text-green-500" />
             ) : (
@@ -59,44 +66,27 @@ export const TableActivityStaff = () => {
             {activity}
           </div>
         </td>
-        <td className="px-auto hidden py-4 lg:table-cell">
-          <span className="font-medium text-black dark:text-gray-400">
-            {date}
-          </span>
-        </td>
+
+        <TdDefault>{date}</TdDefault>
       </tr>
     );
   };
 
   return (
     <div className="relative w-full overflow-x-auto sm:rounded-lg">
-      {/* Header */}
-      <div className="flex-column flex flex-wrap items-center justify-start space-x-4 space-y-4 bg-white p-4 pb-4 dark:bg-gray-900 md:flex-row md:space-y-0">
-        <h5 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-          Staffs
-        </h5>
-        <p className="text-sm text-gray-400 dark:text-gray-400">
-          Atividades recentes feitas por cada Staff
-        </p>
-      </div>
-      {/* Table */}
-      <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-        <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+      <HeaderTable title="Staff" description="Últimas atividades realizadas." />
+      <Table>
+        <THeadTable>
           <tr>
-            <th scope="col" className="py-3 pl-3">
-              Nome
-            </th>
-            <th scope="col" className="px-auto hidden py-3 md:flex">
-              Cargo
-            </th>
-            <th scope="col" className="px-auto py-3">
-              Atividade
-            </th>
-            <th scope="col" className="px-auto hidden py-3 lg:flex">
-              Data
-            </th>
+            {columns.map((item, index) => (
+              <TitleColTable
+                key={index}
+                title={item}
+                position={item === 'Nome' ? 'left' : 'center'}
+              />
+            ))}
           </tr>
-        </thead>
+        </THeadTable>
         <tbody>
           {StaffMembers.map((staff) => (
             <LineTable
@@ -111,7 +101,7 @@ export const TableActivityStaff = () => {
             />
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };

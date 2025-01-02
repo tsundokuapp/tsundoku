@@ -9,7 +9,7 @@ export default function NovelAdmin() {
     <div className="flex flex-row px-4">
       <TableNovel />
       <div>
-        <Modal title="Staff" side>
+        <Modal title="Staff">
           <div>alou to</div>
         </Modal>
       </div>

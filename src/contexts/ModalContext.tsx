@@ -13,14 +13,13 @@ import {
 interface ModalProps {
   title?: string;
   children: ReactNode;
-  side?: boolean;
 }
 
 interface ModalContextProps {
   isModalOpen: boolean;
   openModal: () => void;
   closeModal: () => void;
-  Modal: ({ children, title, side }: ModalProps) => ReactNode;
+  Modal: ({ children, title }: ModalProps) => ReactNode;
 }
 
 const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);

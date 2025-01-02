@@ -14,6 +14,7 @@ import {
 } from '@/components/admin/form';
 import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
 import { NavTabs, Tab } from '@/components/common/tab';
+import { useModal } from '@/contexts/ModalContext';
 import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
 import {
@@ -126,6 +127,8 @@ export default function Project() {
   const errorExtras =
     !!errors['hex-color'] || !!errors.nationality || !!errors.adult;
 
+  const { Modal } = useModal();
+
   return (
     <div className="flex flex-row gap-6 p-4">
       <aside className="flex w-full max-w-xs flex-col flex-wrap items-center">
@@ -165,7 +168,7 @@ export default function Project() {
         </Session>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-slate-100 p-4 dark:bg-slate-800">
-        <NavTabs defaultActiveKey="Geral">
+        <NavTabs defaultActiveKey="Capitulos">
           <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
             <div className="flex flex-col justify-between">
               <form
@@ -344,6 +347,9 @@ export default function Project() {
           </Tab>
         </NavTabs>
       </aside>
+      <Modal title="Capítulo">
+        <p>capitulo aberto</p>
+      </Modal>
     </div>
   );
 }
