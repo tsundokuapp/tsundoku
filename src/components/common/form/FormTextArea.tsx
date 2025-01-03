@@ -39,7 +39,7 @@ export const FormTextArea = ({
         id={`textarea-${name}`}
         placeholder={placeholder}
         className={cn(
-          'w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-white outline-none focus:border-primary focus:shadow-md dark:border-slate-700 dark:bg-slate-900',
+          'w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-white outline-none focus:border-primary focus:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:focus:border-primary',
           className,
         )}
         cols={cols}

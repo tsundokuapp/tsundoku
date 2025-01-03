@@ -12,6 +12,8 @@ interface InputProps {
   register: UseFormRegister<any>;
   className?: string;
   name: string;
+  min?: number;
+  disabled?: boolean;
 }
 
 export const FormInput = ({
@@ -22,6 +24,8 @@ export const FormInput = ({
   placeholder,
   errors,
   register,
+  min = 1,
+  disabled,
   ...props
 }: InputProps) => {
   return (
@@ -37,9 +41,11 @@ export const FormInput = ({
         id={`input-${name}`}
         placeholder={placeholder}
         className={cn(
-          'w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:border-primary focus:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:text-white',
+          'w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:border-primary focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-primary disabled:dark:opacity-50',
           className,
         )}
+        min={type === 'number' ? min : undefined}
+        disabled={disabled}
         {...register(name)}
         {...props}
       />

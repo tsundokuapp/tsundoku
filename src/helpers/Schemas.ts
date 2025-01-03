@@ -43,3 +43,20 @@ export const formProjectSchema = z.object({
 });
 
 export type InputFormProject = z.infer<typeof formProjectSchema>;
+
+// --------------
+// TODO: fazer o number ser opcional se o oneshot for true
+export const formVolumesSchema = z.object({
+  title: z.optional(z.string()),
+  number: z.preprocess(
+    (val) => (typeof val === 'string' ? Number(val) : val),
+    z
+      .number()
+      .min(1, { message: 'Número do volume é obrigatório' })
+      .positive({ message: 'Número do volume deve ser positivo' }),
+  ),
+  oneshot: z.optional(z.boolean()),
+  description: z.optional(z.string()),
+});
+
+export type InputFormVolumes = z.infer<typeof formVolumesSchema>;

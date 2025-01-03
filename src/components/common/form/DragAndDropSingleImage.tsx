@@ -102,7 +102,7 @@ export const DragAndDropSingleImage = ({
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
-      className="relative w-52 rounded-lg border-2 border-dashed border-gray-300 p-2"
+      className="relative flex w-52 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-2"
       id="dropzone"
     >
       {image ? (

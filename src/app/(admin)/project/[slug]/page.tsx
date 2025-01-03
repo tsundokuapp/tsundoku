@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent, ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { TableChapterAdmin } from '@/components/admin/table/TableChapterAdmin';
 import {
   FormButton,
   FormDropdown,
@@ -166,7 +165,7 @@ export default function Project() {
         </Session>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-slate-100 p-4 dark:bg-slate-800">
-        <NavTabs defaultActiveKey="Capitulos">
+        <NavTabs defaultActiveKey="Volumes">
           <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
             <div className="flex flex-col justify-between">
               <form
@@ -342,9 +341,6 @@ export default function Project() {
           </Tab>
           <Tab title="Volumes" eventKey="Volumes">
             <Volumes />
-          </Tab>
-          <Tab title="Capítulos" eventKey="Capitulos">
-            <TableChapterAdmin />
           </Tab>
           <Tab title="Registros" eventKey="Logs">
             <h1>Logs para admins</h1>
