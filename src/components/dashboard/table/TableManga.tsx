@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { TsunButton } from '@/components/common/button/TsunButton';
+import { Button } from '@/components/common/button/Button';
 import {
   FooterTable,
   HeaderTable,
@@ -108,7 +108,7 @@ export const TableManga = () => {
         description="Inclui mangás pausados e cancelados."
       >
         <SearchTable value={search} onChange={handleChange} />
-        <TsunButton onClick={() => alert('Create Manga')}>Adicionar</TsunButton>
+        <Button onClick={() => alert('Create Manga')}>Adicionar</Button>
       </HeaderTable>
 
       <Table>

@@ -12,7 +12,7 @@ interface IButtonProps {
   sideIcon?: 'left' | 'right';
 }
 
-export const TsunButton = ({
+export const Button = ({
   children,
   onClick,
   className,
@@ -25,15 +25,14 @@ export const TsunButton = ({
       onClick={onClick}
       className={cn(
         'disable:bg-slate-300 hover:bg-hoverBgLight dark:hover:bg-hoverBgDark flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors dark:border-slate-700 dark:bg-slate-900 dark:text-textDark',
-        {
-          className,
-        },
-      )}
+        className,
+      )
+      }
       {...props}
     >
       {icon && sideIcon === 'left' && icon}
       {children}
       {icon && sideIcon === 'right' && icon}
-    </button>
+    </button >
   );
 };
