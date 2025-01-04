@@ -234,7 +234,7 @@ export const NovelsList = Array.from({ length: 10 }, () => ({
   type: randomOptions(types),
   privacy: randomOptions(privacy),
   date: '21/10/2024',
-  url: '/project/algo',
+  url: '/project/majo-no-tabitabi',
 }));
 
 export const ChaptersList = Array.from({ length: 10 }, () => ({
@@ -243,5 +243,5 @@ export const ChaptersList = Array.from({ length: 10 }, () => ({
   author: randomOptions(staff),
   privacy: randomOptions(privacy),
   date: '21/10/2024',
-  url: '/project/algo',
+  url: '/project/majo-no-tabitabi',
 }));

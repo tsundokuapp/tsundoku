@@ -1,7 +1,12 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { Accordion } from '@/components/common/Accordion';
 import { Title } from '@/components/common/Title';
@@ -15,12 +20,32 @@ import {
 } from '@/components/common/form';
 import { useModal } from '@/contexts/ModalContext';
 import { useToaster } from '@/contexts/ToasterContext';
-import { formVolumesSchema, InputFormVolumes } from '@/helpers/Schemas';
+import { formVolumesSchema, formChapterSchema } from '@/helpers/Schemas';
 import { ChaptersList } from '@/helpers/Util';
 
 export const Volumes = () => {
   const { Modal, openModal, closeModal } = useModal();
   const { toaster } = useToaster();
+  const [typeModal, setTypeModal] = useState<'volume' | 'chapter'>('volume');
+
+  const router = useRouter();
+
+  const unifiedSchema = z.discriminatedUnion('type', [
+    formVolumesSchema,
+    formChapterSchema,
+  ]);
+
+  type InputFormUnified = z.infer<typeof unifiedSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { isSubmitting, errors },
+  } = useForm<InputFormUnified>({
+    resolver: zodResolver(unifiedSchema),
+  });
 
   const OrderByNumber = () => {
     return (
@@ -35,7 +60,12 @@ export const Volumes = () => {
             return getNumber(a.name) - getNumber(b.name);
           })
           .map((item) => (
-            <Button key={item.id} onClick={() => alert('click button')}>
+            <Button
+              key={item.id}
+              onClick={() =>
+                router.push('/project/majo-no-tabitabi/capitulo-01')
+              }
+            >
               {item.name}
             </Button>
           ))}
@@ -43,25 +73,22 @@ export const Volumes = () => {
     );
   };
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { isSubmitting, errors },
-  } = useForm<InputFormVolumes>({
-    resolver: zodResolver(formVolumesSchema),
-  });
-
-  const handleFormSubmit = (data: InputFormVolumes) => {
+  const handleFormSubmit = (data: InputFormUnified) => {
     const promisse = new Promise((resolve) => {
       setTimeout(() => {
         console.log(data);
 
-        toaster({
-          type: 'success',
-          msg: 'Volume adicionado com sucesso',
-        });
+        if (data.type === 'volume') {
+          toaster({
+            type: 'success',
+            msg: 'Volume adicionado com sucesso',
+          });
+        } else {
+          toaster({
+            type: 'success',
+            msg: 'Capítulo adicionado com sucesso',
+          });
+        }
 
         closeModal();
         resolve(data);
@@ -71,16 +98,132 @@ export const Volumes = () => {
     return promisse;
   };
 
+  const ModalVolume = () => {
+    return (
+      <form
+        onSubmit={handleSubmit(handleFormSubmit)}
+        className="2fr grid grid-cols-3 gap-4"
+      >
+        <DragAndDropSingleImage
+          title="Capa Principal"
+          name="cover"
+          setValue={setValue}
+        />
+        <div className="col-span-2 mb-2 flex flex-col gap-4">
+          <FormInput
+            label="Título"
+            name="title"
+            placeholder="Majo no Tabitabi"
+            errors={errors}
+            register={register}
+          />
+          <div className="flex flex-col items-start gap-1">
+            <FormInput
+              label="Número"
+              name="number"
+              type="number"
+              placeholder="10"
+              disabled={watch('oneshot')}
+              min={1}
+              errors={errors}
+              register={register}
+            />
+            <Checkbox
+              title="Volume Único ou One-Shot"
+              description="Digite '1' no número do volume se usar essa opção"
+              name="oneshot"
+              register={register}
+            />
+          </div>
+          <FormTextArea
+            label="Descrição"
+            name="decription"
+            cols={30}
+            rows={4}
+            errors={errors}
+            register={register}
+          />
+        </div>
+        <FormButton isSubmitting={isSubmitting} className="col-span-3" />
+      </form>
+    );
+  };
+
+  const ModalChapter = () => {
+    return (
+      <form
+        onSubmit={handleSubmit(handleFormSubmit)}
+        className="grid grid-cols-2 gap-4"
+      >
+        <FormInput
+          label="Título"
+          name="title"
+          placeholder="Um dia na Tsundoku..."
+          errors={errors}
+          register={register}
+        />
+        <FormInput
+          label="Volume"
+          name="volume"
+          type="number"
+          placeholder="10"
+          min={1}
+          errors={errors}
+          register={register}
+        />
+        <FormInput
+          label="Número"
+          name="number"
+          type="number"
+          placeholder="10"
+          min={1}
+          errors={errors}
+          register={register}
+        />
+        <FormInput
+          label="Parte"
+          name="part"
+          type="number"
+          placeholder="10"
+          min={1}
+          errors={errors}
+          register={register}
+        />
+        <FormInput
+          label="Ordem Capítulo"
+          name="order"
+          type="number"
+          placeholder="10"
+          min={1}
+          errors={errors}
+          register={register}
+        />
+        <FormButton isSubmitting={isSubmitting} className="col-span-2" />
+      </form>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="mt-2 flex flex-row items-center justify-between gap-4">
         <Title title="Nome da obra" className="w-full text-lg" />
         <div className="flex w-full flex-row justify-end gap-2">
-          <Button onClick={() => openModal()} className="py-2 text-xs">
+          <Button
+            onClick={() => {
+              setTypeModal('volume');
+              setValue('type', 'volume');
+              openModal();
+            }}
+            className="py-2 text-xs"
+          >
             Adicionar Volume
           </Button>
           <Button
-            onClick={() => alert('click button')}
+            onClick={() => {
+              setTypeModal('chapter');
+              setValue('type', 'chapter');
+              openModal();
+            }}
             className="py-2 text-xs"
           >
             Adicionar Capítulo
@@ -101,7 +244,14 @@ export const Volumes = () => {
               width={180}
               height={256}
             />
-            <Button onClick={() => openModal()} className="gap-2">
+            <Button
+              onClick={() => {
+                setTypeModal('volume');
+                setValue('type', 'volume');
+                openModal();
+              }}
+              className="gap-2"
+            >
               Editar Volume
               <Pencil size={20} />
             </Button>
@@ -196,53 +346,11 @@ export const Volumes = () => {
           </div>
         </section>
       </Accordion>
-      <Modal title="Edição/Criação de Volume" className="dark:bg-slate-800">
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="2fr grid grid-cols-3 gap-4"
-        >
-          <DragAndDropSingleImage
-            title="Capa Principal"
-            name="cover"
-            setValue={setValue}
-          />
-          <div className="col-span-2 mb-2 flex flex-col gap-4">
-            <FormInput
-              label="Título"
-              name="title"
-              placeholder="Majo no Tabitabi"
-              errors={errors}
-              register={register}
-            />
-            <div className="flex flex-col items-start gap-1">
-              <FormInput
-                label="Número"
-                name="number"
-                type="number"
-                placeholder="10"
-                disabled={watch('oneshot')}
-                min={1}
-                errors={errors}
-                register={register}
-              />
-              <Checkbox
-                title="Volume Único ou One-Shot"
-                description="Digite '1' no número do volume se usar essa opção"
-                name="oneshot"
-                register={register}
-              />
-            </div>
-            <FormTextArea
-              label="Descrição"
-              name="decription"
-              cols={30}
-              rows={4}
-              errors={errors}
-              register={register}
-            />
-          </div>
-          <FormButton isSubmitting={isSubmitting} className="col-span-3" />
-        </form>
+      <Modal
+        title={`Edição/Criação de ${typeModal === 'volume' ? 'Volume' : 'Capítulo'}`}
+        className="dark:bg-slate-800"
+      >
+        {typeModal === 'volume' ? <ModalVolume /> : <ModalChapter />}
       </Modal>
     </div>
   );
