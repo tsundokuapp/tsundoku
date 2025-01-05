@@ -1,7 +1,7 @@
 'use client';
 
-import { FormEditStaff } from '@/components/common/form/FormEditStaff';
 import { Avatar } from '@/components/common/Avatar';
+import { FormEditStaff } from '@/components/common/form/FormEditStaff';
 import { TableStaff } from '@/components/dashboard/table';
 import { useModal } from '@/contexts/ModalContext';
 import { StaffMembers } from '@/helpers/Util';
@@ -19,8 +19,9 @@ export default function Staff() {
               <Avatar
                 src={StaffMembers[1].avatar}
                 name={StaffMembers[0].name}
-                inHouse={StaffMembers[0].inHouse}
+                description={StaffMembers[0].inHouse}
                 size={120}
+                className="h-32 w-32 ring-4"
               />
 
               <div className="flex flex-col justify-center text-center">

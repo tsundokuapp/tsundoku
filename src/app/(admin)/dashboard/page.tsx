@@ -65,9 +65,7 @@ export default function Dashboard() {
         <CardTransactions />
         <div className="flex-1 flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
           <div className="flex flex-row items-center justify-between">
-            <Button onClick={() => toogleChart()}>
-              Trocar Gráfico
-            </Button>
+            <Button onClick={() => toogleChart()}>Trocar Gráfico</Button>
             <Button
               onClick={openModal}
               icon={<FrameCorners size={24} />}
