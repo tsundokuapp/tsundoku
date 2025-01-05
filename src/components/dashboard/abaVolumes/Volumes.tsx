@@ -129,7 +129,7 @@ export const Volumes = () => {
               register={register}
             />
             <Checkbox
-              title="Volume Único ou One-Shot"
+              label="Volume Único ou One-Shot"
               description="Digite '1' no número do volume se usar essa opção"
               name="oneshot"
               register={register}

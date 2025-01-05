@@ -1,29 +1,31 @@
 import { cn } from '@/helpers/twUtils';
 import { ICheckbox } from '@/types/Checkbox';
 
-export const Checkbox = ({
+type FakeCheckboxProps = Omit<ICheckbox, 'register' | 'name'>;
+
+export const FakeCheckbox = ({
   label,
   description,
-  name,
-  register,
+  checked,
   size = 'sm',
-}: ICheckbox) => {
+}: FakeCheckboxProps) => {
   return (
-    <div className="flex">
+    <div className="flex items-center justify-center">
       <div className="flex h-5 items-center bg-transparent">
         <input
           id="helper-checkbox"
           aria-describedby="helper-checkbox-input"
+          checked={checked}
           type="checkbox"
+          disabled
           className={cn(
-            'disabled:border-steel-400 disabled:bg-steel-400 peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-900 checked:dark:border-0 checked:dark:bg-primary dark:focus:ring-primary',
+            'disabled:border-steel-400 disabled:bg-steel-400 focus-event-none peer pointer-events-none relative mt-1 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-900 checked:dark:border-0 checked:dark:bg-primary dark:focus:ring-primary',
             {
               'h-4 w-4': size === 'sm',
               'h-5 w-5': size === 'md',
               'h-6 w-6': size === 'lg',
             },
           )}
-          {...register(name)}
         />
         <svg
           className={cn(

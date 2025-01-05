@@ -1,10 +1,9 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
 import { cn } from '@/helpers/twUtils';
+import { ITab } from '@/types/Tab';
 
-import { TabProps } from './Tab.d';
-
-interface CustomChildrenProps extends ReactElement, TabProps {
+interface CustomChildrenProps extends ReactElement, ITab {
   /* Nada */
 }
 

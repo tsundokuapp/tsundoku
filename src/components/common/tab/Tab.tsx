@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TabProps } from './Tab.d';
+import { ITab } from '@/types/Tab';
 
 export const Tab = ({
   title,
@@ -9,7 +9,7 @@ export const Tab = ({
   disabled,
   id,
   alert,
-}: TabProps) => {
+}: ITab) => {
   return React.cloneElement(children as React.ReactElement, {
     title,
     eventKey,
