@@ -10,7 +10,7 @@ export default function Staff() {
   const { Modal, openModal } = useModal();
 
   return (
-    <div className="flex flex-row px-4">
+    <div className="flex flex-row">
       <TableStaff withModal={openModal} />
       <div>
         <Modal title="Edição de Staff">

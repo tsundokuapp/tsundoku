@@ -13,7 +13,6 @@ import {
   DragAndDropSingleImage,
 } from '@/components/common/form';
 import { NavTabs, Tab } from '@/components/common/tab';
-import { Volumes } from '@/components/dashboard/abaVolumes/Volumes';
 import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
 import {
@@ -24,6 +23,7 @@ import {
   nationality,
   cargoObraDiscord,
 } from '@/helpers/Util';
+import { Volumes } from './Volumes';
 
 interface ISession {
   title: string;

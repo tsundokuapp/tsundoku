@@ -58,7 +58,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex flex-1 flex-col pl-4">
+    <div className="flex flex-1 flex-col">
       <HeaderDashboard />
 
       <CardDashboard className="dark:bg-tranparent w-full flex-row gap-x-2 bg-transparent">
