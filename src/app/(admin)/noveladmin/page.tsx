@@ -1,0 +1,18 @@
+'use client';
+
+import { TableNovel } from '@/components/dashboard/table';
+import { useModal } from '@/contexts/ModalContext';
+
+export default function NovelAdmin() {
+  const { Modal } = useModal();
+  return (
+    <div className="flex flex-row">
+      <TableNovel />
+      <div>
+        <Modal title="Staff">
+          <div>alou to</div>
+        </Modal>
+      </div>
+    </div>
+  );
+}

@@ -162,3 +162,86 @@ export const StaffMembers = [
       'https://cdn.discordapp.com/avatars/569944055044243477/aa3de5dd8f434f63f7a61593b4e37ae2.png?size=1024',
   },
 ];
+
+// -------------------
+
+const randomId = () => Math.floor(Math.random() * 1000);
+const randomOptions = (options: string[]) => {
+  return options[Math.floor(Math.random() * options.length)];
+};
+
+export const status = ['Em andamento', 'Concluído', 'Cancelado', 'Hiato'];
+export const genres = [
+  'Ação',
+  'Aventura',
+  'Comédia',
+  'Drama',
+  'Fantasia',
+  'Romance',
+];
+export const types = ['Light Novel', 'Web Novel', 'Novel'];
+export const privacy = ['Público', 'Privado'];
+export const titles = [
+  'Tanya the Evil',
+  'Re:Zero',
+  'Overlord',
+  'Kumo desu ga, Nani ka?',
+  'Youjo Senki',
+  'Wandering Witch',
+  'Shadow',
+  'Konosuba',
+  'Re:Monster',
+  'The Rising of the Shield Hero',
+  'The Eminence in Shadow',
+  'The World of Otome Games is Tough for Mobs',
+];
+
+export const staff = [
+  'Rlc',
+  'Sky',
+  'Detros',
+  'Pride',
+  'Axios',
+  'Bravo',
+  'Nero',
+  'Cloe',
+  'Plon',
+];
+
+export const nationality = [
+  'Japonesa',
+  'Coreana',
+  'Chinesa',
+  'Americana',
+  'Brasileira',
+];
+
+export const cargoObraDiscord = [
+  'Tanya the Evil',
+  'Re:Zero',
+  'Overlord',
+  'Kumo desu ga, Nani ka?',
+  'Youjo Senki',
+  'Wandering Witch',
+];
+
+export const NovelsList = Array.from({ length: 10 }, () => ({
+  id: randomId(),
+  title: randomOptions(titles),
+  creator: randomOptions(staff),
+  status: randomOptions(status),
+  genre: [randomOptions(genres), randomOptions(genres), randomOptions(genres)],
+  type: randomOptions(types),
+  privacy: randomOptions(privacy),
+  date: '21/10/2024',
+  url: '/project/majo-no-tabitabi',
+}));
+
+export const ChaptersList = Array.from({ length: 10 }, () => ({
+  id: randomId(),
+  name: `Capítulo ${randomId()}`,
+  author: randomOptions(staff),
+  privacy: randomOptions(privacy),
+  date: '21/10/2024',
+  url: '/project/majo-no-tabitabi',
+}));

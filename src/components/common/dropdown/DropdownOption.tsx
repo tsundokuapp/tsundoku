@@ -1,12 +1,14 @@
 import { Check } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '@/helpers/twUtils';
 
 export interface DropdownOptionProps extends ComponentProps<'label'> {
   label: string;
   value: string;
   selected?: boolean;
-  action: () => void;
+  action?: () => void;
+  onClick?: () => void;
   setIsOpen?: (isOpen: boolean) => void;
 }
 
@@ -15,20 +17,22 @@ export function DropdownOption({
   value,
   selected = false,
   action,
+  onClick,
   setIsOpen,
   className,
   ...props
 }: DropdownOptionProps) {
   const handleOptionAction = () => {
-    action();
+    action && action();
+    onClick && onClick();
     setIsOpen?.(false);
   };
 
   return (
     <div key={value} className="dropdown-option">
       <label
-        className={twMerge(
-          'm-1 flex cursor-pointer items-center rounded-lg px-2 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-700',
+        className={cn(
+          'm-1 flex cursor-pointer items-center rounded-lg bg-white px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700',
           className,
         )}
         onClick={handleOptionAction}

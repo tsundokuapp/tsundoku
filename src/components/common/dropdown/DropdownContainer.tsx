@@ -1,5 +1,5 @@
 import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   useState,
   useEffect,
@@ -7,16 +7,20 @@ import {
   type ReactNode,
   type ComponentProps,
 } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { EnterAnimation } from '@/animation/EnterAnimation';
+import { cn } from '@/helpers/twUtils';
 
 interface DropdownContainerProps extends ComponentProps<'div'> {
-  label: string;
-  value: string;
+  label: string | ReactElement;
+  value: string | ReactElement;
   children: ReactNode;
-  buttonClassname?: string | undefined;
-  menuClassname?: string | undefined;
-  scrollbarClassname?: string | undefined;
+  buttonClassname?: string;
+  menuClassname?: string;
+  scrollbarClassname?: string;
 }
+
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export function DropdownContainer({
   label,
@@ -50,17 +54,14 @@ export function DropdownContainer({
   return (
     <div
       ref={dropdownRef}
-      className={twMerge(
-        'relative inline-block w-[180px] text-left',
-        className,
-      )}
+      className={cn('relative inline-block min-w-[180px] text-left', className)}
       {...props}
     >
       <div>
         <button
           type="button"
-          className={twMerge(
-            'inline-flex w-full justify-between rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-400 focus:outline-none',
+          className={cn(
+            'inline-flex w-full justify-between rounded-lg border bg-white px-3 py-2 text-base font-medium text-black focus:border-primary focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-gray-400',
             buttonClassname,
           )}
           onClick={handleToggleDropdown}
@@ -70,32 +71,32 @@ export function DropdownContainer({
         </button>
       </div>
       {isOpen && (
-        <div
-          className={twMerge(
-            'absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-zinc-800',
-            menuClassname,
-          )}
-        >
+        <EnterAnimation delay={0.3} className="absolute z-10">
           <div
-            className={twMerge(
-              'max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-zinc-500 dark:scrollbar-track-zinc-800',
-              scrollbarClassname,
+            className={cn(
+              'wright-0 mt-2 w-56 origin-top-right rounded-md border border-slate-100 bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:border-slate-900 dark:bg-slate-800',
+              menuClassname,
             )}
           >
-            {React.Children.map(children, (child) =>
-              React.isValidElement(child)
-                ? React.cloneElement(
+            <div
+              className={cn(
+                'scrollbar-thin scrollbar-track-white scrollbar-thumb-zinc-500 dark:scrollbar-track-zinc-800 max-h-[400px] overflow-y-auto',
+                scrollbarClassname,
+              )}
+            >
+              {React.Children.map(children, (child) =>
+                React.isValidElement(child)
+                  ? React.cloneElement(
                     child as React.ReactElement<{
-                      setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+                      setIsOpen: SetState<boolean>;
                     }>,
-                    {
-                      setIsOpen,
-                    },
+                    { setIsOpen },
                   )
-                : child,
-            )}
+                  : child,
+              )}
+            </div>
           </div>
-        </div>
+        </EnterAnimation>
       )}
     </div>
   );

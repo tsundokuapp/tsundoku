@@ -9,17 +9,22 @@ import {
   useEffect,
 } from 'react';
 
+import { EnterAnimation } from '@/animation/EnterAnimation';
+import { SideAnimation } from '@/animation/SideAnimation';
+import { cn } from '@/helpers/twUtils';
+
 interface ModalProps {
   title?: string;
   children: ReactNode;
   side?: boolean;
+  className?: string;
 }
 
 interface ModalContextProps {
   isModalOpen: boolean;
   openModal: () => void;
   closeModal: () => void;
-  ModalContent: ({ children, title, side }: ModalProps) => ReactNode;
+  Modal: ({ children, title }: ModalProps) => ReactNode;
 }
 
 const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);
@@ -50,60 +55,66 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsModalOpen(false);
   };
 
-  const ModalContent = ({ children, title, side }: ModalProps) => {
+  const Modal = ({ children, title, side = false, className }: ModalProps) => {
     return (
-      isModalOpen && (
-        <div
-          className="fixed bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center"
-          style={{ background: 'rgba(0, 0, 0, 0.5)' }}
-          onClick={closeModal}
-        >
-          <ModalWrapper>
-            {side ? (
-              <ModalSide>{children}</ModalSide>
-            ) : (
-              <Modal title={title}>{children}</Modal>
+      <>
+        {isModalOpen ? (
+          <div
+            className={cn(
+              'fixed bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center',
+              {
+                'justify-end': side,
+              },
             )}
-          </ModalWrapper>
-        </div>
-      )
+            style={{
+              background: 'rgba(0, 0, 0, 0.3)',
+            }}
+            onClick={closeModal}
+          >
+            {side ? (
+              <SideAnimation>
+                <ContentModal title={title} className={className}>
+                  {children}
+                </ContentModal>
+              </SideAnimation>
+            ) : (
+              <EnterAnimation delay={0.2}>
+                <ContentModal title={title} className={className}>
+                  {children}
+                </ContentModal>
+              </EnterAnimation>
+            )}
+          </div>
+        ) : null}
+      </>
     );
   };
 
-  const Modal = ({ title, children }: ModalProps) => {
+  const ContentModal = ({ children, title, className }: ModalProps) => {
     return (
-      <header className="flex flex-col items-center justify-between gap-4">
-        <div className="flex h-10 w-full flex-1 flex-row justify-between">
-          {title && (
-            <h1 className="text-2xl font-bold text-black dark:text-white">
-              {title}
-            </h1>
-          )}
-
+      <div
+        className={cn(
+          'flex h-full min-h-96 w-full max-w-[700px] flex-col gap-4 rounded-lg border-2 bg-white p-4 dark:border-slate-700 dark:bg-slate-900',
+          className,
+        )}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between border-b-[1px]">
+          <h2 className="dark:text-default-textDark text-xl font-bold">
+            {title}
+          </h2>
           <button onClick={closeModal}>
-            <X size={24} />
+            <X size={24} className="transition hover:scale-125" />
           </button>
         </div>
-        {children}
-      </header>
-    );
-  };
-
-  const ModalWrapper = ({ children }: { children: ReactNode }) => {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 dark:bg-gray-900">
         {children}
       </div>
     );
   };
 
-  const ModalSide = ({ children }: { children: ReactNode }) => {
-    return <div>{children};</div>;
-  };
-
   return (
     <ModalContext.Provider
-      value={{ isModalOpen, openModal, closeModal, ModalContent }}
+      value={{ isModalOpen, openModal, closeModal, Modal }}
     >
       {children}
     </ModalContext.Provider>

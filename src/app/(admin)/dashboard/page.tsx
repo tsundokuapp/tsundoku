@@ -4,7 +4,7 @@ import { UsersFour, FrameCorners } from '@phosphor-icons/react/dist/ssr';
 import { ChartTypeRegistry } from 'chart.js';
 import { CSSProperties, ReactNode, useState } from 'react';
 
-import { TsunButton } from '@/components/common/button/TsunButton';
+import { Button } from '@/components/common/button/Button';
 import { CardInfo } from '@/components/dashboard/cardInfo/CardInfo';
 import { DataCharts } from '@/components/dashboard/chart/DataChart';
 import {
@@ -34,7 +34,7 @@ export default function Dashboard() {
     data: lineDataChart,
   });
 
-  const { ModalContent, openModal } = useModal();
+  const { Modal, openModal } = useModal();
 
   const toogleChart = () => {
     if (currentChart.type === 'line') {
@@ -65,16 +65,14 @@ export default function Dashboard() {
         <CardTransactions />
         <div className="flex-1 flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
           <div className="flex flex-row items-center justify-between">
-            <TsunButton onClick={() => toogleChart()}>
-              Trocar Gráfico
-            </TsunButton>
-            <TsunButton
+            <Button onClick={() => toogleChart()}>Trocar Gráfico</Button>
+            <Button
               onClick={openModal}
               icon={<FrameCorners size={24} />}
               sideIcon="right"
             >
               Fullscreen
-            </TsunButton>
+            </Button>
           </div>
           <DataCharts type={currentChart.type} data={currentChart.data} />
         </div>
@@ -101,11 +99,11 @@ export default function Dashboard() {
       <TableActivityStaff />
 
       <div>
-        <ModalContent title="Gráficos Comparativos">
+        <Modal title="Gráficos Comparativos">
           <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8 dark:bg-gray-800">
             <DataCharts type={currentChart.type} data={currentChart.data} />
           </div>
-        </ModalContent>
+        </Modal>
       </div>
     </div>
   );
