@@ -42,11 +42,11 @@ export function ComicInfiniteView({
     <div
       ref={containerRef}
       className={twMerge(
-        'flex h-full items-center justify-center overflow-y-auto',
+        'mb-8 flex h-full items-center justify-center overflow-y-auto',
         className,
       )}
     >
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-2">
         {images.map((src, index) => {
           const pageNumber = index + 1;
           return (

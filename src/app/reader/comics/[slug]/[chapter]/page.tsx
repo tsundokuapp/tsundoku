@@ -53,7 +53,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
 
   return (
     <div ref={comicContainerRef} className="relative">
-      <ActionsBarContainer>
+      <ActionsBarContainer sufixList={['Capítulo']} removeList={['reader']}>
         <ActionChapterList totalChapters={67} />
         <ActionPageList
           totalPages={images.length}
