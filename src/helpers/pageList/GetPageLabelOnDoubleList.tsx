@@ -19,7 +19,7 @@ export function GetPageLabelOnDoubleList({
     if (showPage === totalPages) {
       return `Página ${showPage}`;
     } else {
-      return `Páginas ${showPage} - ${nextPage + 1}`;
+      return `Páginas ${showPage} - ${nextPage}`;
     }
   }
 }

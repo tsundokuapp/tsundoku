@@ -25,6 +25,11 @@ export function ProgressBar({
     props.onPageChange?.(pageNumber);
   };
 
+  const percentageRead = Math.min(
+    Math.max((progressStep / totalSteps) * 100, 0),
+    100,
+  ).toFixed(2);
+
   return (
     <div
       className="fixed bottom-0 left-0 w-full bg-white shadow-inner dark:bg-zinc-950"
@@ -61,7 +66,7 @@ export function ProgressBar({
           })}
         </div>
         <span className="mx-4 w-14 text-center text-sm font-medium">
-          {((progressStep / totalSteps) * 100).toFixed(2)}%
+          {percentageRead}%
         </span>
       </div>
     </div>

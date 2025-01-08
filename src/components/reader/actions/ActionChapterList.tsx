@@ -32,6 +32,7 @@ export function ActionChapterList({ totalChapters }: ActionChapterListProps) {
             action={() => {
               router.push(chapterListItemUrl);
             }}
+            selected={chapterListItemIndex.toString() === chapter}
           />
         );
       })}

@@ -1,4 +1,4 @@
-import type { ChapterListItem } from '@/@types/ChapterListItem';
+import type { IChapterListItem } from '@/@types/ChapterListItem';
 
 interface GenerateChapterListProps {
   projectSlug: string;
@@ -8,8 +8,8 @@ interface GenerateChapterListProps {
 export function GenerateChapterList({
   projectSlug,
   totalChapters,
-}: GenerateChapterListProps): ChapterListItem[] {
-  const chapterList: ChapterListItem[] = [];
+}: GenerateChapterListProps): IChapterListItem[] {
+  const chapterList: IChapterListItem[] = [];
   const chapterListTotalItems = totalChapters;
   const chapterListGap = 1;
 

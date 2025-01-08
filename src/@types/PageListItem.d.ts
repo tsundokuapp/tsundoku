@@ -1,4 +1,4 @@
-export interface PageListItem {
+export interface IPageListItem {
   pageListItemIndex: number;
   pageListItemLabel: string;
 }

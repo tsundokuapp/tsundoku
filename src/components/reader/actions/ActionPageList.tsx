@@ -50,6 +50,7 @@ export function ActionPageList({
             label={pageListItemLabel}
             value={pageListItemIndex.toString()}
             action={() => handlePageChange(pageListItemIndex)}
+            selected={showPage === pageListItemIndex}
           />
         );
       })}
