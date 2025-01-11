@@ -8,15 +8,17 @@ export const FakeCheckbox = ({
   description,
   checked,
   size = 'sm',
+  id,
 }: FakeCheckboxProps) => {
   return (
     <div className="flex items-center justify-center">
       <div className="flex h-5 items-center bg-transparent">
         <input
-          id="helper-checkbox"
-          aria-describedby="helper-checkbox-input"
+          id={id || 'helper-faker-checkbox'}
+          aria-describedby="helper-faker-checkbox-input"
           checked={checked}
           type="checkbox"
+          tabIndex={-1}
           disabled
           className={cn(
             'disabled:border-steel-400 disabled:bg-steel-400 focus-event-none peer pointer-events-none relative mt-1 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-900 checked:dark:border-0 checked:dark:bg-primary dark:focus:ring-primary',
@@ -40,9 +42,9 @@ export const FakeCheckbox = ({
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
@@ -53,14 +55,14 @@ export const FakeCheckbox = ({
         })}
       >
         <label
-          htmlFor="helper-checkbox"
+          htmlFor="helper-fake-checkbox"
           className="font-medium text-gray-900 dark:text-gray-300"
         >
           {label}
         </label>
         {description && (
           <p
-            id="helper-checkbox-text"
+            id="helper-faker-checkbox-text"
             className="flex-wrap text-xs font-normal text-gray-500 dark:text-slate-500"
           >
             {description}
