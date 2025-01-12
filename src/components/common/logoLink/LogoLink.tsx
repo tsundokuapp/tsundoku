@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { CSSProperties } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
 interface LogoLinkProps {
-  className?: CSSProperties | string;
+  className?: string;
 }
 
 export const LogoLink = ({ className }: LogoLinkProps) => {
