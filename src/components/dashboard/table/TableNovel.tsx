@@ -1,7 +1,8 @@
 'use client';
 
+import { Spinner } from '@phosphor-icons/react/dist/ssr';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/common/button/Button';
 import {
@@ -13,9 +14,11 @@ import {
   TitleColTable,
 } from '@/components/common/table';
 import { TdDefault } from '@/components/common/table/TdDefault';
+import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
-import { NovelsList } from '@/helpers/Util';
 import { cn } from '@/helpers/twUtils';
+import { useAdminNovels } from '@/hooks/useNovels';
+import { api } from '@/services/api';
 
 interface LineTableProps {
   title: string;
@@ -27,11 +30,111 @@ interface LineTableProps {
   url: string;
 }
 
-export const TableNovel = () => {
+interface ITableNovel {
+  openModal: () => void;
+}
+
+export const TableNovel = ({ openModal }: ITableNovel) => {
+  const { data: novelsResponse, isLoading } = useAdminNovels();
+
+  // TODO: Mover a lógica de calculo de paginação para dentro do footer
   const router = useRouter();
   const [search, setSearch] = useState('');
-  const [items, setItems] = useState(NovelsList);
-  const columns = ['Nome', 'Criador', 'Status', 'Privacidade', 'Data Entrada'];
+  const [novels, setNovels] = useState(novelsResponse?.data);
+  const [pagination, setPagination] = useState({
+    nextPage: '',
+    prevPage: '',
+    total: 0,
+    currentPage: 1,
+    itemsVisible: 0,
+  });
+  const columns = ['Nome', 'Criador', 'Status', 'Visibilidade', 'Data Entrada'];
+  const SKIP_DEFAULT = 6;
+
+  useEffect(() => {
+    if (novelsResponse?.data) {
+      setNovels(novelsResponse?.data);
+      setPagination({
+        nextPage: novelsResponse.proxima,
+        prevPage: novelsResponse.anterior,
+        total: novelsResponse.total,
+        itemsVisible: novelsResponse.data.length,
+        currentPage: getCurrentPagePagination(
+          novelsResponse?.proxima,
+          novelsResponse?.anterior,
+        ),
+      });
+    }
+  }, [novelsResponse]); // eslint-disable-line
+
+  const { toaster } = useToaster();
+
+  const getCurrentPagePagination = (nextUrl: string, prevUrl: string) => {
+    const SKIP_DEFAULT = 6;
+    const total = pagination.total;
+
+    const extractSkip = (url: string | null) => {
+      if (!url) return null;
+      const match = url.match(/[?&]Skip=(\d+)/);
+      return match ? parseInt(match[1], 10) : null;
+    };
+
+    const prevSkip = extractSkip(prevUrl);
+
+    if (prevUrl === null) {
+      // Estamos na primeira página
+      return 1;
+    }
+
+    if (nextUrl === null) {
+      // Estamos na última página
+      const lastPage = Math.ceil(total / SKIP_DEFAULT);
+      return lastPage;
+    }
+
+    // Calcula a página atual, back é based 0 e front é based 1
+    const currentPage = prevSkip !== null ? prevSkip / SKIP_DEFAULT + 1 + 1 : 1;
+
+    return currentPage;
+  };
+
+  const debouncedHandleChange = Debounce((value: string) => {
+    if (value === '') {
+      setNovels(novelsResponse?.data);
+      return;
+    }
+
+    const filtered = novelsResponse?.data.filter((novel) =>
+      novel.titulo.toLowerCase().includes(value.toLowerCase()),
+    );
+
+    setNovels(filtered);
+  }, 1000);
+
+  const handleChange = (value: string) => {
+    setSearch(value);
+    debouncedHandleChange(value);
+  };
+
+  const goToUrl = async (url: string) => {
+    if (typeof url === 'string' && url !== '') {
+      const { data } = await api.get(url);
+      setNovels(data?.data);
+      setPagination({
+        nextPage: data?.proxima || '',
+        prevPage: data?.anterior || '',
+        total: data?.total,
+        itemsVisible: data.data.length,
+        currentPage: getCurrentPagePagination(data?.proxima, data?.anterior),
+      });
+      return;
+    }
+
+    toaster({
+      type: 'error',
+      msg: 'Não existem mais páginas.',
+    });
+  };
 
   const LineTable = ({
     title,
@@ -42,9 +145,11 @@ export const TableNovel = () => {
     type,
     url,
   }: LineTableProps) => {
+    const formatedDate = date.replace(/\s\d{2}:\d{2}:\d{2}$/, '');
+    const urlNext = `/project/${url}`;
     return (
       <tr
-        onClick={() => router.push(url)}
+        onClick={() => router.push(urlNext)}
         className="cursor-pointer border-b bg-white transition-all hover:bg-slate-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <th
@@ -59,8 +164,8 @@ export const TableNovel = () => {
 
         <TdDefault>{creator}</TdDefault>
 
-        <td className="px-auto py-4">
-          <div className="relative flex items-center gap-x-1">
+        <TdDefault>
+          <div className="relative flex items-center justify-center gap-x-1">
             <div
               className={cn('right-2 top-2 h-2 w-2 rounded bg-primary', {
                 'bg-primary': status === 'Concluído',
@@ -71,34 +176,39 @@ export const TableNovel = () => {
             />
             {status}
           </div>
-        </td>
+        </TdDefault>
 
-        <TdDefault>{privacy}</TdDefault>
-        <TdDefault>{date}</TdDefault>
+        <TdDefault hiddenCell="md">{privacy}</TdDefault>
+        <TdDefault hiddenCell="md">{formatedDate}</TdDefault>
       </tr>
     );
   };
 
-  const reorderList = () => {
-    alert(`Reorder by:`);
-  };
-
-  const debouncedHandleChange = Debounce((value: string) => {
-    if (value === '') {
-      setItems(NovelsList);
-      return;
-    }
-
-    const filtered = NovelsList.filter((item) =>
-      item.title.toLowerCase().includes(value.toLowerCase()),
+  const RenderDataTable = () => {
+    return (
+      <>
+        {!isLoading && (!novels || novels?.length === 0) ? (
+          <tr>
+            <td colSpan={columns.length} className="py-4 text-center">
+              Nenhum resultado encontrado.
+            </td>
+          </tr>
+        ) : (
+          novels?.map((novel) => (
+            <LineTable
+              key={novel.id}
+              title={novel.titulo}
+              creator={novel.usuarioInclusao}
+              status={novel.statusObra}
+              privacy={'Público'}
+              type={novel.tipoObra}
+              date={novel.dataInclusao}
+              url={novel.slug}
+            />
+          ))
+        )}
+      </>
     );
-
-    setItems(filtered);
-  }, 1000);
-
-  const handleChange = (value: string) => {
-    setSearch(value);
-    debouncedHandleChange(value);
   };
 
   return (
@@ -108,7 +218,7 @@ export const TableNovel = () => {
         description="Inclui novels pausadas e canceladas."
       >
         <SearchTable value={search} onChange={handleChange} />
-        <Button onClick={() => alert('Create Novel')}>Adicionar</Button>
+        <Button onClick={() => openModal()}>Adicionar</Button>
       </HeaderTable>
 
       <Table>
@@ -119,28 +229,40 @@ export const TableNovel = () => {
                 key={index}
                 title={item}
                 position={item === 'Nome' ? 'left' : 'center'}
-                reorder
-                onClick={() => reorderList()}
+                hiddenCell={
+                  item === 'Data Entrada' || item === 'Visibilidade'
+                    ? 'md'
+                    : undefined
+                }
               />
             ))}
           </tr>
         </THeadTable>
         <tbody>
-          {items.map((novel) => (
-            <LineTable
-              key={novel.id}
-              title={novel.title}
-              creator={novel.creator}
-              status={novel.status}
-              privacy={novel.privacy}
-              type={novel.type}
-              date={novel.date}
-              url={novel.url}
-            />
-          ))}
+          {isLoading && (
+            <tr>
+              <td colSpan={columns.length} className="py-4 text-center">
+                <div className="flex items-center justify-center gap-4">
+                  <span>Carregando...</span>
+                  <Spinner size={24} className="animate-spin" />
+                </div>
+              </td>
+            </tr>
+          )}
+          <RenderDataTable />
         </tbody>
       </Table>
-      <FooterTable />
+      <FooterTable
+        onGoToPage={(skip) =>
+          goToUrl(`/admin/obra/novels?Skip=${skip}&Take=${SKIP_DEFAULT}`)
+        }
+        currentPage={pagination.currentPage}
+        totalItems={pagination.total || 0}
+        itemsPerPage={SKIP_DEFAULT}
+        itemsVisible={pagination.itemsVisible}
+        onPrevPage={() => goToUrl(pagination.prevPage)}
+        onNextPage={() => goToUrl(pagination.nextPage)}
+      />
     </div>
   );
 };

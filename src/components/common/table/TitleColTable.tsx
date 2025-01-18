@@ -8,6 +8,7 @@ interface TitleColProps {
   className?: CSSProperties | string;
   onClick?: () => void;
   position?: 'left' | 'right' | 'center';
+  hiddenCell?: 'md' | 'sm';
 }
 
 export const TitleColTable = ({
@@ -16,9 +17,20 @@ export const TitleColTable = ({
   className,
   onClick,
   position = 'center',
+  hiddenCell,
 }: TitleColProps) => {
   return (
-    <th scope="col" className={cn('py-3 pl-3', className)}>
+    <th
+      scope="col"
+      className={cn(
+        'table-cell py-3 pl-3',
+        {
+          'hidden md:table-cell': hiddenCell === 'md',
+          'hidden sm:table-cell': hiddenCell === 'sm',
+        },
+        className,
+      )}
+    >
       <div
         className={cn('flex items-center px-3', {
           'justify-start': position === 'left',
