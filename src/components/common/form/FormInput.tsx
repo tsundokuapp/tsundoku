@@ -1,22 +1,30 @@
 import { ErrorMessage } from '@hookform/error-message';
-import React from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import {
+  type Path,
+  type PathValue,
+  type FieldErrors,
+  type UseFormRegister,
+  type UseFormSetValue,
+} from 'react-hook-form';
 
 import { cn } from '@/helpers/twUtils';
 
-interface InputProps {
+interface InputProps<T extends Record<string, unknown>> {
   label: string;
   type?: string;
   placeholder?: string;
   errors: FieldErrors;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<T>;
+  setValue: UseFormSetValue<T>;
   className?: string;
-  name: string;
+  name: Path<T>;
   min?: number;
   disabled?: boolean;
+  defaultValue?: PathValue<T, Path<T>>;
 }
 
-export const FormInput = ({
+export const FormInput = <T extends Record<string, unknown>>({
   className,
   label,
   name,
@@ -26,8 +34,16 @@ export const FormInput = ({
   register,
   min = 1,
   disabled,
+  setValue,
+  defaultValue,
   ...props
-}: InputProps) => {
+}: InputProps<T>) => {
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(name, defaultValue);
+    }
+  }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="flex flex-col">
       <label

@@ -108,6 +108,7 @@ export const Volumes = () => {
           title="Capa Principal"
           name="cover"
           setValue={setValue}
+          errors={errors}
         />
         <div className="col-span-2 mb-2 flex flex-col gap-4">
           <FormInput

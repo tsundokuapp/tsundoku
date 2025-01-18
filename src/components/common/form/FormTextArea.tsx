@@ -1,22 +1,30 @@
 import { ErrorMessage } from '@hookform/error-message';
-import React from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import {
+  Path,
+  PathValue,
+  type FieldErrors,
+  type UseFormRegister,
+  type UseFormSetValue,
+} from 'react-hook-form';
 
 import { cn } from '@/helpers/twUtils';
 
-interface TextAreaProps
+interface TextAreaProps<T extends Record<string, unknown>>
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   placeholder?: string;
   errors: FieldErrors;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<T>;
   className?: string;
-  name: string;
+  name: Path<T>;
   cols?: number;
   rows?: number;
+  setValue: UseFormSetValue<T>;
+  defaultValue?: string;
 }
 
-export const FormTextArea = ({
+export const FormTextArea = <T extends Record<string, unknown>>({
   className,
   label,
   name,
@@ -25,8 +33,16 @@ export const FormTextArea = ({
   register,
   cols = 50,
   rows = 10,
+  defaultValue,
+  setValue,
   ...props
-}: TextAreaProps) => {
+}: TextAreaProps<T>) => {
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(name, defaultValue as PathValue<T, Path<T>>);
+    }
+  }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="flex flex-col">
       <label
@@ -44,6 +60,7 @@ export const FormTextArea = ({
         )}
         cols={cols}
         rows={rows}
+        defaultValue={defaultValue}
         {...register(name)}
         {...props}
       />
