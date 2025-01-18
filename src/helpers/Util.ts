@@ -179,7 +179,7 @@ export const genres = [
   'Fantasia',
   'Romance',
 ];
-export const types = ['Light Novel', 'Web Novel', 'Novel'];
+export const types = ['Light Novel', 'light-novel', 'Web Novel', 'Novel'];
 export const privacy = ['Público', 'Privado'];
 export const titles = [
   'Tanya the Evil',
