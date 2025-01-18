@@ -94,7 +94,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     return (
       <div
         className={cn(
-          'flex h-full min-h-96 w-full max-w-[700px] flex-col gap-4 rounded-lg border-2 bg-white p-4 dark:border-slate-700 dark:bg-slate-900',
+          'flex h-full max-h-screen min-h-96 w-full max-w-[700px] flex-col gap-4 overflow-scroll rounded-lg border-2 bg-white p-4 dark:border-slate-700 dark:bg-slate-900',
           className,
         )}
         onClick={(event) => event.stopPropagation()}

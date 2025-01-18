@@ -96,7 +96,7 @@ export const ToasterProvider = ({ children }: { children: ReactNode }) => {
     }
 
     if (type === 'custom') {
-      toast(<>{children}</>)
+      toast(<>{children}</>);
     }
   };
 
