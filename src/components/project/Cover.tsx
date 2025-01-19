@@ -15,7 +15,7 @@ export function Cover({
   src,
   title,
   category,
-  action = '#',
+  action,
   // usar actionHome quando o item é exibido na home
   actionHome,
   children,
@@ -26,7 +26,7 @@ export function Cover({
 
   return (
     <Link
-      href={actionByHome || action}
+      href={action || actionByHome}
       className="group flex w-[180px] flex-col gap-1"
     >
       <div className="overflow-hidden rounded-md">
