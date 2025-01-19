@@ -1,7 +1,8 @@
 import { Banner } from '@/components/common/Banner';
 import { LinkButton } from '@/components/common/LinkButton';
-import { Title } from '@/components/common/Title';
-import { Cover } from '@/components/project/Cover';
+
+import { SectinoNews } from './SectionNews';
+import { SectionProjects } from './SectionProjects';
 
 export default function Home() {
   return (
@@ -27,72 +28,10 @@ export default function Home() {
           ></LinkButton>
         </Banner>
       </div>
-      <Title title="Novidades na Tsun" />
-      <div className="flex flex-row gap-6">
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-      </div>
-      <Title title="Atualizados Recentemente" />
-      <div className="flex flex-row flex-wrap gap-6">
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-      </div>
+
+      <SectinoNews />
+
+      <SectionProjects />
     </div>
   );
 }

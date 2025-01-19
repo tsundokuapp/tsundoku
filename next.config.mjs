@@ -14,6 +14,9 @@ const nextConfig = {
       {
         hostname: 'cdn.discordapp.com',
       },
+      {
+        hostname: 'tsundoku.com.br',
+      },
     ],
   },
 };

@@ -7,6 +7,7 @@ interface CoverProps {
   title: string;
   category: string;
   action?: string;
+  actionHome?: string;
   children?: ReactNode;
 }
 
@@ -15,10 +16,19 @@ export function Cover({
   title,
   category,
   action = '#',
+  // usar actionHome quando o item é exibido na home
+  actionHome,
   children,
 }: CoverProps) {
+  // TODO: criar um helper para tratar todos os casos de category
+  const normalizedCategory = category === 'Mangá' ? 'comics' : 'novels';
+  const actionByHome = `${normalizedCategory}/${actionHome}`;
+
   return (
-    <Link href={action} className="group flex w-[180px] flex-col gap-1">
+    <Link
+      href={actionByHome || action}
+      className="group flex w-[180px] flex-col gap-1"
+    >
       <div className="overflow-hidden rounded-md">
         <Image
           src={src}
