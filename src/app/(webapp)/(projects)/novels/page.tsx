@@ -1,58 +1,30 @@
-import { Title } from '@/components/common/Title';
+'use client';
+
+import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { Cover } from '@/components/project/Cover';
+import { convertSlugToText } from '@/helpers/ConvertSlugToText';
+import { usePublicNovels } from '@/hooks/usePublicApi';
 
 export default function Novels() {
+  const { data: projectsResponse, isLoading } = usePublicNovels();
+
   return (
     <div className="flex flex-col gap-12">
-      <Title title="Novels da Tsun" />
-      <div className="flex flex-row flex-wrap gap-6">
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-          action="novels/kage-no-jitsuryokusha-ni-naritakute"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-      </div>
+      <AsyncSection
+        title="Atualizados Recentemente"
+        isLoading={isLoading}
+        className="flex-wrap"
+      >
+        {projectsResponse?.data?.map((item) => (
+          <Cover
+            key={item.id}
+            src={item.urlCapa}
+            title={item.titulo}
+            category={convertSlugToText(item.tipoObraSlug)}
+            actionHome={item.slug}
+          />
+        ))}
+      </AsyncSection>
     </div>
   );
 }

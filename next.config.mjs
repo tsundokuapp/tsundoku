@@ -17,6 +17,10 @@ const nextConfig = {
       {
         hostname: 'tsundoku.com.br',
       },
+      {
+        // TODO: isso aqui é uma URL dinâmica? precisamos confirmar e alterar o hostname
+        hostname: 'dejrqqh1w9hhl.cloudfront.net',
+      },
     ],
   },
 };

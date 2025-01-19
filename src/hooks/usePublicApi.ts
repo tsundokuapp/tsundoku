@@ -27,6 +27,17 @@ interface IProjectsHome {
   slugObra: string;
 }
 
+interface IPublicNovels {
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  autor: string;
+  descritivoVolume?: string;
+  slug: string;
+  tipoObraSlug: string;
+  id: string;
+}
+
 const getRecomendations = async (): Promise<IRecomendations[]> => {
   try {
     const response = await api.get('/obras/recomendadas');
@@ -60,5 +71,24 @@ export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
   return useQuery({
     queryKey: ['projects-home'],
     queryFn: getProjects,
+  });
+};
+
+const getNovels = async (): Promise<IPublicNovels[]> => {
+  try {
+    const response = await api.get('/obras/novels');
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const usePublicNovels = (): UseQueryResult<
+  ApiResponse<IPublicNovels>
+> => {
+  return useQuery({
+    queryKey: ['public-novels'],
+    queryFn: getNovels,
   });
 };
