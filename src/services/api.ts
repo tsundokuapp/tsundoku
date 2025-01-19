@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: process.env.NEXT_PUBLIC_API_URL,
-  baseURL: 'https://localhost:8081/api',
+  baseURL: process.env.DOCKER_UP
+    ? process.env.NEXT_PUBLIC_API_URL_DOCKER
+    : process.env.NEXT_PUBLIC_API_URL,
 });
