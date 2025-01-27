@@ -1,7 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { api } from '@/services/api';
-import { ApiResponse } from '@/types/Api';
+import { ApiResponse, IGenres, IVolumeNovelData } from '@/types/Api';
+import { IStatusNovels } from '@/types/TypesNovels';
 
 interface IRecomendations {
   // TODO: validar esses dois campos em um middleware
@@ -35,7 +36,30 @@ interface IPublicNovels {
   descritivoVolume?: string;
   slug: string;
   tipoObraSlug: string;
+  tipoObra: string;
   id: string;
+}
+
+interface IPublicNovel {
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
+  artista: string;
+  statusObra: IStatusNovels;
+  sinopse: string;
+  observacao: string;
+  listaGeneros: IGenres[];
+}
+
+interface IVolumesNovel {
+  total: number;
+  data: IVolumeNovelData[];
 }
 
 const getRecomendations = async (): Promise<IRecomendations[]> => {
@@ -60,6 +84,7 @@ export const useRecomendations = (): UseQueryResult<
 const getProjects = async (): Promise<IProjectsHome[]> => {
   try {
     const response = await api.get('/obras/home');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -90,5 +115,47 @@ export const usePublicNovels = (): UseQueryResult<
   return useQuery({
     queryKey: ['public-novels'],
     queryFn: getNovels,
+  });
+};
+
+const getNovelBySlug = async (slug: string): Promise<IPublicNovel> => {
+  try {
+    const response = await api.get(`/obras/novel/slug/${slug}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IPublicNovel;
+  }
+};
+
+export const usePublicNovelSlug = (
+  slug: string,
+): UseQueryResult<IPublicNovel> => {
+  return useQuery({
+    queryKey: ['public-novel-slug', slug],
+    queryFn: () => getNovelBySlug(slug),
+    enabled: !!slug,
+  });
+};
+
+const getVolumesNovel = async (idNovel: string): Promise<IVolumesNovel> => {
+  try {
+    const response = await api.get(`/admin/volume/novel?IdObra=${idNovel}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IVolumesNovel;
+  }
+};
+
+export const useVolumesNovel = (
+  idNovel: string,
+): UseQueryResult<IVolumesNovel> => {
+  return useQuery({
+    queryKey: ['volumes-novel', idNovel],
+    queryFn: () => getVolumesNovel(idNovel),
+    enabled: !!idNovel,
   });
 };

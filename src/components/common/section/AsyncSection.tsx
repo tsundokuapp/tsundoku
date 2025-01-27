@@ -8,7 +8,7 @@ import { Title } from '../Title';
 interface AsyncSectionProps {
   children: React.ReactNode;
   isLoading: boolean;
-  title: string;
+  title?: string;
   className?: string;
 }
 
@@ -20,7 +20,7 @@ export const AsyncSection = ({
 }: AsyncSectionProps) => {
   return (
     <section className="flex flex-col justify-between gap-4">
-      <Title title={title} />
+      {title && <Title title={title} />}
       <div className={(cn('flex flex-row gap-6'), className)}>
         {isLoading ? (
           <div className="flex h-10 w-full items-center justify-center gap-4">

@@ -8,7 +8,7 @@ import { Tag } from '../common/Tag';
 
 export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
   number: string;
-  date: Date;
+  date: Date | string;
   variant?: 'regular' | 'fill';
   border?: 'bottom' | 'full';
 }
@@ -22,9 +22,14 @@ export function Chapter({
   ...props
 }: ChapterProps) {
   // Caso o back-end forneça o link, não é necessário usar o hook usePathname e nem 'use client'
+  console.log('numero', number);
   const pathname = usePathname();
   const chapterLink = `${pathname}/${number}`;
-  const formatDate = date.toLocaleDateString('pt-BR');
+  const formatDate = new Date(date).toLocaleDateString('pt-BR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
   const tagText = variant === 'regular' ? 'Leia Agora' : 'Lido';
 
   return (
