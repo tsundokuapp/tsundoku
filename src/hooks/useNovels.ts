@@ -44,11 +44,6 @@ interface INovelResponse {
   diretorioImagemObra: string;
 }
 
-// para uso futuro
-// interface INovelRequest extends Partial<Omit<INovelResponse, 'generos'>> {
-//   listaGeneros: string[];
-// }
-
 const getAdminNovels = async (): Promise<INovelResponse[]> => {
   try {
     const response = await api.get('/admin/obra/novels');

@@ -2,29 +2,35 @@
 import { BookOpenText, DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '@/helpers/twUtils';
+import { useNovelStore } from '@/store/useNovelStore';
 
 import { Tag } from '../common/Tag';
 
 export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  chapterId: string;
   number: string;
+  volumeNumber: string;
   date: Date | string;
   variant?: 'regular' | 'fill';
   border?: 'bottom' | 'full';
 }
 
 export function Chapter({
+  chapterId,
   number,
   date,
   variant = 'regular',
   border = 'bottom',
   className,
+  volumeNumber,
   ...props
 }: ChapterProps) {
-  // Caso o back-end forneça o link, não é necessário usar o hook usePathname e nem 'use client'
-  console.log('numero', number);
+  const { setChapterId } = useNovelStore();
+
   const pathname = usePathname();
-  const chapterLink = `${pathname}/${number}`;
+  const chapterLink = `${pathname}/${volumeNumber}/${number}`;
   const formatDate = new Date(date).toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',
@@ -32,14 +38,19 @@ export function Chapter({
   });
   const tagText = variant === 'regular' ? 'Leia Agora' : 'Lido';
 
+  const handleClick = () => {
+    setChapterId(chapterId);
+  };
+
   return (
     <Link
       data-border={border}
       href={chapterLink}
-      className={twMerge(
+      className={cn(
         'flex flex-row items-center justify-between border-slate-200 px-6 py-4 hover:bg-slate-100 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b dark:border-slate-800 dark:hover:bg-slate-800 data-[border=full]:dark:bg-slate-800 data-[border=full]:dark:hover:bg-slate-900',
         className,
       )}
+      onClick={() => handleClick()}
       {...props}
     >
       <div className="flex flex-row items-center gap-2">

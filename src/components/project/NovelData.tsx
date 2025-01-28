@@ -3,7 +3,9 @@
 import { SortDescending } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
+import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
 import { useVolumesNovel } from '@/hooks/usePublicApi';
+import { useNovelStore } from '@/store/useNovelStore';
 import { IVolumeNovelData } from '@/types/Api';
 
 import { Volume } from './Volume';
@@ -16,6 +18,7 @@ interface NovelDataProps {
 }
 
 export function NovelData({ title, novelId }: NovelDataProps) {
+  const { setVolumeList } = useNovelStore();
   const { data: volumesNovelResponse, isLoading } = useVolumesNovel(novelId);
 
   const [isAscending, setIsAscending] = useState<boolean>(false);
@@ -24,8 +27,11 @@ export function NovelData({ title, novelId }: NovelDataProps) {
   useEffect(() => {
     if (volumesNovelResponse?.data) {
       setVolumeData(volumesNovelResponse?.data);
+
+      setVolumeList(
+        mapResponseVolumeToVolumeZustand(volumesNovelResponse.data!),
+      );
     }
-    console.log(volumeData);
   }, [volumesNovelResponse?.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSorting = () => {
@@ -65,6 +71,7 @@ export function NovelData({ title, novelId }: NovelDataProps) {
               subTitle={volume.subtitulo}
               sinopse={volume.sinopse}
               chapters={volume.listaCapitulo}
+              volumeNumber={volume.numero}
             />
           ))}
         </div>

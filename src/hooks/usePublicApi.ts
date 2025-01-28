@@ -62,6 +62,30 @@ interface IVolumesNovel {
   data: IVolumeNovelData[];
 }
 
+export interface IChapterNovelData {
+  id: string;
+  numero: string;
+  titulo: string;
+  conteudoNovel: string | HTMLElement;
+  slug: string;
+  usuarioInclusao: string;
+  dataInclusao: string;
+  dataAlteracao: string;
+  ordemCapitulo: number;
+  ehIlustracoesNovel: boolean;
+  volumeId: string;
+  tradutor: string;
+  revisor: string;
+  qc: string;
+  descritivoCapitulo: string;
+  publicado: boolean;
+}
+
+interface IChapterNovel {
+  total: number;
+  data: IChapterNovelData;
+}
+
 const getRecomendations = async (): Promise<IRecomendations[]> => {
   try {
     const response = await api.get('/obras/recomendadas');
@@ -157,5 +181,26 @@ export const useVolumesNovel = (
     queryKey: ['volumes-novel', idNovel],
     queryFn: () => getVolumesNovel(idNovel),
     enabled: !!idNovel,
+  });
+};
+
+const getChapterNovel = async (idChapter: string): Promise<IChapterNovel> => {
+  try {
+    const response = await api.get(`/admin/capitulo/novel/${idChapter}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IChapterNovel;
+  }
+};
+
+export const useChapterNovel = (
+  idChapter: string,
+): UseQueryResult<IChapterNovelData> => {
+  return useQuery({
+    queryKey: ['chapter-novel', idChapter],
+    queryFn: () => getChapterNovel(idChapter),
+    enabled: !!idChapter,
   });
 };

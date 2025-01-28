@@ -1,4 +1,4 @@
-import { SortDescending } from '@phosphor-icons/react/dist/ssr';
+import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -14,6 +14,7 @@ export function Volume({
   sinopse,
   chapters,
   cover,
+  volumeNumber,
 }: IVolumeNovel) {
   const [isAscending, setIsAscending] = useState<boolean>(false);
   const [chaptersArray, setChaptersArray] =
@@ -56,7 +57,7 @@ export function Volume({
             onClick={handleSorting}
             className="ml-auto flex items-center gap-2"
           >
-            <SortDescending
+            <SortAscending
               size={24}
               className={`${isAscending ? 'rotate-180' : ''} transition duration-300 ease-in-out`}
             />
@@ -68,8 +69,10 @@ export function Volume({
                 {chapter.publicado && (
                   <Chapter
                     key={chapter.id}
+                    chapterId={chapter.id}
                     number={chapter.numero}
                     date={chapter.dataInclusao}
+                    volumeNumber={volumeNumber}
                     // variant={chapter.variant}
                     className="rounded-lg"
                   />

@@ -15,7 +15,7 @@ export interface IGenres {
   dataAlteracao?: string;
 }
 
-export interface IChapterNovelData {
+export interface IChapterNovelForVolume {
   dataInclusao: string;
   id: string;
   numero: string;
@@ -39,5 +39,5 @@ export interface IVolumeNovelData {
   slug: string;
   usuarioInclusao: string;
   novelId: string;
-  listaCapitulo: IChapterData[];
+  listaCapitulo: IChapterNovelForVolume[];
 }
