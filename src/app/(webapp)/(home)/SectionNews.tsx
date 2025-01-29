@@ -8,7 +8,7 @@ export const SectinoNews = () => {
   const { data: recomendationResponse, isLoading } = useRecomendations();
 
   return (
-    <AsyncSection isLoading={isLoading} title="Novidades na Tsun">
+    <AsyncSection isLoading={isLoading} title="Indicadas pela Tsun">
       {recomendationResponse?.data?.map((item) => (
         <Cover
           key={item.slugObra}

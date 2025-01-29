@@ -8,7 +8,7 @@ export default function Home() {
   const imagesArray = [
     '/banner-elaina.jpg',
     '/banner-emilia.jpg',
-    '/banner-tanya.jpg',
+    '/banner-bocchi.jpg',
   ];
 
   return (
