@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { IFontLineHeight } from '@/types/Reader';
 
-import { ActionButtonControl } from './actionButtonControl/ActionButtonControl';
+import { ActionButtonControl } from '../actionButtonControl/ActionButtonControl';
 
 interface ActionFontLineHeightControlProps {
   onChange: (lineHeight: IFontLineHeight) => void;
@@ -41,7 +41,10 @@ export function ActionFontLineHeightControl({
   };
 
   return (
-    <div className="flex items-start gap-2">
+    <div
+      className="flex items-start gap-2"
+      data-testid="font-line-height-control"
+    >
       <ActionButtonControl
         onClick={decreaseLineHeight}
         data-testid="decrease-line-height"
