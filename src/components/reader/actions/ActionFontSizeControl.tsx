@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { IFontSizeList } from '@/types/Reader';
 
-import { ActionButtonControl } from './ActionButtonControl';
+import { ActionButtonControl } from './actionButtonControl/ActionButtonControl';
 
 interface ActionFontSizeControlProps {
   onChange: (fontSize: IFontSizeList) => void;

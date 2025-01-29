@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { IFontLineHeight } from '@/types/Reader';
 
-import { ActionButtonControl } from './ActionButtonControl';
+import { ActionButtonControl } from './actionButtonControl/ActionButtonControl';
 
 interface ActionFontLineHeightControlProps {
   onChange: (lineHeight: IFontLineHeight) => void;
