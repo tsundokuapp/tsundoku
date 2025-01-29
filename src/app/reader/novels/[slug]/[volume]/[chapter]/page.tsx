@@ -8,16 +8,25 @@ import { ActionChapterWithVolumeList } from '@/components/reader/actions/ActionC
 import { ActionFontSizeControl } from '@/components/reader/actions/ActionFontSizeControl';
 import { NovelInfiniteView } from '@/components/reader/novel/NovelInfiniteView';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IFontSizeList } from '@/types/Reader';
+import { IFontLineHeight, IFontSizeList } from '@/types/Reader';
+import { ActionFontLineHeightControl } from '@/components/reader/actions/ActionFontLineHeightControl';
 
 export default function NovelReader() {
   const { volumeList } = useNovelStore();
   const [currentFontSize, setCurrentFontSize] =
     useState<IFontSizeList>('text-base');
+  const [currentLineHeight, setCurrentLineHeight] =
+    useState<IFontLineHeight>('leading-6');
+
 
   const handleFontSizeChange = (fontSize: IFontSizeList) => {
     setCurrentFontSize(fontSize);
   };
+
+  const handleLineHeightChange = (lineHeight: IFontLineHeight) => {
+    setCurrentLineHeight(lineHeight);
+  }
+
 
   return (
     <div className="relative">
@@ -25,11 +34,12 @@ export default function NovelReader() {
         <ActionsBarContainer removeList={['reader']} isReader>
           <ActionChapterWithVolumeList volumesList={volumeList!} />
           <ActionFontSizeControl onChange={handleFontSizeChange} />
+          <ActionFontLineHeightControl onChange={handleLineHeightChange} />
         </ActionsBarContainer>
       </ScrollProgressAnimation>
 
       <ReaderContainer>
-        <NovelInfiniteView fontSize={currentFontSize} />
+        <NovelInfiniteView fontSize={currentFontSize} lineHeight={currentLineHeight} />
       </ReaderContainer>
     </div>
   );

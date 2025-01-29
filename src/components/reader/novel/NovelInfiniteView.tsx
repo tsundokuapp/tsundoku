@@ -1,12 +1,13 @@
 import { useChapterNovel } from '@/hooks/usePublicApi';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IFontSizeList } from '@/types/Reader';
+import { IFontLineHeight, IFontSizeList } from '@/types/Reader';
 
 interface NovelInfiniteViewProps {
   fontSize: IFontSizeList;
+  lineHeight: IFontLineHeight;
 }
 
-export function NovelInfiniteView({ fontSize }: NovelInfiniteViewProps) {
+export function NovelInfiniteView({ fontSize, lineHeight }: NovelInfiniteViewProps) {
   const { chapterId } = useNovelStore();
   const { data: chapterNovelResponse, isLoading } = useChapterNovel(chapterId!);
 
@@ -22,7 +23,7 @@ export function NovelInfiniteView({ fontSize }: NovelInfiniteViewProps) {
             {chapterNovelResponse?.titulo}
           </h1>
           <div
-            className={`my-12 ${fontSize}`}
+            className={`my-12 ${fontSize} ${lineHeight}`}
             dangerouslySetInnerHTML={{
               __html: chapterNovelResponse?.conteudoNovel as TrustedHTML,
             }}
