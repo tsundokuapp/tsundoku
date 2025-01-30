@@ -85,7 +85,7 @@ export function ProjectData({
         </div>
 
         {note && (
-          <div className="mt-4 rounded-md bg-primary p-4 opacity-80">
+          <div className="mt-4 rounded-md bg-primary p-4 text-black opacity-80 dark:text-slate-800">
             {note}
           </div>
         )}
