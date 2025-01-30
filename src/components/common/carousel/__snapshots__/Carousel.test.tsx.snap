@@ -41,40 +41,6 @@ exports[`Testes para o componente <Carousel /> Teste de snapshot Deve manter o s
         />
       </div>
     </div>
-    <button
-      aria-label="previous"
-      class="absolute left-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
-      data-testid="previous-button"
-    >
-      <svg
-        fill="currentColor"
-        height="24"
-        viewBox="0 0 256 256"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H107.31l18.35,18.34a8,8,0,0,1-11.32,11.32l-32-32a8,8,0,0,1,0-11.32l32-32a8,8,0,0,1,11.32,11.32L107.31,120H168A8,8,0,0,1,176,128Z"
-        />
-      </svg>
-    </button>
-    <button
-      aria-label="next"
-      class="absolute right-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
-      data-testid="next-button"
-    >
-      <svg
-        fill="currentColor"
-        height="24"
-        viewBox="0 0 256 256"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm45.66-93.66a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L148.69,136H88a8,8,0,0,1,0-16h60.69l-18.35-18.34a8,8,0,0,1,11.32-11.32Z"
-        />
-      </svg>
-    </button>
   </div>
 </div>
 `;

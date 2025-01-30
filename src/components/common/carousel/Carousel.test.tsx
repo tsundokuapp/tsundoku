@@ -34,6 +34,25 @@ describe('Testes para o componente <Carousel />', () => {
       );
     });
 
+    it('Deve renderizar os botões quando a prop "navigation" for true', async () => {
+      // Given
+      render(
+        <Carousel
+          images={['/img1.jpg', '/img2.jpg']}
+          autoSlide={false}
+          navigation
+        />,
+      );
+
+      // When
+      const nextButton = screen.getByTestId('next-button');
+      const prevButton = screen.getByTestId('previous-button');
+
+      // Then
+      expect(nextButton).toBeInTheDocument();
+      expect(prevButton).toBeInTheDocument();
+    });
+
     it('Não deve quebrar se a lista de imagens estiver vazia', () => {
       // Given
       render(<Carousel images={[]} />);
@@ -49,7 +68,11 @@ describe('Testes para o componente <Carousel />', () => {
     it('Deve avançar para a próxima imagem ao clicar no botão "próximo"', async () => {
       // Given
       render(
-        <Carousel images={['/img1.jpg', '/img2.jpg']} autoSlide={false} />,
+        <Carousel
+          images={['/img1.jpg', '/img2.jpg']}
+          autoSlide={false}
+          navigation
+        />,
       );
 
       // When
@@ -63,7 +86,11 @@ describe('Testes para o componente <Carousel />', () => {
     it('Deve voltar para a imagem anterior ao clicar no botão "anterior"', async () => {
       // Given
       render(
-        <Carousel images={['/img1.jpg', '/img2.jpg']} autoSlide={false} />,
+        <Carousel
+          images={['/img1.jpg', '/img2.jpg']}
+          autoSlide={false}
+          navigation
+        />,
       );
 
       // When
