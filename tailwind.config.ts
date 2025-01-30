@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        Poppins: ['Poppins', 'sans-serif'],
+        Merriweather: ['Merriweather', 'serif'],
+      },
       colors: {
         // default
         bgDark: '#0f172a', // slate-900

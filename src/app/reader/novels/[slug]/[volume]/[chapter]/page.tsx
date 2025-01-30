@@ -9,13 +9,18 @@ import { Button } from '@/components/common/button/Button';
 import { ActionsBarContainer } from '@/components/reader/ActionsBarContainer';
 import { ReaderContainer } from '@/components/reader/ReaderContainer';
 import { ActionChapterWithVolumeList } from '@/components/reader/actions/ActionChapterListWithVolume';
+import { ActionFontFamilyControl } from '@/components/reader/actions/ActionFontFamilyControl';
 import { ActionFontLineHeightControl } from '@/components/reader/actions/ActionFontLineHeightControl/ActionFontLineHeightControl';
 import { ActionFontSizeControl } from '@/components/reader/actions/ActionFontSizeControl';
 import { NovelInfiniteView } from '@/components/reader/novel/NovelInfiniteView';
 import { useToaster } from '@/contexts/ToasterContext';
 import { useNovelNavigation } from '@/hooks/useNovelNavigation';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IFontLineHeight, IFontSizeList } from '@/types/Reader';
+import {
+  IFontFamiliesList,
+  IFontLineHeight,
+  IFontSizeList,
+} from '@/types/Reader';
 
 export default function NovelReader() {
   const { volumeList, setChapterId, chapterId } = useNovelStore();
@@ -27,6 +32,8 @@ export default function NovelReader() {
     useState<IFontSizeList>('text-base');
   const [currentLineHeight, setCurrentLineHeight] =
     useState<IFontLineHeight>('leading-6');
+  const [currentFontFamily, setCurrentFontFamily] =
+    useState<IFontFamiliesList>('Poppins');
 
   const handleFontSizeChange = (fontSize: IFontSizeList) => {
     setCurrentFontSize(fontSize);
@@ -34,6 +41,10 @@ export default function NovelReader() {
 
   const handleLineHeightChange = (lineHeight: IFontLineHeight) => {
     setCurrentLineHeight(lineHeight);
+  };
+
+  const handleFontFamilyChange = (fontFamily: IFontFamiliesList) => {
+    setCurrentFontFamily(fontFamily);
   };
 
   const handleNextChapter = () => {
@@ -67,6 +78,7 @@ export default function NovelReader() {
       <ScrollProgressAnimation onTop>
         <ActionsBarContainer removeList={['reader']} isReader>
           <ActionChapterWithVolumeList volumesList={volumeList!} />
+          <ActionFontFamilyControl onChange={handleFontFamilyChange} />
           <ActionFontSizeControl onChange={handleFontSizeChange} />
           <ActionFontLineHeightControl onChange={handleLineHeightChange} />
         </ActionsBarContainer>
@@ -76,6 +88,7 @@ export default function NovelReader() {
         <NovelInfiniteView
           fontSize={currentFontSize}
           lineHeight={currentLineHeight}
+          fontFamily={currentFontFamily}
         />
       </ReaderContainer>
 
