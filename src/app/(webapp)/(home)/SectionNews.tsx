@@ -12,9 +12,9 @@ export const SectinoNews = () => {
       {recomendationResponse?.data?.map((item) => (
         <Cover
           key={item.slugObra}
-          src={'/cover-shadow.webp'}
+          src={item.capa}
           title={item.titulo}
-          category="Mangá"
+          category={item.tipoObra}
           actionHome={item.slugObra}
         />
       ))}

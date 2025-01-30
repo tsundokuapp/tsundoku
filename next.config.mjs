@@ -5,6 +5,7 @@ const hostnames = [
   'tsundoku.com.br', // -> WordPress -> tsundoku.com.br
   'dejrqqh1w9hhl.cloudfront.net', // -> AWS CloudFront
   'i0.wp.com', // WordPress -> tsundoku.com.br
+  'i1.wp.com', // WordPress -> tsundoku.com.br
 ];
 
 const nextConfig = {

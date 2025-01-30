@@ -1,6 +1,6 @@
 export function HeaderSearch({ ...props }) {
   return (
-    <form className="flex w-[320px] items-center gap-3 rounded-full bg-slate-700 px-5 py-3 ring-slate-900">
+    <form className="flex w-[320px] items-center gap-3 rounded-md bg-slate-700 px-5 py-3 ring-slate-900">
       <input
         type="text"
         placeholder="Buscar..."

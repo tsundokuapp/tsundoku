@@ -13,6 +13,7 @@ interface IRecomendations {
   capa: string;
   slugObra: string;
   sinopse: string;
+  tipoObra: string;
 }
 
 interface IProjectsHome {
@@ -89,6 +90,7 @@ interface IChapterNovel {
 const getRecomendations = async (): Promise<IRecomendations[]> => {
   try {
     const response = await api.get('/obras/recomendadas');
+    console.log('recomendação', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
