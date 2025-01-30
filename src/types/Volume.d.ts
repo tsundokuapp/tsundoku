@@ -1,4 +1,5 @@
 import { IChapterNovelForVolume } from './Api';
+import { IListChapterZustand } from './Chapter';
 
 export interface IVolumeNovel {
   title: string;
@@ -13,10 +14,5 @@ export interface IVolumeZustand {
   id: string;
   descritivoTituloNumeroVolume: string;
   numero: string;
-  listChapters: {
-    id: string;
-    numero: string;
-    ordemCapitulo: number;
-    parte?: string;
-  }[];
+  listChapters: IListChapterZustand[];
 }

@@ -20,7 +20,8 @@ export function ActionChapterWithVolumeList({
 
   const pathname = usePathname();
   const projectSlug = pathname.split('/')[3];
-  const chapter = pathname.split('/').pop();
+  const volumeURL = pathname.split('/')[4];
+  const chapterURL = pathname.split('/').pop();
 
   if (!volumesList) {
     return null;
@@ -51,11 +52,11 @@ export function ActionChapterWithVolumeList({
   return (
     <DropdownContainer
       label={`${countChapters} Capítulos`}
-      value={`Capítulo ${chapter}`}
+      value={`Capítulo ${chapterURL}`}
     >
       {volumesListToDropdown.map((volume) => {
         return (
-          <>
+          <div key={volume.volume}>
             <DropdownText text={`Volume ${volume.volume}`} />
             <DropdownBreakLine />
             {volume.listChapters.map((chapter) => {
@@ -64,13 +65,16 @@ export function ActionChapterWithVolumeList({
                   key={chapter.id}
                   label={`Capítulo ${chapter.numero}`}
                   value={chapter.numero}
+                  selected={
+                    chapterURL === chapter.numero && volume.volume === volumeURL
+                  }
                   action={() =>
                     handleClick(volume.volume, chapter.numero, chapter.id)
                   }
                 />
               );
             })}
-          </>
+          </div>
         );
       })}
     </DropdownContainer>

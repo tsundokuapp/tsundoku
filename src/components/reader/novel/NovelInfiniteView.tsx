@@ -7,7 +7,10 @@ interface NovelInfiniteViewProps {
   lineHeight: IFontLineHeight;
 }
 
-export function NovelInfiniteView({ fontSize, lineHeight }: NovelInfiniteViewProps) {
+export function NovelInfiniteView({
+  fontSize,
+  lineHeight,
+}: NovelInfiniteViewProps) {
   const { chapterId } = useNovelStore();
   const { data: chapterNovelResponse, isLoading } = useChapterNovel(chapterId!);
 
