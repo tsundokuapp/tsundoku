@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { api } from '@/services/api';
 import { ApiResponse, IGenres, IVolumeNovelData } from '@/types/Api';
-import { IStatusNovels } from '@/types/TypesNovels';
+import { TStatusNovel } from '@/types/System';
 
 interface IRecomendations {
   // TODO: validar esses dois campos em um middleware
@@ -28,7 +28,7 @@ interface IProjectsHome {
   slugObra: string;
 }
 
-interface IPublicNovels {
+export interface IPublicNovels {
   urlCapa: string;
   alias: string;
   titulo: string;
@@ -51,7 +51,7 @@ interface IPublicNovel {
   tipoObra: string;
   id: string;
   artista: string;
-  statusObra: IStatusNovels;
+  statusObra: TStatusNovel;
   sinopse: string;
   observacao: string;
   listaGeneros: IGenres[];
@@ -126,6 +126,7 @@ export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
 const getNovels = async (): Promise<IPublicNovels[]> => {
   try {
     const response = await api.get('/obras/novels');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

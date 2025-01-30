@@ -6,7 +6,7 @@ import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { NovelData } from '@/components/project/NovelData';
 import { ProjectData } from '@/components/project/ProjectData';
 import { usePublicNovelSlug } from '@/hooks/usePublicApi';
-import { IStatusNovels } from '@/types/TypesNovels';
+import { TStatusNovel } from '@/types/System';
 
 export default function Novel() {
   const pathname = usePathname();
@@ -27,7 +27,7 @@ export default function Novel() {
           altTitle={infoOrDefault(novelResponse?.tituloAlternativo)}
           author={infoOrDefault(novelResponse?.autor)}
           artist={infoOrDefault(novelResponse?.artista)}
-          status={infoOrDefault(novelResponse?.statusObra) as IStatusNovels}
+          status={infoOrDefault(novelResponse?.statusObra) as TStatusNovel}
           description={infoOrDefault(novelResponse?.sinopse)}
           genres={novelResponse?.listaGeneros || []}
           note={novelResponse?.observacao}

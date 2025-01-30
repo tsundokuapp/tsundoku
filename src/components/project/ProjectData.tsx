@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { IGenres } from '@/types/Api';
-import { IStatusNovels } from '@/types/TypesNovels';
+import { TStatusNovel } from '@/types/System';
 
 import { CollapseText } from './CollapseText';
 import { Tag } from '../common/Tag';
@@ -11,7 +11,7 @@ interface ProjectDataProps {
   title: string;
   altTitle: string;
   description: string;
-  status: IStatusNovels;
+  status: TStatusNovel;
   author: string;
   artist: string;
   genres: IGenres[];
@@ -29,7 +29,7 @@ export function ProjectData({
   status,
   note,
 }: ProjectDataProps) {
-  const mapStatusToColor = (status: string) => {
+  const mapStatusToColor = (status: TStatusNovel) => {
     switch (status) {
       case 'Em andamento':
         return 'bg-green-700';
@@ -37,7 +37,7 @@ export function ProjectData({
         return 'bg-yellow-700';
       case 'Cancelado':
         return 'bg-red-700';
-      case 'Completa':
+      case 'Concluído':
         return 'bg-blue-700';
       default:
         return 'bg-gray-700';
