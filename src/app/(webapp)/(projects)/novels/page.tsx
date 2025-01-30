@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { AsyncSection } from '@/components/common/section/AsyncSection';
@@ -106,6 +107,7 @@ export default function Novels() {
 
   return (
     <div className="flex flex-col gap-4">
+      <Title title="Novels da Tsun" />
       <SearchTable
         value={search}
         onChange={handleChange}
