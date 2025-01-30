@@ -13,12 +13,14 @@ interface CarouselProps {
   images: string[];
   autoSlide?: boolean;
   autoSlideInterval?: number;
+  navigation?: boolean;
 }
 
 export const Carousel = ({
   images,
   autoSlide = true,
   autoSlideInterval = 3000,
+  navigation = false,
 }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -64,22 +66,26 @@ export const Carousel = ({
           </div>
         ))}
       </div>
-      <button
-        className="absolute left-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
-        onClick={prevSlide}
-        aria-label="previous"
-        data-testid="previous-button"
-      >
-        <ArrowCircleLeft size={24} />
-      </button>
-      <button
-        className="absolute right-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
-        onClick={nextSlide}
-        aria-label="next"
-        data-testid="next-button"
-      >
-        <ArrowCircleRight size={24} />
-      </button>
+      {navigation && (
+        <>
+          <button
+            className="absolute left-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
+            onClick={prevSlide}
+            aria-label="previous"
+            data-testid="previous-button"
+          >
+            <ArrowCircleLeft size={24} />
+          </button>
+          <button
+            className="absolute right-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
+            onClick={nextSlide}
+            aria-label="next"
+            data-testid="next-button"
+          >
+            <ArrowCircleRight size={24} />
+          </button>
+        </>
+      )}
     </div>
   );
 };
