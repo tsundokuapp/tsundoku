@@ -20,8 +20,6 @@ interface DropdownContainerProps extends ComponentProps<'div'> {
   scrollbarClassname?: string;
 }
 
-type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
-
 export function DropdownContainer({
   label,
   value,
@@ -84,16 +82,16 @@ export function DropdownContainer({
                 scrollbarClassname,
               )}
             >
-              {React.Children.map(children, (child) =>
-                React.isValidElement(child)
-                  ? React.cloneElement(
-                    child as React.ReactElement<{
-                      setIsOpen: SetState<boolean>;
-                    }>,
-                    { setIsOpen },
-                  )
-                  : child,
-              )}
+              {React.Children.map(children, (child) => {
+                if (
+                  React.isValidElement<{
+                    setIsOpen?: (isOpen: boolean) => void;
+                  }>(child)
+                ) {
+                  return React.cloneElement(child, { setIsOpen });
+                }
+                return child;
+              })}
             </div>
           </div>
         </EnterAnimation>
