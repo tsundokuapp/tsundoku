@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
-import type { FontSizeList } from '@/@types/FontSizeList';
+import { IFontSizeList } from '@/types/Reader';
+
+import { ActionButtonControl } from './actionButtonControl/ActionButtonControl';
 
 interface ActionFontSizeControlProps {
-  onChange: (fontSize: FontSizeList) => void;
+  onChange: (fontSize: IFontSizeList) => void;
 }
 
 export function ActionFontSizeControl({
   onChange,
 }: ActionFontSizeControlProps) {
-  const fontSizes: FontSizeList[] = [
+  const fontSizes: IFontSizeList[] = [
     'text-sm',
     'text-base',
     'text-lg',
@@ -35,20 +37,18 @@ export function ActionFontSizeControl({
 
   return (
     <div className="flex items-start gap-2">
-      <button
+      <ActionButtonControl
         onClick={decreaseFontSize}
-        className="inline-flex w-full justify-between rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-400 focus:outline-none"
-        disabled={currentSizeIndex === 0}
+        disable={currentSizeIndex === 0}
       >
         A-
-      </button>
-      <button
+      </ActionButtonControl>
+      <ActionButtonControl
         onClick={increaseFontSize}
-        className="inline-flex w-full justify-between rounded-lg border border-zinc-800 bg-transparent px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-400 focus:outline-none"
-        disabled={currentSizeIndex === fontSizes.length - 1}
+        disable={currentSizeIndex === fontSizes.length - 1}
       >
         A+
-      </button>
+      </ActionButtonControl>
     </div>
   );
 }

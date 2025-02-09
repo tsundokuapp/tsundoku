@@ -1,23 +1,31 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FieldErrors, UseFormGetValues, UseFormWatch } from 'react-hook-form';
+import { useEffect } from 'react';
+import {
+  type FieldErrors,
+  type Path,
+  type PathValue,
+  type UseFormGetValues,
+  type UseFormWatch,
+} from 'react-hook-form';
 
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
-import { InputFormProject } from '@/helpers/Schemas';
 import { cn } from '@/helpers/twUtils';
+import { IGenres } from '@/types/Api';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;
-  name: string;
-  watch: UseFormWatch<any>;
-  getValues: UseFormGetValues<any>;
+  name: Path<T>;
+  watch: UseFormWatch<T>;
+  getValues: UseFormGetValues<T>;
   onClick: (key: keyof T, item: T[keyof T]) => void;
   errors: FieldErrors;
   options: string[];
   className?: string;
+  defaultValue?: IGenres[];
 }
 
-export const FormMultiSelect = ({
+export const FormMultiSelect = <T extends Record<string, unknown>>({
   label,
   name,
   watch,
@@ -26,26 +34,38 @@ export const FormMultiSelect = ({
   errors,
   options,
   className,
-}: FormMultiSelectProps<InputFormProject>) => {
+  defaultValue,
+}: FormMultiSelectProps<T>) => {
+  useEffect(() => {
+    if (defaultValue) {
+      defaultValue.forEach((item) => {
+        onClick(name, item.descricao as T[keyof T]);
+      });
+    }
+  }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
   function ItemsSelected() {
     return (
       <div className="flex flex-wrap gap-2">
-        {watch(name).map((item: string, index: number) => (
-          <span
-            key={index}
-            className="rounded-md bg-gray-200 px-2 py-1 text-xs text-black dark:bg-gray-700 dark:text-white"
-          >
-            {item}
-          </span>
-        ))}
+        {(watch(name) as unknown as string[]).map(
+          (item: string, index: number) => (
+            <span
+              key={index}
+              className="rounded-md bg-gray-200 px-2 py-1 text-xs text-black dark:bg-gray-700 dark:text-white"
+            >
+              {item}
+            </span>
+          ),
+        )}
       </div>
     );
   }
 
-  const isSelected = (item: string) => {
+  const isSelected = (item: PathValue<T, Path<T>>) => {
     const values = getValues(name);
 
     const arrayValues = Array.isArray(values) ? values : [values];
+
     return arrayValues.includes(item);
   };
 
@@ -67,9 +87,9 @@ export const FormMultiSelect = ({
           <DropdownOption
             key={index}
             label={item}
-            onClick={() => onClick(name as keyof InputFormProject, item)}
+            onClick={() => onClick(name, item as T[keyof T])}
             value={item}
-            selected={isSelected(item)}
+            selected={isSelected(item as PathValue<T, Path<T>>)}
           />
         ))}
       </DropdownContainer>

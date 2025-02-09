@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,6 +16,7 @@ import {
 import { NavTabs, Tab } from '@/components/common/tab';
 import { useToaster } from '@/contexts/ToasterContext';
 import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
+// Todo: migrar esses valores para os de SystemValues
 import {
   status,
   genres,
@@ -23,6 +25,8 @@ import {
   nationality,
   cargoObraDiscord,
 } from '@/helpers/Util';
+import { useAdminNovelSlug } from '@/hooks/useNovels';
+
 import { Volumes } from './Volumes';
 
 interface ISession {
@@ -41,6 +45,11 @@ export default function Project() {
   } = useForm<InputFormProject>({
     resolver: zodResolver(formProjectSchema),
   });
+
+  const pathname = usePathname();
+  const slug = pathname.split('/').pop();
+
+  const { data: projectResponse } = useAdminNovelSlug((slug as string) || '');
 
   const { toaster } = useToaster();
 
@@ -114,17 +123,17 @@ export default function Project() {
 
   const errorGeral =
     !!errors.title ||
-    !!errors['title-alternative'] ||
+    !!errors.titleAlternative ||
     !!errors.author ||
     !!errors.illustration ||
-    !!errors['year-release'] ||
+    !!errors.yearRelease ||
     !!errors.genres ||
-    !!errors.types ||
+    !!errors.type ||
     !!errors.status ||
     !!errors.privacy ||
-    !!errors.description;
+    !!errors.synopsis;
   const errorExtras =
-    !!errors['hex-color'] || !!errors.nationality || !!errors.adult;
+    !!errors.hexColor || !!errors.nationality || !!errors.isAdult;
 
   return (
     <div className="flex flex-row gap-6 p-4">
@@ -138,11 +147,13 @@ export default function Project() {
               title="Capa Principal"
               name="cover"
               setValue={setValue}
+              errors={errors}
             />
             <DragAndDropSingleImage
               title="Capa Último Volume"
               name="last-vol"
               setValue={setValue}
+              errors={errors}
             />
 
             <button
@@ -165,7 +176,7 @@ export default function Project() {
         </Session>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-slate-100 p-4 dark:bg-slate-800">
-        <NavTabs defaultActiveKey="Volumes">
+        <NavTabs defaultActiveKey="Geral">
           <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
             <div className="flex flex-col justify-between">
               <form
@@ -178,14 +189,29 @@ export default function Project() {
                     name="title"
                     placeholder="Majo no Tabitabi"
                     errors={errors}
+                    setValue={setValue}
                     register={register}
+                    defaultValue={projectResponse?.titulo}
                   />
+
+                  <FormInput
+                    label="Alias (Título Reduzido)"
+                    name="aliasTitle"
+                    placeholder="MajoTabi"
+                    errors={errors}
+                    setValue={setValue}
+                    register={register}
+                    defaultValue={projectResponse?.alias}
+                  />
+
                   <FormInput
                     label="Títulos alternativos"
-                    name="title-alternative"
+                    name="titleAlternative"
                     placeholder="Wandering Witch"
                     errors={errors}
                     register={register}
+                    setValue={setValue}
+                    defaultValue={projectResponse?.tituloAlternativo}
                   />
 
                   <FormInput
@@ -194,26 +220,32 @@ export default function Project() {
                     placeholder="Shiraishi Jougi"
                     errors={errors}
                     register={register}
+                    setValue={setValue}
+                    defaultValue={projectResponse?.autor}
                   />
                   <FormInput
                     label="Ilustrador"
                     name="illustration"
                     placeholder="Azure"
                     errors={errors}
+                    setValue={setValue}
                     register={register}
+                    defaultValue={projectResponse?.artista}
                   />
 
                   <FormInput
                     label="Ano de Lançamento"
-                    name="year-release"
+                    name="yearRelease"
                     type="number"
                     placeholder="2020"
                     errors={errors}
+                    setValue={setValue}
                     register={register}
                     className="max-w-[180px]"
+                    defaultValue={projectResponse?.ano}
                   />
 
-                  <FormMultiSelect
+                  <FormMultiSelect<InputFormProject>
                     label="Gêneros"
                     name="genres"
                     watch={watch}
@@ -221,48 +253,56 @@ export default function Project() {
                     onClick={(key, item) => handleSetMultiValues(key, item)}
                     errors={errors}
                     options={genres}
+                    defaultValue={projectResponse?.generos}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Tipo"
-                    name="types"
+                    name="type"
                     watch={watch}
                     getValues={getValues}
+                    setValue={setValue}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
                     options={types}
+                    defaultValue={projectResponse?.tipoObra}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Status"
                     name="status"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={status}
+                    defaultValue={projectResponse?.statusObra}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Privacidade"
                     name="privacy"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={privacy}
                   />
                 </div>
 
                 <FormTextArea
                   label="Descrição"
-                  name="description"
+                  name="synopsis"
                   errors={errors}
                   register={register}
                   cols={50}
                   rows={5}
+                  setValue={setValue}
+                  defaultValue={projectResponse?.sinopse}
                 />
 
                 <FormButton isSubmitting={isSubmitting} />
@@ -278,59 +318,67 @@ export default function Project() {
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Cor Hexadecimal"
-                    name="hex-color"
+                    name="hexColor"
                     placeholder="3F51B5"
                     errors={errors}
+                    setValue={setValue}
                     register={register}
                     className="max-w-[180px]"
+                    defaultValue={projectResponse?.codigoCorHexaObra}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Cargo Discord"
-                    name="discord-role"
+                    name="discordRole"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={cargoObraDiscord}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Nacionalidade"
                     name="nationality"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={nationality}
+                    defaultValue={projectResponse?.nacionalidade}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Recomendação"
-                    name="recomendation"
+                    name="isRecommendation"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={booleanOptions}
                   />
 
-                  <FormDropdown
+                  <FormDropdown<InputFormProject>
                     label="Maior de Idade"
-                    name="adult"
+                    name="isAdult"
                     watch={watch}
                     getValues={getValues}
                     onClick={(key, item) => handleSelectOption(key, item)}
                     errors={errors}
+                    setValue={setValue}
                     options={booleanOptions}
                   />
                 </div>
 
-                <FormTextArea
+                <FormTextArea<InputFormProject>
                   label="Observação"
                   name="notes"
                   errors={errors}
                   register={register}
+                  setValue={setValue}
                   cols={50}
                   rows={5}
                 />

@@ -5,52 +5,77 @@ import { DropdownBreakLine } from '@/components/common/dropdown/DropdownBreakLin
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { DropdownText } from '@/components/common/dropdown/DropdownText';
-import type { NovelChapterListProps } from '@/fakeApi/novelChapterList';
-import { GenerateChapterListWithVolume } from '@/helpers/chapterList/GenerateChapterListWithVolume';
+import { useNovelStore } from '@/store/useNovelStore';
+import { IVolumeZustand } from '@/types/Volume';
 
 interface ActionChapterListWithVolumeProps extends ComponentProps<'div'> {
-  chaptersList: NovelChapterListProps[];
+  volumesList: IVolumeZustand[];
 }
 
 export function ActionChapterWithVolumeList({
-  chaptersList,
+  volumesList,
 }: ActionChapterListWithVolumeProps) {
   const router = useRouter();
+  const { setChapterId } = useNovelStore();
 
   const pathname = usePathname();
   const projectSlug = pathname.split('/')[3];
-  const chapter = pathname.split('/').pop();
+  const volumeURL = pathname.split('/')[4];
+  const chapterURL = pathname.split('/').pop();
 
-  const chapterList = GenerateChapterListWithVolume({
-    projectSlug,
-    chaptersList,
-  });
+  if (!volumesList) {
+    return null;
+  }
+
+  const volumesListToDropdown = volumesList?.map((volume) => ({
+    volume: volume.numero,
+    listChapters: volume.listChapters.sort(
+      (a, b) => a.ordemCapitulo - b.ordemCapitulo,
+    ),
+  }));
+
+  const countChapters = volumesListToDropdown.reduce((acc, volume) => {
+    return acc + volume.listChapters.length;
+  }, 0);
+
+  const handleClick = (
+    volumeNumber: string,
+    chapterNumber: string,
+    chapterId: string,
+  ) => {
+    setChapterId(chapterId);
+    router.push(
+      `/reader/novels/${projectSlug}/${volumeNumber}/${chapterNumber}`,
+    );
+  };
 
   return (
     <DropdownContainer
-      label={`${chapterList.totalItems} Capítulos`}
-      value={`Capítulo ${chapter}`}
+      label={`${countChapters} Capítulos`}
+      value={`Capítulo ${chapterURL}`}
     >
-      {chapterList.list.map(({ ItemIndex, ItemUrl }) => {
-        if (ItemUrl === '#') {
-          return (
-            <>
-              <DropdownText key={ItemIndex} text={`Volume ${ItemIndex}`} />
-              <DropdownBreakLine />
-            </>
-          );
-        } else {
-          return (
-            <DropdownOption
-              key={ItemIndex}
-              label={`Capítulo ${ItemIndex}`}
-              value={ItemIndex.toString()}
-              action={() => {
-                router.push(ItemUrl);
-              }}
-            />
-          );
-        }
+      {volumesListToDropdown.map((volume) => {
+        return (
+          <div key={volume.volume}>
+            <DropdownText text={`Volume ${volume.volume}`} />
+            <DropdownBreakLine />
+            {volume.listChapters.map((chapter) => {
+              return (
+                <DropdownOption
+                  key={chapter.id}
+                  label={`Capítulo ${chapter.numero}`}
+                  value={chapter.numero}
+                  selected={
+                    chapterURL === chapter.numero && volume.volume === volumeURL
+                  }
+                  action={() =>
+                    handleClick(volume.volume, chapter.numero, chapter.id)
+                  }
+                />
+              );
+            })}
+          </div>
+        );
       })}
     </DropdownContainer>
   );

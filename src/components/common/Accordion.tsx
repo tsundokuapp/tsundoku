@@ -12,7 +12,12 @@ interface AccordionProps {
   classNameItems?: string;
 }
 
-export function Accordion({ title, children, className, classNameItems }: AccordionProps) {
+export function Accordion({
+  title,
+  children,
+  className,
+  classNameItems,
+}: AccordionProps) {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +33,10 @@ export function Accordion({ title, children, className, classNameItems }: Accord
       )}
     >
       <div
-        className={cn("flex h-6 cursor-pointer flex-row items-center justify-between rounded-lg px-6 py-8 hover:bg-slate-300 dark:hover:bg-slate-800", classNameItems)}
+        className={cn(
+          'flex h-6 cursor-pointer flex-row items-center justify-between rounded-lg px-6 py-8 hover:bg-slate-300 dark:hover:bg-slate-800',
+          classNameItems,
+        )}
         onClick={handleAccordionToggle}
       >
         <span className="font-bold uppercase">{title}</span>

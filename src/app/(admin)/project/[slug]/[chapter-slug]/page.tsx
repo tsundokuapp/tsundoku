@@ -94,12 +94,12 @@ export default function ChapterNovelAdmin() {
         <p className="text-md font-normal">
           <span>{progressPercentage}%</span> concluído
         </p>
-        <div className="relative w-full h-2 bg-gray-400 rounded-lg">
+        <div className="relative h-2 w-full rounded-lg bg-gray-400">
           <motion.div
-            className="bg-green-600 h-2 rounded-lg"
+            className="h-2 rounded-lg bg-green-600"
             initial={{ width: `0` }}
             animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
           />
         </div>
       </div>

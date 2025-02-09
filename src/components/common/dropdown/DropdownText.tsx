@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '@/helpers/twUtils';
 interface DropdownTextProps extends ComponentProps<'p'> {
   text: string;
 }
@@ -8,10 +8,7 @@ interface DropdownTextProps extends ComponentProps<'p'> {
 export function DropdownText({ text, className, ...props }: DropdownTextProps) {
   return (
     <p
-      className={twMerge(
-        'mx-2 my-2 text-sm font-semibold text-zinc-600',
-        className,
-      )}
+      className={cn('mx-2 my-2 text-sm font-semibold text-zinc-600', className)}
       {...props}
     >
       {text}

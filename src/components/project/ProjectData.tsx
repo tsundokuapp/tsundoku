@@ -1,17 +1,21 @@
 import Image from 'next/image';
 
+import { IGenres } from '@/types/Api';
+import { TStatusNovel } from '@/types/System';
+
 import { CollapseText } from './CollapseText';
 import { Tag } from '../common/Tag';
 
 interface ProjectDataProps {
   src: string;
   title: string;
-  altTitle: string[];
+  altTitle: string;
   description: string;
-  status: 'Em andamento' | 'Em hiato' | 'Cancelado' | 'Concluído';
+  status: TStatusNovel;
   author: string;
   artist: string;
-  tags: string[];
+  genres: IGenres[];
+  note?: string;
 }
 
 export function ProjectData({
@@ -19,12 +23,27 @@ export function ProjectData({
   title,
   altTitle,
   description,
-  tags,
+  genres,
   artist,
   author,
   status,
+  note,
 }: ProjectDataProps) {
-  title = title.replace(/-/g, ' ');
+  const mapStatusToColor = (status: TStatusNovel) => {
+    switch (status) {
+      case 'Em andamento':
+        return 'bg-green-700';
+      case 'Hiato':
+        return 'bg-yellow-700';
+      case 'Cancelado':
+        return 'bg-red-700';
+      case 'Concluído':
+        return 'bg-blue-700';
+      default:
+        return 'bg-gray-700';
+    }
+  };
+
   return (
     <article className="group flex flex-row justify-between gap-9">
       <div className="flex-shrink-0 overflow-hidden rounded-md">
@@ -34,12 +53,7 @@ export function ProjectData({
         <div className="mb-4">
           <h1 className="text-2xl font-bold capitalize">{title}</h1>
           <p className="text-sm">
-            {altTitle.map((title, index) => (
-              <span key={title} className="capitalize">
-                {title}
-                {index < altTitle.length - 1 && ' / '}
-              </span>
-            ))}
+            <span className="capitalize">{altTitle}</span>
           </p>
         </div>
 
@@ -56,7 +70,7 @@ export function ProjectData({
             <span className="font-bold">Status:</span> {status}
             <span
               data-status={status}
-              className="mx-2 inline-block h-2 w-2 rounded-full bg-green-700"
+              className={`mx-2 inline-block h-2 w-2 rounded-full ${mapStatusToColor(status)}`}
             />
           </li>
         </ul>
@@ -64,11 +78,17 @@ export function ProjectData({
         <div>
           <p className="mb-2 text-sm font-bold">Tags:</p>
           <p className="flex flex-row gap-2">
-            {tags.map((tag) => (
-              <Tag key={tag} text={tag} />
+            {genres?.map((genre) => (
+              <Tag key={genre.id} text={genre.descricao} />
             ))}
           </p>
         </div>
+
+        {note && (
+          <div className="mt-4 rounded-md bg-primary p-4 text-black opacity-80 dark:text-slate-800">
+            {note}
+          </div>
+        )}
       </div>
     </article>
   );

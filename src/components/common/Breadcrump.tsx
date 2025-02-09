@@ -3,17 +3,19 @@
 import { DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
 
 interface BreadcrumpProps extends ComponentProps<'nav'> {
   removeList?: string[];
   sufixList?: string[];
+  isReader?: boolean;
   className?: string;
 }
 
 export function Breadcrump({
   removeList = [],
   sufixList = [],
+  isReader,
   className,
   ...props
 }: BreadcrumpProps) {
@@ -26,6 +28,10 @@ export function Breadcrump({
       paths.splice(index, 1);
     }
   });
+
+  if (isReader) {
+    paths.splice(-2, 2);
+  }
 
   while (sufixList.length < paths.length) {
     sufixList.unshift('');
@@ -61,7 +67,7 @@ export function Breadcrump({
               >
                 <DotOutline size={24} weight="fill" />
 
-                {isLastItem ? (
+                {isLastItem && !isReader ? (
                   <span className="font-bold">{pathNameWithSuffix}</span>
                 ) : (
                   <Link

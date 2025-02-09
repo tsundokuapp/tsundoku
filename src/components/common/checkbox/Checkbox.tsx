@@ -7,14 +7,18 @@ export const Checkbox = ({
   name,
   register,
   size = 'sm',
+  id = '',
+  disabled = false,
 }: ICheckbox) => {
   return (
     <div className="flex">
       <div className="flex h-5 items-center bg-transparent">
         <input
-          id="helper-checkbox"
+          id={id || 'helper-checkbox'}
           aria-describedby="helper-checkbox-input"
           type="checkbox"
+          tabIndex={0}
+          disabled={disabled}
           className={cn(
             'disabled:border-steel-400 disabled:bg-steel-400 peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-900 checked:dark:border-0 checked:dark:bg-primary dark:focus:ring-primary',
             {
@@ -38,9 +42,9 @@ export const Checkbox = ({
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>

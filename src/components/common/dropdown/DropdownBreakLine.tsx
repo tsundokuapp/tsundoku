@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '@/helpers/twUtils';
 type DropdownBreakLineProps = ComponentProps<'hr'>;
 
 export function DropdownBreakLine({
@@ -9,7 +9,7 @@ export function DropdownBreakLine({
 }: DropdownBreakLineProps) {
   return (
     <hr
-      className={twMerge('m-2 border-solid border-zinc-600', className)}
+      className={cn('m-2 border-solid border-zinc-600', className)}
       {...props}
     />
   );

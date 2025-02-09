@@ -108,12 +108,14 @@ export const Volumes = () => {
           title="Capa Principal"
           name="cover"
           setValue={setValue}
+          errors={errors}
         />
         <div className="col-span-2 mb-2 flex flex-col gap-4">
           <FormInput
             label="Título"
             name="title"
             placeholder="Majo no Tabitabi"
+            setValue={setValue}
             errors={errors}
             register={register}
           />
@@ -125,6 +127,7 @@ export const Volumes = () => {
               placeholder="10"
               disabled={watch('oneshot')}
               min={1}
+              setValue={setValue}
               errors={errors}
               register={register}
             />
@@ -137,9 +140,10 @@ export const Volumes = () => {
           </div>
           <FormTextArea
             label="Descrição"
-            name="decription"
+            name="description"
             cols={30}
             rows={4}
+            setValue={setValue}
             errors={errors}
             register={register}
           />
@@ -159,6 +163,7 @@ export const Volumes = () => {
           label="Título"
           name="title"
           placeholder="Um dia na Tsundoku..."
+          setValue={setValue}
           errors={errors}
           register={register}
         />
@@ -168,6 +173,7 @@ export const Volumes = () => {
           type="number"
           placeholder="10"
           min={1}
+          setValue={setValue}
           errors={errors}
           register={register}
         />
@@ -177,6 +183,7 @@ export const Volumes = () => {
           type="number"
           placeholder="10"
           min={1}
+          setValue={setValue}
           errors={errors}
           register={register}
         />
@@ -186,6 +193,7 @@ export const Volumes = () => {
           type="number"
           placeholder="10"
           min={1}
+          setValue={setValue}
           errors={errors}
           register={register}
         />
@@ -195,6 +203,7 @@ export const Volumes = () => {
           type="number"
           placeholder="10"
           min={1}
+          setValue={setValue}
           errors={errors}
           register={register}
         />

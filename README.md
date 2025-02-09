@@ -11,7 +11,7 @@ A Tsundoku adoraria sua ajuda, apesar do esforço, o projeto é grande e muitos 
 - Fazer um fork do projeto
 - Clonar o projeto em sua máquina 
 - Rodar o comando "git pull" para se certificar das alterações
-- Rodar o comando "npm i" dentro da pasta
+- Rodar o comando "pnpm i" dentro da pasta
 
 ## Orientações sobre Pull Requests
 

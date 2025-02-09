@@ -1,28 +1,49 @@
 'use client';
 
-import { SortAscending, SortDescending } from '@phosphor-icons/react/dist/ssr';
-import { useState } from 'react';
+import { SortDescending } from '@phosphor-icons/react/dist/ssr';
+import { useEffect, useState } from 'react';
 
-import { Volume, type VolumeProps } from './Volume';
+import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
+import { useVolumesNovel } from '@/hooks/usePublicApi';
+import { useNovelStore } from '@/store/useNovelStore';
+import { IVolumeNovelData } from '@/types/Api';
+
+import { Volume } from './Volume';
 import { Title } from '../common/Title';
 import { TitleContainer } from '../common/TitleContainer';
 
 interface NovelDataProps {
   title: string;
-  items: VolumeProps[];
+  novelId: string;
 }
 
-export function NovelData({ title, items }: NovelDataProps) {
-  const [sortedItems, setSortedItems] = useState<VolumeProps[]>(items);
+export function NovelData({ title, novelId }: NovelDataProps) {
+  const { setVolumeList } = useNovelStore();
+  const { data: volumesNovelResponse, isLoading } = useVolumesNovel(novelId);
+
   const [isAscending, setIsAscending] = useState<boolean>(false);
+  const [volumeData, setVolumeData] = useState<IVolumeNovelData[]>();
+
+  useEffect(() => {
+    if (volumesNovelResponse?.data) {
+      setVolumeData(volumesNovelResponse?.data);
+
+      setVolumeList(
+        mapResponseVolumeToVolumeZustand(volumesNovelResponse.data!),
+      );
+    }
+  }, [volumesNovelResponse?.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSorting = () => {
-    const sorted = [...sortedItems].sort((a, b) =>
+    if (!volumeData) return;
+
+    const volumesSorted = [...volumeData].sort((a, b) =>
       isAscending
-        ? a.number.localeCompare(b.number)
-        : b.number.localeCompare(a.number),
+        ? Number(a.numero) - Number(b.numero)
+        : Number(b.numero) - Number(a.numero),
     );
-    setSortedItems(sorted);
+
+    setVolumeData(volumesSorted);
     setIsAscending(!isAscending);
   };
 
@@ -31,21 +52,30 @@ export function NovelData({ title, items }: NovelDataProps) {
       <TitleContainer className="mb-12 pr-6">
         <Title title={title} />
         <button onClick={handleSorting}>
-          {isAscending ? (
-            <SortDescending size={24} />
-          ) : (
-            <SortAscending size={24} />
-          )}
+          <SortDescending
+            size={24}
+            className={`${isAscending ? 'rotate-180' : ''} transition duration-300 ease-in-out`}
+          />
         </button>
       </TitleContainer>
 
-      <div className="flex flex-col gap-4">
-        {sortedItems
-          .map((item, index) => (
-            <Volume key={index} number={item.number} chapters={item.chapters} />
-          ))
-          .reverse()}
-      </div>
+      {isLoading ? (
+        <p>Carregando...</p>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {volumeData?.map((volume) => (
+            <Volume
+              key={volume.id}
+              cover={volume.imagemVolume}
+              title={volume.descritivoTituloNumeroVolume}
+              subTitle={volume.subtitulo}
+              sinopse={volume.sinopse}
+              chapters={volume.listaCapitulo}
+              volumeNumber={volume.numero}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
