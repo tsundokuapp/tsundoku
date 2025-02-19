@@ -10,7 +10,7 @@ import { ActionScrollModeList } from '@/components/reader/actions/ActionScrollMo
 import { ComicDoubleView } from '@/components/reader/comic/ComicDoubleView';
 import { ComicInfiniteView } from '@/components/reader/comic/ComicInfiniteView';
 import { ComicSingleView } from '@/components/reader/comic/ComicSingleView';
-import { ProgressBar } from '@/components/reader/utils/ProgressBar';
+import { ReaderProgressBar } from '@/components/reader/utils/ReaderProgressBar';
 import { fakeComicChapter } from '@/fakeApi/comicChapter';
 import { ScrollPage } from '@/helpers/ScrollPage';
 
@@ -43,14 +43,14 @@ export default function ComicReader({ images }: ComicReaderProps) {
     setCurrentPage(page);
   };
 
-  // Fix double scroll mode when currentPage is even
+  // Corrigir modo de rolagem duplo quando currentPage é par
   useEffect(() => {
     if (scrollMode === 'double' && currentPage % 2 === 0) {
       setCurrentPage(currentPage - 1);
     }
   }, [scrollMode, currentPage]);
 
-  // Scroll to the current page when the scroll mode changes
+  // Rolagem para a página atual quando o modo de rolagem muda
   useEffect(() => {
     if (scrollMode === 'infinite' && comicContainerRef.current) {
       ScrollPage(scrollMode, comicContainerRef, currentPage, 'instant');
@@ -90,7 +90,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
         />
       </ReaderContainer>
 
-      <ProgressBar
+      <ReaderProgressBar
         totalSteps={images.length}
         progressStep={currentPage}
         scrollMode={scrollMode}
