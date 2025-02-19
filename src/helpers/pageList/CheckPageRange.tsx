@@ -9,11 +9,13 @@ export function CheckPageRange({
 }: CheckPageRangeProps): void {
   if (showPage > totalPages) {
     // Poderia usar o Error do Next, mas ainda não estou muito familiarizado.
-    throw new Error('Page number cannot be highter than total pages.');
+    throw new Error(
+      'O número da página não pode ser maior que o total de páginas.',
+    );
   }
 
   if (showPage < 0) {
     // Poderia usar o Error do Next, mas ainda não estou muito familiarizado.
-    throw new Error('Page number cannot be lower than zero.');
+    throw new Error('O número da página não pode ser menor que zero.');
   }
 }
