@@ -1,21 +1,21 @@
-// components/ProgressBar.tsx
+// components/ReaderProgressBar.tsx
 import React from 'react';
 
 import type { ScrollMode } from '@/@types/ScrollMode';
 
-interface ProgressBarProps {
+interface ReaderProgressBarProps {
   totalSteps: number;
   progressStep: number;
   scrollMode: ScrollMode;
   onPageChange?: (setPage: number) => void;
 }
 
-export function ProgressBar({
+export function ReaderProgressBar({
   totalSteps,
   progressStep,
   scrollMode,
   ...props
-}: ProgressBarProps) {
+}: ReaderProgressBarProps) {
   if (scrollMode === 'double' && progressStep % 2 !== 0) {
     progressStep++;
   }
