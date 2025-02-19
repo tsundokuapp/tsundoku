@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import type { ReactNode } from 'react';
 
 export default function webappPagesLayout({

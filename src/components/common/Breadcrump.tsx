@@ -43,7 +43,7 @@ export function Breadcrump({
         <li>
           <Link
             href="/"
-            className="hover:underline hover:decoration-sky-500 hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
+            className="hover:underline hover:decoration-appHighlight hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
           >
             Home
           </Link>
@@ -72,7 +72,7 @@ export function Breadcrump({
                 ) : (
                   <Link
                     href={pathLink}
-                    className="hover:underline hover:decoration-sky-500 hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
+                    className="hover:underline hover:decoration-appHighlight hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
                   >
                     {pathNameWithSuffix}
                   </Link>

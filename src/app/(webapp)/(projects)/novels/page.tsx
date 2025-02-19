@@ -1,5 +1,6 @@
 'use client';
-
+// Color Checked
+// Components Checked
 import { useEffect, useState } from 'react';
 
 import { Title } from '@/components/common/Title';

@@ -1,15 +1,16 @@
 'use client';
-
-import './globals.css';
+// Color Checked
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
 import { useState } from 'react';
+import './globals.css';
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
 import { SearchBarProvider } from '@/contexts/SearchBarContext';
 import { ToasterProvider } from '@/contexts/ToasterContext';
 
+// Definição da Fonte Inter como a padrão do projeto
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -45,13 +46,13 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
       </head>
-      <body className="bg-white text-gray-800 transition-colors duration-1000 dark:bg-slate-900 dark:text-white">
+      <body className="bg-appBackground text-appText transition-colors duration-100">
         <QueryClientProvider client={queryClient}>
           <ThemeProvider
+            themes={['theme-light', 'theme-sepia', 'theme-blue', 'theme-dark']}
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="theme-light"
             enableColorScheme
-            enableSystem
           >
             <ToasterProvider>
               <SearchBarProvider>

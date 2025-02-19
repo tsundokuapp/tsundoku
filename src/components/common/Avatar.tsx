@@ -45,7 +45,7 @@ export const Avatar = ({
             'h-12 w-12 rounded-full p-1 ring-2 ring-gray-300 dark:ring-gray-500',
             className,
             {
-              'hover:cursor-pointer hover:ring-primary hover:dark:ring-primary':
+              'hover:ring-primary hover:dark:ring-primary hover:cursor-pointer':
                 menu,
             },
           )}

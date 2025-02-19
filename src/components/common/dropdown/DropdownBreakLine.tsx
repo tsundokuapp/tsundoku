@@ -1,3 +1,6 @@
+// Color Checked
+// Components Checked
+
 import type { ComponentProps } from 'react';
 
 import { cn } from '@/helpers/twUtils';
@@ -9,7 +12,7 @@ export function DropdownBreakLine({
 }: DropdownBreakLineProps) {
   return (
     <hr
-      className={cn('m-2 border-solid border-zinc-600', className)}
+      className={cn('border-appMenuBreakline m-2 border-solid', className)}
       {...props}
     />
   );

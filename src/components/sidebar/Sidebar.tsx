@@ -48,7 +48,7 @@ export function Sidebar({ children }: SidebarProps) {
           </span>
           <button
             onClick={() => setExpanded((prev) => !prev)}
-            className="h-[44px] rounded-lg bg-primary p-2.5 transition-colors hover:opacity-80"
+            className="bg-primary h-[44px] rounded-lg p-2.5 transition-colors hover:opacity-80"
           >
             {expanded ? <CaretDoubleLeft size={24} /> : <List size={24} />}
           </button>
@@ -114,7 +114,7 @@ export function SidebarItem({
         </span>
         {alert && (
           <div
-            className={cn('absolute right-2 h-2 w-2 rounded bg-secondary', {
+            className={cn('bg-secondary absolute right-2 h-2 w-2 rounded', {
               'top-[1.2rem]': expanded,
               'top-2': !expanded,
             })}

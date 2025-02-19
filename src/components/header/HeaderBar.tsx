@@ -1,9 +1,11 @@
 'use client';
-
+// Color Checked
+// Components Checked
 import {
   MagnifyingGlass,
   DiscordLogo,
   User,
+  List,
 } from '@phosphor-icons/react/dist/ssr';
 import React, { useState, useRef, useEffect, type ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -12,7 +14,7 @@ import { useSearchBar } from '@/contexts/SearchBarContext';
 
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
-import { HeaderSearch } from './HeaderSearch'; // Certifique-se de ter este componente
+import { HeaderSearch } from './HeaderSearch';
 import { LogoLink } from '../common/logoLink/LogoLink';
 import { ThemeToggle } from '../theme/ThemeToogle';
 
@@ -66,16 +68,16 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
   return (
     <header
       className={twMerge(
-        'flex h-[100px] bg-slate-900 px-16 lg:px-[180px]',
+        'bg-appHeaderBackground py-4 sm:py-6',
+        'px-6 sm:px-8 lg:px-16',
         className,
       )}
       {...props}
     >
       <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between">
-        <div className="flex items-center">
-          <LogoLink />
-        </div>
-        <div className="mx-4 flex items-center gap-6">
+        <LogoLink />
+
+        <div className="mx-4 hidden items-center gap-6 lg:flex">
           {isSearchActive ? (
             <div ref={searchRef}>
               <HeaderSearch autoFocus />
@@ -90,19 +92,24 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             </>
           )}
         </div>
-        <div className="flex items-center gap-4">
+
+        <div className="hidden items-center gap-4 lg:flex">
           <HeaderIcon onClick={() => handleSearchButton()}>
             <MagnifyingGlass size={24} />
           </HeaderIcon>
-          <HeaderIcon
-            action="https://discord.com/invite/x4MyhMn3TQ"
-            className="hidden lg:flex"
-          >
+          <HeaderIcon action="https://discord.com/invite/x4MyhMn3TQ">
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
           <HeaderIcon action="/dashboard">
             <User size={24} />
+          </HeaderIcon>
+        </div>
+
+        {/* Menu "hambúrguer" visível em telas menores */}
+        <div className="flex items-center gap-4 lg:hidden">
+          <HeaderIcon action="/dashboard">
+            <List size={24} />
           </HeaderIcon>
         </div>
       </div>

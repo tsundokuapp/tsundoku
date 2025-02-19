@@ -1,4 +1,6 @@
 'use client';
+// Color Checked
+// Components Checked
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -12,8 +14,8 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
   const parts = path.split('/');
 
   return (
-    <div className="mx-auto grid min-h-screen w-full grid-rows-[min-content_1fr_min-content]">
-      <HeaderBar />
+    <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
+      <HeaderBar className="z-50" />
       {parts.length > 2 && (
         <div className="relative h-64 w-full overflow-hidden blur-sm">
           <Image
@@ -27,9 +29,10 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
           />
         </div>
       )}
-      <main className="mx-auto flex w-full flex-col gap-12 px-20 pb-16 pt-8 font-normal">
+      <main className="mx-auto w-full max-w-[1300px] flex-1 px-4 py-8 sm:py-16">
         {children}
       </main>
+
       <ScrollToTopButton />
       <FooterBar />
     </div>

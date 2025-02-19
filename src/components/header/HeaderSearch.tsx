@@ -1,13 +1,15 @@
+// Color Checked
+// Components Checked
 export function HeaderSearch({ ...props }) {
   return (
-    <form className="flex w-[320px] items-center gap-3 rounded-md bg-slate-700 px-5 py-3 ring-slate-900">
+    <form className="bg-appSearchBackground flex w-[320px] items-center gap-3 rounded-md px-5 py-3">
       <input
         type="text"
         placeholder="Buscar..."
-        className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
+        className="text-appSearchText placeholder:text-appSearchPlaceholder flex-1 bg-transparent text-sm outline-none"
         {...props}
       />
-      <div className="flex h-5 w-12 items-center justify-center rounded border border-dashed border-slate-500 text-xs text-slate-500">
+      <div className="border-appSearchPlaceholder text-appSearchPlaceholder flex h-5 w-12 items-center justify-center rounded border border-dashed text-xs">
         ENTER
       </div>
     </form>

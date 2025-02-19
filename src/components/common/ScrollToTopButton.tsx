@@ -1,5 +1,6 @@
 'use client';
-
+// Color Checked
+// Components Checked
 import { CaretDoubleUp } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
@@ -33,7 +34,7 @@ export function ScrollToTopButton() {
     isVisible && (
       <button
         onClick={handleScrollToTop}
-        className="fixed bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-slate-700 p-3 text-white shadow-lg transition-opacity duration-300"
+        className="fixed bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-appButtonBackground p-3 text-appButtonIcon shadow-lg transition-opacity duration-300 hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
       >
         <CaretDoubleUp size={24} />
       </button>

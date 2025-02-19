@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import { Title } from '@/components/common/Title';
 import { Cover } from '@/components/project/Cover';
 
@@ -10,6 +12,7 @@ export default function Comics() {
           src="/cover-alya.webp"
           title="Alya às Vezes Esconde seus Sentimentos em Russo"
           category="Novel"
+          text="Cap. 1"
         />
         <Cover
           src="/cover-shadow.webp"

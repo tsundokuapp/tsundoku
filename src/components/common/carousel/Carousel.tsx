@@ -1,5 +1,5 @@
 'use client';
-
+// Color Checked
 import {
   ArrowCircleLeft,
   ArrowCircleRight,
@@ -14,6 +14,7 @@ interface CarouselProps {
   autoSlide?: boolean;
   autoSlideInterval?: number;
   navigation?: boolean;
+  className?: string;
 }
 
 export const Carousel = ({
@@ -42,10 +43,9 @@ export const Carousel = ({
       (prevIndex) => (prevIndex - 1 + images.length) % images.length,
     );
   };
-
   return (
     <div className="relative w-full max-w-3xl">
-      <div className="relative h-72 w-full overflow-hidden rounded-md">
+      <div className="relative h-72 w-full overflow-hidden rounded-md sm:h-64 sm:rounded-3xl">
         {images.map((image, index) => (
           <div
             key={index}
@@ -69,7 +69,7 @@ export const Carousel = ({
       {navigation && (
         <>
           <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
+            className="absolute left-0 top-1/2 -translate-y-1/2 transform p-2 text-appButtonText"
             onClick={prevSlide}
             aria-label="previous"
             data-testid="previous-button"
@@ -77,7 +77,7 @@ export const Carousel = ({
             <ArrowCircleLeft size={24} />
           </button>
           <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 transform p-2 text-white"
+            className="absolute right-0 top-1/2 -translate-y-1/2 transform p-2 text-appButtonText"
             onClick={nextSlide}
             aria-label="next"
             data-testid="next-button"
