@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
       </Sidebar>
 
-      <main className="ml-[72px] flex w-full max-w-[calc(100dvw-72px)] flex-col overflow-scroll font-normal pl-4">
+      <main className="ml-[72px] flex w-full max-w-[calc(100dvw-72px)] flex-col overflow-scroll pl-4 font-normal">
         <HeaderBar className="border-b-2 border-b-slate-700" />
         {children}
       </main>

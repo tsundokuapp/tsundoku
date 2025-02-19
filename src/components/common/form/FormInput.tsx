@@ -57,7 +57,7 @@ export const FormInput = <T extends Record<string, unknown>>({
         id={`input-${name}`}
         placeholder={placeholder}
         className={cn(
-          'w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:border-primary focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-primary disabled:dark:opacity-50',
+          'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 dark:text-white disabled:dark:opacity-50',
           className,
         )}
         min={type === 'number' ? min : undefined}

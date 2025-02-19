@@ -35,7 +35,7 @@ export const TableActivityStaff = () => {
   }: LineTableProps) => {
     const color = colorByRole(position);
     return (
-      <tr className="hover:bg-hoverBgLight dark:hover:bg-hoverBgDark border-b bg-bgLight dark:border-gray-700 dark:bg-bgDark">
+      <tr className="border-b bg-bgLight hover:bg-hoverBgLight dark:border-gray-700 dark:bg-bgDark dark:hover:bg-hoverBgDark">
         <th
           scope="row"
           className="flex items-center whitespace-nowrap py-4 pl-3 text-gray-900 dark:text-white"

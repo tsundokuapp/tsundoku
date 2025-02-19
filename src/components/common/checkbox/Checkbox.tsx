@@ -20,7 +20,7 @@ export const Checkbox = ({
           tabIndex={0}
           disabled={disabled}
           className={cn(
-            'disabled:border-steel-400 disabled:bg-steel-400 peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 dark:border-slate-700 dark:bg-slate-900 checked:dark:border-0 checked:dark:bg-primary dark:focus:ring-primary',
+            'disabled:border-steel-400 disabled:bg-steel-400 checked:bg-primary focus:ring-primary dark:bg-appPrimary checked:dark:bg-primary dark:focus:ring-primary peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 focus:outline-none focus:ring-2 focus:ring-offset-0 dark:border-slate-700 checked:dark:border-0',
             {
               'h-4 w-4': size === 'sm',
               'h-5 w-5': size === 'md',

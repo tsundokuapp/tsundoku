@@ -13,7 +13,6 @@ export function middleware(req: NextRequest) {
 
       return NextResponse.redirect(url);
     }
-
   }
 
   return NextResponse.next();
