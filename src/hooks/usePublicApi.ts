@@ -34,6 +34,8 @@ export interface IPublicNovels {
   alias: string;
   titulo: string;
   autor: string;
+  statusObra: TStatusNovel;
+  listaGeneros: IGenres[];
   descritivoVolume?: string;
   slug: string;
   tipoObraSlug: string;
@@ -128,7 +130,7 @@ export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
 const getNovels = async (): Promise<IPublicNovels[]> => {
   try {
     const response = await api.get('/obras/novels');
-    console.log(response.data);
+    console.log('/obras/novels', response.data);
     return response.data;
   } catch (error) {
     console.error(error);

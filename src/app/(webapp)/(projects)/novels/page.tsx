@@ -45,13 +45,17 @@ export default function Novels() {
 
   const findByStatus = (status: string) => {
     setStatus(status);
-    // Todo: descomentar quando a API estiver pronta
-    // if (projectsResponse?.data) {
-    //   const filtered = projectsResponse?.data.filter(
-    //     (item) => item.statusObra === status,
-    //   );
-    //   setNovelList(filtered);
-    // }
+
+    if (projectsResponse?.data) {
+      const filtered = projectsResponse?.data.filter(
+        (item) => item.statusObra === status,
+      );
+
+      setNovelList(filtered);
+    }
+
+    // Todo: atualizar a forma de filtragem, para considerar search e filtros quando API estiver validada
+    setSearch('');
   };
 
   const findByGenre = (genre: string) => {
