@@ -20,7 +20,7 @@ import {
   IFontFamiliesList,
   IFontLineHeight,
   IFontSizeList,
-} from '@/types/Reader';
+} from '@/@types/Reader';
 
 export default function NovelReader() {
   const { volumeList, setChapterId, chapterId } = useNovelStore();

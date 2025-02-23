@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { IFontSizeList } from '@/types/Reader';
+import { IFontSizeList } from '@/@types/Reader';
 
 import { ActionButtonControl } from './actionButtonControl/ActionButtonControl';
 

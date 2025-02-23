@@ -2,8 +2,8 @@
 // Components Checked
 import Image from 'next/image';
 
-import { IGenres } from '@/types/Api';
-import { TStatusNovel } from '@/types/System';
+import { IGenres } from '@/@types/Api';
+import { TStatusNovel } from '@/@types/System';
 
 import { CollapseText } from './CollapseText';
 import { Tag } from '../common/Tag';

@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { api } from '@/services/api';
-import { ApiResponse, IGenres, IVolumeNovelData } from '@/types/Api';
-import { TStatusNovel } from '@/types/System';
+import { ApiResponse, IGenres, IVolumeNovelData } from '@/@types/Api';
+import { TStatusNovel } from '@/@types/System';
 
 interface IRecomendations {
   // TODO: validar esses dois campos em um middleware

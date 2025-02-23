@@ -4,8 +4,8 @@ import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { IChapterNovelData } from '@/types/Api';
-import { IVolumeNovel } from '@/types/Volume';
+import { IChapterNovelData } from '@/@types/Api';
+import { IVolumeNovel } from '@/@types/Volume';
 
 import { Chapter } from './Chapter';
 import { Accordion } from '../common/Accordion';

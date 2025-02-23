@@ -8,10 +8,10 @@ import {
   type UseFormWatch,
 } from 'react-hook-form';
 
+import type { IGenres } from '@/@types/Api';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { cn } from '@/helpers/twUtils';
-import { IGenres } from '@/types/Api';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;

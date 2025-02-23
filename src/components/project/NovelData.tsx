@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
 import { useVolumesNovel } from '@/hooks/usePublicApi';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IVolumeNovelData } from '@/types/Api';
+import { IVolumeNovelData } from '@/@types/Api';
 
 import { Volume } from './Volume';
 import { Title } from '../common/Title';

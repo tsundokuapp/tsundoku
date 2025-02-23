@@ -6,7 +6,7 @@ import { DropdownContainer } from '@/components/common/dropdown/DropdownContaine
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { DropdownText } from '@/components/common/dropdown/DropdownText';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IVolumeZustand } from '@/types/Volume';
+import { IVolumeZustand } from '@/@types/Volume';
 
 interface ActionChapterListWithVolumeProps extends ComponentProps<'div'> {
   volumesList: IVolumeZustand[];
