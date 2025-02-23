@@ -1,27 +1,21 @@
-import { Banner } from '@/components/common/banner/Banner';
-import { Carousel } from '@/components/common/carousel/Carousel';
-
-import { SectinoNews } from './SectionNews';
-import { SectionProjects } from './SectionProjects';
+// Color Checked
+// Components Checked
+import { BannerAds } from '@/components/banners/bannerAds';
+import { BannerRecruitment } from '@/components/banners/bannerRecruitment';
+import { NewProjectsList } from '@/components/projectsList/newProjectsList';
+import { UpdatedProjectsList } from '@/components/projectsList/updatedProjectsList';
 
 export default function Home() {
-  const imagesArray = [
-    '/banner-elaina.jpg',
-    '/banner-emilia.jpg',
-    '/banner-bocchi.jpg',
-  ];
-
   return (
-    <div className="flex flex-col gap-12">
-      <div className="flex flex-row flex-wrap justify-between gap-4">
-        <Carousel images={imagesArray} autoSlideInterval={5000} />
-
-        <Banner image={'/recrutamento-editor.png'} />
+    <div className="flex flex-col gap-8 sm:gap-12">
+      <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row">
+        <BannerAds />
+        <BannerRecruitment />
       </div>
 
-      <SectinoNews />
+      <NewProjectsList />
 
-      <SectionProjects />
+      <UpdatedProjectsList />
     </div>
   );
 }

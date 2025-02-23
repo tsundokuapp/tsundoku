@@ -1,4 +1,6 @@
 'use client';
+// Color Checked
+// Components Checked
 import { BookOpenText, DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -47,7 +49,7 @@ export function Chapter({
       data-border={border}
       href={chapterLink}
       className={cn(
-        'flex flex-row items-center justify-between border-slate-200 px-6 py-4 hover:bg-slate-100 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b dark:border-slate-800 dark:hover:bg-slate-800 data-[border=full]:dark:bg-slate-800 data-[border=full]:dark:hover:bg-slate-900',
+        'flex flex-row items-center justify-between border-appListBorder px-6 py-4 hover:bg-appListHover data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
         className,
       )}
       onClick={() => handleClick()}

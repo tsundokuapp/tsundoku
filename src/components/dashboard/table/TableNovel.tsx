@@ -167,7 +167,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         <TdDefault>
           <div className="relative flex items-center justify-center gap-x-1">
             <div
-              className={cn('right-2 top-2 h-2 w-2 rounded bg-primary', {
+              className={cn('bg-primary right-2 top-2 h-2 w-2 rounded', {
                 'bg-primary': status === 'Concluído',
                 'bg-success': status === 'Em andamento',
                 'bg-yellow-400': status === 'Hiato',

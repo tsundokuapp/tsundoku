@@ -110,7 +110,7 @@ export default function ChapterNovelAdmin() {
     return (
       <div
         className={cn(
-          'm-2 flex h-fit w-full max-w-[450px] flex-col gap-4 rounded-lg bg-slate-100 p-4 dark:bg-slate-900',
+          'dark:bg-appPrimary m-2 flex h-fit w-full max-w-[450px] flex-col gap-4 rounded-lg bg-slate-100 p-4',
           className,
         )}
       >
@@ -188,7 +188,7 @@ export default function ChapterNovelAdmin() {
   const LabelProgress = () => {
     return (
       <div className="flex w-full flex-col gap-2 rounded-lg bg-blue-300/10 p-1">
-        <p className="text-sm font-normal text-primary">Em Progresso</p>
+        <p className="text-primary text-sm font-normal">Em Progresso</p>
       </div>
     );
   };
@@ -197,7 +197,7 @@ export default function ChapterNovelAdmin() {
     <div className="m-4 flex flex-col gap-4">
       <Title title="Capítulo - 01" />
       <div className="relative flex h-full w-full flex-col items-center justify-start rounded-lg bg-slate-100 px-4 pb-4 dark:bg-slate-800">
-        <div className="relative top-[-30px] flex h-20 w-auto flex-row items-end gap-4 rounded-xl bg-white px-8 pb-2 text-lg font-bold before:absolute before:left-[-25px] before:top-7 before:h-[50px] before:w-[25px] before:rounded-tr-[25px] before:shadow-[0_-25px_0_0_#FFF] before:content-[''] after:absolute after:right-[-25px] after:top-7 after:h-[50px] after:w-[25px] after:rounded-tl-[25px] after:shadow-[0_-25px_0_0_#FFF] after:content-[''] dark:bg-slate-900 before:dark:shadow-[0_-25px_0_0_#0F172A] after:dark:shadow-[0_-25px_0_0_#0F172A]">
+        <div className="dark:bg-appPrimary relative top-[-30px] flex h-20 w-auto flex-row items-end gap-4 rounded-xl bg-white px-8 pb-2 text-lg font-bold before:absolute before:left-[-25px] before:top-7 before:h-[50px] before:w-[25px] before:rounded-tr-[25px] before:shadow-[0_-25px_0_0_#FFF] before:content-[''] after:absolute after:right-[-25px] after:top-7 after:h-[50px] after:w-[25px] after:rounded-tl-[25px] after:shadow-[0_-25px_0_0_#FFF] after:content-[''] before:dark:shadow-[0_-25px_0_0_#0F172A] after:dark:shadow-[0_-25px_0_0_#0F172A]">
           <Avatar className="h-12 w-12" src="/cover-alya.webp" />
           <Avatar className="h-12 w-12" src="/cover-shadow.webp" />
           <Avatar className="h-12 w-12" src="/cover-seven.webp" />
@@ -280,7 +280,7 @@ export default function ChapterNovelAdmin() {
           className={cn(
             'mt-4 flex w-full flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-400 p-4',
             {
-              'border-solid border-primary': allDone,
+              'border-primary border-solid': allDone,
             },
           )}
         >

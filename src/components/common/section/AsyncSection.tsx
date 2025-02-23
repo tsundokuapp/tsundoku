@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import { Spinner } from '@phosphor-icons/react/dist/ssr';
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
@@ -28,7 +30,7 @@ export const AsyncSection = ({
             <Spinner size={24} className="animate-spin" />
           </div>
         ) : (
-          <EnterAnimation className="flex flex-row gap-6">
+          <EnterAnimation className="flex flex-row flex-wrap gap-6">
             {children}
           </EnterAnimation>
         )}

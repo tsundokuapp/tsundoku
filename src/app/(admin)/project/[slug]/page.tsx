@@ -158,7 +158,7 @@ export default function Project() {
 
             <button
               type="submit"
-              className="mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
+              className="bg-primary mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg px-4 py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
             >
               <svg
                 width="20"

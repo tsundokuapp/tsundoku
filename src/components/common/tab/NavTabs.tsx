@@ -49,9 +49,9 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
       <a
         id={id}
         className={cn(
-          'relative mb-[-1px] box-border block h-[40px] items-center justify-center rounded-t-md border border-slate-900 px-4 py-2 transition hover:cursor-pointer hover:border-primary hover:no-underline',
+          'hover:border-primary relative mb-[-1px] box-border block h-[40px] items-center justify-center rounded-t-md border border-slate-900 px-4 py-2 transition hover:cursor-pointer hover:no-underline',
           {
-            'border-b-slate-100 font-bold text-primary dark:border-b-slate-800':
+            'text-primary border-b-slate-100 font-bold dark:border-b-slate-800':
               isActive,
             'pointer-events-none border-transparent text-slate-500 hover:cursor-not-allowed':
               disabled,
@@ -66,12 +66,12 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
           <>
             <div
               className={cn(
-                'absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded bg-error',
+                'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded',
               )}
             />
             <div
               className={cn(
-                'absolute right-[-1px] top-[-1px] h-2 w-2 rounded bg-error',
+                'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 rounded',
               )}
             />
           </>

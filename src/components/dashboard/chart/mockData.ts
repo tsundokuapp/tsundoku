@@ -56,7 +56,7 @@ export const lineDataChartYear = {
       barThickness: 50,
       maxBarThickness: 100,
       minBarLength: 10,
-      data: viewsPerYear
+      data: viewsPerYear,
     },
   ],
 };

@@ -22,7 +22,7 @@ export function Banner({
     <Link href={link || '#'}>
       <div
         className={cn(
-          'flex h-72 items-center justify-center overflow-hidden rounded-md bg-gray-700',
+          'flex h-72 items-center justify-center overflow-hidden rounded-md bg-appBannerBackground text-appBannerText',
           className,
         )}
         {...props}

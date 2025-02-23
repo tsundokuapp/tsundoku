@@ -1,3 +1,6 @@
+// Color Checked
+// Components Checked
+
 import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
 import React, { ReactElement } from 'react';
 import {
@@ -59,7 +62,7 @@ export function DropdownContainer({
         <button
           type="button"
           className={cn(
-            'inline-flex w-full justify-between rounded-lg border bg-white px-3 py-2 text-base font-medium text-black focus:border-primary focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-gray-400',
+            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none',
             buttonClassname,
           )}
           onClick={handleToggleDropdown}
@@ -72,13 +75,13 @@ export function DropdownContainer({
         <EnterAnimation delay={0.3} className="absolute z-10">
           <div
             className={cn(
-              'wright-0 mt-2 w-56 origin-top-right rounded-md border border-slate-100 bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:border-slate-900 dark:bg-slate-800',
+              'wright-0 mt-2 w-56 origin-top-right rounded-md border border-appMenuBorder bg-appMenuBackground p-1 shadow-lg ring-1 ring-appMenuBorder ring-opacity-5',
               menuClassname,
             )}
           >
             <div
               className={cn(
-                'scrollbar-thin scrollbar-track-white scrollbar-thumb-zinc-500 dark:scrollbar-track-zinc-800 max-h-[400px] overflow-y-auto',
+                'max-h-[400px] overflow-y-auto',
                 scrollbarClassname,
               )}
             >

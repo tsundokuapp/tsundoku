@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import { CaretUp } from '@phosphor-icons/react/dist/ssr';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
@@ -28,13 +30,13 @@ export function Accordion({
   return (
     <div
       className={cn(
-        'flex w-full flex-col rounded-lg bg-slate-200 dark:bg-slate-950',
+        'flex w-full flex-col rounded-lg bg-appGroupBackground',
         className,
       )}
     >
       <div
         className={cn(
-          'flex h-6 cursor-pointer flex-row items-center justify-between rounded-lg px-6 py-8 hover:bg-slate-300 dark:hover:bg-slate-800',
+          'flex h-6 cursor-pointer flex-row items-center justify-between rounded-lg px-6 py-8 text-appGroupText hover:bg-appGroupHover',
           classNameItems,
         )}
         onClick={handleAccordionToggle}

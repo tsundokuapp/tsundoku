@@ -1,10 +1,11 @@
 'use client';
-
+// Color Checked
+// Components Checked
 import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { Cover } from '@/components/project/Cover';
 import { useProjects } from '@/hooks/usePublicApi';
 
-export const SectionProjects = () => {
+export function UpdatedProjectsList() {
   const { data: projectsResponse, isLoading } = useProjects();
   return (
     <AsyncSection
@@ -23,4 +24,4 @@ export const SectionProjects = () => {
       ))}
     </AsyncSection>
   );
-};
+}

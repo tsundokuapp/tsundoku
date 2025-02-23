@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -74,7 +76,6 @@ export function Volume({
                     date={chapter.dataInclusao}
                     volumeNumber={volumeNumber}
                     // variant={chapter.variant}
-                    className="rounded-lg"
                   />
                 )}
               </div>

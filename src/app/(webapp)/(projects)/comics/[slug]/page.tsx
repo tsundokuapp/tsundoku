@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import type { ChapterProps } from '@/components/project/Chapter';
 import { ComicData } from '@/components/project/ComicData';
 import { ProjectData } from '@/components/project/ProjectData';
@@ -37,7 +39,7 @@ export default function Comic(props: ComicProps) {
   ];
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex w-full flex-col gap-12">
       <ProjectData
         src="/cover-shadow.webp"
         title={props.params.slug}
@@ -49,7 +51,7 @@ export default function Comic(props: ComicProps) {
         artist="Tauzai"
         status="Em andamento"
         description="Algumas pessoas simplesmente não são adequadas para desempenhar o papel do herói chamativo e direto ou do vilão covarde que gira o bigode e tem um brio grandioso. Em vez disso, eles operam nas sombras e controlam a sociedade através de inteligência e inteligência. Esse é o papel que Cid quer desempenhar quando for transportado para outro mundo. Cid conta uma ou três histórias e se torna o líder improvável da organização subterrânea Shadow Garden que luta contra um culto ameaçador (que ele inventou totalmente). No entanto, há um problema que nem mesmo sua imaginação selvagem esperava: o culto que ele inventou realmente existe, e eles estão mais do que descontentes porque sua fantasia de poder apenas atrapalhou seus planos malignos!"
-        tags={['Ação', 'Aventura', 'Comédia', 'Drama', 'Fantasia', 'Romance']}
+        genres={['Ação', 'Aventura', 'Comédia', 'Drama', 'Fantasia', 'Romance']}
       />
 
       <ComicData title="Mangá" items={exampleChapterList} />

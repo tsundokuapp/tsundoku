@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import Image from 'next/image';
 
 export default function Blog() {

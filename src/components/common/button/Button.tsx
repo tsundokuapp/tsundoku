@@ -23,7 +23,7 @@ export const Button = ({
       tabIndex={0}
       onClick={onClick}
       className={cn(
-        'flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight focus:border-primary disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-textDark dark:hover:bg-hoverBgDark focus:dark:border-primary disabled:dark:opacity-60 disabled:dark:hover:bg-slate-900',
+        'disabled:dark:hover:bg-appPrimary focus:dark:border-primary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60',
         className,
       )}
       {...props}

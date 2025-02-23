@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import Link from 'next/link';
 
 interface FooterLinkProps {
@@ -9,9 +11,7 @@ export function FooterLink({ text, action = '/' }: FooterLinkProps) {
   return (
     <Link
       href={action}
-      className={
-        'text-xl font-bold uppercase text-gray-800 hover:underline hover:underline-offset-8'
-      }
+      className="text-base font-bold uppercase text-appFooterText hover:underline hover:underline-offset-4 sm:text-lg md:text-xl"
     >
       {text}
     </Link>

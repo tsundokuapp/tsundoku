@@ -1,5 +1,6 @@
 'use client';
-
+// Color Checked
+// Components Checked
 import { usePathname } from 'next/navigation';
 
 import { AsyncSection } from '@/components/common/section/AsyncSection';
@@ -27,7 +28,7 @@ export default function Novel() {
 
   return (
     <AsyncSection isLoading={isLoading}>
-      <div className="flex flex-col gap-12">
+      <div className="flex w-full flex-col gap-12">
         <ProjectData
           src={novelResponse?.urlCapa || ''}
           title={infoOrDefault(novelResponse?.titulo)}

@@ -20,9 +20,9 @@ export const CardInfo = ({
   textTooltip,
 }: CardInfoProps) => {
   return (
-    <div className="flex w-full flex-row justify-between gap-5 rounded-md bg-primaryContrast p-2 md:flex-col md:p-4">
+    <div className="bg-primaryContrast flex w-full flex-row justify-between gap-5 rounded-md p-2 md:flex-col md:p-4">
       <header className="flex flex-row items-center justify-start gap-1">
-        <div className="mx-2 hidden rounded-full bg-slate-900 p-2 text-white md:flex">
+        <div className="bg-appPrimary mx-2 hidden rounded-full p-2 text-white md:flex">
           {textTooltip ? (
             <Tooltip text={textTooltip}>{icon as JSX.Element}</Tooltip>
           ) : (

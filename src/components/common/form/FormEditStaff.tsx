@@ -42,7 +42,7 @@ export const FormEditStaff = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[550px] bg-white dark:bg-slate-900">
+    <div className="dark:bg-appPrimary mx-auto w-full max-w-[550px] bg-white">
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="mb-5 flex flex-col gap-2">
           <FormInput

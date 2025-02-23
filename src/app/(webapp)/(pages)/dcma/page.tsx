@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 export default function DCMA() {
   return (
     <div className="flex flex-1 flex-col items-center gap-8">

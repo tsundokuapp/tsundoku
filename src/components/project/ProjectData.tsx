@@ -1,3 +1,5 @@
+// Color Checked
+// Components Checked
 import Image from 'next/image';
 
 import { IGenres } from '@/types/Api';
@@ -9,7 +11,7 @@ import { Tag } from '../common/Tag';
 interface ProjectDataProps {
   src: string;
   title: string;
-  altTitle: string;
+  altTitle: string[];
   description: string;
   status: TStatusNovel;
   author: string;
@@ -52,7 +54,7 @@ export function ProjectData({
       <div className="flex flex-grow flex-col gap-3">
         <div className="mb-4">
           <h1 className="text-2xl font-bold capitalize">{title}</h1>
-          <p className="text-sm">
+          <p className="text-sm text-appSubtitle">
             <span className="capitalize">{altTitle}</span>
           </p>
         </div>
@@ -85,7 +87,7 @@ export function ProjectData({
         </div>
 
         {note && (
-          <div className="mt-4 rounded-md bg-primary p-4 text-black opacity-80 dark:text-slate-800">
+          <div className="bg-primary mt-4 rounded-md p-4 opacity-80">
             {note}
           </div>
         )}
