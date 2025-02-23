@@ -44,16 +44,16 @@ export function Cover({
         {children}
         <div
           data-text={text}
-          className="text-appHighlightText absolute bottom-2 left-1/2 -translate-x-1/2 transform justify-center rounded-full bg-appHighlight px-3 py-1.5 text-xs font-bold uppercase shadow-xl data-[text='']:hidden"
+          className="text-appHighlightText bg-appHighlight absolute bottom-2 left-1/2 -translate-x-1/2 transform justify-center rounded-full px-3 py-1.5 text-xs font-bold uppercase shadow-xl data-[text='']:hidden"
         >
           {text}
         </div>
       </div>
       <div className="flex max-w-[180px] flex-col flex-wrap">
-        <h1 className="max-w-[180px] truncate text-base font-bold text-appTitle">
+        <h1 className="text-appTitle max-w-[180px] truncate text-base font-bold">
           {title}
         </h1>
-        <p className="text-sm text-appSubtitle">{category}</p>
+        <p className="text-appSubtitle text-sm">{category}</p>
       </div>
     </Link>
   );
