@@ -19,6 +19,21 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Verifica se existe um tema salvo no localStorage, se sim carrega o tema.
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('tsun-theme');
+    if (savedTheme && savedTheme !== theme) {
+      setTheme(savedTheme);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Salva o tema no localStorage toda vez que o tema for alterado.
+  useEffect(() => {
+    if (theme) {
+      localStorage.setItem('tsun-theme', theme);
+    }
+  }, [theme]);
+
   function handleSelect(newTheme: string) {
     setTheme(newTheme);
     setIsOpen(false);

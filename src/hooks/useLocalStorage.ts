@@ -22,12 +22,3 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
   return [storedValue, setValue] as const;
 }
-
-// Exemplo de uso
-// const [theme, setTheme] = useLocalStorage('theme', 'light');
-
-// return (
-//   <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-//     Toggle Theme
-//   </button>
-// );
