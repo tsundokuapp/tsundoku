@@ -4,7 +4,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { useState } from 'react';
 
-import { IFontLineHeight } from '@/types/Reader';
+import { IFontLineHeight } from '@/@types/Reader';
 
 import { ActionButtonControl } from '../actionButtonControl/ActionButtonControl';
 

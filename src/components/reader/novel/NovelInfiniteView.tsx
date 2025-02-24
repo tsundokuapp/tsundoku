@@ -4,7 +4,7 @@ import {
   IFontFamiliesList,
   IFontLineHeight,
   IFontSizeList,
-} from '@/types/Reader';
+} from '@/@types/Reader';
 
 interface NovelInfiniteViewProps {
   fontSize: IFontSizeList;

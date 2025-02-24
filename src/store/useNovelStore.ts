@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { IVolumeZustand } from '@/types/Volume';
+import { IVolumeZustand } from '@/@types/Volume';
 
 interface INovelStore {
   novelBanner: string | null;

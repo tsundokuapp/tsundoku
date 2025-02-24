@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 
 import { api } from '@/services/api';
-import { ApiResponse, IGenres } from '@/types/Api';
+import { ApiResponse, IGenres } from '@/@types/Api';
 
 interface ErrorResponse {
   message: string;

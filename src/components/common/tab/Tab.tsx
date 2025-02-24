@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ITab } from '@/types/Tab';
+import { ITab } from '@/@types/Tab';
 
 export const Tab = ({
   title,

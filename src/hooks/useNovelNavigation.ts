@@ -4,7 +4,7 @@ import { useNovelStore } from '@/store/useNovelStore';
 import {
   INextChapterNovelInfo,
   IPreviousChapterNovelInfo,
-} from '@/types/Chapter';
+} from '@/@types/Chapter';
 
 export const useNovelNavigation = () => {
   const { volumeList, chapterId } = useNovelStore();

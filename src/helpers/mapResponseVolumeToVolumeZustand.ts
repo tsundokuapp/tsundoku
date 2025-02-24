@@ -1,5 +1,5 @@
-import { IVolumeNovelData } from '@/types/Api';
-import { IVolumeZustand } from '@/types/Volume';
+import { IVolumeNovelData } from '@/@types/Api';
+import { IVolumeZustand } from '@/@types/Volume';
 
 export const mapResponseVolumeToVolumeZustand = (
   volumes: IVolumeNovelData[],
