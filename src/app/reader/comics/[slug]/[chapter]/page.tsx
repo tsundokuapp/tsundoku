@@ -16,7 +16,7 @@ import { ScrollPage } from '@/helpers/ScrollPage';
 
 interface ComicReaderProps {
   params: {
-    champter: string;
+    chapter: string;
   };
   images: string[];
 }
@@ -28,7 +28,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
+  const [scrollMode, setScrollMode] = useState<ScrollMode>('single');
 
   const handleScrollModeChange = (mode: ScrollMode) => {
     setScrollMode(mode);
@@ -46,7 +46,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
   // Corrigir modo de rolagem duplo quando currentPage é par
   useEffect(() => {
     if (scrollMode === 'double' && currentPage % 2 === 0) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage((prevState) => prevState - 1);
     }
   }, [scrollMode, currentPage]);
 
@@ -58,7 +58,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
   }, [scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div ref={comicContainerRef} className="relative">
+    <div ref={comicContainerRef} className="relative h-[100vh] pt-[74px]">
       <ActionsBarContainer sufixList={['Capítulo']} removeList={['reader']}>
         <ActionChapterList totalChapters={67} />
         <ActionPageList

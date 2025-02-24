@@ -13,7 +13,6 @@ import { Tag } from '../common/Tag';
 export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
   chapterId: string;
   number: string;
-  volumeNumber: string;
   date: Date | string;
   variant?: 'regular' | 'fill';
   border?: 'bottom' | 'full';
@@ -26,13 +25,12 @@ export function Chapter({
   variant = 'regular',
   border = 'bottom',
   className,
-  volumeNumber,
   ...props
 }: ChapterProps) {
   const { setChapterId } = useNovelStore();
 
   const pathname = usePathname();
-  const chapterLink = `${pathname}/${volumeNumber}/${number}`;
+  const chapterLink = `${pathname}/${number}`;
   const formatDate = new Date(date).toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',

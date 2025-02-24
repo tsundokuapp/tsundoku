@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '@/helpers/twUtils';
 
 import { PageSliderContainer } from '../utils/PageSlider/PageSliderContainer';
 
@@ -17,9 +18,7 @@ export function ComicSingleView({
   className,
 }: ComicSingleViewProps) {
   return (
-    <div
-      className={twMerge('mt-4 flex items-center justify-center', className)}
-    >
+    <div className={cn('flex items-center justify-center', className)}>
       <PageSliderContainer
         steps={1}
         maxPages={images.length}
@@ -32,7 +31,7 @@ export function ComicSingleView({
           alt={`Página ${showPage - 1}`}
           width={557}
           height={800}
-          className="h-full select-none object-contain"
+          className="h-full max-h-[calc(100vh-110px)] select-none"
         />
       </div>
     </div>
