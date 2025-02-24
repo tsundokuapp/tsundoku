@@ -21,15 +21,6 @@ const nextConfig = {
       hostname,
     })),
   },
-  async redirects() {
-    return [
-      {
-        source: '/comics/:slug/:chapter',
-        destination: '/reader/comics/:slug/:chapter',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
