@@ -6,7 +6,7 @@ exports[`Testes para o componente <Banner /> Teste de snapshot Deve manter o sna
     href="/example"
   >
     <div
-      class="flex h-72 items-center justify-center overflow-hidden rounded-md bg-gray-700"
+      class="flex h-72 items-center justify-center overflow-hidden rounded-md bg-appBannerBackground text-appBannerText"
     >
       <img
         alt="Recrutamento de editores"

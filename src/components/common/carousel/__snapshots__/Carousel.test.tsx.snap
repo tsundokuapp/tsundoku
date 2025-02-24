@@ -6,7 +6,7 @@ exports[`Testes para o componente <Carousel /> Teste de snapshot Deve manter o s
     class="relative w-full max-w-3xl"
   >
     <div
-      class="relative h-72 w-full overflow-hidden rounded-md"
+      class="relative h-72 w-full overflow-hidden rounded-md sm:h-64 sm:rounded-3xl"
     >
       <div
         class="absolute inset-0 w-full transform transition-transform duration-500 translate-x-0"
