@@ -28,7 +28,7 @@ export default function ComicReader({ images }: ComicReaderProps) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [scrollMode, setScrollMode] = useState<ScrollMode>('single');
+  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
 
   const handleScrollModeChange = (mode: ScrollMode) => {
     setScrollMode(mode);

@@ -10,5 +10,8 @@ export const fakeComicChapter: FakeComicChapterProps = {
     '/comic-example/4.jpg',
     '/comic-example/5.jpg',
     '/comic-example/teste.jpg',
+    '/comic-example/5.jpg',
+    '/comic-example/0.jpg',
+    '/comic-example/1.jpg',
   ],
 };

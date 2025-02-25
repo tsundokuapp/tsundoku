@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ComponentProps } from 'react';
 
+import { HEIGHT_IMAGE_INSIDE_READER } from '@/helpers/systemValues';
 import { cn } from '@/helpers/twUtils';
 
 import { PageSliderContainer } from '../utils/PageSlider/PageSliderContainer';
@@ -31,7 +32,7 @@ export function ComicSingleView({
           alt={`Página ${showPage - 1}`}
           width={557}
           height={800}
-          className="h-full max-h-[calc(100vh-110px)] select-none"
+          className={`h-dvh max-h-[${HEIGHT_IMAGE_INSIDE_READER}] w-[100%] select-none`}
         />
       </div>
     </div>

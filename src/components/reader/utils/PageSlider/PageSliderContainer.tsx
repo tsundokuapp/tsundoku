@@ -1,5 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { HEIGHT_INSIDE_READER } from '@/helpers/systemValues';
 
 import { PageSliderLeft } from './PageSliderLeft';
 import { PageSliderRight } from './PageSliderRight';
@@ -22,37 +24,31 @@ export function PageSliderContainer({
   const [allowPreviousPage, setAllowPreviousPage] = useState(false);
   const [allowNextPage, setAllowNextPage] = useState(true);
 
-  const previousPage = currentPage - steps;
-  const nextPage = currentPage + steps;
+  useEffect(() => {
+    const previousPage = currentPage - steps;
+    const nextPage = currentPage + steps;
+
+    setAllowPreviousPage(previousPage >= minPages);
+    setAllowNextPage(nextPage <= maxPages);
+  }, [currentPage, minPages, maxPages, steps]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePreviousPage = () => {
-    if (previousPage >= minPages) {
-      updatePageNumber(previousPage);
-    }
-
-    if (previousPage - 1 <= minPages) {
-      setAllowPreviousPage(false);
-    } else {
-      setAllowPreviousPage(true);
-      setAllowNextPage(true);
+    if (allowPreviousPage) {
+      updatePageNumber(currentPage - steps);
     }
   };
 
+  // TODO: verificar a lógica de steps para páginas duplas, atualmente parece que ele não consegue dar steps sufiencientes para a próxima página, testar com 3 steps para duplas.
   const handleNextPage = () => {
-    if (nextPage <= maxPages) {
-      updatePageNumber(nextPage);
-    }
-
-    if (nextPage + 1 >= maxPages) {
-      setAllowNextPage(false);
-    } else {
-      setAllowPreviousPage(true);
-      setAllowNextPage(true);
+    if (allowNextPage) {
+      updatePageNumber(currentPage + steps);
     }
   };
 
   return (
-    <div className="absolute grid h-full w-full grid-cols-2 grid-rows-1">
+    <div
+      className={`h-[${HEIGHT_INSIDE_READER}] absolute grid w-full grid-cols-2 grid-rows-1`}
+    >
       <PageSliderLeft
         text="Página Anterior"
         isActive={allowPreviousPage}
