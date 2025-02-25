@@ -2,7 +2,7 @@ import Image from 'next/image';
 import type { ComponentProps } from 'react';
 
 import { HEIGHT_IMAGE_INSIDE_READER } from '@/helpers/systemValues';
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 import { PageSliderContainer } from '../utils/PageSlider/PageSliderContainer';
 
@@ -19,7 +19,7 @@ export function ComicSingleView({
   className,
 }: ComicSingleViewProps) {
   return (
-    <div className={cn('flex items-center justify-center', className)}>
+    <div className={merge('flex items-center justify-center', className)}>
       <PageSliderContainer
         steps={1}
         maxPages={images.length}

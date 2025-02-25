@@ -4,7 +4,7 @@
 import { Check } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 export interface DropdownOptionProps extends ComponentProps<'label'> {
   label: string;
@@ -34,7 +34,7 @@ export function DropdownOption({
   return (
     <div key={value} className="dropdown-option">
       <label
-        className={cn(
+        className={merge(
           'm-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover',
           className,
         )}

@@ -2,7 +2,7 @@
 // Components Checked
 import * as motion from 'motion/react-client';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface EnterAnimationProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ export const EnterAnimation = ({
       transition={{
         duration: delay,
       }}
-      className={cn('', className)}
+      className={merge('', className)}
     >
       {children}
     </motion.div>

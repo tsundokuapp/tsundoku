@@ -3,7 +3,7 @@
 
 import type { ComponentProps } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 type DropdownBreakLineProps = ComponentProps<'hr'>;
 
 export function DropdownBreakLine({
@@ -12,7 +12,7 @@ export function DropdownBreakLine({
 }: DropdownBreakLineProps) {
   return (
     <hr
-      className={cn('border-appMenuBreakline m-2 border-solid', className)}
+      className={merge('border-appMenuBreakline m-2 border-solid', className)}
       {...props}
     />
   );

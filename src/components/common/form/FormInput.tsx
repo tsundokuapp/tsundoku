@@ -8,7 +8,7 @@ import {
   type UseFormSetValue,
 } from 'react-hook-form';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface InputProps<T extends Record<string, unknown>> {
   label: string;
@@ -56,7 +56,7 @@ export const FormInput = <T extends Record<string, unknown>>({
         type={type}
         id={`input-${name}`}
         placeholder={placeholder}
-        className={cn(
+        className={merge(
           'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 dark:text-white disabled:dark:opacity-50',
           className,
         )}

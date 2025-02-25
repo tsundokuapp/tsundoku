@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export const Button = ({
     <button
       tabIndex={0}
       onClick={onClick}
-      className={cn(
+      className={merge(
         'disabled:dark:hover:bg-appPrimary focus:dark:border-primary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60',
         className,
       )}

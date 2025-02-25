@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface AvatarProps {
   src: string;
@@ -41,7 +41,7 @@ export const Avatar = ({
           }}
           data-dropdown-toggle="userDropdown"
           data-dropdown-placement="bottom-start"
-          className={cn(
+          className={merge(
             'h-12 w-12 rounded-full p-1 ring-2 ring-gray-300 dark:ring-gray-500',
             className,
             {
@@ -57,7 +57,7 @@ export const Avatar = ({
         />
 
         <div
-          className={cn('relative z-10', {
+          className={merge('relative z-10', {
             hidden: !isOpenDropdown,
           })}
         >
@@ -104,7 +104,7 @@ export const Avatar = ({
 
       {name && (
         <div
-          className={cn('flex flex-col items-start justify-center', {
+          className={merge('flex flex-col items-start justify-center', {
             'items-center': !horizontal,
           })}
         >

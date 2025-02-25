@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 interface ReaderContainerProps extends ComponentProps<'div'> {
   children: ReactNode;
 }
@@ -12,7 +12,7 @@ export function ReaderContainer({
 }: ReaderContainerProps) {
   return (
     <div
-      className={(cn('flex items-center justify-center'), className)}
+      className={(merge('flex items-center justify-center'), className)}
       {...props}
     >
       {children}

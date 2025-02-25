@@ -1,6 +1,6 @@
 import { ArrowCircleRight } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { merge } from '@/helpers/twUtils';
 
 interface PageSliderRightProps extends ComponentProps<'div'> {
   text: string;
@@ -17,7 +17,7 @@ export function PageSliderRight({
   return (
     <div
       data-is-active={isActive}
-      className={twMerge(
+      className={merge(
         'group/right col-span-1 row-span-1 flex cursor-pointer items-center justify-end data-[is-active=false]:cursor-default',
         className,
       )}

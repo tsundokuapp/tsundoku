@@ -11,7 +11,7 @@ import {
 import type { IGenres } from '@/@types/Api';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;
@@ -79,7 +79,7 @@ export const FormMultiSelect = <T extends Record<string, unknown>>({
       </label>
 
       <DropdownContainer
-        className={(cn('w-[280px]'), className)}
+        className={(merge('w-[280px]'), className)}
         label={label}
         value={watch(name) ? <ItemsSelected /> : 'Selecione'}
       >

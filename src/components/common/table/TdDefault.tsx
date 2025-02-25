@@ -1,4 +1,4 @@
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface TdDefaultProps {
   children: React.ReactNode;
@@ -9,13 +9,13 @@ interface TdDefaultProps {
 export const TdDefault = ({ children, main, hiddenCell }: TdDefaultProps) => {
   return (
     <td
-      className={cn('px-auto py-4 text-center', {
+      className={merge('px-auto py-4 text-center', {
         'hidden md:table-cell': hiddenCell === 'md',
         'hidden sm:table-cell': hiddenCell === 'sm',
       })}
     >
       <span
-        className={cn('font-medium text-black dark:text-gray-400', {
+        className={merge('font-medium text-black dark:text-gray-400', {
           'font-semibold text-gray-900 dark:text-white': main,
         })}
       >

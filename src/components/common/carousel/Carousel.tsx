@@ -7,7 +7,7 @@ import {
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface CarouselProps {
   images: string[];
@@ -49,7 +49,7 @@ export const Carousel = ({
         {images.map((image, index) => (
           <div
             key={index}
-            className={cn(
+            className={merge(
               `absolute inset-0 w-full translate-x-full transform transition-transform duration-500`,
               {
                 'translate-x-0': index === currentIndex,

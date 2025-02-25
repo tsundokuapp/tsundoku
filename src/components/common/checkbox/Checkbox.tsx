@@ -1,4 +1,4 @@
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 import { ICheckbox } from '@/@types/Checkbox';
 
 export const Checkbox = ({
@@ -19,7 +19,7 @@ export const Checkbox = ({
           type="checkbox"
           tabIndex={0}
           disabled={disabled}
-          className={cn(
+          className={merge(
             'disabled:border-steel-400 disabled:bg-steel-400 checked:bg-primary focus:ring-primary dark:bg-appPrimary checked:dark:bg-primary dark:focus:ring-primary peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 focus:outline-none focus:ring-2 focus:ring-offset-0 dark:border-slate-700 checked:dark:border-0',
             {
               'h-4 w-4': size === 'sm',
@@ -30,7 +30,7 @@ export const Checkbox = ({
           {...register(name)}
         />
         <svg
-          className={cn(
+          className={merge(
             'pointer-events-none absolute mt-1 hidden peer-checked:block',
             {
               'h-4 w-4': size === 'sm',
@@ -50,7 +50,7 @@ export const Checkbox = ({
         </svg>
       </div>
       <div
-        className={cn('ms-2 text-sm', {
+        className={merge('ms-2 text-sm', {
           'text-md': size === 'md' || 'lg',
         })}
       >

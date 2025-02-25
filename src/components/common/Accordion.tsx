@@ -5,7 +5,7 @@ import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
 import React, { useRef, useState } from 'react';
 
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface AccordionProps {
   title: string;
@@ -29,13 +29,13 @@ export function Accordion({
 
   return (
     <div
-      className={cn(
+      className={merge(
         'flex w-full flex-col rounded-lg bg-appGroupBackground',
         className,
       )}
     >
       <div
-        className={cn(
+        className={merge(
           'flex h-6 cursor-pointer flex-row items-center justify-between rounded-lg px-6 py-8 text-appGroupText hover:bg-appGroupHover',
           classNameItems,
         )}

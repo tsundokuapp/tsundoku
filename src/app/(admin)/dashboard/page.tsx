@@ -15,7 +15,7 @@ import { HeaderDashboard } from '@/components/dashboard/header/HeaderDashboard';
 import { TableActivityStaff } from '@/components/dashboard/table/TableActivityStaff';
 import { CardTransactions } from '@/components/padrim/CardTransaction/CardTransactions';
 import { useModal } from '@/contexts/ModalContext';
-import { cn } from '@/helpers/twUtils';
+import { merge } from '@/helpers/twUtils';
 
 interface ChartProps {
   type: keyof ChartTypeRegistry;
@@ -47,7 +47,7 @@ export default function Dashboard() {
   const CardDashboard = ({ children, className }: CardDashboardProps) => {
     return (
       <div
-        className={cn(
+        className={merge(
           'flex flex-col items-center justify-between rounded-md bg-gray-50 p-4 dark:bg-gray-800',
           className,
         )}
