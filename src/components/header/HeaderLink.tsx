@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface HeaderLinkProps {
   text: string;
@@ -23,7 +23,7 @@ export function HeaderLink({ text, action = '/', ...props }: HeaderLinkProps) {
     >
       {text}
       <span
-        className={merge(
+        className={cn(
           'absolute bottom-0 left-0 h-[2px] w-full transform bg-appHeaderHighlight transition-transform duration-300',
           {
             'scale-x-100': isActive,

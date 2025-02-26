@@ -5,7 +5,7 @@ import { BookOpenText, DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 import { useNovelStore } from '@/store/useNovelStore';
 
 import { Tag } from '../common/Tag';
@@ -46,8 +46,8 @@ export function Chapter({
     <Link
       data-border={border}
       href={chapterLink}
-      className={merge(
-        'border-appListBorder hover:bg-appListHover flex flex-row items-center justify-between px-6 py-4 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
+      className={cn(
+        'flex flex-row items-center justify-between border-appListBorder px-6 py-4 hover:bg-appListHover data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
         className,
       )}
       onClick={() => handleClick()}

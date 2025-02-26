@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
-import { merge } from '@/helpers/twUtils';
 import { ITab } from '@/@types/Tab';
+import { cn } from '@/helpers/twUtils';
 
 interface CustomChildrenProps extends ReactElement, ITab {
   /* Nada */
@@ -48,7 +48,7 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
     return (
       <a
         id={id}
-        className={merge(
+        className={cn(
           'hover:border-primary relative mb-[-1px] box-border block h-[40px] items-center justify-center rounded-t-md border border-slate-900 px-4 py-2 transition hover:cursor-pointer hover:no-underline',
           {
             'text-primary border-b-slate-100 font-bold dark:border-b-slate-800':
@@ -65,12 +65,12 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
         {alert && (
           <>
             <div
-              className={merge(
+              className={cn(
                 'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded',
               )}
             />
             <div
-              className={merge(
+              className={cn(
                 'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 rounded',
               )}
             />
@@ -86,7 +86,7 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
   return (
     <div>
       <nav
-        className={merge(
+        className={cn(
           'mb-2 mt-2 flex list-none flex-wrap justify-start border border-transparent border-b-slate-900 pl-0',
         )}
       >
@@ -110,7 +110,7 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
           return (
             <div
               key={eventKey}
-              className={merge('', {
+              className={cn('', {
                 'hidden flex-1': eventKey !== activeKey,
               })}
             >

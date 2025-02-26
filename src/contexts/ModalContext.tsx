@@ -11,7 +11,7 @@ import {
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
 import { SideAnimation } from '@/animation/SideAnimation';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface ModalProps {
   title?: string;
@@ -60,7 +60,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       <>
         {isModalOpen ? (
           <div
-            className={merge(
+            className={cn(
               'fixed bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center',
               {
                 'justify-end': side,
@@ -93,7 +93,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const ContentModal = ({ children, title, className }: ModalProps) => {
     return (
       <div
-        className={merge(
+        className={cn(
           'dark:bg-appPrimary flex h-full max-h-screen min-h-96 w-full max-w-[700px] flex-col gap-4 overflow-scroll rounded-lg border-2 bg-white p-4 dark:border-slate-700',
           className,
         )}

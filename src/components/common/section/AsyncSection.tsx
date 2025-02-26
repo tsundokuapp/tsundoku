@@ -3,7 +3,7 @@
 import { Spinner } from '@phosphor-icons/react/dist/ssr';
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 import { Title } from '../Title';
 
@@ -23,7 +23,7 @@ export const AsyncSection = ({
   return (
     <section className="flex flex-col justify-between gap-4">
       {title && <Title title={title} />}
-      <div className={(merge('flex flex-row gap-6'), className)}>
+      <div className={(cn('flex flex-row gap-6'), className)}>
         {isLoading ? (
           <div className="flex h-10 w-full items-center justify-center gap-4">
             <span>Carregando...</span>

@@ -2,7 +2,7 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 interface DropdownTextProps extends ComponentProps<'p'> {
   text: string;
 }
@@ -10,8 +10,8 @@ interface DropdownTextProps extends ComponentProps<'p'> {
 export function DropdownText({ text, className, ...props }: DropdownTextProps) {
   return (
     <p
-      className={merge(
-        'text-appMenuTitle mx-2 my-2 text-sm font-semibold',
+      className={cn(
+        'mx-2 my-2 text-sm font-semibold text-appMenuTitle',
         className,
       )}
       {...props}

@@ -1,6 +1,7 @@
 import { ArrowCircleLeft } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
-import { merge } from '@/helpers/twUtils';
+
+import { cn } from '@/helpers/twUtils';
 
 interface PageSliderLeftProps extends ComponentProps<'div'> {
   text: string;
@@ -17,7 +18,7 @@ export function PageSliderLeft({
   return (
     <div
       data-is-active={isActive}
-      className={merge(
+      className={cn(
         'group/left col-span-1 row-span-1 flex cursor-pointer items-center justify-start data-[is-active=false]:cursor-default',
         className,
       )}

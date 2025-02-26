@@ -1,6 +1,6 @@
 // Color Checked
 // Components Checked
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface SearchTableProps
   extends Omit<React.HTMLProps<HTMLInputElement>, 'value' | 'onChange'> {
@@ -19,7 +19,7 @@ export const SearchTable = ({
 }: SearchTableProps) => {
   return (
     <div className="flex w-full items-center justify-end" {...props}>
-      <div className={merge('relative mt-1 w-72', { 'w-full': fullWidth })}>
+      <div className={cn('relative mt-1 w-72', { 'w-full': fullWidth })}>
         <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
           <svg
             className="h-4 w-4 text-appInputIcon"
@@ -38,7 +38,7 @@ export const SearchTable = ({
         <input
           type="text"
           id="table-search"
-          className="focus:ring-primary focus:border-appInputFocus block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder"
+          className="focus:ring-primary block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder focus:border-appInputFocus"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}

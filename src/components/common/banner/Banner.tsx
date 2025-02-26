@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface BannerProps {
   className?: string;
@@ -21,7 +21,7 @@ export function Banner({
   return (
     <Link href={link || '#'}>
       <div
-        className={merge(
+        className={cn(
           'flex h-72 items-center justify-center overflow-hidden rounded-md bg-appBannerBackground text-appBannerText',
           className,
         )}

@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface TitleColProps {
   title: string;
@@ -22,7 +22,7 @@ export const TitleColTable = ({
   return (
     <th
       scope="col"
-      className={merge(
+      className={cn(
         'table-cell py-3 pl-3',
         {
           'hidden md:table-cell': hiddenCell === 'md',
@@ -32,7 +32,7 @@ export const TitleColTable = ({
       )}
     >
       <div
-        className={merge('flex items-center px-3', {
+        className={cn('flex items-center px-3', {
           'justify-start': position === 'left',
           'justify-end': position === 'right',
           'justify-center': position === 'center',

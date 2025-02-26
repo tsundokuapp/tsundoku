@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface HeaderIconProps {
   action?: string;
@@ -18,7 +18,7 @@ export function HeaderIcon({
   ...props
 }: HeaderIconProps) {
   return (
-    <div className={merge(className)}>
+    <div className={cn(className)}>
       {action ? (
         <Link href={action}>
           <span

@@ -1,4 +1,4 @@
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface CelNavegationProps {
   text: string;
@@ -27,7 +27,7 @@ const CelNavegation = ({
 }: CelNavegationProps) => {
   return (
     <li
-      className={merge(
+      className={cn(
         'ms-0 flex h-8 cursor-pointer items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-slate-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white',
         {
           'rounded-s-lg': firstChildren,

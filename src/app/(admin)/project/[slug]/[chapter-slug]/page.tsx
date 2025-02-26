@@ -12,7 +12,7 @@ import { Avatar } from '@/components/common/Avatar';
 import { Title } from '@/components/common/Title';
 import { Button } from '@/components/common/button/Button';
 import { FakeCheckbox } from '@/components/common/checkbox';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface ICardRoadmap {
   className?: string;
@@ -109,7 +109,7 @@ export default function ChapterNovelAdmin() {
   const CardRoadmap = ({ className }: ICardRoadmap) => {
     return (
       <div
-        className={merge(
+        className={cn(
           'dark:bg-appPrimary m-2 flex h-fit w-full max-w-[450px] flex-col gap-4 rounded-lg bg-slate-100 p-4',
           className,
         )}
@@ -277,7 +277,7 @@ export default function ChapterNovelAdmin() {
         </div>
 
         <div
-          className={merge(
+          className={cn(
             'mt-4 flex w-full flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-400 p-4',
             {
               'border-primary border-solid': allDone,

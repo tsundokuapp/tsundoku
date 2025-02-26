@@ -8,7 +8,7 @@ import {
   type UseFormSetValue,
 } from 'react-hook-form';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface TextAreaProps<T extends Record<string, unknown>>
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -54,7 +54,7 @@ export const FormTextArea = <T extends Record<string, unknown>>({
       <textarea
         id={`textarea-${name}`}
         placeholder={placeholder}
-        className={merge(
+        className={cn(
           'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-white outline-none focus:shadow-md dark:border-slate-700',
           className,
         )}

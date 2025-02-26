@@ -1,5 +1,5 @@
-import { merge } from '@/helpers/twUtils';
 import { ICheckbox } from '@/@types/Checkbox';
+import { cn } from '@/helpers/twUtils';
 
 type FakeCheckboxProps = Omit<ICheckbox, 'register' | 'name'>;
 
@@ -20,7 +20,7 @@ export const FakeCheckbox = ({
           type="checkbox"
           tabIndex={-1}
           disabled
-          className={merge(
+          className={cn(
             'disabled:border-steel-400 disabled:bg-steel-400 focus-event-none checked:bg-primary focus:ring-primary dark:bg-appPrimary checked:dark:bg-primary dark:focus:ring-primary peer pointer-events-none relative mt-1 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 focus:outline-none focus:ring-2 focus:ring-offset-0 dark:border-slate-700 checked:dark:border-0',
             {
               'h-4 w-4': size === 'sm',
@@ -30,7 +30,7 @@ export const FakeCheckbox = ({
           )}
         />
         <svg
-          className={merge(
+          className={cn(
             'pointer-events-none absolute mt-1 hidden peer-checked:block',
             {
               'h-4 w-4': size === 'sm',
@@ -50,7 +50,7 @@ export const FakeCheckbox = ({
         </svg>
       </div>
       <div
-        className={merge('ms-2 text-sm', {
+        className={cn('ms-2 text-sm', {
           'text-md': size === 'md' || 'lg',
         })}
       >

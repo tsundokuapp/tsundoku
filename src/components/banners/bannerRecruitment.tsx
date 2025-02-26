@@ -2,7 +2,7 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 import { Banner } from './banner';
 import { LinkButton } from '../common/LinkButton';
@@ -17,7 +17,7 @@ export function BannerRecruitment({
 }: BannerRecruitmentProps) {
   return (
     <Banner
-      className={merge(
+      className={cn(
         // Layout fluido em diversas telas
         'flex flex-1 flex-col items-center justify-center rounded-lg bg-appBannerBackground p-4 text-appBannerText sm:rounded-3xl',
         // Espaçamento e dimensões adaptativas
@@ -38,7 +38,7 @@ export function BannerRecruitment({
       </div>
       <LinkButton
         text="Me inscrever"
-        className={merge(
+        className={cn(
           'flex h-12 w-full max-w-xs items-center justify-center rounded-md bg-appBannerButton',
           'font-bold uppercase hover:bg-appBannerButtonHover',
         )}

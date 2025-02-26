@@ -6,7 +6,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { CSSProperties } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 import { Badge, type BadgeProps } from './Badge';
 
@@ -36,7 +36,7 @@ export const ItemCardTransactions = ({
 
   return (
     <div
-      className={merge(
+      className={cn(
         'flex flex-row items-center justify-between p-4 odd:bg-gray-50 even:bg-white hover:cursor-pointer hover:bg-[#F0F0F0] dark:odd:bg-gray-800 dark:even:bg-gray-700',
         className,
       )}

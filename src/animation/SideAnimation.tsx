@@ -1,6 +1,6 @@
 import * as motion from 'motion/react-client';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface SideAnimationProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export const SideAnimation = ({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 1, x: 300 }}
       transition={{ duration: delay, type: 'easeInOut' }}
-      className={merge('', className)}
+      className={cn('', className)}
     >
       {children}
     </motion.div>

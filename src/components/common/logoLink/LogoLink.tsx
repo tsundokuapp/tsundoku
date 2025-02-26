@@ -2,7 +2,7 @@
 // Components Checked
 import Link from 'next/link';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface LogoLinkProps {
   className?: string;
@@ -11,7 +11,7 @@ interface LogoLinkProps {
 export const LogoLink = ({ className }: LogoLinkProps) => {
   return (
     <Link
-      className={merge(
+      className={cn(
         'flex items-center gap-2 text-2xl font-extrabold text-appHeaderText',
         className,
       )}

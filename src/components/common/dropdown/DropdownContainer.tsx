@@ -12,7 +12,7 @@ import {
 } from 'react';
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface DropdownContainerProps extends ComponentProps<'div'> {
   label: string | ReactElement;
@@ -55,13 +55,13 @@ export function DropdownContainer({
   return (
     <div
       ref={dropdownRef}
-      className={merge('relative inline-block min-w-[180px] text-left', className)}
+      className={cn('relative inline-block min-w-[180px] text-left', className)}
       {...props}
     >
       <div>
         <button
           type="button"
-          className={merge(
+          className={cn(
             'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none',
             buttonClassname,
           )}
@@ -74,13 +74,13 @@ export function DropdownContainer({
       {isOpen && (
         <EnterAnimation delay={0.3} className="absolute z-10">
           <div
-            className={merge(
+            className={cn(
               'wright-0 mt-2 w-56 origin-top-right rounded-md border border-appMenuBorder bg-appMenuBackground p-1 shadow-lg ring-1 ring-appMenuBorder ring-opacity-5',
               menuClassname,
             )}
           >
             <div
-              className={merge(
+              className={cn(
                 'max-h-[400px] overflow-y-auto',
                 scrollbarClassname,
               )}

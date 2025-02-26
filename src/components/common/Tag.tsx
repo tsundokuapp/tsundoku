@@ -2,7 +2,7 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface TagProps extends ComponentProps<'span'> {
   variant?: 'regular' | 'fill';
@@ -18,7 +18,7 @@ export function Tag({
   return (
     <span
       data-variant={variant}
-      className={merge(
+      className={cn(
         'inline-block rounded-lg border border-appButtonOutlineBorder px-2 py-[1px] text-sm text-appButtonOutlineText data-[variant="fill"]:bg-appButtonFillBackground data-[variant="fill"]:text-appButtonFillText',
         className,
       )}

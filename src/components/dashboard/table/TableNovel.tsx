@@ -16,7 +16,7 @@ import {
 import { TdDefault } from '@/components/common/table/TdDefault';
 import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 import { useAdminNovels } from '@/hooks/useNovels';
 import { api } from '@/services/api';
 
@@ -167,7 +167,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         <TdDefault>
           <div className="relative flex items-center justify-center gap-x-1">
             <div
-              className={merge('bg-primary right-2 top-2 h-2 w-2 rounded', {
+              className={cn('bg-primary right-2 top-2 h-2 w-2 rounded', {
                 'bg-primary': status === 'Concluído',
                 'bg-success': status === 'Em andamento',
                 'bg-yellow-400': status === 'Hiato',

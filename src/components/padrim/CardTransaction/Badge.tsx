@@ -1,6 +1,6 @@
 'use client';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 export interface BadgeProps {
   text: string;
@@ -12,7 +12,7 @@ export const Badge = ({ text, action, showDetails }: BadgeProps) => {
   return (
     <div className="flex flex-col items-center justify-center">
       <span
-        className={merge('rounded-md px-2 py-1 text-xs text-white', {
+        className={cn('rounded-md px-2 py-1 text-xs text-white', {
           'bg-red-500': action === 'cancelado',
           'bg-green-500': action === 'novo',
           'bg-yellow-500': action === 'pendente',

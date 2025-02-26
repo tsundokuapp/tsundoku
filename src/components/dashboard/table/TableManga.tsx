@@ -15,7 +15,7 @@ import {
 import { TdDefault } from '@/components/common/table/TdDefault';
 import { Debounce } from '@/helpers/Debounce';
 import { NovelsList } from '@/helpers/Util';
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface LineTableProps {
   title: string;
@@ -62,7 +62,7 @@ export const TableManga = () => {
         <td className="px-auto py-4">
           <div className="relative flex items-center gap-x-1">
             <div
-              className={merge('bg-primary right-2 top-2 h-2 w-2 rounded', {
+              className={cn('bg-primary right-2 top-2 h-2 w-2 rounded', {
                 'bg-primary': status === 'Concluído',
                 'bg-success': status === 'Em andamento',
                 'bg-yellow-400': status === 'Hiato',

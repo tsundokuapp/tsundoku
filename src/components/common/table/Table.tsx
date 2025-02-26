@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface TableProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface TableProps {
 export const Table = ({ children, className }: TableProps) => {
   return (
     <table
-      className={merge(
+      className={cn(
         'w-full text-left text-sm text-gray-500 dark:text-gray-400',
         className,
       )}

@@ -2,7 +2,7 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
-import { merge } from '@/helpers/twUtils';
+import { cn } from '@/helpers/twUtils';
 
 interface TitleProps extends ComponentProps<'div'> {
   title: string;
@@ -12,7 +12,7 @@ interface TitleProps extends ComponentProps<'div'> {
 export function Title({ title, className, ...props }: TitleProps) {
   return (
     <div
-      className={merge(
+      className={cn(
         'flex flex-row gap-2 text-xl font-black sm:gap-4 sm:text-2xl',
         className,
       )}
