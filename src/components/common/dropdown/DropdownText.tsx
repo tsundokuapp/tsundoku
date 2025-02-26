@@ -11,7 +11,7 @@ export function DropdownText({ text, className, ...props }: DropdownTextProps) {
   return (
     <p
       className={cn(
-        'text-appMenuTitle mx-2 my-2 text-sm font-semibold',
+        'mx-2 my-2 text-sm font-semibold text-appMenuTitle',
         className,
       )}
       {...props}

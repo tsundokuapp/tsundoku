@@ -12,7 +12,7 @@ export function DropdownBreakLine({
 }: DropdownBreakLineProps) {
   return (
     <hr
-      className={cn('border-appMenuBreakline m-2 border-solid', className)}
+      className={cn('m-2 border-solid border-appMenuBreakline', className)}
       {...props}
     />
   );

@@ -47,7 +47,7 @@ export function Chapter({
       data-border={border}
       href={chapterLink}
       className={cn(
-        'border-appListBorder hover:bg-appListHover flex flex-row items-center justify-between px-6 py-4 data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
+        'flex flex-row items-center justify-between border-appListBorder px-6 py-4 hover:bg-appListHover data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
         className,
       )}
       onClick={() => handleClick()}

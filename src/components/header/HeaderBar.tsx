@@ -8,9 +8,9 @@ import {
   List,
 } from '@phosphor-icons/react/dist/ssr';
 import React, { useState, useRef, useEffect, type ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 import { useSearchBar } from '@/contexts/SearchBarContext';
+import { cn } from '@/helpers/twUtils';
 
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
@@ -67,7 +67,7 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
 
   return (
     <header
-      className={twMerge(
+      className={cn(
         'bg-appHeaderBackground py-4 sm:py-6',
         'px-6 sm:px-8 lg:px-16',
         className,

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useRef, useEffect, type ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '@/helpers/twUtils';
 
 interface ComicInfiniteViewProps extends ComponentProps<'div'> {
   images: string[];
@@ -41,7 +42,7 @@ export function ComicInfiniteView({
   return (
     <div
       ref={containerRef}
-      className={twMerge(
+      className={cn(
         'mb-8 flex h-full items-center justify-center overflow-y-auto',
         className,
       )}

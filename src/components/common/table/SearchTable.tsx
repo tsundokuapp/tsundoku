@@ -38,7 +38,7 @@ export const SearchTable = ({
         <input
           type="text"
           id="table-search"
-          className="focus:ring-primary focus:border-appInputFocus block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder"
+          className="focus:ring-primary block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder focus:border-appInputFocus"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
