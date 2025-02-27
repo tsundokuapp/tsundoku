@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./themes/colors.css";
-@import "./themes/theme-light.css";
-@import "./themes/theme-sepia.css";
-@import "./themes/theme-blue.css";
-@import "./themes/theme-dark.css";
+@import "@/themes/colors.css";
+@import "@/themes/theme-light.css";
+@import "@/themes/theme-sepia.css";
+@import "@/themes/theme-blue.css";
+@import "@/themes/theme-dark.css";
 
 .transition-theme {
   transition: transform var(--transition-duration) ease-in-out,
