@@ -5,15 +5,15 @@ import {
   MagnifyingGlass,
   DiscordLogo,
   User,
-  List,
 } from '@phosphor-icons/react/dist/ssr';
-import React, { useState, useRef, useEffect, type ComponentProps } from 'react';
+import { useState, useRef, useEffect, type ComponentProps } from 'react';
 
 import { useSearchBar } from '@/contexts/SearchBarContext';
 import { cn } from '@/helpers/twUtils';
 
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
+import { HeaderMenu } from './HeaderMenu';
 import { HeaderSearch } from './HeaderSearch';
 import { LogoLink } from '../common/logoLink/LogoLink';
 import { ThemeToggle } from '../theme/ThemeToogle';
@@ -106,11 +106,8 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
           </HeaderIcon>
         </div>
 
-        {/* Menu "hambúrguer" visível em telas menores */}
         <div className="flex items-center gap-4 lg:hidden">
-          <HeaderIcon action="/dashboard">
-            <List size={24} />
-          </HeaderIcon>
+          <HeaderMenu />
         </div>
       </div>
     </header>

@@ -21,6 +21,8 @@ interface DropdownContainerProps extends ComponentProps<'div'> {
   buttonClassname?: string;
   menuClassname?: string;
   scrollbarClassname?: string;
+  direction?: 'up' | 'down';
+  noIcon?: boolean;
 }
 
 export function DropdownContainer({
@@ -31,6 +33,8 @@ export function DropdownContainer({
   buttonClassname,
   menuClassname,
   scrollbarClassname,
+  direction = 'down',
+  noIcon = false,
   ...props
 }: DropdownContainerProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,20 +66,24 @@ export function DropdownContainer({
         <button
           type="button"
           className={cn(
-            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none',
+            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
             buttonClassname,
           )}
           onClick={handleToggleDropdown}
         >
           {isOpen ? label : value}
-          <CaretUpDown className="ml-2 h-5 w-5" />
+
+          {!noIcon && <CaretUpDown className="ml-2 h-5 w-5" />}
         </button>
       </div>
       {isOpen && (
-        <EnterAnimation delay={0.3} className="absolute z-10">
+        <EnterAnimation delay={0.3} className="z-10">
           <div
             className={cn(
-              'wright-0 mt-2 w-56 origin-top-right rounded-md border border-appMenuBorder bg-appMenuBackground p-1 shadow-lg ring-1 ring-appMenuBorder ring-opacity-5',
+              'absolute z-10 w-56 rounded-md border border-appMenuBorder bg-appMenuBackground p-1 shadow-lg ring-1 ring-appMenuBorder ring-opacity-5',
+              direction === 'down'
+                ? 'right-0 top-full mt-2 origin-top-right'
+                : 'bottom-full right-0 mb-2 origin-bottom-right',
               menuClassname,
             )}
           >
