@@ -11,7 +11,7 @@ import { Tag } from '../common/Tag';
 interface ProjectDataProps {
   src: string;
   title: string;
-  altTitle: string[];
+  altTitle: string;
   description: string;
   status: TStatusNovel;
   author: string;
@@ -87,7 +87,7 @@ export function ProjectData({
         </div>
 
         {note && (
-          <div className="bg-primary mt-4 rounded-md p-4 opacity-80">
+          <div className="mt-4 rounded-md bg-appHeaderHighlight p-4 opacity-80">
             {note}
           </div>
         )}

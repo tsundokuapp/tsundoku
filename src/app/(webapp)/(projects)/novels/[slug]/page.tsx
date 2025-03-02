@@ -3,12 +3,12 @@
 // Components Checked
 import { usePathname } from 'next/navigation';
 
+import { TStatusNovel } from '@/@types/System';
 import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { NovelData } from '@/components/project/NovelData';
 import { ProjectData } from '@/components/project/ProjectData';
 import { usePublicNovelSlug } from '@/hooks/usePublicApi';
 // import { useNovelStore } from '@/store/useNovelStore';
-import { TStatusNovel } from '@/@types/System';
 
 export default function Novel() {
   const pathname = usePathname();
