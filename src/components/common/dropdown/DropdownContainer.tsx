@@ -83,8 +83,21 @@ export function DropdownContainer({
   const animationExit = animationInitial;
 
   const handleToggleDropdown = () => {
-    setIsOpen((prev) => !prev);
+    if (isOpen) {
+      setIsOpen(false);
+      setTimeout(() => {
+        triggerRef.current?.focus();
+      }, 0);
+    } else {
+      setIsOpen(true);
+    }
   };
+
+  useEffect(() => {
+    if (!isOpen && triggerRef.current) {
+      triggerRef.current.focus();
+    }
+  }, [isOpen]);
 
   // Fecha o dropdown ao clicar fora dele
   useEffect(() => {
@@ -210,13 +223,26 @@ export function DropdownContainer({
               )}
             >
               {React.Children.map(children, (child) => {
-                if (React.isValidElement(child)) {
+                if (!React.isValidElement(child) || !('type' in child))
+                  return child;
+
+                if (typeof child.type === 'string') {
+                  const intrinsicType =
+                    child.type as keyof JSX.IntrinsicElements;
                   return React.cloneElement(
-                    child as React.ReactElement<DropdownOptionProps>,
-                    { setIsOpen, triggerRef },
+                    child as React.ReactElement<
+                      JSX.IntrinsicElements[typeof intrinsicType]
+                    >,
+                    { tabIndex: child.props.tabIndex ?? 0 },
                   );
                 }
-                return child;
+                return React.cloneElement(
+                  child as React.ReactElement<DropdownOptionProps>,
+                  {
+                    setIsOpen,
+                    triggerRef,
+                  },
+                );
               })}
             </div>
           </div>

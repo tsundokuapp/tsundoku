@@ -33,6 +33,9 @@ export function HeaderMenu() {
             <span className="text-appHeaderHighlight">/</span>
           </DialogTitle>
         </DialogHeader>
+        <div id="dialog-description" className="sr-only">
+          Menu de nagação do site
+        </div>
         <div className="flex-1 p-12">
           <div className="flex flex-col gap-6">
             <HeaderSearch icon="Search" className="w-full" autoFocus />
@@ -94,7 +97,9 @@ export function HeaderMenu() {
                 />
               </DialogClose>
             </div>
-            <ThemeToggleList />
+            <div className="theme-toggle-list" data-testid="theme-toggle-list">
+              <ThemeToggleList />
+            </div>
           </div>
         </DialogFooter>
       </DialogContent>
