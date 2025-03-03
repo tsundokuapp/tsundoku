@@ -4,7 +4,7 @@ import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { IChapterNovelData } from '@/@types/Api';
+import { IChapterNovelForVolume } from '@/@types/Api';
 import { IVolumeNovel } from '@/@types/Volume';
 
 import { Chapter } from './Chapter';
@@ -16,11 +16,10 @@ export function Volume({
   sinopse,
   chapters,
   cover,
-  volumeNumber,
 }: IVolumeNovel) {
   const [isAscending, setIsAscending] = useState<boolean>(false);
   const [chaptersArray, setChaptersArray] =
-    useState<IChapterNovelData[]>(chapters);
+    useState<IChapterNovelForVolume[]>(chapters);
 
   const handleSorting = () => {
     if (!chaptersArray) return;
@@ -37,7 +36,7 @@ export function Volume({
 
   return (
     <Accordion title={title}>
-      <section className="flex flex-row gap-4">
+      <section className="flex flex-col gap-4 sm:flex-row">
         <div className="relative flex flex-col items-center justify-start gap-4">
           <Image
             src={cover}
@@ -74,8 +73,6 @@ export function Volume({
                     chapterId={chapter.id}
                     number={chapter.numero}
                     date={chapter.dataInclusao}
-                    volumeNumber={volumeNumber}
-                    // variant={chapter.variant}
                   />
                 )}
               </div>

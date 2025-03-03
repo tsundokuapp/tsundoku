@@ -16,14 +16,14 @@ export function CollapseText({
   return (
     <>
       {maxCharacter === 0 ? (
-        <p>{children}</p>
+        <p className="text-justify">{children}</p>
       ) : (
         <p>
           {isExpanded
             ? children
             : `${(children ?? '').toString().slice(0, maxCharacter)}...`}
           <span
-            className="cursor-pointer px-2 font-semibold hover:underline"
+            className="cursor-pointerx px-2 font-semibold hover:underline"
             onClick={() => setIsExpanded(!isExpanded)}
           >
             {isExpanded ? '[Leia Menos]' : '[Leia Mais]'}

@@ -41,3 +41,22 @@ export interface IVolumeNovelData {
   novelId: string;
   listaCapitulo: IChapterNovelForVolume[];
 }
+
+export interface IChapterNovelData {
+  id: string;
+  numero: string;
+  titulo: string;
+  conteudoNovel: string | HTMLElement;
+  slug: string;
+  usuarioInclusao: string;
+  dataInclusao: string;
+  dataAlteracao: string;
+  ordemCapitulo: number;
+  ehIlustracoesNovel: boolean;
+  volumeId: string;
+  tradutor: string;
+  revisor: string;
+  qc: string;
+  descritivoCapitulo: string;
+  publicado: boolean;
+}

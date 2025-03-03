@@ -1,8 +1,13 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
-import { api } from '@/services/api';
-import { ApiResponse, IGenres, IVolumeNovelData } from '@/@types/Api';
+import {
+  ApiResponse,
+  IChapterNovelData,
+  IGenres,
+  IVolumeNovelData,
+} from '@/@types/Api';
 import { TStatusNovel } from '@/@types/System';
+import { api } from '@/services/api';
 
 interface IRecomendations {
   // TODO: validar esses dois campos em um middleware
@@ -63,25 +68,6 @@ interface IPublicNovel {
 interface IVolumesNovel {
   total: number;
   data: IVolumeNovelData[];
-}
-
-export interface IChapterNovelData {
-  id: string;
-  numero: string;
-  titulo: string;
-  conteudoNovel: string | HTMLElement;
-  slug: string;
-  usuarioInclusao: string;
-  dataInclusao: string;
-  dataAlteracao: string;
-  ordemCapitulo: number;
-  ehIlustracoesNovel: boolean;
-  volumeId: string;
-  tradutor: string;
-  revisor: string;
-  qc: string;
-  descritivoCapitulo: string;
-  publicado: boolean;
 }
 
 interface IChapterNovel {

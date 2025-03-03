@@ -17,7 +17,7 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
       <HeaderBar className="z-50" />
       {parts.length > 2 && (
-        <div className="relative h-64 w-full overflow-hidden blur-sm">
+        <div className="relative h-auto max-h-64 w-full overflow-hidden blur-sm">
           <Image
             src="/banner-emilia.jpg"
             overrideSrc="/banner-emilia.jpg"
@@ -29,7 +29,7 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
           />
         </div>
       )}
-      <main className="mx-auto w-full max-w-[1300px] flex-1 px-4 py-8 sm:py-16">
+      <main className="mx-auto w-full max-w-[1300px] flex-1 px-4 py-8">
         {children}
       </main>
 

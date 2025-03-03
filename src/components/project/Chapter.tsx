@@ -42,6 +42,18 @@ export function Chapter({
     setChapterId(chapterId);
   };
 
+  const ChapterInfo = ({ number, date }: { number: string; date: string }) => {
+    return (
+      <div className="flex flex-row items-center gap-2">
+        <BookOpenText size={24} weight={variant} />
+
+        <span className="font-bold"> Capítulo {number}</span>
+        <DotOutline size={24} weight="fill" className="hidden md:inline" />
+        <span className="hidden text-sm md:inline">{date}</span>
+      </div>
+    );
+  };
+
   return (
     <Link
       data-border={border}
@@ -53,13 +65,8 @@ export function Chapter({
       onClick={() => handleClick()}
       {...props}
     >
-      <div className="flex flex-row items-center gap-2">
-        <BookOpenText size={24} weight={variant} />
+      <ChapterInfo number={number} date={formatDate} />
 
-        <span className="font-bold"> Capítulo {number}</span>
-        <DotOutline size={24} weight="fill" />
-        <span className="text-sm">{formatDate}</span>
-      </div>
       <span>
         <Tag variant={variant} text={tagText} />
       </span>
