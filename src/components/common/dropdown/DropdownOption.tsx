@@ -13,6 +13,7 @@ export interface DropdownOptionProps extends ComponentProps<'label'> {
   action?: () => void;
   onClick?: () => void;
   setIsOpen?: (isOpen: boolean) => void;
+  triggerRef?: React.RefObject<HTMLButtonElement>;
 }
 
 export function DropdownOption({
@@ -22,6 +23,7 @@ export function DropdownOption({
   action,
   onClick,
   setIsOpen,
+  triggerRef,
   className,
   ...props
 }: DropdownOptionProps) {
@@ -29,16 +31,40 @@ export function DropdownOption({
     action && action();
     onClick && onClick();
     setIsOpen?.(false);
+    triggerRef?.current?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleOptionAction();
+    }
+    if (e.key === 'ArrowDown') {
+      const next = e.currentTarget.parentElement
+        ?.nextElementSibling as HTMLElement;
+      if (next) next.querySelector('label')?.focus();
+      e.preventDefault();
+    }
+    if (e.key === 'ArrowUp') {
+      const prev = e.currentTarget.parentElement
+        ?.previousElementSibling as HTMLElement;
+      if (prev) prev.querySelector('label')?.focus();
+      e.preventDefault();
+    }
   };
 
   return (
     <div key={value} className="dropdown-option">
       <label
+        role="option"
+        tabIndex={0}
+        aria-selected={selected}
         className={cn(
-          'm-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover',
+          'm-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover focus:bg-appMenuHover',
           className,
         )}
         onClick={handleOptionAction}
+        onKeyDown={handleKeyDown}
         {...props}
       >
         <span className="ml-2">{label}</span>
