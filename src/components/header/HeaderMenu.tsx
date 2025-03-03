@@ -4,6 +4,7 @@ import { cn } from '@/helpers/twUtils';
 
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
+import { HeaderSearch } from './HeaderSearch';
 import { LinkButton } from '../common/LinkButton';
 import {
   Dialog,
@@ -34,8 +35,12 @@ export function HeaderMenu() {
         </DialogHeader>
         <div className="flex-1 p-12">
           <div className="flex flex-col gap-6">
+            <HeaderSearch icon="Search" className="w-full" autoFocus />
             <DialogClose asChild>
-              <HeaderLink className="pb-1 text-xl sm:text-xl" text="Home" />
+              <HeaderLink
+                className="mt-12 pb-1 text-xl sm:text-xl"
+                text="Home"
+              />
             </DialogClose>
             <DialogClose asChild>
               <HeaderLink
