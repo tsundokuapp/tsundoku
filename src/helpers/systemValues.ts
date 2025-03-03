@@ -1,4 +1,4 @@
-// ---- Constants for novel ----
+// ---- Constantes para novels ----
 export const STATUS_NOVEL = [
   'Em andamento',
   'Concluído',
@@ -18,6 +18,27 @@ export const GENRES_NOVEL = [
 ] as const;
 
 export type TGenresNovel = (typeof GENRES_NOVEL)[number];
+
+// ---- Constantes para mangás ----
+export const STATUS_MANGA = [
+  'Em andamento',
+  'Concluído',
+  'Cancelado',
+  'Hiato',
+] as const;
+
+export type TStatusManga = (typeof STATUS_MANGA)[number];
+
+export const GENRES_MANGA = [
+  'Ação',
+  'Aventura',
+  'Comédia',
+  'Drama',
+  'Fantasia',
+  'Romance',
+] as const;
+
+export type TGenresManga = (typeof GENRES_MANGA)[number];
 
 // Considera o header e o footer
 export const HEIGHT_INSIDE_READER = 'calc(100dvh-74px)';

@@ -123,7 +123,7 @@ export default function Novels() {
         <FilterByStatus />
         <FilterByGenres />
       </div>
-      <AsyncSection isLoading={isLoading} className="mt-8 flex-wrap">
+      <AsyncSection isLoading={isLoading} className="mt-8">
         {novelList?.map((item) => (
           <Cover
             key={item.id}
