@@ -32,6 +32,7 @@ export function ThemeToggleList() {
         value={`Utilizando o Tema ${currentThemeOption.label}`}
         direction="up"
         buttonClassname="h-12 justify-center border border-appButtonBorder bg-transparent text-appButtonText uppercase font-bold hover:bg-appButtonHover"
+        menuClassname="w-full"
         className="w-full"
         noIcon
       >
@@ -42,6 +43,7 @@ export function ThemeToggleList() {
             value={label}
             onClick={() => handleSelect(value)}
             selected={value === theme}
+            className="h-12"
           />
         ))}
       </DropdownContainer>
