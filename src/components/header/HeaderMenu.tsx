@@ -1,4 +1,5 @@
 import { List } from '@phosphor-icons/react';
+import { useRef } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
@@ -18,8 +19,17 @@ import {
 import { ThemeToggleList } from '../theme/ThemeToogleList';
 
 export function HeaderMenu() {
+  const searchRef = useRef<HTMLInputElement>(null);
+
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (open) {
+          // Foca no campo de busca quando o menu for aberto
+          setTimeout(() => searchRef.current?.focus(), 0);
+        }
+      }}
+    >
       <DialogTrigger>
         <HeaderIcon>
           <List size={24} />
@@ -38,7 +48,7 @@ export function HeaderMenu() {
         </div>
         <div className="flex-1 p-12">
           <div className="flex flex-col gap-6">
-            <HeaderSearch icon="Search" className="w-full" autoFocus />
+            <HeaderSearch icon="Search" className="w-full" ref={searchRef} />
             <DialogClose asChild>
               <HeaderLink
                 className="mt-12 pb-1 text-xl sm:text-xl"
