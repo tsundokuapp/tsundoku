@@ -82,11 +82,21 @@ export function DropdownContainer({
       : { opacity: 1, y: -triggerHeight - 8 };
   const animationExit = animationInitial;
 
-  const handleToggleDropdown = () => setIsOpen((prev) => !prev);
+  const handleToggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   // Fecha o dropdown ao clicar fora dele
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Ignora se o clique foi no trigger
+      if (
+        triggerRef.current &&
+        triggerRef.current.contains(event.target as Node)
+      ) {
+        return;
+      }
+      // Fecha o dropdown se o clique for fora do dropdown
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
@@ -136,7 +146,12 @@ export function DropdownContainer({
     if (isOpen && menuRef.current) {
       const currentMenu = menuRef.current;
       const handleFocusOut = (e: FocusEvent) => {
-        if (!currentMenu.contains(e.relatedTarget as Node)) {
+        const newFocused = e.relatedTarget as Node;
+        // Se o novo foco estiver no trigger, não fecha
+        if (triggerRef.current && triggerRef.current.contains(newFocused)) {
+          return;
+        }
+        if (!currentMenu.contains(newFocused)) {
           setIsOpen(false);
         }
       };
