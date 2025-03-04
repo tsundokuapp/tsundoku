@@ -48,7 +48,7 @@ export function Cover({
         </div>
       </div>
       <div className="flex max-w-[180px] flex-col flex-wrap">
-        <h1 className="max-w-[180px] truncate text-base font-bold text-appTitle">
+        <h1 className="max-w-[180px] text-wrap text-base font-bold text-appTitle">
           {title}
         </h1>
         <p className="text-sm text-appSubtitle">{category}</p>
