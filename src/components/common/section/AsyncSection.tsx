@@ -30,7 +30,7 @@ export const AsyncSection = ({
             <Spinner size={24} className="animate-spin" />
           </div>
         ) : (
-          <EnterAnimation className="flex flex-row flex-wrap items-center justify-center gap-6 sm:justify-start">
+          <EnterAnimation className="flex flex-row flex-wrap items-start justify-center gap-6 sm:justify-start">
             {children}
           </EnterAnimation>
         )}
