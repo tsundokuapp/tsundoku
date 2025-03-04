@@ -6,7 +6,7 @@ import {
   IGenres,
   IVolumeNovelData,
 } from '@/@types/Api';
-import { TStatusNovel } from '@/@types/System';
+import { TStatusComic, TStatusNovel } from '@/@types/System';
 import { api } from '@/services/api';
 
 interface IRecomendations {
@@ -73,6 +73,32 @@ interface IVolumesNovel {
 interface IChapterNovel {
   total: number;
   data: IChapterNovelData;
+}
+
+interface IPublicComic {
+  urlCapa: string;
+  urlBanner?: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
+  artista: string;
+  statusObra: TStatusComic;
+  sinopse: string;
+  observacao: string;
+  listaGeneros: IGenres[];
+  ano: string;
+  visualizacoes: string; // trocar para number
+  ehRecomdacao: boolean;
+  ehObraMaiorIdade: boolean;
+  tipoObraSlug?: string;
+  statusObraSlug?: string;
+  nacionalidadeSlug?: boolean;
+  nacionalidade: string;
 }
 
 const getRecomendations = async (): Promise<IRecomendations[]> => {
@@ -193,5 +219,25 @@ export const useChapterNovel = (
     queryKey: ['chapter-novel', idChapter],
     queryFn: () => getChapterNovel(idChapter),
     enabled: !!idChapter,
+  });
+};
+
+const getComicBySlug = async (slug: string): Promise<IPublicComic> => {
+  try {
+    const response = await api.get(`/obras/comic/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IPublicComic;
+  }
+};
+
+export const usePublicComicSlug = (
+  slug: string,
+): UseQueryResult<IPublicComic> => {
+  return useQuery({
+    queryKey: ['public-comic-slug', slug],
+    queryFn: () => getComicBySlug(slug),
+    enabled: !!slug,
   });
 };

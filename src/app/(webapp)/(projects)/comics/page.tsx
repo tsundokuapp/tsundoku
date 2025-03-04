@@ -10,7 +10,7 @@ import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { SearchTable } from '@/components/common/table';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { STATUS_MANGA, GENRES_MANGA } from '@/helpers/systemValues';
+import { STATUS_COMIC, GENRES_COMIC } from '@/helpers/systemValues';
 
 export default function Comics() {
   const [search, setSearch] = useState('');
@@ -66,7 +66,7 @@ export default function Comics() {
         label={status || 'Filtrar Status'}
         className="w-[180px]"
       >
-        {STATUS_MANGA.map((item, index) => (
+        {STATUS_COMIC.map((item, index) => (
           <DropdownOption
             key={index}
             label={item}
@@ -86,7 +86,7 @@ export default function Comics() {
         label={genres || 'Filtrar Gênero'}
         className="w-[190px]"
       >
-        {GENRES_MANGA.map((item, index) => (
+        {GENRES_COMIC.map((item, index) => (
           <DropdownOption
             key={index}
             label={item}
