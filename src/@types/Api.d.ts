@@ -1,3 +1,5 @@
+import { TStatusComic } from './System';
+
 export interface ApiResponse<T> {
   data: T[];
   proxima: string;
@@ -59,4 +61,46 @@ export interface IChapterNovelData {
   qc: string;
   descritivoCapitulo: string;
   publicado: boolean;
+}
+
+// COMICS
+export interface IPublicComic {
+  urlCapa: string;
+  urlBanner?: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
+  artista: string;
+  statusObra: TStatusComic;
+  sinopse: string;
+  observacao: string;
+  listaGeneros: IGenres[];
+  ano: string;
+  visualizacoes: string; // trocar para number
+  ehRecomdacao: boolean;
+  ehObraMaiorIdade: boolean;
+  tipoObraSlug?: string;
+  statusObraSlug?: string;
+  nacionalidadeSlug?: boolean;
+  nacionalidade: string;
+}
+
+export interface IPublicComics {
+  publicado: boolean;
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  statusObra: TStatusComic;
+  listaGeneros: IGenres[];
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
 }

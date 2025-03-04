@@ -1,8 +1,9 @@
 'use client';
 // Color Checked
 // Components Checked
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { IPublicComics } from '@/@types/Api';
 import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
@@ -11,21 +12,31 @@ import { SearchTable } from '@/components/common/table';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
 import { STATUS_COMIC, GENRES_COMIC } from '@/helpers/systemValues';
+import { usePublicComics } from '@/hooks/usePublicApi';
 
 export default function Comics() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
+  const [comicList, setComicList] = useState<IPublicComics[]>();
+
+  const { data: projectsResponse, isLoading } = usePublicComics();
+
+  useEffect(() => {
+    if (projectsResponse?.data) {
+      setComicList(projectsResponse?.data);
+    }
+  }, [projectsResponse]);
 
   const debouncedHandleChange = Debounce((value: string) => {
-    // if (value === '' && projectsResponse?.data) {
-    //   setNovelList(projectsResponse?.data);
-    //   return;
-    // }
-    // const filtered = projectsResponse?.data.filter((item) =>
-    //   item.titulo.toLowerCase().includes(value.toLowerCase()),
-    // );
-    // setNovelList(filtered);
+    if (value === '' && projectsResponse?.data) {
+      setComicList(projectsResponse?.data);
+      return;
+    }
+    const filtered = projectsResponse?.data.filter((item) =>
+      item.titulo.toLowerCase().includes(value.toLowerCase()),
+    );
+    setComicList(filtered);
   }, 1000);
 
   const handleChange = (value: string) => {
@@ -35,17 +46,16 @@ export default function Comics() {
 
   const findByStatus = (status: string) => {
     setStatus(status);
-    // Todo: descomentar quando a API estiver pronta
 
-    // if (projectsResponse?.data) {
-    //   const filtered = projectsResponse?.data.filter(
-    //     (item) => item.statusObra === status,
-    //   );
+    if (projectsResponse?.data) {
+      const filtered = projectsResponse?.data.filter(
+        (item) => item.statusObra === status,
+      );
 
-    //   setNovelList(filtered);
-    // }
+      setComicList(filtered);
+    }
 
-    // setSearch('');
+    setSearch('');
   };
 
   const findByGenre = (genre: string) => {
@@ -112,54 +122,16 @@ export default function Comics() {
         <FilterByStatus />
         <FilterByGenres />
       </div>
-      <AsyncSection isLoading={false} className="mt-8">
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-          text="Cap. 1"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-          action="comics/kage-no-jitsuryokusha-ni-naritakute"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-alya.webp"
-          title="Alya às Vezes Esconde seus Sentimentos em Russo"
-          category="Novel"
-        />
-        <Cover
-          src="/cover-shadow.webp"
-          title="Kage no Jitsuryokusha ni Naritakute"
-          category="Mangá"
-        />
-        <Cover
-          src="/cover-seven.webp"
-          title="Kage no Jitsuryokusha ni Naritakute! Master of Garden ~Shichikage Retsuden~"
-          category="Mangá"
-        />
+      <AsyncSection isLoading={isLoading} className="mt-8">
+        {comicList?.map((item) => (
+          <Cover
+            key={item.id}
+            src={item.urlCapa}
+            title={item.titulo}
+            category={item.tipoObra}
+            action={'/comics/' + item.slug}
+          />
+        ))}
       </AsyncSection>
     </div>
   );
