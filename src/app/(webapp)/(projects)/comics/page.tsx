@@ -9,6 +9,7 @@ import { DropdownContainer } from '@/components/common/dropdown/DropdownContaine
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { SearchTable } from '@/components/common/table';
+import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
 import { STATUS_COMIC, GENRES_COMIC } from '@/helpers/systemValues';
@@ -123,15 +124,19 @@ export default function Comics() {
         <FilterByGenres />
       </div>
       <AsyncSection isLoading={isLoading} className="mt-8">
-        {comicList?.map((item) => (
-          <Cover
-            key={item.id}
-            src={item.urlCapa}
-            title={item.titulo}
-            category={item.tipoObra}
-            action={'/comics/' + item.slug}
-          />
-        ))}
+        {!comicList ? (
+          <NoContent msg="Desculpe, em breve teremos conteúdos" />
+        ) : (
+          comicList?.map((item) => (
+            <Cover
+              key={item.id}
+              src={item.urlCapa}
+              title={item.titulo}
+              category={item.tipoObra}
+              action={'/comics/' + item.slug}
+            />
+          ))
+        )}
       </AsyncSection>
     </div>
   );
