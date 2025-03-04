@@ -3,109 +3,30 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import {
   ApiResponse,
   IChapterNovelData,
-  IGenres,
+  IProjectRecomendations,
+  IProjectsHome,
   IPublicComic,
   IPublicComics,
-  IVolumeNovelData,
+  IPublicNovel,
+  IPublicNovels,
+  IVolumesNovel,
 } from '@/@types/Api';
-import { TStatusNovel } from '@/@types/System';
-import { api } from '@/services/api';
-
-interface IRecomendations {
-  // TODO: validar esses dois campos em um middleware
-  statusCode?: number;
-  message?: string;
-
-  titulo: string;
-  capa: string;
-  slugObra: string;
-  sinopse: string;
-  tipoObra: string;
-}
-
-interface IProjectsHome {
-  numeroCapitulo: string;
-  parteCapitulo: string;
-  slugCapitulo: string;
-  dataInclusao: string;
-  numeroVolume: string;
-  urlCapa: string;
-  aliasObra: string;
-  autorObra: string;
-  tipoObra: string;
-  slugObra: string;
-}
-
-export interface IPublicNovels {
-  urlCapa: string;
-  alias: string;
-  titulo: string;
-  autor: string;
-  statusObra: TStatusNovel;
-  listaGeneros: IGenres[];
-  descritivoVolume?: string;
-  slug: string;
-  tipoObraSlug: string;
-  tipoObra: string;
-  id: string;
-}
-
-interface IPublicNovel {
-  urlCapa: string;
-  alias: string;
-  titulo: string;
-  tituloAlternativo: string;
-  autor: string;
-  descritivoVolume?: string;
-  slug: string;
-  tipoObra: string;
-  id: string;
-  artista: string;
-  statusObra: TStatusNovel;
-  sinopse: string;
-  observacao: string;
-  listaGeneros: IGenres[];
-}
-
-interface IVolumesNovel {
-  total: number;
-  data: IVolumeNovelData[];
-}
-
-interface IChapterNovel {
-  total: number;
-  data: IChapterNovelData;
-}
-
-const getRecomendations = async (): Promise<IRecomendations[]> => {
-  try {
-    const response = await api.get('/obras/recomendadas');
-    console.log('recomendação', response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+import { getComicBySlug, getComics } from '@/services/serviceComic';
+import {
+  getChapterNovel,
+  getNovelBySlug,
+  getNovels,
+  getVolumesNovel,
+} from '@/services/serviceNovel';
+import { getProjects, getRecomendations } from '@/services/serviceProject';
 
 export const useRecomendations = (): UseQueryResult<
-  ApiResponse<IRecomendations>
+  ApiResponse<IProjectRecomendations>
 > => {
   return useQuery({
     queryKey: ['recomendations'],
     queryFn: getRecomendations,
   });
-};
-
-const getProjects = async (): Promise<IProjectsHome[]> => {
-  try {
-    const response = await api.get('/obras/home');
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
 };
 
 export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
@@ -115,16 +36,7 @@ export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
   });
 };
 
-const getNovels = async (): Promise<IPublicNovels[]> => {
-  try {
-    const response = await api.get('/obras/novels');
-    console.log('/obras/novels', response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+// ----------------NOVELS----------------
 
 export const usePublicNovels = (): UseQueryResult<
   ApiResponse<IPublicNovels>
@@ -133,17 +45,6 @@ export const usePublicNovels = (): UseQueryResult<
     queryKey: ['public-novels'],
     queryFn: getNovels,
   });
-};
-
-const getNovelBySlug = async (slug: string): Promise<IPublicNovel> => {
-  try {
-    const response = await api.get(`/obras/novel/slug/${slug}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return {} as IPublicNovel;
-  }
 };
 
 export const usePublicNovelSlug = (
@@ -156,17 +57,6 @@ export const usePublicNovelSlug = (
   });
 };
 
-const getVolumesNovel = async (idNovel: string): Promise<IVolumesNovel> => {
-  try {
-    const response = await api.get(`/admin/volume/novel?IdObra=${idNovel}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return {} as IVolumesNovel;
-  }
-};
-
 export const useVolumesNovel = (
   idNovel: string,
 ): UseQueryResult<IVolumesNovel> => {
@@ -175,17 +65,6 @@ export const useVolumesNovel = (
     queryFn: () => getVolumesNovel(idNovel),
     enabled: !!idNovel,
   });
-};
-
-const getChapterNovel = async (idChapter: string): Promise<IChapterNovel> => {
-  try {
-    const response = await api.get(`/admin/capitulo/novel/${idChapter}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return {} as IChapterNovel;
-  }
 };
 
 export const useChapterNovel = (
@@ -200,16 +79,6 @@ export const useChapterNovel = (
 
 // ----------------COMICS----------------
 
-const getComics = async (): Promise<IPublicComics[]> => {
-  try {
-    const response = await api.get('/obras/comics');
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
 export const usePublicComics = (): UseQueryResult<
   ApiResponse<IPublicComics>
 > => {
@@ -217,16 +86,6 @@ export const usePublicComics = (): UseQueryResult<
     queryKey: ['public-comics'],
     queryFn: getComics,
   });
-};
-
-const getComicBySlug = async (slug: string): Promise<IPublicComic> => {
-  try {
-    const response = await api.get(`/obras/comic/slug/${slug}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return {} as IPublicComic;
-  }
 };
 
 export const usePublicComicSlug = (

@@ -1,4 +1,4 @@
-import { TStatusComic } from './System';
+import { TStatusComic, TStatusNovel } from './System';
 
 export interface ApiResponse<T> {
   data: T[];
@@ -61,6 +61,68 @@ export interface IChapterNovelData {
   qc: string;
   descritivoCapitulo: string;
   publicado: boolean;
+}
+
+export interface IProjectsHome {
+  numeroCapitulo: string;
+  parteCapitulo: string;
+  slugCapitulo: string;
+  dataInclusao: string;
+  numeroVolume: string;
+  urlCapa: string;
+  aliasObra: string;
+  autorObra: string;
+  tipoObra: string;
+  slugObra: string;
+}
+
+export interface IProjectRecomendations {
+  // TODO: validar esses dois campos em um middleware
+  statusCode?: number;
+  message?: string;
+
+  titulo: string;
+  capa: string;
+  slugObra: string;
+  sinopse: string;
+  tipoObra: string;
+}
+
+// NOVELS
+
+interface IPublicNovel {
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
+  artista: string;
+  statusObra: TStatusNovel;
+  sinopse: string;
+  observacao: string;
+  listaGeneros: IGenres[];
+}
+export interface IPublicNovels {
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  autor: string;
+  statusObra: TStatusNovel;
+  listaGeneros: IGenres[];
+  descritivoVolume?: string;
+  slug: string;
+  tipoObraSlug: string;
+  tipoObra: string;
+  id: string;
+}
+
+export interface IVolumesNovel {
+  total: number;
+  data: IVolumeNovelData[];
 }
 
 // COMICS
