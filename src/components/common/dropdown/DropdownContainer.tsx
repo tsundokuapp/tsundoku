@@ -1,17 +1,19 @@
+// DropdownContainer.tsx
 // Color Checked
 // Components Checked
 
 import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
-import React, { ReactElement } from 'react';
-import {
+import React, {
+  ReactElement,
   useState,
   useEffect,
   useRef,
-  type ReactNode,
-  type ComponentProps,
+  ReactNode,
+  ComponentProps,
+  useCallback,
 } from 'react';
 
-import { EnterAnimation } from '@/animation/EnterAnimation';
+import { DropdownAnimation } from '@/animation/DropdownAnimation';
 import { cn } from '@/helpers/twUtils';
 
 import type { DropdownOptionProps } from './DropdownOption';
@@ -54,9 +56,8 @@ export function DropdownContainer({
     horizontal: 'left',
   });
 
-  // Atualiza o posicionamento com base no trigger
-  useEffect(() => {
-    if (isOpen && triggerRef.current) {
+  const updatePosition = useCallback(() => {
+    if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
       const dropdownWidth = rect.width;
       const triggerHeight = rect.height;
@@ -66,50 +67,40 @@ export function DropdownContainer({
         rect.left + dropdownWidth > window.innerWidth ? 'right' : 'left';
       setComputedPosition({ vertical, horizontal });
     }
-  }, [isOpen]);
+  }, []);
 
-  // Define animações de entrada/saída com base na direção vertical
+  useEffect(() => {
+    if (isOpen) {
+      updatePosition();
+      const handleResize = () => updatePosition();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, [isOpen, updatePosition]);
+
   const triggerHeight =
     triggerRef.current?.getBoundingClientRect().height ?? 40;
 
-  const animationInitial =
-    computedPosition.vertical === 'down'
-      ? { opacity: 0, y: -10 }
-      : { opacity: 0, y: -triggerHeight };
-  const animationAnimate =
-    computedPosition.vertical === 'down'
-      ? { opacity: 1, y: 8 }
-      : { opacity: 1, y: -triggerHeight - 8 };
-  const animationExit = animationInitial;
+  const handleToggleDropdown = useCallback(() => {
+    setIsOpen((prev) => {
+      if (prev && triggerRef.current) {
+        setTimeout(() => {
+          triggerRef.current?.focus();
+        }, 0);
+      }
+      return !prev;
+    });
+  }, []);
 
-  const handleToggleDropdown = () => {
-    if (isOpen) {
-      setIsOpen(false);
-      setTimeout(() => {
-        triggerRef.current?.focus();
-      }, 0);
-    } else {
-      setIsOpen(true);
-    }
-  };
-
-  useEffect(() => {
-    if (!isOpen && triggerRef.current) {
-      triggerRef.current.focus();
-    }
-  }, [isOpen]);
-
-  // Fecha o dropdown ao clicar fora dele
+  // Fecha o dropdown ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Ignora se o clique foi no trigger
       if (
         triggerRef.current &&
         triggerRef.current.contains(event.target as Node)
       ) {
         return;
       }
-      // Fecha o dropdown se o clique for fora do dropdown
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
@@ -121,7 +112,7 @@ export function DropdownContainer({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Foca no primeiro item do dropdown ao abrir, se não houver nenhum selecionado
+  // Foca na opção selecionada (ou na primeira) ao abrir o dropdown
   useEffect(() => {
     if (isOpen && dropdownRef.current) {
       const selectedOption = dropdownRef.current.querySelector(
@@ -138,7 +129,7 @@ export function DropdownContainer({
     }
   }, [isOpen]);
 
-  // Fecha o dropdown ao apertar Esc
+  // Fecha o dropdown ao pressionar Esc
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -149,18 +140,15 @@ export function DropdownContainer({
     if (isOpen) {
       document.addEventListener('keydown', handleEsc);
     }
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
+    return () => document.removeEventListener('keydown', handleEsc);
   }, [isOpen]);
 
-  // Fecha o dropdown ao sair do foco do menu
+  // Fecha o dropdown se o foco sair do menu
   useEffect(() => {
     if (isOpen && menuRef.current) {
       const currentMenu = menuRef.current;
       const handleFocusOut = (e: FocusEvent) => {
         const newFocused = e.relatedTarget as Node;
-        // Se o novo foco estiver no trigger, não fecha
         if (triggerRef.current && triggerRef.current.contains(newFocused)) {
           return;
         }
@@ -169,13 +157,10 @@ export function DropdownContainer({
         }
       };
       currentMenu.addEventListener('focusout', handleFocusOut);
-      return () => {
-        currentMenu.removeEventListener('focusout', handleFocusOut);
-      };
+      return () => currentMenu.removeEventListener('focusout', handleFocusOut);
     }
   }, [isOpen]);
 
-  // Define as classes do menu com base na posição calculada
   const menuClasses = cn(
     'absolute z-10 w-56 rounded-md border border-appMenuBorder bg-appMenuBackground p-1 shadow-lg ring-1 ring-appMenuBorder ring-opacity-5',
     computedPosition.vertical === 'down'
@@ -198,6 +183,8 @@ export function DropdownContainer({
         <button
           ref={triggerRef}
           type="button"
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
           className={cn(
             'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
             buttonClassname,
@@ -209,13 +196,12 @@ export function DropdownContainer({
         </button>
       </div>
       {isOpen && (
-        <EnterAnimation
+        <DropdownAnimation
           delay={0.3}
-          initial={animationInitial}
-          animate={animationAnimate}
-          exit={animationExit}
+          direction={computedPosition.vertical}
+          triggerHeight={triggerHeight}
         >
-          <div ref={menuRef} className={menuClasses}>
+          <div ref={menuRef} className={menuClasses} role="menu">
             <div
               className={cn(
                 'max-h-[400px] overflow-y-auto',
@@ -223,30 +209,25 @@ export function DropdownContainer({
               )}
             >
               {React.Children.map(children, (child) => {
-                if (!React.isValidElement(child) || !('type' in child))
-                  return child;
-
+                if (!React.isValidElement(child)) return child;
                 if (typeof child.type === 'string') {
-                  const intrinsicType =
-                    child.type as keyof JSX.IntrinsicElements;
+                  const childProps =
+                    child.props as React.HTMLAttributes<HTMLElement>;
                   return React.cloneElement(
                     child as React.ReactElement<
-                      JSX.IntrinsicElements[typeof intrinsicType]
+                      React.HTMLAttributes<HTMLElement>
                     >,
-                    { tabIndex: child.props.tabIndex ?? 0 },
+                    { tabIndex: childProps.tabIndex ?? 0 },
                   );
                 }
                 return React.cloneElement(
                   child as React.ReactElement<DropdownOptionProps>,
-                  {
-                    setIsOpen,
-                    triggerRef,
-                  },
+                  { setIsOpen, triggerRef },
                 );
               })}
             </div>
           </div>
-        </EnterAnimation>
+        </DropdownAnimation>
       )}
     </div>
   );

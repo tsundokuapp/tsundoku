@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { HeaderSearch } from './HeaderSearch';
 
-// language: tsx
+// 
 
 describe('Testes para o componente <HeaderSearch />', () => {
   it('Renderiza com placeholder padrão', () => {
