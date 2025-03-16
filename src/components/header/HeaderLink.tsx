@@ -9,9 +9,15 @@ import { cn } from '@/helpers/twUtils';
 interface HeaderLinkProps {
   text: string;
   action?: string;
+  className?: string;
 }
 
-export function HeaderLink({ text, action = '/', ...props }: HeaderLinkProps) {
+export function HeaderLink({
+  text,
+  action = '/',
+  className,
+  ...props
+}: HeaderLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === action;
 
@@ -19,7 +25,10 @@ export function HeaderLink({ text, action = '/', ...props }: HeaderLinkProps) {
     <Link
       {...props}
       href={action}
-      className="group relative text-xs font-bold uppercase text-appHeaderText transition-all duration-300 sm:text-sm xl:text-lg"
+      className={cn(
+        'group relative text-xs font-bold uppercase text-appHeaderText transition-all duration-300 sm:text-sm xl:text-lg',
+        className,
+      )}
     >
       {text}
       <span

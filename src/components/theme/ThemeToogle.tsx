@@ -20,6 +20,7 @@ export function ThemeToggle() {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleSelect(newTheme: string) {
+    if (newTheme === theme) return;
     setTheme(newTheme);
     setIsOpen(false);
   }
