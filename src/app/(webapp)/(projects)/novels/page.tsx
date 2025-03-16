@@ -3,15 +3,17 @@
 // Components Checked
 import { useEffect, useState } from 'react';
 
+import { IPublicNovels } from '@/@types/Api';
 import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { AsyncSection } from '@/components/common/section/AsyncSection';
 import { SearchTable } from '@/components/common/table';
+import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
 import { STATUS_NOVEL, GENRES_NOVEL } from '@/helpers/systemValues';
-import { IPublicNovels, usePublicNovels } from '@/hooks/usePublicApi';
+import { usePublicNovels } from '@/hooks/usePublicApi';
 
 export default function Novels() {
   const [search, setSearch] = useState('');
@@ -123,16 +125,20 @@ export default function Novels() {
         <FilterByStatus />
         <FilterByGenres />
       </div>
-      <AsyncSection isLoading={isLoading} className="mt-8 flex-wrap">
-        {novelList?.map((item) => (
-          <Cover
-            key={item.id}
-            src={item.urlCapa}
-            title={item.titulo}
-            category={item.tipoObra}
-            actionHome={item.slug}
-          />
-        ))}
+      <AsyncSection isLoading={isLoading} className="mt-8">
+        {!novelList ? (
+          <NoContent msg="Desculpe, em breve teremos conteúdos" />
+        ) : (
+          novelList?.map((item) => (
+            <Cover
+              key={item.id}
+              src={item.urlCapa}
+              title={item.titulo}
+              category={item.tipoObra}
+              action={'/novels/' + item.slug}
+            />
+          ))
+        )}
       </AsyncSection>
     </div>
   );

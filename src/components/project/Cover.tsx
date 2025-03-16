@@ -19,12 +19,10 @@ export function Cover({
   title,
   category,
   action,
-  // usar actionHome quando o item é exibido na home
   actionHome,
   children,
   text = '',
 }: CoverProps) {
-  // TODO: criar um helper para tratar todos os casos de category
   const normalizedCategory = category === 'Mangá' ? 'comics' : 'novels';
   const actionByHome = `${normalizedCategory}/${actionHome}`;
 
@@ -50,7 +48,7 @@ export function Cover({
         </div>
       </div>
       <div className="flex max-w-[180px] flex-col flex-wrap">
-        <h1 className="max-w-[180px] truncate text-base font-bold text-appTitle">
+        <h1 className="max-w-[180px] text-wrap text-base font-bold text-appTitle">
           {title}
         </h1>
         <p className="text-sm text-appSubtitle">{category}</p>

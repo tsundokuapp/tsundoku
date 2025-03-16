@@ -6,3 +6,12 @@ export type TGenresNovel =
   | 'Drama'
   | 'Fantasia'
   | 'Romance';
+
+export type TStatusComic = 'Em andamento' | 'Concluído' | 'Cancelado' | 'Hiato';
+export type TGenresComic =
+  | 'Ação'
+  | 'Aventura'
+  | 'Comédia'
+  | 'Drama'
+  | 'Fantasia'
+  | 'Romance';

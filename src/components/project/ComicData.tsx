@@ -28,8 +28,8 @@ export function ComicData({ title, items }: ComicDataProps) {
   };
 
   return (
-    <div>
-      <TitleContainer className="mb-12 pr-6">
+    <div className="flex flex-col gap-12">
+      <TitleContainer className="px-6">
         <Title title={title} />
         <button onClick={handleSorting}>
           {isAscending ? (

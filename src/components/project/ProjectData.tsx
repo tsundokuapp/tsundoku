@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import { IGenres } from '@/@types/Api';
-import { TStatusNovel } from '@/@types/System';
+import { TStatusNovel, TStatusComic } from '@/@types/System';
 
 import { CollapseText } from './CollapseText';
 import { Tag } from '../common/Tag';
@@ -11,9 +11,9 @@ import { Tag } from '../common/Tag';
 interface ProjectDataProps {
   src: string;
   title: string;
-  altTitle: string[];
+  altTitle: string;
   description: string;
-  status: TStatusNovel;
+  status: TStatusNovel | TStatusComic;
   author: string;
   artist: string;
   genres: IGenres[];
@@ -31,7 +31,7 @@ export function ProjectData({
   status,
   note,
 }: ProjectDataProps) {
-  const mapStatusToColor = (status: TStatusNovel) => {
+  const mapStatusToColor = (status: TStatusNovel | TStatusComic) => {
     switch (status) {
       case 'Em andamento':
         return 'bg-green-700';
@@ -47,14 +47,16 @@ export function ProjectData({
   };
 
   return (
-    <article className="group flex flex-row justify-between gap-9">
+    <article className="group flex flex-col items-center justify-between gap-6 md:flex-row md:items-start md:gap-6">
       <div className="flex-shrink-0 overflow-hidden rounded-md">
         <Image src={src} alt={title} width={240} height={336} />
       </div>
-      <div className="flex flex-grow flex-col gap-3">
+      <div className="flex flex-grow flex-col gap-3 p-4 pt-0">
         <div className="mb-4">
-          <h1 className="text-2xl font-bold capitalize">{title}</h1>
-          <p className="text-sm text-appSubtitle">
+          <h1 className="text-center text-2xl font-bold capitalize md:text-start">
+            {title}
+          </h1>
+          <p className="text-center text-sm text-appSubtitle md:text-start">
             <span className="capitalize">{altTitle}</span>
           </p>
         </div>
@@ -68,18 +70,18 @@ export function ProjectData({
           <li>
             <span className="font-bold">Artista:</span> {artist}
           </li>
-          <li className="items-center">
+          <li className="inline-block flex-wrap items-center">
             <span className="font-bold">Status:</span> {status}
             <span
-              data-status={status}
               className={`mx-2 inline-block h-2 w-2 rounded-full ${mapStatusToColor(status)}`}
+              data-status={status}
             />
           </li>
         </ul>
 
         <div>
           <p className="mb-2 text-sm font-bold">Tags:</p>
-          <p className="flex flex-row gap-2">
+          <p className="flex flex-row flex-wrap gap-2">
             {genres?.map((genre) => (
               <Tag key={genre.id} text={genre.descricao} />
             ))}
@@ -87,7 +89,7 @@ export function ProjectData({
         </div>
 
         {note && (
-          <div className="bg-primary mt-4 rounded-md p-4 opacity-80">
+          <div className="mt-4 rounded-md bg-appHeaderHighlight p-4 opacity-80">
             {note}
           </div>
         )}

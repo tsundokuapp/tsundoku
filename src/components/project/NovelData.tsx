@@ -4,10 +4,10 @@
 import { SortDescending } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
+import { IVolumeNovelData } from '@/@types/Api';
 import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
 import { useVolumesNovel } from '@/hooks/usePublicApi';
 import { useNovelStore } from '@/store/useNovelStore';
-import { IVolumeNovelData } from '@/@types/Api';
 
 import { Volume } from './Volume';
 import { Title } from '../common/Title';
@@ -49,8 +49,8 @@ export function NovelData({ title, novelId }: NovelDataProps) {
   };
 
   return (
-    <div>
-      <TitleContainer className="mb-12 pr-6">
+    <div className="flex flex-col gap-12">
+      <TitleContainer className="px-6">
         <Title title={title} />
         <button onClick={handleSorting}>
           <SortDescending

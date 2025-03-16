@@ -1,16 +1,25 @@
+'use client';
 // Color Checked
 // Components Checked
+import { usePathname } from 'next/navigation';
+
+import { IGenres } from '@/@types/Api';
+import { TStatusComic } from '@/@types/System';
+import { AsyncSection } from '@/components/common/section/AsyncSection';
 import type { ChapterProps } from '@/components/project/Chapter';
 import { ComicData } from '@/components/project/ComicData';
 import { ProjectData } from '@/components/project/ProjectData';
+import { usePublicComicSlug } from '@/hooks/usePublicApi';
 
-interface ComicProps {
-  params: {
-    slug: string;
-  };
-}
+export default function Comic() {
+  const pathname = usePathname();
+  const slug = pathname.split('/').pop();
 
-export default function Comic(props: ComicProps) {
+  // const { setComicBanner } = useComicStore();
+  const { data: comicResponse, isLoading } = usePublicComicSlug(
+    (slug as string) || '',
+  );
+
   const exampleChapterList: ChapterProps[] = [
     { number: '1', date: new Date('2019-09-01'), variant: 'fill' },
     { number: '2', date: new Date('2019-10-01'), variant: 'fill' },
@@ -38,23 +47,34 @@ export default function Comic(props: ComicProps) {
     { number: '24', date: new Date('2021-07-01') },
   ];
 
-  return (
-    <div className="flex w-full flex-col gap-12">
-      <ProjectData
-        src="/cover-shadow.webp"
-        title={props.params.slug}
-        altTitle={[
-          'kage no jitsuryokusha ni naritakute',
-          'The Eminence in Shadow',
-        ]}
-        author="Aizawa Daisuke"
-        artist="Tauzai"
-        status="Em andamento"
-        description="Algumas pessoas simplesmente não são adequadas para desempenhar o papel do herói chamativo e direto ou do vilão covarde que gira o bigode e tem um brio grandioso. Em vez disso, eles operam nas sombras e controlam a sociedade através de inteligência e inteligência. Esse é o papel que Cid quer desempenhar quando for transportado para outro mundo. Cid conta uma ou três histórias e se torna o líder improvável da organização subterrânea Shadow Garden que luta contra um culto ameaçador (que ele inventou totalmente). No entanto, há um problema que nem mesmo sua imaginação selvagem esperava: o culto que ele inventou realmente existe, e eles estão mais do que descontentes porque sua fantasia de poder apenas atrapalhou seus planos malignos!"
-        genres={['Ação', 'Aventura', 'Comédia', 'Drama', 'Fantasia', 'Romance']}
-      />
+  const fakeGenres: IGenres[] = [
+    { id: '1', descricao: 'Ação', slug: 'acao' },
+    { id: '2', descricao: 'Aventura', slug: 'aventura' },
+    { id: '3', descricao: 'Comédia', slug: 'comedia' },
+    { id: '4', descricao: 'Drama', slug: 'drama' },
+    { id: '5', descricao: 'Fantasia', slug: 'fantasia' },
+    { id: '6', descricao: 'Romance', slug: 'romance' },
+  ];
 
-      <ComicData title="Mangá" items={exampleChapterList} />
-    </div>
+  const infoOrDefault = (info: string | undefined) => info || 'Não informado';
+
+  return (
+    <AsyncSection isLoading={isLoading}>
+      <div className="flex w-full flex-col gap-12">
+        <ProjectData
+          src={comicResponse?.urlCapa || ''}
+          title={infoOrDefault(comicResponse?.titulo)}
+          altTitle={infoOrDefault(comicResponse?.tituloAlternativo)}
+          author={infoOrDefault(comicResponse?.autor)}
+          artist={infoOrDefault(comicResponse?.artista)}
+          status={infoOrDefault(comicResponse?.statusObra) as TStatusComic}
+          description={infoOrDefault(comicResponse?.sinopse)}
+          genres={fakeGenres}
+          note={comicResponse?.observacao}
+        />
+
+        <ComicData title="Mangá" items={exampleChapterList} />
+      </div>
+    </AsyncSection>
   );
 }
