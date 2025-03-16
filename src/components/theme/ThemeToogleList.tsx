@@ -22,6 +22,7 @@ export function ThemeToggleList() {
     themeOptions.find((option) => option.value === theme) || themeOptions[0];
 
   function handleSelect(newTheme: string) {
+    if (newTheme === theme) return;
     setTheme(newTheme);
   }
 
@@ -40,7 +41,7 @@ export function ThemeToggleList() {
           <DropdownOption
             key={value}
             label={label}
-            value={label}
+            value={value}
             onClick={() => handleSelect(value)}
             selected={value === theme}
             className="h-12"

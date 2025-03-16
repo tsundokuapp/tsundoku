@@ -10,7 +10,7 @@ export interface DropdownOptionProps extends ComponentProps<'label'> {
   label: string;
   value: string;
   selected?: boolean;
-  action?: () => void;
+  action?: (args: { value: string }) => void;
   onClick?: () => void;
   setIsOpen?: (isOpen: boolean) => void;
   triggerRef?: React.RefObject<HTMLButtonElement>;
@@ -27,86 +27,104 @@ export function DropdownOption({
   className,
   ...props
 }: DropdownOptionProps) {
-  const handleOptionAction = () => {
+  const handleOptionAction = async () => {
     try {
-      if (action) action();
+      if (action) await action({ value });
       if (onClick) onClick();
     } catch (error) {
       console.error('Erro na ação da opção:', error);
     } finally {
-      setIsOpen?.(false);
+      if (setIsOpen) setIsOpen(false);
       triggerRef?.current?.focus();
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      e.stopPropagation();
-      const parent = e.currentTarget.parentElement?.parentElement;
-      if (!parent) return;
-      const options = parent.querySelectorAll('label[role="option"]');
-      const optionsArray = Array.from(options) as HTMLElement[];
-      const currentIndex = optionsArray.findIndex(
-        (option) => option === e.currentTarget,
-      );
-      if (e.shiftKey) {
-        const prevIndex =
-          currentIndex === 0 ? optionsArray.length - 1 : currentIndex - 1;
-        optionsArray[prevIndex].focus();
-      } else {
-        const nextIndex =
-          currentIndex === optionsArray.length - 1 ? 0 : currentIndex + 1;
-        optionsArray[nextIndex].focus();
-      }
-      return;
+  function handleTab(e: React.KeyboardEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    const parent = e.currentTarget.parentElement?.parentElement;
+    if (!parent) return;
+    const options = parent.querySelectorAll('label[role="option"]');
+    const optionsArray = Array.from(options) as HTMLElement[];
+    const currentIndex = optionsArray.findIndex(
+      (option) => option === e.currentTarget,
+    );
+    if (e.shiftKey) {
+      const prevIndex =
+        currentIndex === 0 ? optionsArray.length - 1 : currentIndex - 1;
+      optionsArray[prevIndex].focus();
+    } else {
+      const nextIndex =
+        currentIndex === optionsArray.length - 1 ? 0 : currentIndex + 1;
+      optionsArray[nextIndex].focus();
     }
+  }
 
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleOptionAction();
-      return;
-    }
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const next = e.currentTarget.parentElement
-        ?.nextElementSibling as HTMLElement;
-      if (next) {
-        const nextOption = next.querySelector(
-          'label[role="option"]',
-        ) as HTMLElement;
-        nextOption?.focus();
-      }
-      return;
-    }
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prev = e.currentTarget.parentElement
-        ?.previousElementSibling as HTMLElement;
-      if (prev) {
-        const prevOption = prev.querySelector(
-          'label[role="option"]',
-        ) as HTMLElement;
-        prevOption?.focus();
-      }
-      return;
-    }
-    if (e.key === 'Home') {
-      e.preventDefault();
-      const parent = e.currentTarget.parentElement?.parentElement;
-      const first = parent?.querySelector(
+  function handleEnterSpace(
+    e: React.KeyboardEvent<HTMLLabelElement>,
+    handleOptionAction: () => void,
+  ) {
+    e.preventDefault();
+    handleOptionAction();
+  }
+
+  function handleArrowDown(e: React.KeyboardEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    const next = e.currentTarget.parentElement
+      ?.nextElementSibling as HTMLElement;
+    if (next) {
+      const nextOption = next.querySelector(
         'label[role="option"]',
       ) as HTMLElement;
-      first?.focus();
-      return;
+      nextOption?.focus();
     }
-    if (e.key === 'End') {
-      e.preventDefault();
-      const parent = e.currentTarget.parentElement?.parentElement;
-      const labels = parent?.querySelectorAll('label[role="option"]');
-      if (labels && labels.length > 0) {
-        (labels[labels.length - 1] as HTMLElement)?.focus();
-      }
+  }
+
+  function handleArrowUp(e: React.KeyboardEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    const prev = e.currentTarget.parentElement
+      ?.previousElementSibling as HTMLElement;
+    if (prev) {
+      const prevOption = prev.querySelector(
+        'label[role="option"]',
+      ) as HTMLElement;
+      prevOption?.focus();
+    }
+  }
+
+  function handleHome(e: React.KeyboardEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    const parent = e.currentTarget.parentElement?.parentElement;
+    const first = parent?.querySelector('label[role="option"]') as HTMLElement;
+    first?.focus();
+  }
+
+  function handleEnd(e: React.KeyboardEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    const parent = e.currentTarget.parentElement?.parentElement;
+    const labels = parent?.querySelectorAll('label[role="option"]');
+    if (labels && labels.length > 0) {
+      (labels[labels.length - 1] as HTMLElement)?.focus();
+    }
+  }
+
+  const keyHandlers: Record<
+    string,
+    (e: React.KeyboardEvent<HTMLLabelElement>) => void
+  > = {
+    Tab: handleTab,
+    Enter: (e) => handleEnterSpace(e, handleOptionAction),
+    ' ': (e) => handleEnterSpace(e, handleOptionAction),
+    ArrowDown: handleArrowDown,
+    ArrowUp: handleArrowUp,
+    Home: handleHome,
+    End: handleEnd,
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
+    const handler = keyHandlers[e.key];
+    if (handler) {
+      handler(e);
     }
   };
 

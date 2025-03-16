@@ -1,4 +1,3 @@
-// DropdownContainer.tsx
 // Color Checked
 // Components Checked
 
@@ -11,6 +10,7 @@ import React, {
   ReactNode,
   ComponentProps,
   useCallback,
+  useLayoutEffect,
 } from 'react';
 
 import { DropdownAnimation } from '@/animation/DropdownAnimation';
@@ -56,44 +56,76 @@ export function DropdownContainer({
     horizontal: 'left',
   });
 
+  // Atualiza o posicionamento do menu avaliando o espaço disponível
   const updatePosition = useCallback(() => {
     if (triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      const dropdownWidth = rect.width;
-      const triggerHeight = rect.height;
-      const vertical: 'up' | 'down' =
-        rect.bottom + triggerHeight > window.innerHeight ? 'up' : 'down';
-      const horizontal: 'left' | 'right' =
-        rect.left + dropdownWidth > window.innerWidth ? 'right' : 'left';
+      const triggerRect = triggerRef.current.getBoundingClientRect();
+      const defaultMenuWidth = 224; // valor aproximado de 'w-56'
+      const defaultMenuHeight = triggerRect.height; // fallback: usa a altura do trigger
+      const menuWidth = menuRef.current
+        ? menuRef.current.getBoundingClientRect().width
+        : defaultMenuWidth;
+      const menuHeight = menuRef.current
+        ? menuRef.current.getBoundingClientRect().height
+        : defaultMenuHeight;
+
+      const availableRight = window.innerWidth - triggerRect.right;
+      const availableLeft = triggerRect.left;
+      const availableBottom = window.innerHeight - triggerRect.bottom;
+      const availableTop = triggerRect.top;
+
+      // Decisão horizontal:
+      // Se o espaço à direita for suficiente para acomodar o menu, alinha à esquerda;
+      // senão, se o espaço à esquerda for suficiente, alinha à direita;
+      // se nenhum dos dois for suficiente, escolhe o lado com mais espaço.
+      let horizontal: 'left' | 'right';
+      if (availableRight >= menuWidth) {
+        horizontal = 'left';
+      } else if (availableLeft >= menuWidth) {
+        horizontal = 'right';
+      } else {
+        horizontal = availableRight >= availableLeft ? 'left' : 'right';
+      }
+
+      // Decisão vertical:
+      // Se o espaço abaixo for suficiente, abre para baixo; senão, se acima for suficiente, abre para cima;
+      // caso contrário, escolhe a direção com mais espaço.
+      let vertical: 'down' | 'up';
+      if (availableBottom >= menuHeight) {
+        vertical = 'down';
+      } else if (availableTop >= menuHeight) {
+        vertical = 'up';
+      } else {
+        vertical = availableBottom >= availableTop ? 'down' : 'up';
+      }
+
       setComputedPosition({ vertical, horizontal });
     }
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      updatePosition();
-      const handleResize = () => updatePosition();
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
+    updatePosition();
+    const handleResize = () => isOpen && updatePosition();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [isOpen, updatePosition]);
 
-  const triggerHeight =
-    triggerRef.current?.getBoundingClientRect().height ?? 40;
+  const triggerHeightRef = useRef(40);
 
-  const handleToggleDropdown = useCallback(() => {
-    setIsOpen((prev) => {
-      if (prev && triggerRef.current) {
-        setTimeout(() => {
-          triggerRef.current?.focus();
-        }, 0);
-      }
-      return !prev;
-    });
+  useLayoutEffect(() => {
+    if (triggerRef.current) {
+      triggerHeightRef.current =
+        triggerRef.current.getBoundingClientRect().height;
+    }
   }, []);
 
-  // Fecha o dropdown ao clicar fora
+  const handleToggleDropdown = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         triggerRef.current &&
@@ -108,12 +140,25 @@ export function DropdownContainer({
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
-  // Foca na opção selecionada (ou na primeira) ao abrir o dropdown
-  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsOpen(false);
+      }
+    };
+
+    const handleFocusOut = (e: FocusEvent) => {
+      const newFocused = e.relatedTarget as Node;
+      if (triggerRef.current && triggerRef.current.contains(newFocused)) {
+        return;
+      }
+      if (!menuRef.current?.contains(newFocused)) {
+        setIsOpen(false);
+      }
+    };
+
     if (isOpen && dropdownRef.current) {
       const selectedOption = dropdownRef.current.querySelector(
         'label[aria-selected="true"]',
@@ -127,38 +172,18 @@ export function DropdownContainer({
         firstOption?.focus();
       }
     }
-  }, [isOpen]);
 
-  // Fecha o dropdown ao pressionar Esc
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsOpen(false);
-      }
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEsc);
+
+    const menuNode = menuRef.current;
+    menuNode?.addEventListener('focusout', handleFocusOut);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+      menuNode?.removeEventListener('focusout', handleFocusOut);
     };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
-    }
-    return () => document.removeEventListener('keydown', handleEsc);
-  }, [isOpen]);
-
-  // Fecha o dropdown se o foco sair do menu
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      const currentMenu = menuRef.current;
-      const handleFocusOut = (e: FocusEvent) => {
-        const newFocused = e.relatedTarget as Node;
-        if (triggerRef.current && triggerRef.current.contains(newFocused)) {
-          return;
-        }
-        if (!currentMenu.contains(newFocused)) {
-          setIsOpen(false);
-        }
-      };
-      currentMenu.addEventListener('focusout', handleFocusOut);
-      return () => currentMenu.removeEventListener('focusout', handleFocusOut);
-    }
   }, [isOpen]);
 
   const menuClasses = cn(
@@ -175,8 +200,12 @@ export function DropdownContainer({
 
   return (
     <div
+      data-dropdown
       ref={dropdownRef}
-      className={cn('relative inline-block min-w-[180px] text-left', className)}
+      className={cn(
+        'relative z-50 inline-block min-w-[180px] text-left',
+        className,
+      )}
       {...props}
     >
       <div>
@@ -185,6 +214,7 @@ export function DropdownContainer({
           type="button"
           aria-haspopup="menu"
           aria-expanded={isOpen}
+          data-testid="dropdown-trigger"
           className={cn(
             'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
             buttonClassname,
@@ -197,9 +227,9 @@ export function DropdownContainer({
       </div>
       {isOpen && (
         <DropdownAnimation
-          delay={0.3}
+          duration={0.3}
           direction={computedPosition.vertical}
-          triggerHeight={triggerHeight}
+          triggerHeight={triggerHeightRef.current}
         >
           <div ref={menuRef} className={menuClasses} role="menu">
             <div

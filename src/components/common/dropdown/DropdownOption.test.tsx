@@ -66,6 +66,9 @@ describe('Testes abrangentes para <DropdownOption />', () => {
     expect(option).toHaveTextContent('Enter Teste');
     await userEvent.type(option, '{enter}');
     expect(mockAction).toHaveBeenCalledTimes(1);
+    expect(mockAction).toHaveBeenCalledWith(
+      expect.objectContaining({ value: '4' }),
+    );
   });
 
   test('Deve responder ao pressionar a tecla Espaço acionando a ação', async () => {

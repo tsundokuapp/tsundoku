@@ -75,7 +75,7 @@ export default function Novels() {
       <DropdownContainer
         value={status}
         label={status || 'Filtrar Status'}
-        className="w-[180px]"
+        className="w-full sm:w-[180px]"
       >
         {STATUS_NOVEL.map((item, index) => (
           <DropdownOption
@@ -95,7 +95,7 @@ export default function Novels() {
       <DropdownContainer
         value={genres}
         label={genres || 'Filtrar Gênero'}
-        className="w-[190px]"
+        className="w-full sm:w-[190px]"
       >
         {GENRES_NOVEL.map((item, index) => (
           <DropdownOption
@@ -119,7 +119,7 @@ export default function Novels() {
         fullWidth
         placeholder="Buscar por título ou título alternativo"
       />
-      <div className="flex flex-row items-center justify-start gap-4">
+      <div className="flex flex-row items-center justify-between gap-4 sm:justify-start">
         <FilterByStatus />
         <FilterByGenres />
       </div>

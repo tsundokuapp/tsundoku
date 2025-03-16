@@ -6,15 +6,15 @@ import { HeaderMenu } from './HeaderMenu';
 describe('<HeaderMenu />', () => {
   // Função auxiliar para abrir o diálogo
   const openDialog = () => {
-    // Obtém o gatilho do diálogo (o botão que exibe o ícone)
-    const trigger = screen.getByRole('button');
+    const trigger = screen.getByTestId('header-menu-trigger');
     expect(trigger).toBeInTheDocument();
     fireEvent.click(trigger);
   };
 
   it('deve renderizar o gatilho do diálogo', () => {
     render(<HeaderMenu />);
-    const trigger = screen.getByRole('button');
+    // Alterado para pegar o trigger via data-testid
+    const trigger = screen.getByTestId('header-menu-trigger');
     expect(trigger).toBeInTheDocument();
   });
 

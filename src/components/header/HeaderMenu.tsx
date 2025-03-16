@@ -1,5 +1,5 @@
 import { List } from '@phosphor-icons/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
@@ -20,22 +20,22 @@ import { ThemeToggleList } from '../theme/ThemeToogleList';
 
 export function HeaderMenu() {
   const searchRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Dialog
-      onOpenChange={(open) => {
-        if (open) {
-          // Foca no campo de busca quando o menu for aberto
-          setTimeout(() => searchRef.current?.focus(), 0);
-        }
-      }}
-    >
-      <DialogTrigger>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger data-testid="header-menu-trigger">
         <HeaderIcon>
           <List size={24} />
         </HeaderIcon>
       </DialogTrigger>
-      <DialogContent className="!left-auto right-0 top-0 flex h-full max-w-[480px] !translate-y-0 flex-col border-appHeaderBackground bg-appHeaderBackground transition-transform duration-300 data-[state=closed]:translate-x-full data-[state=open]:translate-x-0 sm:rounded-none">
+      <DialogContent
+        onOpenAutoFocus={(event) => {
+          event.preventDefault();
+          searchRef.current?.focus();
+        }}
+        className="!left-auto right-0 top-0 flex h-full max-w-[480px] !translate-y-0 flex-col border-appHeaderBackground bg-appHeaderBackground transition-transform duration-300 data-[state=closed]:translate-x-full data-[state=open]:translate-x-0 sm:rounded-none"
+      >
         <DialogHeader className="px-4 py-2">
           <DialogTitle className="flex gap-2 text-3xl font-extrabold text-appHeaderText">
             <span className="text-appHeaderHighlight">/</span>
@@ -107,7 +107,11 @@ export function HeaderMenu() {
                 />
               </DialogClose>
             </div>
-            <div className="theme-toggle-list" data-testid="theme-toggle-list">
+            <div
+              className="theme-toggle-list"
+              data-testid="theme-toggle-list"
+              tabIndex={-1}
+            >
               <ThemeToggleList />
             </div>
           </div>

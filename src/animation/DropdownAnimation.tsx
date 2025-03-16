@@ -3,14 +3,12 @@
 
 import * as motion from 'motion/react-client';
 
-import { cn } from '@/helpers/twUtils';
-
 type MotionDivProps = React.ComponentProps<typeof motion.div>;
 
 interface DropdownAnimationProps
   extends Omit<MotionDivProps, 'initial' | 'animate' | 'exit'> {
   children: React.ReactNode;
-  delay?: number;
+  duration?: number;
   direction: 'up' | 'down';
   triggerHeight: number;
   className?: string;
@@ -18,7 +16,7 @@ interface DropdownAnimationProps
 
 export const DropdownAnimation = ({
   children,
-  delay = 0.3,
+  duration = 0.3,
   direction,
   triggerHeight,
   className,
@@ -39,8 +37,8 @@ export const DropdownAnimation = ({
       initial={animationInitial}
       animate={animationAnimate}
       exit={animationExit}
-      transition={{ duration: delay }}
-      className={cn('', className)}
+      transition={{ duration }}
+      className={className}
       {...props}
     >
       {children}

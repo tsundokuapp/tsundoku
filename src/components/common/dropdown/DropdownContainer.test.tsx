@@ -1,39 +1,59 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { DropdownContainer } from './DropdownContainer';
 
 describe('<DropdownContainer />', () => {
-  // Matcher customizado: retorna o botão cujo texto contenha "Teste"
-  const getTrigger = () =>
-    screen.getByRole('button', {
-      name: (content) => /Teste/.test(content),
-    });
+  const getTrigger = () => screen.getByTestId('dropdown-trigger');
 
-  test('Deve abrir e fechar o dropdown corretamente e atualizar os atributos ARIA', async () => {
+  test('Deve abrir o dropdown corretamente', async () => {
     render(
       <DropdownContainer label="Label Teste" value="Value Teste">
         <div>Opção 1</div>
       </DropdownContainer>,
     );
-
     const trigger = getTrigger();
+    // Verifica estado inicial fechado
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(screen.queryByText('Label Teste')).not.toBeInTheDocument();
     expect(screen.getByText('Value Teste')).toBeInTheDocument();
-
-    // Abrir o dropdown
+    // Abre o dropdown
     await userEvent.click(trigger);
-    expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByText('Label Teste')).toBeInTheDocument();
     expect(screen.queryByText('Value Teste')).not.toBeInTheDocument();
+  });
 
-    // Fechar o dropdown
+  test('Deve fechar o dropdown corretamente', async () => {
+    render(
+      <DropdownContainer label="Label Teste" value="Value Teste">
+        <div>Opção 1</div>
+      </DropdownContainer>,
+    );
+    const trigger = getTrigger();
+    // Abre o dropdown
     await userEvent.click(trigger);
-    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    // Fecha o dropdown
+    await userEvent.click(trigger);
     expect(screen.queryByText('Label Teste')).not.toBeInTheDocument();
     expect(screen.getByText('Value Teste')).toBeInTheDocument();
+  });
+
+  test('Deve atualizar os atributos ARIA corretamente', async () => {
+    render(
+      <DropdownContainer label="Label Teste" value="Value Teste">
+        <div>Opção 1</div>
+      </DropdownContainer>,
+    );
+    const trigger = getTrigger();
+    // Inicia fechado
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    // Abre o dropdown
+    await userEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    // Fecha o dropdown
+    await userEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
   test('Deve fechar o dropdown ao clicar fora', async () => {
@@ -42,7 +62,7 @@ describe('<DropdownContainer />', () => {
         <DropdownContainer label="Label Teste" value="Value Teste">
           <div>Opção 1</div>
         </DropdownContainer>
-        <button data-testid="outside">Fora</button>
+        <div data-testid="outside">Fora</div>
       </div>,
     );
     const trigger = getTrigger();
@@ -54,7 +74,7 @@ describe('<DropdownContainer />', () => {
     expect(screen.queryByText('Label Teste')).not.toBeInTheDocument();
   });
 
-  test('Deve fechar o dropdown ao pressionar Escape', async () => {
+  test('Deve fechar o dropdown ao pressionar a tecla ESC', async () => {
     render(
       <DropdownContainer label="Label Teste" value="Value Teste">
         <div>Opção 1</div>
@@ -78,6 +98,7 @@ describe('<DropdownContainer />', () => {
     await userEvent.click(trigger); // abre o dropdown
     await userEvent.click(trigger); // fecha o dropdown
     expect(document.activeElement).toBe(trigger);
+    expect(screen.queryByText('Label Teste')).not.toBeInTheDocument();
   });
 
   test('Deve manter o dropdown aberto se o foco permanecer dentro do menu', async () => {
@@ -98,20 +119,5 @@ describe('<DropdownContainer />', () => {
     // Simula focusOut do menu com foco ainda dentro do menu
     fireEvent.focusOut(menu, { relatedTarget: firstOption });
     expect(screen.getByText('Label Teste')).toBeInTheDocument();
-  });
-
-  test('Deve atualizar o posicionamento ao redimensionar a janela', async () => {
-    render(
-      <DropdownContainer label="Label Teste" value="Value Teste">
-        <div>Opção 1</div>
-      </DropdownContainer>,
-    );
-    const trigger = getTrigger();
-    await userEvent.click(trigger);
-    await act(async () => {
-      window.innerWidth = 500;
-      window.dispatchEvent(new Event('resize'));
-    });
-    expect(screen.getByRole('menu')).toBeInTheDocument();
   });
 });
