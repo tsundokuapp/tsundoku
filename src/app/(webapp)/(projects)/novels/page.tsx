@@ -24,7 +24,6 @@ export default function Novels() {
 
   useEffect(() => {
     if (projectsResponse?.data) {
-      console.log(projectsResponse?.data);
       setNovelList(projectsResponse?.data);
     }
   }, [projectsResponse]);

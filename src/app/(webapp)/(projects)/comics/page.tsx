@@ -3,7 +3,7 @@
 // Components Checked
 import { useEffect, useState } from 'react';
 
-import { IPublicComics } from '@/@types/Api';
+import { IGenres, IPublicComics } from '@/@types/Api';
 import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
@@ -61,13 +61,12 @@ export default function Comics() {
 
   const findByGenre = (genre: string) => {
     setGenres(genre);
-    // Todo: descomentar quando a API estiver pronta
-    // if (projectsResponse?.data) {
-    //   const filtered = projectsResponse?.data.filter((item) =>
-    //     item.listaGeneros.includes(genre),
-    //   );
-    //   setNovelList(filtered);
-    // }
+    if (projectsResponse?.data) {
+      const filtered = projectsResponse?.data.filter((item) =>
+        item.listaGeneros.includes(genre as unknown as IGenres),
+      );
+      setComicList(filtered);
+    }
   };
 
   const FilterByStatus = () => {
