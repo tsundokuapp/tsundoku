@@ -11,14 +11,14 @@ import {
   IPublicNovels,
   IVolumesNovel,
 } from '@/@types/Api';
-import { getComicBySlug, getComics } from '@/services/serviceComic';
+import { getComicBySlug, getComics } from '@/services/ComicService';
 import {
   getChapterNovel,
   getNovelBySlug,
   getNovels,
   getVolumesNovel,
-} from '@/services/serviceNovel';
-import { getProjects, getRecomendations } from '@/services/serviceProject';
+} from '@/services/NovelService';
+import { getProjects, getRecomendations } from '@/services/ProjectService';
 
 export const useRecomendations = (): UseQueryResult<
   ApiResponse<IProjectRecomendations>

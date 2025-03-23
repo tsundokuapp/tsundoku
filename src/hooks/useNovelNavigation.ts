@@ -1,10 +1,10 @@
 import { usePathname } from 'next/navigation';
 
-import { useNovelStore } from '@/store/useNovelStore';
 import {
   INextChapterNovelInfo,
   IPreviousChapterNovelInfo,
 } from '@/@types/Chapter';
+import { useNovelStore } from '@/store/useNovelStore';
 
 export const useNovelNavigation = () => {
   const { volumeList, chapterId } = useNovelStore();
@@ -56,11 +56,11 @@ export const useNovelNavigation = () => {
 
     return nextChapterInVolume
       ? {
-          volumeNumber: currentVolume.numero,
-          nextChapterId: nextChapterInVolume.id,
-          nextChapterNumber: nextChapterInVolume.numero,
-          nextUrl,
-        }
+        volumeNumber: currentVolume.numero,
+        nextChapterId: nextChapterInVolume.id,
+        nextChapterNumber: nextChapterInVolume.numero,
+        nextUrl,
+      }
       : getNextChapter(true);
   };
 
@@ -114,11 +114,11 @@ export const useNovelNavigation = () => {
 
     return previousChapterInVolume
       ? {
-          volumeNumber: currentVolume.numero,
-          previousChapterId: previousChapterInVolume.id,
-          previousChapterNumber: previousChapterInVolume.numero,
-          previousUrl,
-        }
+        volumeNumber: currentVolume.numero,
+        previousChapterId: previousChapterInVolume.id,
+        previousChapterNumber: previousChapterInVolume.numero,
+        previousUrl,
+      }
       : getPreviousChapter(true);
   };
 
