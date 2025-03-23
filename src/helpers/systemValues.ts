@@ -19,7 +19,7 @@ export const GENRES_NOVEL = [
 
 export type TGenresNovel = (typeof GENRES_NOVEL)[number];
 
-// ---- Constantes para mangás ----
+// ---- Constantes para comics ----
 export const STATUS_COMIC = [
   'Em andamento',
   'Concluído',
