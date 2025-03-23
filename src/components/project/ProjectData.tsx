@@ -2,7 +2,6 @@
 // Components Checked
 import Image from 'next/image';
 
-import { IGenres } from '@/@types/Api';
 import { TStatusNovel, TStatusComic } from '@/@types/System';
 
 import { CollapseText } from './CollapseText';
@@ -16,7 +15,7 @@ interface ProjectDataProps {
   status: TStatusNovel | TStatusComic;
   author: string;
   artist: string;
-  genres: IGenres[];
+  genres: string[]; // o retorno da API é um array de strings nesse endpoint
   note?: string;
 }
 
@@ -79,14 +78,16 @@ export function ProjectData({
           </li>
         </ul>
 
-        <div>
-          <p className="mb-2 text-sm font-bold">Tags:</p>
-          <p className="flex flex-row flex-wrap gap-2">
-            {genres?.map((genre) => (
-              <Tag key={genre.id} text={genre.descricao} />
-            ))}
-          </p>
-        </div>
+        {genres && (
+          <div>
+            <p className="mb-2 text-sm font-bold">Tags:</p>
+            <p className="flex flex-row flex-wrap gap-2">
+              {genres.map((genre, index) => (
+                <Tag key={index} text={genre} />
+              ))}
+            </p>
+          </div>
+        )}
 
         {note && (
           <div className="mt-4 rounded-md bg-appHeaderHighlight p-4 opacity-80">

@@ -37,7 +37,7 @@ export default function Novel() {
           artist={infoOrDefault(novelResponse?.artista)}
           status={infoOrDefault(novelResponse?.statusObra) as TStatusNovel}
           description={infoOrDefault(novelResponse?.sinopse)}
-          genres={novelResponse?.listaGeneros || []}
+          genres={novelResponse?.listaGeneros as unknown as string[]}
           note={novelResponse?.observacao}
         />
 
