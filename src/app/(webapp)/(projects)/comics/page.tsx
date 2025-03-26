@@ -12,7 +12,7 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { STATUS_COMIC, GENRES_COMIC } from '@/helpers/systemValues';
+import { GENRES_COMIC, STATUS_COMIC } from '@/helpers/systemValues';
 import { usePublicComics } from '@/hooks/usePublicApi';
 
 export default function Comics() {
@@ -76,6 +76,7 @@ export default function Comics() {
         value={status}
         label={status || 'Filtrar Status'}
         className="w-[180px]"
+        onClear={() => setStatus('Filtrar por Status')}
       >
         {STATUS_COMIC.map((item, index) => (
           <DropdownOption
@@ -96,6 +97,7 @@ export default function Comics() {
         value={genres}
         label={genres || 'Filtrar Gênero'}
         className="w-[190px]"
+        onClear={() => setGenres('Filtrar por Gênero')}
       >
         {GENRES_COMIC.map((item, index) => (
           <DropdownOption

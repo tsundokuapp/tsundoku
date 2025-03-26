@@ -3,30 +3,33 @@
 
 import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
 import React, {
-  ReactElement,
-  useState,
-  useEffect,
-  useRef,
-  ReactNode,
   ComponentProps,
+  ReactElement,
+  ReactNode,
   useCallback,
+  useEffect,
   useLayoutEffect,
+  useRef,
+  useState,
 } from 'react';
 
 import { DropdownAnimation } from '@/animation/DropdownAnimation';
 import { cn } from '@/helpers/twUtils';
 
+import { DropdownBreakLine } from './DropdownBreakLine';
+import DropdownCleaner from './DropdownCleaner';
 import type { DropdownOptionProps } from './DropdownOption';
 
 interface DropdownContainerProps extends ComponentProps<'div'> {
   label: string | ReactElement;
   value: string | ReactElement;
-  children: ReactNode;
   buttonClassname?: string;
   menuClassname?: string;
   scrollbarClassname?: string;
   direction?: 'up' | 'down';
   noIcon?: boolean;
+  onClear?: () => void;
+  children: ReactNode;
 }
 
 interface Position {
@@ -37,13 +40,14 @@ interface Position {
 export function DropdownContainer({
   label,
   value,
-  children,
-  className,
   buttonClassname,
   menuClassname,
   scrollbarClassname,
   direction = 'down',
   noIcon = false,
+  onClear,
+  children,
+  className,
   ...props
 }: DropdownContainerProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -255,6 +259,12 @@ export function DropdownContainer({
                   { setIsOpen, triggerRef },
                 );
               })}
+              {onClear && (
+                <>
+                  <DropdownBreakLine />
+                  <DropdownCleaner onClean={onClear} />
+                </>
+              )}
             </div>
           </div>
         </DropdownAnimation>

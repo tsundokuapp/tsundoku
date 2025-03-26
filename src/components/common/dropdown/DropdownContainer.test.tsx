@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 
 import { DropdownContainer } from './DropdownContainer';
 
@@ -14,7 +15,7 @@ describe('<DropdownContainer />', () => {
       </DropdownContainer>,
     );
     const trigger = getTrigger();
-    // Verifica estado inicial fechado
+    // Estado inicial fechado
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(screen.queryByText('Label Teste')).not.toBeInTheDocument();
     expect(screen.getByText('Value Teste')).toBeInTheDocument();
@@ -119,5 +120,54 @@ describe('<DropdownContainer />', () => {
     // Simula focusOut do menu com foco ainda dentro do menu
     fireEvent.focusOut(menu, { relatedTarget: firstOption });
     expect(screen.getByText('Label Teste')).toBeInTheDocument();
+  });
+
+  test('Deve chamar onClear ao clicar no botão de limpar filtro', async () => {
+    const onClearMock = jest.fn();
+    render(
+      <DropdownContainer
+        label="Label Teste"
+        value="Value Teste"
+        onClear={onClearMock}
+      >
+        <div>Opção 1</div>
+      </DropdownContainer>,
+    );
+    const trigger = getTrigger();
+    // Abre o dropdown para que o botão de limpar filtro seja renderizado
+    await userEvent.click(trigger);
+    const cleaner = screen.getByTestId('dropdown-cleaner');
+    await userEvent.click(cleaner);
+    expect(onClearMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve resetar o valor para o label após limpar o filtro', async () => {
+    const Wrapper = () => {
+      const [value, setValue] = useState('Value Teste');
+      return (
+        <DropdownContainer
+          label="Label Teste"
+          value={value}
+          onClear={() => setValue('Label Teste')}
+        >
+          <div>Opção 1</div>
+        </DropdownContainer>
+      );
+    };
+
+    render(<Wrapper />);
+    const trigger = getTrigger();
+    // Verifica valor inicial quando o dropdown está fechado
+    expect(trigger).toHaveTextContent('Value Teste');
+
+    // Abre o dropdown
+    await userEvent.click(trigger);
+    // Clica no botão de limpar filtro
+    const cleaner = screen.getByTestId('dropdown-cleaner');
+    await userEvent.click(cleaner);
+    // Fecha o dropdown
+    await userEvent.click(trigger);
+    // Agora o valor deve ter sido resetado para o label
+    expect(trigger).toHaveTextContent('Label Teste');
   });
 });

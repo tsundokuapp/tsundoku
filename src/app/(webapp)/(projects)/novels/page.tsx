@@ -12,7 +12,7 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { STATUS_NOVEL, GENRES_NOVEL } from '@/helpers/systemValues';
+import { GENRES_NOVEL, STATUS_NOVEL } from '@/helpers/systemValues';
 import { usePublicNovels } from '@/hooks/usePublicApi';
 
 export default function Novels() {
@@ -78,6 +78,7 @@ export default function Novels() {
         value={status}
         label={status || 'Filtrar Status'}
         className="w-full sm:w-[180px]"
+        onClear={() => setStatus('Filtrar por Status')}
       >
         {STATUS_NOVEL.map((item, index) => (
           <DropdownOption
@@ -98,6 +99,7 @@ export default function Novels() {
         value={genres}
         label={genres || 'Filtrar Gênero'}
         className="w-full sm:w-[190px]"
+        onClear={() => setGenres('Filtrar por Gênero')}
       >
         {GENRES_NOVEL.map((item, index) => (
           <DropdownOption
