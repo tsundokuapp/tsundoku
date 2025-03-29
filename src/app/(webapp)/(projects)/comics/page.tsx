@@ -76,7 +76,7 @@ export default function Comics() {
         value={status}
         label={status || 'Filtrar Status'}
         className="w-[180px]"
-        onClear={() => setStatus('Filtrar por Status')}
+        onClear={() => findByStatus('Filtrar por Status')}
       >
         {STATUS_COMIC.map((item, index) => (
           <DropdownOption
@@ -97,7 +97,7 @@ export default function Comics() {
         value={genres}
         label={genres || 'Filtrar Gênero'}
         className="w-[190px]"
-        onClear={() => setGenres('Filtrar por Gênero')}
+        onClear={() => findByGenre('Filtrar por Gênero')}
       >
         {GENRES_COMIC.map((item, index) => (
           <DropdownOption
