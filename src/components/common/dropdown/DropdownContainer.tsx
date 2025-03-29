@@ -204,7 +204,7 @@ export function DropdownContainer({
 
   return (
     <div
-      data-dropdown
+      data-dropdown-options
       ref={dropdownRef}
       className={cn(
         'relative z-50 inline-block min-w-[180px] text-left',

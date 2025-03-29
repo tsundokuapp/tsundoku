@@ -5,6 +5,7 @@ import { Check } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
 
 import { cn } from '@/helpers/twUtils';
+import { useDropdownNavigation } from '@/hooks/useDropdownNavigation';
 
 export interface DropdownOptionProps extends ComponentProps<'label'> {
   label: string;
@@ -39,99 +40,17 @@ export function DropdownOption({
     }
   };
 
-  function handleTab(e: React.KeyboardEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    const parent = e.currentTarget.parentElement?.parentElement;
-    if (!parent) return;
-    const options = parent.querySelectorAll('label[role="option"]');
-    const optionsArray = Array.from(options) as HTMLElement[];
-    const currentIndex = optionsArray.findIndex(
-      (option) => option === e.currentTarget,
-    );
-    if (e.shiftKey) {
-      const prevIndex =
-        currentIndex === 0 ? optionsArray.length - 1 : currentIndex - 1;
-      optionsArray[prevIndex].focus();
-    } else {
-      const nextIndex =
-        currentIndex === optionsArray.length - 1 ? 0 : currentIndex + 1;
-      optionsArray[nextIndex].focus();
-    }
-  }
-
-  function handleEnterSpace(
-    e: React.KeyboardEvent<HTMLLabelElement>,
-    handleOptionAction: () => void,
-  ) {
-    e.preventDefault();
-    handleOptionAction();
-  }
-
-  function handleArrowDown(e: React.KeyboardEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    const next = e.currentTarget.parentElement
-      ?.nextElementSibling as HTMLElement;
-    if (next) {
-      const nextOption = next.querySelector(
-        'label[role="option"]',
-      ) as HTMLElement;
-      nextOption?.focus();
-    }
-  }
-
-  function handleArrowUp(e: React.KeyboardEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    const prev = e.currentTarget.parentElement
-      ?.previousElementSibling as HTMLElement;
-    if (prev) {
-      const prevOption = prev.querySelector(
-        'label[role="option"]',
-      ) as HTMLElement;
-      prevOption?.focus();
-    }
-  }
-
-  function handleHome(e: React.KeyboardEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    const parent = e.currentTarget.parentElement?.parentElement;
-    const first = parent?.querySelector('label[role="option"]') as HTMLElement;
-    first?.focus();
-  }
-
-  function handleEnd(e: React.KeyboardEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    const parent = e.currentTarget.parentElement?.parentElement;
-    const labels = parent?.querySelectorAll('label[role="option"]');
-    if (labels && labels.length > 0) {
-      (labels[labels.length - 1] as HTMLElement)?.focus();
-    }
-  }
-
-  const keyHandlers: Record<
-    string,
-    (e: React.KeyboardEvent<HTMLLabelElement>) => void
-  > = {
-    Tab: handleTab,
-    Enter: (e) => handleEnterSpace(e, handleOptionAction),
-    ' ': (e) => handleEnterSpace(e, handleOptionAction),
-    ArrowDown: handleArrowDown,
-    ArrowUp: handleArrowUp,
-    Home: handleHome,
-    End: handleEnd,
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-    const handler = keyHandlers[e.key];
-    if (handler) {
-      handler(e);
-    }
-  };
+  const { handleKeyDown } = useDropdownNavigation({
+    setIsOpen,
+    triggerRef,
+    onOptionAction: handleOptionAction,
+  });
 
   return (
     <div key={value} className="dropdown-option">
       <label
         role="option"
+        data-dropdown-option
         tabIndex={0}
         aria-selected={selected}
         className={cn(
