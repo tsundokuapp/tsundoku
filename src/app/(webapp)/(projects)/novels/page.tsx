@@ -37,7 +37,10 @@ export default function Novels() {
 
   useEffect(() => {
     if (genresResponse?.data) {
-      setGenresList(genresResponse?.data);
+      const genresOrdered = genresResponse?.data.sort((a, b) =>
+        a.descricao.localeCompare(b.descricao),
+      );
+      setGenresList(genresOrdered);
     }
   }, [genresResponse]);
 
