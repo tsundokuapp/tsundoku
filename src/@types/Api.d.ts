@@ -17,7 +17,7 @@ export interface IGenres {
   dataAlteracao?: string;
 }
 
-export interface IChapterNovelForVolume {
+export interface IChapterNovelAdminVolume {
   dataInclusao: string;
   id: string;
   numero: string;
@@ -29,7 +29,7 @@ export interface IChapterNovelForVolume {
   volumeId: string;
 }
 
-export interface IVolumeNovelData {
+export interface IVolumeNovelAdminData {
   id: string;
   dataInclusao: string;
   dataAlteracao: string;
@@ -41,10 +41,33 @@ export interface IVolumeNovelData {
   slug: string;
   usuarioInclusao: string;
   novelId: string;
-  listaCapitulo: IChapterNovelForVolume[];
+  listaCapitulo: IChapterNovelAdminVolume[];
 }
 
-export interface IChapterNovelData {
+export interface IChapterListNovelVolume {
+  dataInclusao: string;
+  id: string;
+  idVolume: string;
+  numeroCapitulo: string;
+  slugCapitulo: string;
+  tituloCapitulo: string;
+
+  parteCapitulo: string; // esse campo não existe no retorno da API
+  publicado?: boolean; // esse campo não existe no retorno da API
+}
+export interface IVolumeNovelData {
+  id: string;
+  idObra: string;
+  dataInclusao: string;
+  numeroVolume: string;
+  sinopse: string;
+  slugVolume: string;
+  urlCapaVolume: string;
+  titulo?: string; // Esse campo ainda não existe no retorno da API
+  listaCapitulos: IChapterListNovelVolume[];
+}
+
+export interface IChapterNovelAdminData {
   id: string;
   numero: string;
   titulo: string;
@@ -61,6 +84,34 @@ export interface IChapterNovelData {
   qc: string;
   descritivoCapitulo: string;
   publicado: boolean;
+}
+
+export interface IChapterNovelData {
+  id: string;
+  conteudoNovel: string | HTMLElement;
+  dataAlteracao: string;
+  dataInclusao: string;
+  descritivoCapitulo: string;
+  listaImagens?: string[];
+  numero: string;
+  ordemCapitulo: number;
+  parte?: string;
+  qc: string;
+  revisor: string;
+  slug: string;
+  titulo: string;
+  tradutor: string;
+  usuarioAlteracao: string;
+  usuarioInclusao: string;
+
+  ehIlustracoesNovel?: boolean; // esse campo não existe no retorno da API
+  publicado?: boolean; // esse campo não existe no retorno da API
+}
+
+export interface IChapterNovel {
+  proximo: string;
+  anterior: string;
+  data: IChapterNovelData;
 }
 
 export interface IProjectsHome {

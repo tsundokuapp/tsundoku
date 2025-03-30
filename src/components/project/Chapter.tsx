@@ -30,7 +30,7 @@ export function Chapter({
   const { setChapterId } = useNovelStore();
 
   const pathname = usePathname();
-  const chapterLink = `${pathname}/${number}`;
+  const chapterLink = `${pathname}/${chapterId}`;
   const formatDate = new Date(date).toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',

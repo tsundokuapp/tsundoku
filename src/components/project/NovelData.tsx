@@ -29,9 +29,9 @@ export function NovelData({ title, novelId }: NovelDataProps) {
     if (volumesNovelResponse?.data) {
       setVolumeData(volumesNovelResponse?.data);
 
-      setVolumeList(
-        mapResponseVolumeToVolumeZustand(volumesNovelResponse.data!),
-      );
+      // setVolumeList(
+      //   mapResponseVolumeToVolumeZustand(volumesNovelResponse.data!),
+      // );
     }
   }, [volumesNovelResponse?.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -40,8 +40,8 @@ export function NovelData({ title, novelId }: NovelDataProps) {
 
     const volumesSorted = [...volumeData].sort((a, b) =>
       isAscending
-        ? Number(a.numero) - Number(b.numero)
-        : Number(b.numero) - Number(a.numero),
+        ? Number(a.numeroVolume) - Number(b.numeroVolume)
+        : Number(b.numeroVolume) - Number(a.numeroVolume),
     );
 
     setVolumeData(volumesSorted);
@@ -67,12 +67,12 @@ export function NovelData({ title, novelId }: NovelDataProps) {
           {volumeData?.map((volume) => (
             <Volume
               key={volume.id}
-              cover={volume.imagemVolume}
-              title={volume.descritivoTituloNumeroVolume}
-              subTitle={volume.subtitulo}
+              cover={volume.urlCapaVolume}
+              title={'Volume (ausente na API)'}
+              subTitle={'Subtitulo (ausente na API)'}
               sinopse={volume.sinopse}
-              chapters={volume.listaCapitulo}
-              volumeNumber={volume.numero}
+              chapters={volume.listaCapitulos}
+              volumeNumber={volume.numeroVolume}
             />
           ))}
         </div>

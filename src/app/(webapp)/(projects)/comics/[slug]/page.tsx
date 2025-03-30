@@ -3,7 +3,6 @@
 // Components Checked
 import { usePathname } from 'next/navigation';
 
-import { IGenres } from '@/@types/Api';
 import { TStatusComic } from '@/@types/System';
 import { AsyncSection } from '@/components/common/section/AsyncSection';
 import type { ChapterProps } from '@/components/project/Chapter';
@@ -47,13 +46,13 @@ export default function Comic() {
     { number: '24', date: new Date('2021-07-01') },
   ];
 
-  const fakeGenres: IGenres[] = [
-    { id: '1', descricao: 'Ação', slug: 'acao' },
-    { id: '2', descricao: 'Aventura', slug: 'aventura' },
-    { id: '3', descricao: 'Comédia', slug: 'comedia' },
-    { id: '4', descricao: 'Drama', slug: 'drama' },
-    { id: '5', descricao: 'Fantasia', slug: 'fantasia' },
-    { id: '6', descricao: 'Romance', slug: 'romance' },
+  const fakeGenres: string[] = [
+    'Ação',
+    'Aventura',
+    'Comédia',
+    'Drama',
+    'Fantasia',
+    'Romance',
   ];
 
   const infoOrDefault = (info: string | undefined) => info || 'Não informado';

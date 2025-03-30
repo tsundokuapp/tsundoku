@@ -21,7 +21,7 @@ export function ActionsBarContainer({
 }: ActionsBarContainerProps) {
   return (
     <div
-      className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-white px-6 py-4 shadow-sm dark:bg-zinc-900"
+      className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-appBackground px-6 py-4 shadow-sm"
       {...props}
     >
       <Breadcrump

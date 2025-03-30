@@ -36,7 +36,7 @@ export const getVolumesNovel = async (
   idNovel: string,
 ): Promise<IVolumesNovel> => {
   try {
-    const response = await api.get(`/admin/volume/novel?IdObra=${idNovel}`);
+    const response = await api.get(`/obras/volume/indice?IdObra=${idNovel}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -45,10 +45,12 @@ export const getVolumesNovel = async (
 };
 
 export const getChapterNovel = async (
+  slugNovel: string,
   idChapter: string,
 ): Promise<IChapterNovel> => {
   try {
-    const response = await api.get(`/admin/capitulo/novel/${idChapter}`);
+    const response = await api.get(`/novels/slug/${slugNovel}/${idChapter}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

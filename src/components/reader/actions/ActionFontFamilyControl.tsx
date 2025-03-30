@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
+import { IFontFamiliesList } from '@/@types/Reader';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
-import { IFontFamiliesList } from '@/@types/Reader';
 
 interface ActionFontFamilyControlProps {
   onChange: (fontFamily: IFontFamiliesList) => void;

@@ -50,10 +50,10 @@
   --app-color-list-hover: var(--color-zinc-700);
   --app-color-list-text: var(--color-zinc-100);
   /* Menu */
-  --app-color-menu-background: var(--color-white);
+  --app-color-menu-background: var(--color-zinc-700);
   --app-color-menu-border: var(--color-zinc-100);
-  --app-color-menu-hover: var(--color-zinc-100);
-  --app-color-menu-text: var(--color-zinc-700);
+  --app-color-menu-hover: var(--color-zinc-500);
+  --app-color-menu-text: var(--color-white);
   --app-color-menu-title: var(--color-zinc-600);
   --app-color-menu-breakline: var(--color-zinc-600);
   /* Titulos */

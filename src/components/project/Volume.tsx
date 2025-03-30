@@ -4,7 +4,7 @@ import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { IChapterNovelForVolume } from '@/@types/Api';
+import { IChapterListNovelVolume } from '@/@types/Api';
 import { IVolumeNovel } from '@/@types/Volume';
 
 import { Chapter } from './Chapter';
@@ -19,15 +19,15 @@ export function Volume({
 }: IVolumeNovel) {
   const [isAscending, setIsAscending] = useState<boolean>(false);
   const [chaptersArray, setChaptersArray] =
-    useState<IChapterNovelForVolume[]>(chapters);
+    useState<IChapterListNovelVolume[]>(chapters);
 
   const handleSorting = () => {
     if (!chaptersArray) return;
 
     const chaptersSorted = [...chaptersArray].sort((a, b) =>
       isAscending
-        ? Number(a.ordemCapitulo) - Number(b.ordemCapitulo)
-        : Number(b.ordemCapitulo) - Number(a.ordemCapitulo),
+        ? Number(a.numeroCapitulo) - Number(b.numeroCapitulo)
+        : Number(b.numeroCapitulo) - Number(a.numeroCapitulo),
     );
 
     setChaptersArray(chaptersSorted);
@@ -67,14 +67,20 @@ export function Volume({
           <div className="my-4 grid grid-cols-1">
             {chaptersArray?.map((chapter) => (
               <div key={chapter.id}>
-                {chapter.publicado && (
+                {/* {chapter.publicado && (
                   <Chapter
                     key={chapter.id}
                     chapterId={chapter.id}
-                    number={chapter.numero}
+                    number={chapter.numeroCapitulo}
                     date={chapter.dataInclusao}
                   />
-                )}
+                )} */}
+                <Chapter
+                  key={chapter.id}
+                  chapterId={chapter.id}
+                  number={chapter.numeroCapitulo}
+                  date={chapter.dataInclusao}
+                />
               </div>
             ))}
           </div>

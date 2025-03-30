@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import {
   ApiResponse,
-  IChapterNovelData,
+  IChapterNovel,
   IProjectRecomendations,
   IProjectsHome,
   IPublicComic,
@@ -73,11 +73,12 @@ export const useVolumesNovel = (
 };
 
 export const useChapterNovel = (
+  slugNovel: string,
   idChapter: string,
-): UseQueryResult<IChapterNovelData> => {
+): UseQueryResult<IChapterNovel> => {
   return useQuery({
     queryKey: ['chapter-novel', idChapter],
-    queryFn: () => getChapterNovel(idChapter),
+    queryFn: () => getChapterNovel(slugNovel, idChapter),
     enabled: !!idChapter,
   });
 };

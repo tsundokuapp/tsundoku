@@ -78,10 +78,7 @@ export function DropdownContainer({
       const availableBottom = window.innerHeight - triggerRect.bottom;
       const availableTop = triggerRect.top;
 
-      // Decisão horizontal:
-      // Se o espaço à direita for suficiente para acomodar o menu, alinha à esquerda;
-      // senão, se o espaço à esquerda for suficiente, alinha à direita;
-      // se nenhum dos dois for suficiente, escolhe o lado com mais espaço.
+      // Verifica o espaço disponível à direita e à esquerda do trigger
       let horizontal: 'left' | 'right';
       if (availableRight >= menuWidth) {
         horizontal = 'left';
@@ -91,9 +88,7 @@ export function DropdownContainer({
         horizontal = availableRight >= availableLeft ? 'left' : 'right';
       }
 
-      // Decisão vertical:
-      // Se o espaço abaixo for suficiente, abre para baixo; senão, se acima for suficiente, abre para cima;
-      // caso contrário, escolhe a direção com mais espaço.
+      // Verifica o espaço disponível acima e abaixo do trigger
       let vertical: 'down' | 'up';
       if (availableBottom >= menuHeight) {
         vertical = 'down';
