@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
+import { useToaster } from '@/contexts/ToasterContext';
 
 const themeOptions = [
   { label: 'Light', value: 'theme-light' },
@@ -18,12 +19,24 @@ export function ThemeToggle() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const { toaster } = useToaster();
 
   function handleSelect(newTheme: string) {
-    if (newTheme === theme) return;
+    if (newTheme === theme) {
+      toasterAlert('O tema já está ativo');
+      return;
+    }
+
     setTheme(newTheme);
     setIsOpen(false);
   }
+
+  const toasterAlert = (msg: string) => {
+    toaster({
+      type: 'info',
+      msg,
+    });
+  };
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
