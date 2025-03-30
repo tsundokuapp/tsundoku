@@ -16,3 +16,26 @@ export interface IVolumeZustand {
   numero: string;
   listChapters: IListChapterZustand[];
 }
+
+// Retornos da API
+
+export interface IChapterNovelApiPublic {
+  id: string;
+  numero: string;
+  ordemCapitulo: number;
+  publicado: boolean;
+  titulo: string;
+}
+
+export interface IVolumeNovelApiPublic {
+  id: string;
+  idObra: string;
+  numeroVolume: string;
+  ordemVolume: number;
+  publicado: boolean;
+  sinopse: string;
+  slugVolume: string;
+  titulo: string;
+  urlCapaVolume: string;
+  listaRetornoCapitulosNovel: IChapterNovelApiPublic[];
+}

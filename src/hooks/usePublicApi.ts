@@ -12,12 +12,14 @@ import {
   IPublicNovels,
   IVolumesNovel,
 } from '@/@types/Api';
+import { IVolumeNovelApiPublic } from '@/@types/Volume';
 import { getComicBySlug, getComics } from '@/services/ComicService';
 import {
   getChapterNovel,
   getNovelBySlug,
   getNovels,
   getVolumesNovel,
+  getVolumesNovelBySlug,
 } from '@/services/NovelService';
 import {
   getGenres,
@@ -110,5 +112,15 @@ export const usePublicGenres = (): UseQueryResult<
   return useQuery({
     queryKey: ['public-genres'],
     queryFn: getGenres,
+  });
+};
+
+export const usePublicVolumesNovelBySlug = (
+  slugNovel: string,
+): UseQueryResult<ApiResponse<IVolumeNovelApiPublic>> => {
+  return useQuery({
+    queryKey: ['volumes-novel-slug', slugNovel],
+    queryFn: () => getVolumesNovelBySlug(slugNovel),
+    enabled: !!slugNovel,
   });
 };

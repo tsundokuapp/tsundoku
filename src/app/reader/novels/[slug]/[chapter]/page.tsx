@@ -20,7 +20,7 @@ import { ActionFontSizeControl } from '@/components/reader/actions/ActionFontSiz
 import { NovelInfiniteView } from '@/components/reader/novel/NovelInfiniteView';
 import { useToaster } from '@/contexts/ToasterContext';
 import { useNovelNavigation } from '@/hooks/useNovelNavigation';
-import { useNovelStore } from '@/store/useNovelStore';
+// import { useNovelStore } from '@/store/useNovelStore';
 
 export default function NovelReader() {
   // const { volumeList, setChapterId, chapterId } = useNovelStore();
@@ -79,7 +79,7 @@ export default function NovelReader() {
     <div className="relative pb-10">
       <ScrollProgressAnimation onTop>
         <ActionsBarContainer removeList={['reader']} isReader>
-          {/* <ActionChapterWithVolumeList volumesList={volumeList!} /> */}
+          <ActionChapterWithVolumeList />
           <ActionFontFamilyControl onChange={handleFontFamilyChange} />
           <ActionFontSizeControl onChange={handleFontSizeChange} />
           <ActionFontLineHeightControl onChange={handleLineHeightChange} />

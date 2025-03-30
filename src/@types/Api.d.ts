@@ -172,6 +172,8 @@ export interface IPublicNovels {
 }
 
 export interface IVolumesNovel {
+  proximo: string;
+  anterior: string;
   total: number;
   data: IVolumeNovelData[];
 }

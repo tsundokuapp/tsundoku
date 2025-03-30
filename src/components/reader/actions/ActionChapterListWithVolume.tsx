@@ -1,60 +1,72 @@
 import { usePathname, useRouter } from 'next/navigation';
-import { type ComponentProps } from 'react';
+import { useEffect, useState } from 'react';
 
+import { IVolumeNovelApiPublic } from '@/@types/Volume';
 import { DropdownBreakLine } from '@/components/common/dropdown/DropdownBreakLine';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { DropdownText } from '@/components/common/dropdown/DropdownText';
-import { useNovelStore } from '@/store/useNovelStore';
-import { IVolumeZustand } from '@/@types/Volume';
+import { usePublicVolumesNovelBySlug } from '@/hooks/usePublicApi';
 
-interface ActionChapterListWithVolumeProps extends ComponentProps<'div'> {
-  volumesList: IVolumeZustand[];
-}
-
-export function ActionChapterWithVolumeList({
-  volumesList,
-}: ActionChapterListWithVolumeProps) {
+export function ActionChapterWithVolumeList() {
   const router = useRouter();
-  const { setChapterId } = useNovelStore();
-
   const pathname = usePathname();
   const projectSlug = pathname.split('/')[3];
-  const volumeURL = pathname.split('/')[4];
   const chapterURL = pathname.split('/').pop();
 
-  if (!volumesList) {
-    return null;
-  }
+  const [volumesData, setVolumesData] = useState<IVolumeNovelApiPublic[]>();
+  const [totalChaptersDropdown, setTotalChaptersDropdown] = useState(0);
+  const [currentChapterDropdown, setCurrentChapterDropdown] = useState('');
+  const [currentVolumeDropdown, setCurrentVolumeDropdown] = useState('');
+  const { data: responseVolumes } = usePublicVolumesNovelBySlug(projectSlug!);
 
-  const volumesListToDropdown = volumesList?.map((volume) => ({
-    volume: volume.numero,
-    listChapters: volume.listChapters.sort(
+  useEffect(() => {
+    if (responseVolumes?.data) {
+      setVolumesData(responseVolumes.data);
+      countChapters(responseVolumes.data);
+      currentChapter(responseVolumes.data);
+    }
+  }, [responseVolumes]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const volumesListToDropdown = volumesData?.map((volume) => ({
+    volume: volume.numeroVolume,
+    listChapters: volume.listaRetornoCapitulosNovel.sort(
       (a, b) => a.ordemCapitulo - b.ordemCapitulo,
     ),
   }));
 
-  const countChapters = volumesListToDropdown.reduce((acc, volume) => {
-    return acc + volume.listChapters.length;
-  }, 0);
+  const countChapters = (volumes: IVolumeNovelApiPublic[]) => {
+    const totalChapters = volumes.reduce((acc, volume) => {
+      return acc + volume.listaRetornoCapitulosNovel.length;
+    }, 0);
 
-  const handleClick = (
-    volumeNumber: string,
-    chapterNumber: string,
-    chapterId: string,
-  ) => {
-    setChapterId(chapterId);
-    router.push(
-      `/reader/novels/${projectSlug}/${volumeNumber}/${chapterNumber}`,
-    );
+    setTotalChaptersDropdown(totalChapters);
+  };
+
+  const currentChapter = (volumes: IVolumeNovelApiPublic[]) => {
+    for (const volume of volumes) {
+      const chapter = volume.listaRetornoCapitulosNovel.find(
+        (chapter) => chapter.id === chapterURL,
+      );
+
+      if (chapter) {
+        setCurrentVolumeDropdown(volume.numeroVolume ?? null);
+        setCurrentChapterDropdown(chapter.numero ?? null);
+        return;
+      }
+    }
+  };
+
+  const handleClick = (chapterId: string) => {
+    router.push(`/reader/novels/${projectSlug}/${chapterId}`);
   };
 
   return (
     <DropdownContainer
-      label={`${countChapters} Capítulos`}
-      value={`Capítulo ${chapterURL}`}
+      label={`${totalChaptersDropdown} Capítulos`}
+      value={`Capítulo ${currentChapterDropdown}`}
     >
-      {volumesListToDropdown.map((volume) => {
+      {volumesListToDropdown?.map((volume) => {
         return (
           <div key={volume.volume}>
             <DropdownText text={`Volume ${volume.volume}`} />
@@ -66,11 +78,10 @@ export function ActionChapterWithVolumeList({
                   label={`Capítulo ${chapter.numero}`}
                   value={chapter.numero}
                   selected={
-                    chapterURL === chapter.numero && volume.volume === volumeURL
+                    chapterURL === chapter.id &&
+                    volume.volume === currentVolumeDropdown
                   }
-                  action={() =>
-                    handleClick(volume.volume, chapter.numero, chapter.id)
-                  }
+                  action={() => handleClick(chapter.id)}
                 />
               );
             })}
