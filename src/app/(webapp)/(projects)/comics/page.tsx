@@ -3,7 +3,7 @@
 // Components Checked
 import { useEffect, useState } from 'react';
 
-import { IGenres, IPublicComics } from '@/@types/Api';
+import { IPublicComics, IPublicGenres } from '@/@types/Api';
 import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
@@ -12,22 +12,34 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { GENRES_COMIC, STATUS_COMIC } from '@/helpers/systemValues';
-import { usePublicComics } from '@/hooks/usePublicApi';
+import { STATUS_COMIC } from '@/helpers/systemValues';
+import { usePublicComics, usePublicGenres } from '@/hooks/usePublicApi';
 
 export default function Comics() {
+  const INITIAL_GENRES = [
+    { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
+  ];
+
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
+  const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
   const [comicList, setComicList] = useState<IPublicComics[]>();
 
   const { data: projectsResponse, isLoading } = usePublicComics();
+  const { data: genresResponse } = usePublicGenres();
 
   useEffect(() => {
     if (projectsResponse?.data) {
       setComicList(projectsResponse?.data);
     }
   }, [projectsResponse]);
+
+  useEffect(() => {
+    if (genresResponse?.data) {
+      setGenresList(genresResponse?.data);
+    }
+  }, [genresResponse]);
 
   const debouncedHandleChange = Debounce((value: string) => {
     if (value === '' && projectsResponse?.data) {
@@ -61,12 +73,20 @@ export default function Comics() {
 
   const findByGenre = (genre: string) => {
     setGenres(genre);
+    if (genre === 'Filtrar por Gênero') {
+      setComicList(projectsResponse?.data);
+      return;
+    }
+
     if (projectsResponse?.data) {
-      const filtered = projectsResponse?.data.filter((item) =>
-        item.listaGeneros.includes(genre as unknown as IGenres),
-      );
+      const filtered = projectsResponse?.data.filter((item) => {
+        return item.listaGeneros.some((g) => g === genre);
+      });
+
       setComicList(filtered);
     }
+
+    setSearch('');
   };
 
   const FilterByStatus = () => {
@@ -98,13 +118,13 @@ export default function Comics() {
         className="w-[190px]"
         onClear={() => findByGenre('Filtrar por Gênero')}
       >
-        {GENRES_COMIC.map((item, index) => (
+        {genresList.map((genre) => (
           <DropdownOption
-            key={index}
-            label={item}
-            onClick={() => findByGenre(item)}
-            value={item}
-            selected={item === genres}
+            key={genre.id}
+            label={genre.descricao}
+            onClick={() => findByGenre(genre.descricao)}
+            value={genre.descricao}
+            selected={genre.descricao === genres}
           />
         ))}
       </DropdownContainer>

@@ -7,6 +7,7 @@ import {
   IProjectsHome,
   IPublicComic,
   IPublicComics,
+  IPublicGenres,
   IPublicNovel,
   IPublicNovels,
   IVolumesNovel,
@@ -18,7 +19,11 @@ import {
   getNovels,
   getVolumesNovel,
 } from '@/services/NovelService';
-import { getProjects, getRecomendations } from '@/services/ProjectService';
+import {
+  getGenres,
+  getProjects,
+  getRecomendations,
+} from '@/services/ProjectService';
 
 export const useRecomendations = (): UseQueryResult<
   ApiResponse<IProjectRecomendations>
@@ -95,5 +100,14 @@ export const usePublicComicSlug = (
     queryKey: ['public-comic-slug', slug],
     queryFn: () => getComicBySlug(slug),
     enabled: !!slug,
+  });
+};
+
+export const usePublicGenres = (): UseQueryResult<
+  ApiResponse<IPublicGenres>
+> => {
+  return useQuery({
+    queryKey: ['public-genres'],
+    queryFn: getGenres,
   });
 };

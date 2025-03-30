@@ -112,7 +112,7 @@ export interface IPublicNovels {
   titulo: string;
   autor: string;
   statusObra: TStatusNovel;
-  listaGeneros: IGenres[];
+  listaGeneros: string[]; // go horse, aqui deveria ser IGenres[]
   descritivoVolume?: string;
   slug: string;
   tipoObraSlug: string;
@@ -160,9 +160,16 @@ export interface IPublicComics {
   tituloAlternativo: string;
   autor: string;
   statusObra: TStatusComic;
-  listaGeneros: IGenres[];
+  listaGeneros: string[]; // go horse, aqui deveria ser IGenres[]
   descritivoVolume?: string;
   slug: string;
   tipoObra: string;
   id: string;
+}
+
+// GENRES
+export interface IPublicGenres {
+  id: string;
+  descricao: string;
+  slug: string;
 }

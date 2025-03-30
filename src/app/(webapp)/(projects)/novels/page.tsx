@@ -3,7 +3,7 @@
 // Components Checked
 import { useEffect, useState } from 'react';
 
-import { IGenres, IPublicNovels } from '@/@types/Api';
+import { IPublicGenres, IPublicNovels } from '@/@types/Api';
 import { Title } from '@/components/common/Title';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
@@ -12,21 +12,34 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { GENRES_NOVEL, STATUS_NOVEL } from '@/helpers/systemValues';
-import { usePublicNovels } from '@/hooks/usePublicApi';
+import { STATUS_NOVEL } from '@/helpers/systemValues';
+import { usePublicGenres, usePublicNovels } from '@/hooks/usePublicApi';
 
 export default function Novels() {
+  const INITIAL_GENRES = [
+    { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
+  ];
+
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
+  const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
+
   const [novelList, setNovelList] = useState<IPublicNovels[]>();
   const { data: projectsResponse, isLoading } = usePublicNovels();
+  const { data: genresResponse } = usePublicGenres();
 
   useEffect(() => {
     if (projectsResponse?.data) {
       setNovelList(projectsResponse?.data);
     }
   }, [projectsResponse]);
+
+  useEffect(() => {
+    if (genresResponse?.data) {
+      setGenresList(genresResponse?.data);
+    }
+  }, [genresResponse]);
 
   const debouncedHandleChange = Debounce((value: string) => {
     if (value === '' && projectsResponse?.data) {
@@ -49,6 +62,11 @@ export default function Novels() {
   const findByStatus = (status: string) => {
     setStatus(status);
 
+    if (status === 'Filtrar por Status') {
+      setNovelList(projectsResponse?.data);
+      return;
+    }
+
     if (projectsResponse?.data) {
       const filtered = projectsResponse?.data.filter(
         (item) => item.statusObra === status,
@@ -57,18 +75,25 @@ export default function Novels() {
       setNovelList(filtered);
     }
 
-    // Todo: atualizar a forma de filtragem, para considerar search e filtros quando API estiver validada
     setSearch('');
   };
 
   const findByGenre = (genre: string) => {
     setGenres(genre);
+    if (genre === 'Filtrar por Gênero') {
+      setNovelList(projectsResponse?.data);
+      return;
+    }
+
     if (projectsResponse?.data) {
-      const filtered = projectsResponse?.data.filter((item) =>
-        item.listaGeneros.includes(genre as unknown as IGenres),
-      );
+      const filtered = projectsResponse?.data.filter((item) => {
+        return item.listaGeneros.some((g) => g === genre);
+      });
+
       setNovelList(filtered);
     }
+
+    setSearch('');
   };
 
   const FilterByStatus = () => {
@@ -104,13 +129,13 @@ export default function Novels() {
           findByGenre('Filtrar por Gênero');
         }}
       >
-        {GENRES_NOVEL.map((item, index) => (
+        {genresList.map((genre) => (
           <DropdownOption
-            key={index}
-            label={item}
-            onClick={() => findByGenre(item)}
-            value={item}
-            selected={item === genres}
+            key={genre.id}
+            label={genre.descricao}
+            onClick={() => findByGenre(genre.descricao)}
+            value={genre.descricao}
+            selected={genre.descricao === genres}
           />
         ))}
       </DropdownContainer>
