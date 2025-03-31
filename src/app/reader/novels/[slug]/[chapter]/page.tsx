@@ -19,16 +19,21 @@ import { ActionFontLineHeightControl } from '@/components/reader/actions/ActionF
 import { ActionFontSizeControl } from '@/components/reader/actions/ActionFontSizeControl';
 import { NovelInfiniteView } from '@/components/reader/novel/NovelInfiniteView';
 import { useToaster } from '@/contexts/ToasterContext';
-import { useNovelNavigation } from '@/hooks/useNovelNavigation';
-// import { useNovelStore } from '@/store/useNovelStore';
+import { useChapterNovel } from '@/hooks/usePublicApi';
 
 export default function NovelReader() {
-  // const { volumeList, setChapterId, chapterId } = useNovelStore();
-  const { getNextChapter, getPreviousChapter } = useNovelNavigation();
-  const { toaster } = useToaster();
   const router = useRouter();
   const path = usePathname();
   const idChapter = path.split('/').pop();
+  const slugObra = path.split('/')[3];
+
+  const {
+    data: chapterNovelResponse,
+    isLoading,
+    isError,
+  } = useChapterNovel(slugObra, idChapter!);
+
+  const { toaster } = useToaster();
 
   const [currentFontSize, setCurrentFontSize] =
     useState<IFontSizeList>('text-base');
@@ -50,29 +55,31 @@ export default function NovelReader() {
   };
 
   const handleNextChapter = () => {
-    const data = getNextChapter();
-    if (!data) {
+    if (!chapterNovelResponse?.proxima) {
       return toaster({
         type: 'info',
         msg: 'Último capítulo alcançado',
       });
     }
+    console.log(chapterNovelResponse?.proxima);
+    const idNextChapter = chapterNovelResponse.proxima.split('/').pop();
+    const finalLink = `/reader/novels/${slugObra}/${idNextChapter}`;
 
-    // setChapterId(data.nextChapterId);
-    router.push(data.nextUrl);
+    router.push(finalLink);
   };
 
   const handlePreviousChapter = () => {
-    const data = getPreviousChapter();
-    if (!data) {
+    if (!chapterNovelResponse?.anterior) {
       return toaster({
         type: 'info',
         msg: 'Último capítulo alcançado',
       });
     }
 
-    // setChapterId(data.previousChapterId);
-    router.push(data.previousUrl);
+    const idPreviousChapter = chapterNovelResponse.anterior.split('/').pop();
+    const finalLink = `/reader/novels/${slugObra}/${idPreviousChapter}`;
+
+    router.push(finalLink);
   };
 
   return (
@@ -91,6 +98,10 @@ export default function NovelReader() {
           fontSize={currentFontSize}
           lineHeight={currentLineHeight}
           fontFamily={currentFontFamily}
+          contentChapter={chapterNovelResponse?.data?.conteudoNovel as string}
+          titleChapter={chapterNovelResponse?.data?.titulo as string}
+          isLoading={isLoading}
+          isError={isError}
         />
       </ReaderContainer>
 

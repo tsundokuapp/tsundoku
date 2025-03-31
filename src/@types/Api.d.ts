@@ -109,7 +109,7 @@ export interface IChapterNovelData {
 }
 
 export interface IChapterNovel {
-  proximo: string;
+  proxima: string;
   anterior: string;
   data: IChapterNovelData;
 }
