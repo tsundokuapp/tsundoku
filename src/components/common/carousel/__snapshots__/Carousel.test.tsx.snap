@@ -3,7 +3,7 @@
 exports[`Testes para o componente <Carousel /> Teste de snapshot Deve manter o snapshot do Carousel 1`] = `
 <div>
   <div
-    class="relative w-full max-w-3xl"
+    class="relative w-full"
   >
     <div
       class="relative h-72 w-full overflow-hidden rounded-md sm:h-64 sm:rounded-3xl"

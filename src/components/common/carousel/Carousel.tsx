@@ -5,7 +5,7 @@ import {
   ArrowCircleRight,
 } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
@@ -44,7 +44,7 @@ export const Carousel = ({
     );
   };
   return (
-    <div className="relative w-full max-w-3xl">
+    <div className="relative w-full">
       <div className="relative h-72 w-full overflow-hidden rounded-md sm:h-64 sm:rounded-3xl">
         {images.map((image, index) => (
           <div

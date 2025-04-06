@@ -4,8 +4,8 @@ import type { ComponentProps } from 'react';
 
 import { cn } from '@/helpers/twUtils';
 
-import { Banner } from './banner';
 import { LinkButton } from '../common/LinkButton';
+import { Banner } from './banner';
 
 interface BannerRecruitmentProps extends ComponentProps<'div'> {
   className?: string;
@@ -23,7 +23,7 @@ export function BannerRecruitment({
         // Espaçamento e dimensões adaptativas
         'gap-4 sm:gap-6 sm:p-6 md:p-8',
         // Centraliza e limita a largura máxima
-        'mx-auto w-full max-w-md',
+        'mx-auto w-full min-w-64 lg:min-w-[420px] xl:min-w-[460px]',
         className,
       )}
       {...props}
