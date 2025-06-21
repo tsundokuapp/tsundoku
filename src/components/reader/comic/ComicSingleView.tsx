@@ -32,7 +32,7 @@ export function ComicSingleView({
           alt={`Página ${showPage - 1}`}
           width={557}
           height={800}
-          className={`h-dvh max-h-[${HEIGHT_IMAGE_INSIDE_READER}] w-[100%] select-none`}
+          className={`h-dvh max-h-[calc(100vh-110px)] w-[100%] select-none`}
         />
       </div>
     </div>

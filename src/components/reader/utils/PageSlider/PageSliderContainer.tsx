@@ -47,7 +47,7 @@ export function PageSliderContainer({
 
   return (
     <div
-      className={`h-[${HEIGHT_INSIDE_READER}] absolute grid w-full grid-cols-2 grid-rows-1`}
+      className={`absolute grid h-[calc(100dvh-74px)] w-full grid-cols-2 grid-rows-1`}
     >
       <PageSliderLeft
         text="Página Anterior"
