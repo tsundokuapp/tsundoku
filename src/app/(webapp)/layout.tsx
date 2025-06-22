@@ -8,10 +8,13 @@ import type { ReactNode } from 'react';
 import { ScrollToTopButton } from '@/components/common/ScrollToTopButton';
 import { FooterBar } from '@/components/footer/FooterBar';
 import { HeaderBar } from '@/components/header/HeaderBar';
+import { useComicStore } from '@/store/useComicStore';
 
 export default function WebappLayout({ children }: { children: ReactNode }) {
   const path = usePathname();
   const parts = path.split('/');
+
+  const { comicBanner } = useComicStore();
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
@@ -19,8 +22,8 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
       {parts.length > 2 && (
         <div className="relative h-auto max-h-64 w-full overflow-hidden blur-sm">
           <Image
-            src="/banner-emilia.jpg"
-            overrideSrc="/banner-emilia.jpg"
+            src={comicBanner}
+            overrideSrc="/banner.jpg"
             alt="Banner"
             width={0}
             height={0}

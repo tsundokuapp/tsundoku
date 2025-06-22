@@ -77,7 +77,9 @@ export function Volume({
                 )} */}
                 <Chapter
                   key={chapter.id}
-                  chapterId={chapter.id}
+                  id={chapter.id}
+                  slug={chapter.id}
+                  name={chapter.tituloCapitulo}
                   number={chapter.numeroCapitulo}
                   date={chapter.dataInclusao}
                 />

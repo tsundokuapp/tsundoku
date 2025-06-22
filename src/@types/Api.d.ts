@@ -220,6 +220,34 @@ export interface IPublicComics {
   id: string;
 }
 
+export interface IImagesChapterComic {
+  id: number;
+  url: string;
+  alt: string;
+  ordem: number;
+}
+
+export interface IChapterComicData {
+  id: string;
+  numero: string;
+  parte: string;
+  slug: string;
+  usuarioInclusao: string;
+  usuarioAlteracao: string;
+  dataInclusao: string; // '04/03/2025 19:40:22';
+  dataAlteracao: string;
+  ordemCapitulo: number;
+  descritivoCapitulo: string;
+  publicado: boolean;
+  listaImagens: IImagesChapterComic[];
+}
+
+export interface IChapterComic {
+  proxima: string;
+  anterior: string;
+  data: IChapterComicData[];
+}
+
 // GENRES
 export interface IPublicGenres {
   id: string;

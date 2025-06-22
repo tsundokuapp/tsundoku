@@ -2,7 +2,6 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
-
 import { Carousel } from '../common/carousel/Carousel';
 
 interface BannerAdsProps extends ComponentProps<'div'> {

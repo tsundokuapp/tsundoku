@@ -2,29 +2,67 @@
 // Colors Checked
 // Components Checked
 import { SortAscending, SortDescending } from '@phosphor-icons/react/dist/ssr';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Chapter, type ChapterProps } from './Chapter';
+import { useChapterComic } from '@/hooks/usePublicApi';
+
+import { Chapter } from './Chapter';
 import { Title } from '../common/Title';
 import { TitleContainer } from '../common/TitleContainer';
 
 interface ComicDataProps {
   title: string;
-  items: ChapterProps[];
+  comicSlug: string;
 }
 
-export function ComicData({ title, items }: ComicDataProps) {
-  const [sortedItems, setSortedItems] = useState<ChapterProps[]>(items);
+interface IChapterData {
+  id: string;
+  numero: string;
+  publicado: boolean;
+  ordemCapitulo: number;
+  slug: string;
+  descritivoCapitulo: string;
+  dataInclusao: string;
+}
+
+export function ComicData({ title, comicSlug }: ComicDataProps) {
+  const { data: chapterComicResponse, isLoading } = useChapterComic(comicSlug);
+
+  const [chapterData, setChapterData] = useState<IChapterData[]>();
+
+  useEffect(() => {
+    if (chapterComicResponse?.data) {
+      const listChapter: IChapterData[] = chapterComicResponse.data.map(
+        (chapter) => ({
+          id: chapter.id,
+          numero: chapter.numero,
+          publicado: chapter.publicado,
+          ordemCapitulo: chapter.ordemCapitulo,
+          slug: chapter.slug,
+          descritivoCapitulo: chapter.descritivoCapitulo,
+          dataInclusao: chapter.dataInclusao,
+        }),
+      );
+      setChapterData(listChapter);
+    }
+  }, [chapterComicResponse?.data]);
+
   const [isAscending, setIsAscending] = useState<boolean>(false);
 
   const handleSorting = () => {
-    const sorted = [...sortedItems].sort((a, b) =>
+    if (!chapterData) return;
+
+    const sorted = [...chapterData].sort((a, b) =>
       isAscending
-        ? a.date.toISOString().localeCompare(b.date.toISOString())
-        : b.date.toISOString().localeCompare(a.date.toISOString()),
+        ? Number(a.ordemCapitulo) - Number(b.ordemCapitulo)
+        : Number(b.ordemCapitulo) - Number(a.ordemCapitulo),
     );
-    setSortedItems(sorted);
+    setChapterData(sorted);
     setIsAscending(!isAscending);
+  };
+
+  const isChapterOpen = () => {
+    return true;
   };
 
   return (
@@ -40,18 +78,23 @@ export function ComicData({ title, items }: ComicDataProps) {
         </button>
       </TitleContainer>
 
-      <div>
-        {sortedItems
-          .map((item, index) => (
+      {isLoading ? (
+        <p>Carregando...</p>
+      ) : (
+        <div>
+          {chapterData?.map((item) => (
             <Chapter
-              key={index}
-              number={item.number}
-              date={item.date}
-              variant={item.variant}
+              key={item.id}
+              id={item.id}
+              slug={item.slug}
+              number={item.numero}
+              name={item.descritivoCapitulo}
+              date={item.dataInclusao}
+              variant={isChapterOpen() ? 'regular' : 'fill'}
             />
-          ))
-          .reverse()}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -11,17 +11,21 @@ import { useNovelStore } from '@/store/useNovelStore';
 import { Tag } from '../common/Tag';
 
 export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
-  chapterId: string;
-  number: string;
-  date: Date | string;
+  id: string;
+  slug: string;
+  name: string;
+  number?: string;
+  date?: Date | string;
   variant?: 'regular' | 'fill';
   border?: 'bottom' | 'full';
 }
 
 export function Chapter({
-  chapterId,
+  id,
+  slug,
+  name,
   number,
-  date,
+  date = new Date(),
   variant = 'regular',
   border = 'bottom',
   className,
@@ -30,7 +34,7 @@ export function Chapter({
   const { setChapterId } = useNovelStore();
 
   const pathname = usePathname();
-  const chapterLink = `${pathname}/${chapterId}`;
+  const chapterLink = `${pathname}/${slug}`;
   const formatDate = new Date(date).toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',
@@ -39,15 +43,27 @@ export function Chapter({
   const tagText = variant === 'regular' ? 'Leia Agora' : 'Lido';
 
   const handleClick = () => {
-    setChapterId(chapterId);
+    setChapterId(id);
   };
 
-  const ChapterInfo = ({ number, date }: { number: string; date: string }) => {
+  const ChapterInfo = ({
+    name,
+    date,
+    number,
+  }: {
+    name: string;
+    date: string;
+    number: string;
+  }) => {
     return (
       <div className="flex flex-row items-center gap-2">
         <BookOpenText size={24} weight={variant} />
 
-        <span className="font-bold"> Capítulo {number}</span>
+        {number !== '' ? (
+          <span className="font-bold">Capítulo {number}</span>
+        ) : (
+          <span className="font-bold">{name}</span>
+        )}
         <DotOutline size={24} weight="fill" className="hidden md:inline" />
         <span className="hidden text-sm md:inline">{date}</span>
       </div>
@@ -65,7 +81,7 @@ export function Chapter({
       onClick={() => handleClick()}
       {...props}
     >
-      <ChapterInfo number={number} date={formatDate} />
+      <ChapterInfo name={name} number={number ?? ''} date={formatDate} />
 
       <span>
         <Tag variant={variant} text={tagText} />

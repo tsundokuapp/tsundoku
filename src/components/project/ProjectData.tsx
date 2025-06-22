@@ -1,26 +1,31 @@
 // Color Checked
 // Components Checked
 import Image from 'next/image';
+import { useEffect } from 'react';
 
+import { IGenres } from '@/@types/Api';
 import { TStatusNovel, TStatusComic } from '@/@types/System';
+import { useComicStore } from '@/store/useComicStore';
 
 import { CollapseText } from './CollapseText';
 import { Tag } from '../common/Tag';
 
 interface ProjectDataProps {
   src: string;
+  banner: string;
   title: string;
   altTitle: string;
   description: string;
   status: TStatusNovel | TStatusComic;
   author: string;
   artist: string;
-  genres: string[]; // o retorno da API é um array de strings nesse endpoint
+  genres: string[] | IGenres[]; // o retorno da API é um array de strings nesse endpoint
   note?: string;
 }
 
 export function ProjectData({
   src,
+  banner,
   title,
   altTitle,
   description,
@@ -30,6 +35,14 @@ export function ProjectData({
   status,
   note,
 }: ProjectDataProps) {
+  const { setComicBanner } = useComicStore();
+
+  useEffect(() => {
+    if (banner) {
+      setComicBanner(banner);
+    }
+  }, [banner]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const mapStatusToColor = (status: TStatusNovel | TStatusComic) => {
     switch (status) {
       case 'Em andamento':
@@ -43,6 +56,22 @@ export function ProjectData({
       default:
         return 'bg-gray-700';
     }
+  };
+
+  const renderGenres = (genres: string[] | IGenres[]) => {
+    if (!genres || genres.length === 0) return null;
+
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="font-bold">Gêneros:</span>
+        {genres.map((genre) => (
+          <Tag
+            key={typeof genre === 'string' ? genre : genre.slug}
+            text={typeof genre === 'string' ? genre : genre.descricao}
+          />
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -78,16 +107,7 @@ export function ProjectData({
           </li>
         </ul>
 
-        {genres && (
-          <div>
-            <p className="mb-2 text-sm font-bold">Tags:</p>
-            <p className="flex flex-row flex-wrap gap-2">
-              {genres.map((genre, index) => (
-                <Tag key={index} text={genre} />
-              ))}
-            </p>
-          </div>
-        )}
+        {renderGenres(genres)}
 
         {note && (
           <div className="mt-4 rounded-md bg-appHeaderHighlight p-4 opacity-80">

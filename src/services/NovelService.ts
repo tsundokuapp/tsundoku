@@ -1,4 +1,5 @@
 import {
+  IChapterComicData,
   IChapterNovelData,
   IPublicNovel,
   IPublicNovels,
@@ -10,6 +11,11 @@ import { api } from './api';
 interface IChapterNovel {
   total: number;
   data: IChapterNovelData;
+}
+
+interface IChapterComic {
+  total: number;
+  data: IChapterComicData;
 }
 
 export const getNovels = async (): Promise<IPublicNovels[]> => {
@@ -62,6 +68,18 @@ export const getVolumesNovelBySlug = async (
 ): Promise<IVolumesNovel[]> => {
   try {
     const response = await api.get(`/novels/volumes/slug/${slugNovel}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const getChaptersComic = async (
+  slugComic: string,
+): Promise<IChapterComic[]> => {
+  try {
+    const response = await api.get(`/comics/slug/${slugComic}`);
     return response.data;
   } catch (error) {
     console.error(error);
