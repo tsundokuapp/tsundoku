@@ -98,7 +98,7 @@ export default function Comics() {
         value={status}
         label={status || 'Filtrar Status'}
         className="w-[180px]"
-        onClear={() => findByStatus('Filtrar por Status')}
+        onClear={() => resetFilter()}
       >
         {STATUS_COMIC.map((item, index) => (
           <DropdownOption
@@ -119,7 +119,7 @@ export default function Comics() {
         value={genres}
         label={genres || 'Filtrar Gênero'}
         className="w-[190px]"
-        onClear={() => findByGenre('Filtrar por Gênero')}
+        onClear={() => resetFilter()}
       >
         {genresList.map((genre) => (
           <DropdownOption
@@ -132,6 +132,13 @@ export default function Comics() {
         ))}
       </DropdownContainer>
     );
+  };
+
+  const resetFilter = () => {
+    setStatus('Filtrar por Status');
+    setGenres('Filtrar por Gênero');
+    setSearch('');
+    setComicList(projectsResponse?.data);
   };
 
   return (
