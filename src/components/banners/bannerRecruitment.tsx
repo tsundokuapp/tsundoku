@@ -2,10 +2,11 @@
 // Components Checked
 import type { ComponentProps } from 'react';
 
+import { LINK_DISCORD } from '@/helpers/systemValues';
 import { cn } from '@/helpers/twUtils';
 
-import { LinkButton } from '../common/LinkButton';
 import { Banner } from './banner';
+import { LinkButton } from '../common/LinkButton';
 
 interface BannerRecruitmentProps extends ComponentProps<'div'> {
   className?: string;
@@ -37,6 +38,7 @@ export function BannerRecruitment({
         </span>
       </div>
       <LinkButton
+        action={LINK_DISCORD}
         text="Me inscrever"
         className={cn(
           'flex h-12 w-full max-w-xs items-center justify-center rounded-md bg-appBannerButton',
