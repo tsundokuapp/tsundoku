@@ -2,8 +2,10 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import {
   ApiResponse,
+  ApiResponseChapter,
   IChapterComic,
   IChapterNovel,
+  IImageChapterComic,
   IProjectRecomendations,
   IProjectsHome,
   IPublicComic,
@@ -16,6 +18,7 @@ import {
 import { IVolumeNovelApiPublic } from '@/@types/Volume';
 import { getComicBySlug, getComics } from '@/services/ComicService';
 import {
+  getChapterComicBySlug,
   getChapterNovel,
   getChaptersComic,
   getNovelBySlug,
@@ -134,5 +137,16 @@ export const useChapterComic = (
     queryKey: ['chapters-comic', comicSlug],
     queryFn: () => getChaptersComic(comicSlug),
     enabled: !!comicSlug,
+  });
+};
+
+export const usePublicComicAndChapterBySlug = (
+  slugComic: string,
+  slugChapter: string,
+): UseQueryResult<ApiResponseChapter<IImageChapterComic>> => {
+  return useQuery({
+    queryKey: ['public-comic-chapter', slugComic, slugChapter],
+    queryFn: () => getChapterComicBySlug(slugComic, slugChapter),
+    enabled: !!slugComic && !!slugChapter,
   });
 };

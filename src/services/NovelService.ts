@@ -1,6 +1,7 @@
 import {
   IChapterComicData,
   IChapterNovelData,
+  IImageChapterComic,
   IPublicNovel,
   IPublicNovels,
   IVolumesNovel,
@@ -84,5 +85,18 @@ export const getChaptersComic = async (
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+export const getChapterComicBySlug = async (
+  slugComic: string,
+  slugChapter: string,
+): Promise<IImageChapterComic> => {
+  try {
+    const response = await api.get(`/comics/${slugComic}/${slugChapter}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IImageChapterComic;
   }
 };

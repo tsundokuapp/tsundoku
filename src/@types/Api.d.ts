@@ -7,6 +7,12 @@ export interface ApiResponse<T> {
   total: number;
 }
 
+export interface ApiResponseChapter<T> {
+  data: T;
+  proxima: string;
+  anterior: string;
+}
+
 export interface IGenres {
   id: string;
   descricao: string;
@@ -246,6 +252,28 @@ export interface IChapterComic {
   proxima: string;
   anterior: string;
   data: IChapterComicData[];
+}
+
+export interface IListImageComic {
+  id: number;
+  url: string;
+  alt: string;
+  ordem: number;
+}
+
+export interface IImageChapterComic {
+  id: string;
+  numero: string;
+  parte: string;
+  slug: string;
+  usuarioInclusao: string;
+  usuarioAlteracao: string;
+  dataInclusao: string; // '04/03/2025 19:40:22'
+  dataAlteracao: string;
+  ordemCapitulo: number;
+  descritivoCapitulo: string;
+  publicado: boolean;
+  listaImagens: IListImageComic[];
 }
 
 // GENRES

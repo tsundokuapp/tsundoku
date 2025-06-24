@@ -12,14 +12,14 @@ interface ActionPageListProps extends ComponentProps<'div'> {
   scrollMode: ScrollMode;
   totalPages: number;
   showPage: number;
-  onPageChange?: (setPage: number) => void;
+  onPageChange: (setPage: number) => void;
 }
 
 export function ActionPageList({
   scrollMode,
   totalPages,
   showPage,
-  ...props
+  onPageChange,
 }: ActionPageListProps) {
   // Estou pensando se devemos separar isto em dois componentes...
   // ActionSinglePageList e ActionDoublePageList.
@@ -38,7 +38,7 @@ export function ActionPageList({
 
   const handlePageChange = (pageNumber: number) => {
     showPage = pageNumber;
-    props.onPageChange?.(pageNumber);
+    onPageChange(pageNumber);
   };
 
   return (

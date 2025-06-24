@@ -4,6 +4,7 @@
 import { SortAscending, SortDescending } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
+import { IChapterData } from '@/@types/Chapter';
 import { useChapterComic } from '@/hooks/usePublicApi';
 
 import { Chapter } from './Chapter';
@@ -13,16 +14,6 @@ import { TitleContainer } from '../common/TitleContainer';
 interface ComicDataProps {
   title: string;
   comicSlug: string;
-}
-
-interface IChapterData {
-  id: string;
-  numero: string;
-  publicado: boolean;
-  ordemCapitulo: number;
-  slug: string;
-  descritivoCapitulo: string;
-  dataInclusao: string;
 }
 
 export function ComicData({ title, comicSlug }: ComicDataProps) {

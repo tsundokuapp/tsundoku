@@ -1,10 +1,16 @@
 import Image from 'next/image';
-import React, { useRef, useEffect, type ComponentProps } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  type ComponentProps,
+  useCallback,
+} from 'react';
 
+import { IListImageComic } from '@/@types/Api';
 import { cn } from '@/helpers/twUtils';
 
 interface ComicInfiniteViewProps extends ComponentProps<'div'> {
-  images: string[];
+  images: IListImageComic[];
   updatePageNumber: (setPage: number) => void;
 }
 
@@ -15,29 +21,48 @@ export function ComicInfiniteView({
 }: ComicInfiniteViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleAnyScrollAction = () => {
-      const targetY = 73; // Posição 'alvo' para verificação da página
+  const observer = useRef<IntersectionObserver | null>(null);
 
-      images.forEach((_, index) => {
-        const imageIndex = index + 1;
-        const imageElement = document.getElementById(`page-${imageIndex}`);
-        if (imageElement) {
-          const rect = imageElement.getBoundingClientRect();
-
-          if (rect.top <= targetY && rect.bottom > targetY) {
-            updatePageNumber(imageIndex);
+  const handleIntersect = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const page = entry.target.getAttribute('data-page');
+          if (page) {
+            updatePageNumber(Number(page));
           }
         }
-      });
-    };
+      }
+    },
+    [updatePageNumber],
+  );
 
-    window.addEventListener('scroll', handleAnyScrollAction);
+  useEffect(() => {
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
+    observer.current = new IntersectionObserver(handleIntersect, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6,
+    });
+
+    const targets = containerRef.current?.querySelectorAll('[data-page]');
+    targets?.forEach((el) => observer.current?.observe(el));
 
     return () => {
-      window.removeEventListener('scroll', handleAnyScrollAction);
+      observer.current?.disconnect();
     };
-  }, [images, updatePageNumber]);
+  }, [images, handleIntersect]);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="text-gray-500">Capítulo não encontrado.</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -48,18 +73,22 @@ export function ComicInfiniteView({
       )}
     >
       <div className="flex flex-col items-center gap-2">
-        {images.map((src, index) => {
-          const pageNumber = index + 1;
+        {images.map((img, index) => {
           return (
-            <Image
-              key={pageNumber}
-              src={src}
-              alt={`Página ${pageNumber}`}
-              width={1114}
-              height={1600}
-              className="h-screen w-full select-none object-contain"
-              id={`page-${pageNumber}`}
-            />
+            <div key={img.id} data-page={index + 1}>
+              <Image
+                // verificar se é necessário o uso de blurDataURL
+                // placeholder="blur"
+                // blurDataURL="https://tsundoku.com.br/wp-content/uploads/2022/01/TsunBranca.png"
+                priority={true}
+                key={img.id}
+                src={img.url}
+                alt={`Página ${img.alt}`}
+                width={1114}
+                height={1600}
+                className="h-screen w-full select-none object-contain"
+              />
+            </div>
           );
         })}
       </div>
