@@ -149,6 +149,7 @@ export interface IProjectRecomendations {
 
 interface IPublicNovel {
   urlCapa: string;
+  urlBanner: string;
   alias: string;
   titulo: string;
   tituloAlternativo: string;

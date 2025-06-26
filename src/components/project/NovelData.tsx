@@ -5,9 +5,9 @@ import { SortDescending } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
 import { IVolumeNovelData } from '@/@types/Api';
-import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
+// import { mapResponseVolumeToVolumeZustand } from '@/helpers/mapResponseVolumeToVolumeZustand';
 import { useVolumesNovel } from '@/hooks/usePublicApi';
-import { useNovelStore } from '@/store/useNovelStore';
+// import { useNovelStore } from '@/store/useNovelStore';
 
 import { Volume } from './Volume';
 import { Title } from '../common/Title';
@@ -19,7 +19,7 @@ interface NovelDataProps {
 }
 
 export function NovelData({ title, novelId }: NovelDataProps) {
-  const { setVolumeList } = useNovelStore();
+  // const { setVolumeList } = useNovelStore();
   const { data: volumesNovelResponse, isLoading } = useVolumesNovel(novelId);
 
   const [isAscending, setIsAscending] = useState<boolean>(false);

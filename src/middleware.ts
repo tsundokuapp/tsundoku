@@ -17,8 +17,8 @@ const redirectForNovels = (url: URL): NextResponse | null => {
     const parts = url.pathname.split('/');
 
     if (parts.length === 4) {
-      const [, , slug, idChapter] = parts;
-      const newUrl = new URL(`/reader/novels/${slug}/${idChapter}`, url.origin);
+      const [, , slug, chapter] = parts;
+      const newUrl = new URL(`/reader/novels/${slug}/${chapter}`, url.origin);
 
       return NextResponse.redirect(newUrl);
     }

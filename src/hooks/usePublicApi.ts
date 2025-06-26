@@ -81,12 +81,12 @@ export const useVolumesNovel = (
 
 export const useChapterNovel = (
   slugNovel: string,
-  idChapter: string,
+  slugChapter: string,
 ): UseQueryResult<IChapterNovel> => {
   return useQuery({
-    queryKey: ['chapter-novel', idChapter],
-    queryFn: () => getChapterNovel(slugNovel, idChapter),
-    enabled: !!idChapter,
+    queryKey: ['chapter-novel', slugChapter],
+    queryFn: () => getChapterNovel(slugNovel, slugChapter),
+    enabled: !!slugChapter,
   });
 };
 

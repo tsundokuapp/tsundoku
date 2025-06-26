@@ -24,14 +24,14 @@ import { useChapterNovel } from '@/hooks/usePublicApi';
 export default function NovelReader() {
   const router = useRouter();
   const path = usePathname();
-  const idChapter = path.split('/').pop();
+  const slugChapter = path.split('/').pop();
   const slugObra = path.split('/')[3];
 
   const {
     data: chapterNovelResponse,
     isLoading,
     isError,
-  } = useChapterNovel(slugObra, idChapter!);
+  } = useChapterNovel(slugObra, slugChapter!);
 
   const { toaster } = useToaster();
 
@@ -61,7 +61,6 @@ export default function NovelReader() {
         msg: 'Último capítulo alcançado',
       });
     }
-    console.log(chapterNovelResponse?.proxima);
     const idNextChapter = chapterNovelResponse.proxima.split('/').pop();
     const finalLink = `/reader/novels/${slugObra}/${idNextChapter}`;
 
@@ -105,7 +104,7 @@ export default function NovelReader() {
         />
       </ReaderContainer>
 
-      {idChapter && (
+      {slugChapter && (
         <div className="flex items-center justify-between">
           <Button
             onClick={() => handlePreviousChapter()}

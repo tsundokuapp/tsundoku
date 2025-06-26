@@ -46,7 +46,7 @@ export function ActionChapterWithVolumeList() {
   const currentChapter = (volumes: IVolumeNovelApiPublic[]) => {
     for (const volume of volumes) {
       const chapter = volume.listaRetornoCapitulosNovel.find(
-        (chapter) => chapter.id === chapterURL,
+        (chapter) => chapter.slug === chapterURL,
       );
 
       if (chapter) {
@@ -57,8 +57,8 @@ export function ActionChapterWithVolumeList() {
     }
   };
 
-  const handleClick = (chapterId: string) => {
-    router.push(`/reader/novels/${projectSlug}/${chapterId}`);
+  const handleClick = (slugChapter: string) => {
+    router.push(`/reader/novels/${projectSlug}/${slugChapter}`);
   };
 
   return (
@@ -78,10 +78,10 @@ export function ActionChapterWithVolumeList() {
                   label={`Capítulo ${chapter.numero}`}
                   value={chapter.numero}
                   selected={
-                    chapterURL === chapter.id &&
+                    chapterURL === chapter.slug &&
                     volume.volume === currentVolumeDropdown
                   }
-                  action={() => handleClick(chapter.id)}
+                  action={() => handleClick(chapter.slug)}
                 />
               );
             })}

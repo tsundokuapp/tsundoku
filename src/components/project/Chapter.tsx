@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/helpers/twUtils';
-import { useNovelStore } from '@/store/useNovelStore';
 
 import { Tag } from '../common/Tag';
 
@@ -31,8 +30,6 @@ export function Chapter({
   className,
   ...props
 }: ChapterProps) {
-  const { setChapterId } = useNovelStore();
-
   const pathname = usePathname();
   const chapterLink = `${pathname}/${slug}`;
   const formatDate = new Date(date).toLocaleDateString('pt-BR', {
@@ -41,10 +38,6 @@ export function Chapter({
     day: 'numeric',
   });
   const tagText = variant === 'regular' ? 'Leia Agora' : 'Lido';
-
-  const handleClick = () => {
-    setChapterId(id);
-  };
 
   const ChapterInfo = ({
     name,
@@ -78,7 +71,6 @@ export function Chapter({
         'flex flex-row items-center justify-between border-appListBorder px-6 py-4 hover:bg-appListHover data-[border=full]:rounded-lg data-[border=full]:border data-[border=bottom]:border-b',
         className,
       )}
-      onClick={() => handleClick()}
       {...props}
     >
       <ChapterInfo name={name} number={number ?? ''} date={formatDate} />

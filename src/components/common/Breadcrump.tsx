@@ -30,7 +30,7 @@ export function Breadcrump({
   });
 
   if (isReader) {
-    paths.splice(-2, 2);
+    paths.splice(-1, 1);
   }
 
   while (sufixList.length < paths.length) {

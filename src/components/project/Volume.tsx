@@ -78,9 +78,8 @@ export function Volume({
                 <Chapter
                   key={chapter.id}
                   id={chapter.id}
-                  slug={chapter.id}
-                  name={chapter.tituloCapitulo}
-                  number={chapter.numeroCapitulo}
+                  slug={chapter.slugCapitulo}
+                  name={`Capítulo ${chapter.numeroCapitulo}: ${chapter.tituloCapitulo}`}
                   date={chapter.dataInclusao}
                 />
               </div>
