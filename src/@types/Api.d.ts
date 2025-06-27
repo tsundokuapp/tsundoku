@@ -283,3 +283,20 @@ export interface IPublicGenres {
   descricao: string;
   slug: string;
 }
+
+// SEARCH
+
+export interface IWorkData {
+  id: string;
+  slug: string;
+  titulo: string;
+  alias: string;
+  capa: string;
+  tipo: 'Manga' | 'Manhwa' | 'Light Novel' | 'Web Novel' | 'Manhua';
+  sinopse: string;
+}
+
+export interface IWork {
+  total: number;
+  data: IWorkData[];
+}

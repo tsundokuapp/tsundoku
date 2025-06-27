@@ -14,6 +14,7 @@ import {
   IPublicNovel,
   IPublicNovels,
   IVolumesNovel,
+  IWork,
 } from '@/@types/Api';
 import { IVolumeNovelApiPublic } from '@/@types/Volume';
 import { getComicBySlug, getComics } from '@/services/ComicService';
@@ -30,6 +31,7 @@ import {
   getGenres,
   getProjects,
   getRecomendations,
+  getWorksBySearch,
 } from '@/services/ProjectService';
 
 export const useRecomendations = (): UseQueryResult<
@@ -148,5 +150,15 @@ export const usePublicComicAndChapterBySlug = (
     queryKey: ['public-comic-chapter', slugComic, slugChapter],
     queryFn: () => getChapterComicBySlug(slugComic, slugChapter),
     enabled: !!slugComic && !!slugChapter,
+  });
+};
+
+export const usePublicSearchWorks = (
+  searchTerm: string,
+): UseQueryResult<IWork> => {
+  return useQuery({
+    queryKey: ['public-search-works', searchTerm],
+    queryFn: () => getWorksBySearch(searchTerm),
+    enabled: !!searchTerm,
   });
 };

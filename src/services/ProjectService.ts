@@ -2,6 +2,7 @@ import {
   IProjectRecomendations,
   IProjectsHome,
   IPublicGenres,
+  IWork,
 } from '@/@types/Api';
 
 import { api } from './api';
@@ -35,5 +36,17 @@ export const getGenres = async (): Promise<IPublicGenres[]> => {
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+export const getWorksBySearch = async (searchTerm: string): Promise<IWork> => {
+  try {
+    const response = await api.get(
+      `/obras/pesquisa?obra=${encodeURIComponent(searchTerm)}`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IWork;
   }
 };
