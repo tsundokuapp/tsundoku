@@ -20,7 +20,7 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
       <HeaderBar className="z-10" />
       {parts.length > 2 && (
-        <div className="relative h-auto max-h-64 w-full overflow-hidden blur-sm">
+        <div className="relative h-auto max-h-64 w-full overflow-hidden">
           <Image
             src={comicBanner}
             overrideSrc="/banner.jpg"

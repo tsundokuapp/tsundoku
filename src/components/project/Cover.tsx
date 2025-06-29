@@ -23,8 +23,18 @@ export function Cover({
   children,
   text = '',
 }: CoverProps) {
-  const normalizedCategory = category === 'Mangá' ? 'comics' : 'novels';
-  const actionByHome = `${normalizedCategory}/${actionHome}`;
+  const PathToNavigate = (slug: string, type: string) => {
+    if (!slug) {
+      return '/';
+    }
+
+    if (type === 'Light Novel' || type === 'Web Novel') {
+      return `/novels/${slug}`;
+    }
+    return `/comics/${slug}`;
+  };
+
+  const actionByHome = PathToNavigate(actionHome!, category);
 
   return (
     <Link
