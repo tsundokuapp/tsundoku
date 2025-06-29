@@ -72,8 +72,8 @@ export function ThemeToggle() {
       </button>
 
       {isOpen && (
-        <EnterAnimation delay={0.3} className="absolute z-10">
-          <ul className="absolute mt-2 w-36 rounded-md bg-appMenuBackground p-1 shadow-md">
+        <EnterAnimation delay={0.3} className="relative z-10">
+          <ul className="absolute right-0 mt-2 w-36 rounded-md bg-appMenuBackground p-1 shadow-md">
             {themeOptions.map(({ label, value }) => (
               <li
                 key={value}

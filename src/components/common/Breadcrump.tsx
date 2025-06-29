@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ComponentProps } from 'react';
 
+import { cn } from '@/helpers/twUtils';
+
 interface BreadcrumpProps extends ComponentProps<'nav'> {
   removeList?: string[];
   sufixList?: string[];
@@ -38,8 +40,11 @@ export function Breadcrump({
   }
 
   return (
-    <nav className={className} {...props}>
-      <ol className="flex flex-row gap-4">
+    <nav
+      className={cn('flex items-center justify-center', className)}
+      {...props}
+    >
+      <ol className="flex flex-row items-center justify-center gap-4">
         <li>
           <Link
             href="/"
