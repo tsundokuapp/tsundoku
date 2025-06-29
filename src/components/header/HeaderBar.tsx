@@ -6,7 +6,7 @@ import {
   DiscordLogo,
   User,
 } from '@phosphor-icons/react/dist/ssr';
-import { useState, useRef, useEffect, type ComponentProps } from 'react';
+import { type ComponentProps } from 'react';
 
 import { useSearchBar } from '@/contexts/SearchBarContext';
 import { cn } from '@/helpers/twUtils';
@@ -14,55 +14,16 @@ import { cn } from '@/helpers/twUtils';
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
 import { HeaderMenu } from './HeaderMenu';
-import { HeaderSearch } from './HeaderSearch';
 import { LogoLink } from '../common/logoLink/LogoLink';
 import { ThemeToggle } from '../theme/ThemeToogle';
 
 type HeaderBarProps = ComponentProps<'header'>;
 
 export function HeaderBar({ className, ...props }: HeaderBarProps) {
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const { isSearchBarVisible, closeSearchBar } = useSearchBar();
-
-  useEffect(() => {
-    const checkClickOutsideHeader = (event: MouseEvent) => {
-      const headerElement = document.querySelector('header');
-      if (headerElement && !headerElement.contains(event.target as Node)) {
-        setIsSearchActive(false);
-        closeSearchBar();
-      }
-    };
-
-    const checkKeyPress = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsSearchActive(false);
-        closeSearchBar();
-      }
-    };
-
-    if (isSearchActive) {
-      document.addEventListener('mousedown', checkClickOutsideHeader);
-      document.addEventListener('keydown', checkKeyPress);
-    } else {
-      document.removeEventListener('mousedown', checkClickOutsideHeader);
-      document.removeEventListener('keydown', checkKeyPress);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', checkClickOutsideHeader);
-      document.removeEventListener('keydown', checkKeyPress);
-    };
-  }, [closeSearchBar, isSearchActive]);
-
-  useEffect(() => {
-    if (isSearchBarVisible) {
-      setIsSearchActive(true);
-    }
-  }, [isSearchBarVisible]);
+  const { isSearchBarVisible, openSearchBar } = useSearchBar();
 
   const handleSearchButton = () => {
-    setIsSearchActive(true);
+    openSearchBar();
   };
 
   return (
@@ -77,21 +38,15 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
       <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between">
         <LogoLink />
 
-        <div className="mx-4 hidden items-center gap-6 lg:flex">
-          {isSearchActive ? (
-            <div ref={searchRef}>
-              <HeaderSearch autoFocus />
-            </div>
-          ) : (
-            <>
-              <HeaderLink text="Home" />
-              <HeaderLink text="Novels" action="/novels" />
-              <HeaderLink text="Comics" action="/comics" />
-              <HeaderLink text="Blog" action="/blog" />
-              <HeaderLink text="Sobre Nós" action="/about" />
-            </>
-          )}
-        </div>
+        {!isSearchBarVisible && (
+          <div className="mx-4 hidden items-center gap-6 lg:flex">
+            <HeaderLink text="Home" />
+            <HeaderLink text="Novels" action="/novels" />
+            <HeaderLink text="Comics" action="/comics" />
+            <HeaderLink text="Blog" action="/blog" />
+            <HeaderLink text="Sobre Nós" action="/about" />
+          </div>
+        )}
 
         <div className="hidden items-center gap-4 lg:flex">
           <HeaderIcon onClick={() => handleSearchButton()}>

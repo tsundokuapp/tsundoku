@@ -18,7 +18,7 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
-      <HeaderBar className="z-50" />
+      <HeaderBar className="z-10" />
       {parts.length > 2 && (
         <div className="relative h-auto max-h-64 w-full overflow-hidden blur-sm">
           <Image

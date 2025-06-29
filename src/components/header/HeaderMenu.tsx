@@ -48,7 +48,11 @@ export function HeaderMenu() {
         </div>
         <div className="flex-1 p-12">
           <div className="flex flex-col gap-6">
-            <HeaderSearch icon="Search" className="w-full" ref={searchRef} />
+            <HeaderSearch
+              icon="Search"
+              className="w-full"
+              onOpenChangeDialog={setOpen}
+            />
             <DialogClose asChild>
               <HeaderLink
                 className="mt-12 pb-1 text-xl sm:text-xl"
