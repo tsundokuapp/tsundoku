@@ -69,7 +69,7 @@ export interface IVolumeNovelData {
   sinopse: string;
   slugVolume: string;
   urlCapaVolume: string;
-  titulo?: string; // Esse campo ainda não existe no retorno da API
+  tituloVolume: string;
   listaCapitulos: IChapterListNovelVolume[];
 }
 

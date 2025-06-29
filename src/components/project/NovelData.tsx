@@ -68,8 +68,8 @@ export function NovelData({ title, novelId }: NovelDataProps) {
             <Volume
               key={volume.id}
               cover={volume.urlCapaVolume}
-              title={'Volume (ausente na API)'}
-              subTitle={'Subtitulo (ausente na API)'}
+              title={`Volume ${volume.numeroVolume}`}
+              subTitle={volume.tituloVolume}
               sinopse={volume.sinopse}
               chapters={volume.listaCapitulos}
               volumeNumber={volume.numeroVolume}
