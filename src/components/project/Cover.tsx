@@ -52,7 +52,7 @@ export function Cover({
         {children}
         <div
           data-text={text}
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 transform justify-center rounded-full bg-appHighlight px-3 py-1.5 text-xs font-bold uppercase text-appHighlightText shadow-xl data-[text='']:hidden"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 transform justify-center text-nowrap rounded-full bg-appHighlight px-3 py-1.5 text-xs font-bold uppercase text-appHighlightText shadow-xl data-[text='']:hidden"
         >
           {text}
         </div>

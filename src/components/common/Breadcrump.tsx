@@ -68,7 +68,7 @@ export function Breadcrump({
             return (
               <li
                 key={pathLink}
-                className="flex flex-row items-center gap-4 capitalize"
+                className="hidden flex-row items-center gap-4 capitalize md:flex"
               >
                 <DotOutline size={24} weight="fill" />
 

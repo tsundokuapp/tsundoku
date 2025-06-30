@@ -35,7 +35,7 @@
   --app-color-search-text: var(--color-white);
   /* Grupo */
   --app-color-group-background: var(--color-stone-200);
-  --app-color-group-hover: var(--color-stone-300);
+  --app-color-group-hover: var(--color-stone-400);
   --app-color-group-text: var(--color-stone-900);
   /* Inputs */
   --app-color-input-background: var(--color-white);

@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { Poppins, Merriweather } from 'next/font/google';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -21,6 +22,16 @@ import { NovelInfiniteView } from '@/components/reader/novel/NovelInfiniteView';
 import { useToaster } from '@/contexts/ToasterContext';
 import { useChapterNovel } from '@/hooks/usePublicApi';
 
+const poppinsFont = Poppins({
+  weight: '400',
+  subsets: ['latin'],
+});
+
+const merriweatherFont = Merriweather({
+  weight: '400',
+  subsets: ['latin'],
+});
+
 export default function NovelReader() {
   const router = useRouter();
   const path = usePathname();
@@ -39,8 +50,9 @@ export default function NovelReader() {
     useState<IFontSizeList>('text-base');
   const [currentLineHeight, setCurrentLineHeight] =
     useState<IFontLineHeight>('leading-6');
-  const [currentFontFamily, setCurrentFontFamily] =
-    useState<IFontFamiliesList>('Poppins');
+  const [currentFontFamily, setCurrentFontFamily] = useState(
+    poppinsFont.className,
+  );
 
   const handleFontSizeChange = (fontSize: IFontSizeList) => {
     setCurrentFontSize(fontSize);
@@ -51,7 +63,12 @@ export default function NovelReader() {
   };
 
   const handleFontFamilyChange = (fontFamily: IFontFamiliesList) => {
-    setCurrentFontFamily(fontFamily);
+    if (fontFamily === 'Poppins') {
+      setCurrentFontFamily(poppinsFont.className);
+    }
+    if (fontFamily === 'Merriweather') {
+      setCurrentFontFamily(merriweatherFont.className);
+    }
   };
 
   const handleNextChapter = () => {

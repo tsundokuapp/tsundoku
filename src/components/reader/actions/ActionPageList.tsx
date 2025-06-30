@@ -1,3 +1,4 @@
+import { Images } from '@phosphor-icons/react/dist/ssr';
 import { type ComponentProps } from 'react';
 
 import type { ScrollMode } from '@/@types/ScrollMode';

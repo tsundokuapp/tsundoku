@@ -7,6 +7,18 @@ import { useProjects } from '@/hooks/usePublicApi';
 
 export function UpdatedProjectsList() {
   const { data: projectsResponse, isLoading } = useProjects();
+  const currentChapter = (chapter: string) => {
+    if (!chapter) return '';
+
+    const isChapterNumber = /^\d+$/.test(chapter);
+
+    if (!isChapterNumber) {
+      return chapter;
+    }
+
+    return `Capítulo ${chapter}`;
+  };
+
   return (
     <AsyncSection
       title="Atualizados Recentemente"
@@ -20,6 +32,7 @@ export function UpdatedProjectsList() {
           title={item.aliasObra}
           category={item.tipoObra}
           actionHome={item.slugObra}
+          text={currentChapter(item.numeroCapitulo)}
         />
       ))}
     </AsyncSection>
