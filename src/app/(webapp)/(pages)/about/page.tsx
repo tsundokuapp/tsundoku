@@ -1,24 +1,27 @@
+'use client';
 // Color Checked
 // Components Checked
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/shadcn/accordion';
+import { Accordion as AccordionTsun } from '@/components/common/Accordion';
+import { Title } from '@/components/common/Title';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@/components/shadcn/avatar';
 
+const ItemAccordionTsun = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex w-full space-x-4 border-b border-b-gray-200 p-4">
+      {children}
+    </div>
+  );
+};
+
 export default function About() {
   return (
     <div className="flex flex-1 flex-col items-center gap-12">
       <div className="flex w-[800px] flex-col gap-4">
-        <h1 className="mb-6 text-2xl font-bold uppercase">
-          BEM-VINDO À TSUNDOKU TRADUÇÕES
-        </h1>
+        <Title title="BEM-VINDO À TSUNDOKU TRADUÇÕES" />
         <p>
           Surgimos em uma noite, quando certo alguém foi beber cerveja e
           acidentalmente comprou um site, mas só apareceu para explicar a
@@ -46,103 +49,75 @@ export default function About() {
           acessar Formas de Apoio.
         </p>
       </div>
-      <div className="w-[800px]">
-        <h1 className="mb-6 text-2xl font-bold uppercase">Nossa Equipe</h1>
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="Administradores">
-            <AccordionTrigger>Administradores</AccordionTrigger>
-            <AccordionContent>
-              <div className="flex w-full space-x-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg" />
-                  <AvatarFallback>BR</AvatarFallback>
-                </Avatar>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-semibold">Bravo</h4>
-                  <p className="text-sm">
-                    &quot;Pense positivo e deixe o universo fazer seu
-                    trabalho.&quot;
-                  </p>
-                  <div className="items-left flex w-full flex-col pt-2">
-                    <span className="text-muted-foreground text-xs font-bold">
-                      Obras Favoritas:
-                    </span>
-                    <span className="text-muted-foreground text-xs">
-                      Mushoku Tensei, Bruxa Errante e Sua História
-                    </span>
-                  </div>
+      <div className="flex w-[800px] flex-col gap-4">
+        <Title title="Nossa Equipe" />
+        <AccordionTsun title="Administradores">
+          <section className="flex flex-col gap-4">
+            <ItemAccordionTsun>
+              <Avatar className="h-16 w-16">
+                <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg" />
+                <AvatarFallback>BR</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">Bravo</h4>
+                <p className="text-sm">
+                  &quot;Pense positivo e deixe o universo fazer seu
+                  trabalho.&quot;
+                </p>
+                <div className="items-left flex w-full flex-col pt-2">
+                  <span className="text-muted-foreground text-xs font-bold">
+                    Obras Favoritas:
+                  </span>
+                  <span className="text-muted-foreground text-xs">Bleach.</span>
                 </div>
               </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="Moderadores">
-            <AccordionTrigger>Moderadores</AccordionTrigger>
-            <AccordionContent>
-              <div className="items-left flex w-full flex-col gap-10">
-                <div className="flex w-full space-x-4">
-                  <Avatar className="h-16 w-16">
-                    <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg" />
-                    <AvatarFallback>BR</AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-semibold">Bravo</h4>
-                    <p className="text-sm">
-                      &quot;Pense positivo e deixe o universo fazer seu
-                      trabalho.&quot;
-                    </p>
-                    <div className="items-left flex w-full flex-col pt-2">
-                      <span className="text-muted-foreground text-xs font-bold">
-                        Obras Favoritas:
-                      </span>
-                      <span className="text-muted-foreground text-xs">
-                        Mushoku Tensei, Bruxa Errante e Sua História
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex w-full space-x-4">
-                  <Avatar className="h-16 w-16">
-                    <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg" />
-                    <AvatarFallback>BR</AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-semibold">Bravo</h4>
-                    <p className="text-sm">
-                      &quot;Pense positivo e deixe o universo fazer seu
-                      trabalho.&quot;
-                    </p>
-                    <div className="items-left flex w-full flex-col pt-2">
-                      <span className="text-muted-foreground text-xs font-bold">
-                        Obras Favoritas:
-                      </span>
-                      <span className="text-muted-foreground text-xs">
-                        Mushoku Tensei, Bruxa Errante e Sua História
-                      </span>
-                    </div>
-                  </div>
+            </ItemAccordionTsun>
+            <ItemAccordionTsun>
+              <Avatar className="h-16 w-16">
+                <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5779201-K07pMJG3aJAn.png" />
+                <AvatarFallback>BR</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">Axios</h4>
+                <p className="text-sm">
+                  &quot;Violência e dinheiro só não resolve se for pouco.&quot;
+                </p>
+                <div className="items-left flex w-full flex-col pt-2">
+                  <span className="text-muted-foreground text-xs font-bold">
+                    Obras Favoritas:
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    Bruxa Errante: A Jornada de Elaina.
+                  </span>
                 </div>
               </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="Editores">
-            <AccordionTrigger>Editores</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="Revisores">
-            <AccordionTrigger>Revisores</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="Tradutores">
-            <AccordionTrigger>Tradutores</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+            </ItemAccordionTsun>
+          </section>
+        </AccordionTsun>
+
+        <AccordionTsun title="Editores">
+          <section className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex w-full space-x-4">
+              <p>Em breve</p>
+            </div>
+          </section>
+        </AccordionTsun>
+
+        <AccordionTsun title="Tradutores">
+          <section className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex w-full space-x-4">
+              <p>Em breve</p>
+            </div>
+          </section>
+        </AccordionTsun>
+
+        <AccordionTsun title="Revisores">
+          <section className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex w-full space-x-4">
+              <p>Em breve</p>
+            </div>
+          </section>
+        </AccordionTsun>
       </div>
     </div>
   );
