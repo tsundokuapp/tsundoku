@@ -33,10 +33,12 @@ export default function ComicReader({ images }: ComicReaderProps) {
   const slugComic = pathname.split('/')[3];
 
   const [chapterListData, setChapterListData] = useState<IChapterData[]>([]);
+  const comicContainerRef = useRef<HTMLDivElement>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
 
   const { data: imageChapterResponse, isLoading } =
     usePublicComicAndChapterBySlug(slugComic, slugChapter!);
-
   const { data: chapterComicResponse } = useChapterComic(slugComic);
 
   useEffect(() => {
@@ -57,12 +59,6 @@ export default function ComicReader({ images }: ComicReaderProps) {
   }, [chapterComicResponse?.data]);
 
   images = fakeComicChapter.images;
-
-  const comicContainerRef = useRef<HTMLDivElement>(null);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
 
   const handleScrollModeChange = (mode: ScrollMode) => {
     setScrollMode(mode);

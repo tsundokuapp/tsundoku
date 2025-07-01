@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 
-import { HEIGHT_INSIDE_READER } from '@/helpers/systemValues';
+// import { HEIGHT_INSIDE_READER } from '@/helpers/systemValues';
 
 import { PageSliderLeft } from './PageSliderLeft';
 import { PageSliderRight } from './PageSliderRight';
@@ -23,6 +23,25 @@ export function PageSliderContainer({
 }: PageSliderContainerProps) {
   const [allowPreviousPage, setAllowPreviousPage] = useState(false);
   const [allowNextPage, setAllowNextPage] = useState(true);
+
+  // observa o pressionar das setas para avançar ou retroceder páginas
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft' && allowPreviousPage) {
+        updatePageNumber(currentPage - steps);
+      }
+
+      if (event.key === 'ArrowRight' && allowNextPage) {
+        updatePageNumber(currentPage + steps);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentPage, allowPreviousPage, allowNextPage, steps, updatePageNumber]);
 
   useEffect(() => {
     const previousPage = currentPage - steps;
