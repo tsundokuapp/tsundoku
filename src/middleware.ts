@@ -1,7 +1,18 @@
+// Descomentar apenas se estiver usando o Vercel Edge Config, para evitar erros no console
+// import { get } from '@vercel/edge-config';
 import { NextRequest, NextResponse } from 'next/server';
+
+export const config = {
+  // matcher para todas as rotas
+  matcher: '/(.*)',
+};
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
+
+  // if (process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true') {
+  //   isInMaintenanceMode(req);
+  // }
 
   const novelRedirect = redirectForNovels(url);
   if (novelRedirect) return novelRedirect;
@@ -38,4 +49,15 @@ const redirectForComics = (url: URL): NextResponse | null => {
     }
   }
   return null;
+};
+
+const isInMaintenanceMode = async (req: NextRequest) => {
+  // Verifica se a aplicação está em modo de manutenção
+  const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode');
+
+  if (isInMaintenanceMode) {
+    req.nextUrl.pathname = `/maintenance`;
+
+    return NextResponse.rewrite(req.nextUrl);
+  }
 };
