@@ -16,10 +16,16 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    remotePatterns: hostnames.map((hostname) => ({
-      protocol: 'https',
-      hostname,
-    })),
+    remotePatterns: hostnames.flatMap((hostname) => [
+      {
+        protocol: 'https',
+        hostname,
+      },
+      {
+        protocol: 'http',
+        hostname,
+      },
+    ]),
   },
 };
 
