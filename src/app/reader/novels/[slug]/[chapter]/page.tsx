@@ -116,6 +116,8 @@ export default function NovelReader() {
           fontFamily={currentFontFamily}
           contentChapter={chapterNovelResponse?.data?.conteudoNovel as string}
           titleChapter={chapterNovelResponse?.data?.titulo as string}
+          isIlustration={chapterNovelResponse?.data?.ehIlustracoesNovel}
+          ilustrationsUrl={chapterNovelResponse?.data?.listaImagens}
           isLoading={isLoading}
           isError={isError}
         />

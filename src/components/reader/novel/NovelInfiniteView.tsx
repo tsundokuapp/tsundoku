@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import { IIlustrationUrls } from '@/@types/Api';
 import {
   IFontFamiliesList,
   IFontLineHeight,
@@ -11,6 +14,8 @@ interface NovelInfiniteViewProps {
   fontFamily: IFontFamiliesList | string;
   contentChapter: string;
   titleChapter: string;
+  isIlustration?: boolean;
+  ilustrationsUrl?: IIlustrationUrls[];
   isLoading: boolean;
   isError: boolean;
 }
@@ -21,6 +26,8 @@ export function NovelInfiniteView({
   fontFamily,
   contentChapter,
   titleChapter,
+  isIlustration,
+  ilustrationsUrl,
   isLoading,
   isError,
 }: NovelInfiniteViewProps) {
@@ -44,6 +51,36 @@ export function NovelInfiniteView({
     );
   };
 
+  const ProcessingContentIllustration = ({
+    ilustrations,
+    className,
+  }: {
+    ilustrations: IIlustrationUrls[];
+    className?: string;
+  }) => {
+    return (
+      <div
+        className={cn(
+          'prose prose-img:mx-auto prose-img:my-8 prose-img:max-w-full',
+          className,
+        )}
+      >
+        {ilustrations.map((ilustration) => (
+          <div key={ilustration.id} className="my-4">
+            <Image
+              width={1024}
+              height={768}
+              priority
+              src={ilustration.url}
+              alt={ilustration.alt}
+              className="mx-auto max-w-full"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <article className="my-4 max-w-[1000px] rounded-lg bg-appBackground px-16 py-16 text-appText">
       {isLoading ? (
@@ -53,7 +90,14 @@ export function NovelInfiniteView({
           <h1 className="text-center text-3xl font-bold text-appText">
             {titleChapter || 'Capítulo não encontrado'}
           </h1>
-          <ProcessingContentHTML content={contentChapter} />
+          {isIlustration ? (
+            <ProcessingContentIllustration
+              ilustrations={ilustrationsUrl!}
+              className="my-8"
+            />
+          ) : (
+            <ProcessingContentHTML content={contentChapter} />
+          )}
         </>
       )}
     </article>

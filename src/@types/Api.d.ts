@@ -92,13 +92,20 @@ export interface IChapterNovelAdminData {
   publicado: boolean;
 }
 
+export interface IIlustrationUrls {
+  id: number;
+  url: string;
+  alt: string;
+  ordem: number;
+}
+
 export interface IChapterNovelData {
   id: string;
   conteudoNovel: string | HTMLElement;
   dataAlteracao: string;
   dataInclusao: string;
   descritivoCapitulo: string;
-  listaImagens?: string[];
+  listaImagens?: IIlustrationUrls[];
   numero: string;
   ordemCapitulo: number;
   parte?: string;
