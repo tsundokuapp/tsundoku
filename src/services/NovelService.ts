@@ -21,7 +21,7 @@ interface IChapterComic {
 
 export const getNovels = async (): Promise<IPublicNovels[]> => {
   try {
-    const response = await api.get('/obras/novels');
+    const response = await api.get('/obras/novels?take=999');
     return response.data;
   } catch (error) {
     console.error(error);

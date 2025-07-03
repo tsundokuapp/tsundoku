@@ -4,7 +4,7 @@ import { api } from './api';
 
 export const getComics = async (): Promise<IPublicComics[]> => {
   try {
-    const response = await api.get('/obras/comics');
+    const response = await api.get('/obras/comics?take=999');
     return response.data;
   } catch (error) {
     console.error(error);
