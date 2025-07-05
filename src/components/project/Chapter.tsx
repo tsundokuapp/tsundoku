@@ -10,7 +10,6 @@ import { cn } from '@/helpers/twUtils';
 import { Tag } from '../common/Tag';
 
 export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
-  id: string;
   slug: string;
   name: string;
   number?: string;
@@ -20,7 +19,6 @@ export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
 }
 
 export function Chapter({
-  id,
   slug,
   name,
   number,
