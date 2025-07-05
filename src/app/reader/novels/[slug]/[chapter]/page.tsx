@@ -133,13 +133,22 @@ export default function NovelReader() {
             <p>Anterior</p>
           </Button>
 
-          <Button
-            onClick={() => handleNextChapter()}
-            className="hover:bg-appBackground/80 flex items-center gap-2 bg-appBackground text-appText"
-          >
-            <p>Próximo</p>
-            <ArrowRight size={24} />
-          </Button>
+          {chapterNovelResponse?.proxima ? (
+            <Button
+              onClick={() => handleNextChapter()}
+              className="hover:bg-appBackground/80 flex items-center gap-2 bg-appBackground text-appText"
+            >
+              <p>Próximo</p>
+              <ArrowRight size={24} />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => router.push(`/novels/${slugObra}`)}
+              className="hover:bg-appBackground/80 flex items-center gap-2 text-nowrap bg-appBackground text-appText"
+            >
+              <p>Retornar para obra</p>
+            </Button>
+          )}
         </div>
       )}
     </div>
