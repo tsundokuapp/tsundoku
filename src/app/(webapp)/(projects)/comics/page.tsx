@@ -12,7 +12,7 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { STATUS_COMIC } from '@/helpers/systemValues';
+import { ORDER_BY, STATUS_COMIC, TOrderBy } from '@/helpers/systemValues';
 import { usePublicComics, usePublicGenres } from '@/hooks/usePublicApi';
 
 export default function Comics() {
@@ -23,6 +23,7 @@ export default function Comics() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
+  const [orderBy, setOrderBy] = useState('Padrão');
   const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
   const [comicList, setComicList] = useState<IPublicComics[]>();
 
@@ -141,6 +142,78 @@ export default function Comics() {
     setComicList(projectsResponse?.data);
   };
 
+  const OrganizeBy = () => {
+    if (!comicList) return;
+
+    const orderByToken = (item: TOrderBy) => {
+      if (item === orderBy) return;
+
+      setOrderBy(item);
+
+      let sortedList: IPublicComics[] = [];
+
+      switch (item) {
+        case 'A-Z':
+          sortedList = [...comicList].sort((a, b) =>
+            a.titulo.localeCompare(b.titulo),
+          );
+          break;
+        case 'Z-A':
+          sortedList = [...comicList].sort((a, b) =>
+            b.titulo.localeCompare(a.titulo),
+          );
+          break;
+        // case 'Mais recentes':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(b.dataLancamento).getTime() -
+        //       new Date(a.dataLancamento).getTime(),
+        //   );
+        //   break;
+        // case 'Mais antigos':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(a.dataLancamento).getTime() -
+        //       new Date(b.dataLancamento).getTime(),
+        //   );
+        //   break;
+        // case 'Lançamento':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(b.dataLancamento).getTime() -
+        //       new Date(a.dataLancamento).getTime(),
+        //   );
+        //   break;
+        default:
+          // volta para o original
+          sortedList = projectsResponse?.data || [];
+      }
+
+      setComicList(sortedList);
+    };
+
+    return (
+      <DropdownContainer
+        value={orderBy}
+        label={orderBy || 'Organizar por'}
+        className="w-full sm:w-[180px]"
+        onClear={() => {
+          orderByToken('Organizar por');
+        }}
+      >
+        {ORDER_BY.map((item, index) => (
+          <DropdownOption
+            key={index}
+            label={item}
+            onClick={() => orderByToken(item)}
+            value={item}
+            selected={item === orderBy}
+          />
+        ))}
+      </DropdownContainer>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <Title title="Comics da Tsun" />
@@ -153,6 +226,7 @@ export default function Comics() {
       <div className="flex flex-row items-center justify-start gap-4">
         <FilterByStatus />
         <FilterByGenres />
+        <OrganizeBy />
       </div>
       <AsyncSection isLoading={isLoading} className="mt-8">
         {!comicList ? (
