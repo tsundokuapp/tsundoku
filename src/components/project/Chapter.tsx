@@ -74,7 +74,7 @@ export function Chapter({
       <ChapterInfo name={name} number={number ?? ''} date={formatDate} />
 
       <span>
-        <Tag variant={variant} text={tagText} />
+        <Tag className="text-nowrap" variant={variant} text={tagText} />
       </span>
     </Link>
   );
