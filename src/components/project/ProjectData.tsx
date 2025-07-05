@@ -44,14 +44,15 @@ export function ProjectData({
   }, [banner]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const mapStatusToColor = (status: TStatusNovel | TStatusComic) => {
-    switch (status) {
-      case 'Em andamento':
+    const statusNormalized = status.toLowerCase();
+    switch (statusNormalized) {
+      case 'em andamento':
         return 'bg-green-700';
-      case 'Hiato':
+      case 'hiato':
         return 'bg-yellow-700';
-      case 'Cancelado':
+      case 'cancelado':
         return 'bg-red-700';
-      case 'Concluído':
+      case 'concluído':
         return 'bg-blue-700';
       default:
         return 'bg-gray-700';

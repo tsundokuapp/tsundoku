@@ -12,7 +12,7 @@ import { SearchTable } from '@/components/common/table';
 import { NoContent } from '@/components/noContent';
 import { Cover } from '@/components/project/Cover';
 import { Debounce } from '@/helpers/Debounce';
-import { STATUS_NOVEL } from '@/helpers/systemValues';
+import { ORDER_BY, STATUS_NOVEL, TOrderBy } from '@/helpers/systemValues';
 import { usePublicGenres, usePublicNovels } from '@/hooks/usePublicApi';
 
 export default function Novels() {
@@ -22,6 +22,7 @@ export default function Novels() {
 
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
+  const [orderBy, setOrderBy] = useState('Padrão');
   const [genres, setGenres] = useState('Filtrar por Gênero');
   const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
 
@@ -145,6 +146,78 @@ export default function Novels() {
     );
   };
 
+  const OrganizeBy = () => {
+    if (!novelList) return;
+
+    const orderByToken = (item: TOrderBy) => {
+      if (item === orderBy) return;
+
+      setOrderBy(item);
+
+      let sortedList: IPublicNovels[] = [];
+
+      switch (item) {
+        case 'A-Z':
+          sortedList = [...novelList].sort((a, b) =>
+            a.titulo.localeCompare(b.titulo),
+          );
+          break;
+        case 'Z-A':
+          sortedList = [...novelList].sort((a, b) =>
+            b.titulo.localeCompare(a.titulo),
+          );
+          break;
+        // case 'Mais recentes':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(b.dataLancamento).getTime() -
+        //       new Date(a.dataLancamento).getTime(),
+        //   );
+        //   break;
+        // case 'Mais antigos':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(a.dataLancamento).getTime() -
+        //       new Date(b.dataLancamento).getTime(),
+        //   );
+        //   break;
+        // case 'Lançamento':
+        //   sortedList = [...novelList].sort(
+        //     (a, b) =>
+        //       new Date(b.dataLancamento).getTime() -
+        //       new Date(a.dataLancamento).getTime(),
+        //   );
+        //   break;
+        default:
+          // volta para o original
+          sortedList = projectsResponse?.data || [];
+      }
+
+      setNovelList(sortedList);
+    };
+
+    return (
+      <DropdownContainer
+        value={orderBy}
+        label={orderBy || 'Organizar por'}
+        className="w-full sm:w-[180px]"
+        onClear={() => {
+          orderByToken('Organizar por');
+        }}
+      >
+        {ORDER_BY.map((item, index) => (
+          <DropdownOption
+            key={index}
+            label={item}
+            onClick={() => orderByToken(item)}
+            value={item}
+            selected={item === orderBy}
+          />
+        ))}
+      </DropdownContainer>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <Title title="Novels da Tsun" />
@@ -157,6 +230,7 @@ export default function Novels() {
       <div className="flex flex-row items-center justify-between gap-4 sm:justify-start">
         <FilterByStatus />
         <FilterByGenres />
+        <OrganizeBy />
       </div>
       <AsyncSection isLoading={isLoading} className="mt-8">
         {!novelList ? (
