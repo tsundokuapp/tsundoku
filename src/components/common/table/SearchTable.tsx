@@ -8,6 +8,7 @@ interface SearchTableProps
   onChange: (value: string) => void;
   fullWidth?: boolean;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export const SearchTable = ({
@@ -15,10 +16,11 @@ export const SearchTable = ({
   onChange,
   fullWidth = false,
   placeholder = 'Buscar por nome...',
+  disabled = false,
   ...props
 }: SearchTableProps) => {
   return (
-    <div className="flex w-full items-center justify-end" {...props}>
+    <div className="flex w-full items-center justify-end">
       <div className={cn('relative mt-1 w-72', { 'w-full': fullWidth })}>
         <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
           <svg
@@ -38,10 +40,12 @@ export const SearchTable = ({
         <input
           type="text"
           id="table-search"
-          className="focus:ring-primary block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder focus:border-appInputFocus"
+          className="focus:ring-primary block h-10 w-full rounded-lg border border-appInputBorder bg-appInputBackground py-2 ps-10 text-sm text-appInputText placeholder-appInputPlaceholder focus:border-appInputFocus disabled:cursor-not-allowed"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+          {...props}
         />
       </div>
     </div>

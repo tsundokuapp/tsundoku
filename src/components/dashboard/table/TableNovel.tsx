@@ -1,6 +1,7 @@
 'use client';
 
 import { Spinner } from '@phosphor-icons/react/dist/ssr';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -21,6 +22,7 @@ import { Debounce } from '@/helpers/Debounce';
 import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { cn } from '@/helpers/twUtils';
 import { useAdminNovels } from '@/hooks/useNovels';
+import { getWorksBySearch } from '@/services/ProjectService';
 import { api } from '@/services/api';
 
 interface LineTableProps {
@@ -39,6 +41,7 @@ interface ITableNovel {
 
 export const TableNovel = ({ openModal }: ITableNovel) => {
   const { data: novelsResponse, isLoading } = useAdminNovels();
+  const queryClient = useQueryClient();
 
   // TODO: Mover a lógica de calculo de paginação para dentro do footer
   const router = useRouter();
@@ -102,10 +105,31 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
     return currentPage;
   };
 
-  const debouncedHandleChange = Debounce((value: string) => {
+  const debouncedHandleChange = Debounce(async (value: string) => {
     if (value === '') {
       setNovels(novelsResponse?.data);
       return;
+    }
+
+    setLoadingNewPage(true);
+    try {
+      const data = await queryClient.fetchQuery({
+        queryKey: ['public-search-works', search],
+        queryFn: () => getWorksBySearch(search),
+      });
+
+      if (!data || !data.data) {
+        toaster({
+          type: 'error',
+          msg: 'Nenhum resultado encontrado.',
+        });
+        setNovels([]);
+        return;
+      }
+
+      // setNovels(data.data);
+    } finally {
+      setLoadingNewPage(false);
     }
 
     const filtered = novelsResponse?.data.filter((novel) =>
@@ -247,7 +271,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         title="Novels"
         description="Inclui novels pausadas e canceladas."
       >
-        <SearchTable value={search} onChange={handleChange} />
+        <SearchTable value={search} onChange={handleChange} disabled />
         <Button onClick={() => openModal()}>Adicionar</Button>
       </HeaderTable>
 
