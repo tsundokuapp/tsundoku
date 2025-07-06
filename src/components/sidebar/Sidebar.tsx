@@ -33,11 +33,11 @@ export function Sidebar({ children }: SidebarProps) {
 
   return (
     <aside className="fixed z-50 h-full">
-      <nav className="flex h-dvh flex-col border-r bg-slate-200 p-2 dark:bg-slate-800">
+      <nav className="flex h-dvh flex-col border-r bg-appHeaderBackground p-2">
         <div className="item-center flex justify-between p-4 pb-2">
           <span
             className={cn(
-              'flex items-center justify-center overflow-hidden text-lg text-gray-800 transition-all dark:text-white',
+              'flex items-center justify-center overflow-hidden text-lg text-appText transition-all',
               {
                 'w-32': expanded,
                 'w-0': !expanded,
@@ -58,7 +58,7 @@ export function Sidebar({ children }: SidebarProps) {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="flex justify-center border-t p-3 text-gray-800 dark:text-white">
+        <div className="flex justify-center border-t p-3 text-appText">
           <User size={24} />
           <div
             className={cn(
@@ -69,12 +69,8 @@ export function Sidebar({ children }: SidebarProps) {
               },
             )}
           >
-            <h4 className="font-semibold text-gray-800 dark:text-white">
-              Admin
-            </h4>
-            <span className="text-xs text-gray-800 dark:text-white">
-              user@tsundoku.com
-            </span>
+            <h4 className="font-semibold text-appText">Admin</h4>
+            <span className="text-xs text-appText">user@tsundoku.com</span>
           </div>
         </div>
       </nav>
@@ -95,11 +91,10 @@ export function SidebarItem({
     <Link href={action}>
       <li
         className={cn(
-          'group relative my-1 flex cursor-pointer rounded-md px-3.5 py-2.5 font-medium text-gray-800 transition-colors dark:text-white',
+          'group relative my-1 flex cursor-pointer rounded-md px-3.5 py-2.5 font-medium text-appText transition-colors',
           {
-            'bg-slate-400 text-gray-800 dark:bg-slate-400 dark:text-black':
-              isActive,
-            'hover:bg-slate-400 hover:text-black': !isActive,
+            'bg-appSearchBackground text-appSubtitle': isActive,
+            'hover:bg-appMenuHover hover:text-appText': !isActive,
           },
         )}
       >
@@ -124,7 +119,7 @@ export function SidebarItem({
         {!expanded && (
           <div
             className={
-              'invisible absolute left-full ml-6 -translate-x-3 rounded-md bg-indigo-100 px-2 py-1 text-sm text-gray-800 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100'
+              'invisible absolute left-full ml-6 -translate-x-3 rounded-md bg-appBackground px-2 py-1 text-sm text-appText opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100'
             }
           >
             {text}
