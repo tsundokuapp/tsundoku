@@ -4,6 +4,8 @@ import { Spinner } from '@phosphor-icons/react/dist/ssr';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { INovelResponse } from '@/@types/Api';
+import { TStatusComic, TStatusNovel } from '@/@types/System';
 import { Button } from '@/components/common/button/Button';
 import {
   FooterTable,
@@ -16,6 +18,7 @@ import {
 import { TdDefault } from '@/components/common/table/TdDefault';
 import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
+import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { cn } from '@/helpers/twUtils';
 import { useAdminNovels } from '@/hooks/useNovels';
 import { api } from '@/services/api';
@@ -23,7 +26,7 @@ import { api } from '@/services/api';
 interface LineTableProps {
   title: string;
   creator: string;
-  status: string;
+  status: TStatusNovel | TStatusComic;
   type: string;
   privacy: string;
   date: string;
@@ -40,7 +43,8 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
   // TODO: Mover a lógica de calculo de paginação para dentro do footer
   const router = useRouter();
   const [search, setSearch] = useState('');
-  const [novels, setNovels] = useState(novelsResponse?.data);
+  const [loadingNewPage, setLoadingNewPage] = useState(false);
+  const [novels, setNovels] = useState<INovelResponse[]>();
   const [pagination, setPagination] = useState({
     nextPage: '',
     prevPage: '',
@@ -49,7 +53,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
     itemsVisible: 0,
   });
   const columns = ['Nome', 'Criador', 'Status', 'Visibilidade', 'Data Entrada'];
-  const SKIP_DEFAULT = 6;
+  const SKIP_DEFAULT = 12;
 
   useEffect(() => {
     if (novelsResponse?.data) {
@@ -70,7 +74,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
   const { toaster } = useToaster();
 
   const getCurrentPagePagination = (nextUrl: string, prevUrl: string) => {
-    const SKIP_DEFAULT = 6;
+    const SKIP_DEFAULT = 12;
     const total = pagination.total;
 
     const extractSkip = (url: string | null) => {
@@ -117,6 +121,10 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
   };
 
   const goToUrl = async (url: string) => {
+    if (isLoading) return;
+
+    setLoadingNewPage(true);
+
     if (typeof url === 'string' && url !== '') {
       const { data } = await api.get(url);
       setNovels(data?.data);
@@ -127,8 +135,11 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         itemsVisible: data.data.length,
         currentPage: getCurrentPagePagination(data?.proxima, data?.anterior),
       });
+      setLoadingNewPage(false);
       return;
     }
+
+    setLoadingNewPage(false);
 
     toaster({
       type: 'error',
@@ -150,15 +161,17 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
     return (
       <tr
         onClick={() => router.push(urlNext)}
-        className="cursor-pointer border-b bg-white transition-all hover:bg-slate-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        className="cursor-pointer border-b bg-appBackground transition-all hover:bg-appMenuHover"
       >
         <th
           scope="row"
-          className="flex items-center whitespace-nowrap py-4 pl-3 text-gray-900 dark:text-white"
+          className="group flex items-center whitespace-nowrap py-4 pl-3 text-appText"
         >
           <div className="ps-3">
             <div className="text-base font-semibold">{title}</div>
-            <div className="font-normal text-gray-500">{type}</div>
+            <div className="font-normal text-appSubtitle group-hover:text-appText">
+              {type}
+            </div>
           </div>
         </th>
 
@@ -167,12 +180,10 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         <TdDefault>
           <div className="relative flex items-center justify-center gap-x-1">
             <div
-              className={cn('bg-primary right-2 top-2 h-2 w-2 rounded', {
-                'bg-primary': status === 'Concluído',
-                'bg-success': status === 'Em andamento',
-                'bg-yellow-400': status === 'Hiato',
-                'bg-error': status === 'Cancelado',
-              })}
+              className={cn(
+                'right-2 top-2 h-2 w-2 rounded bg-appMenuBackground',
+                MapStatusToColor(status),
+              )}
             />
             {status}
           </div>
@@ -180,6 +191,19 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
 
         <TdDefault hiddenCell="md">{privacy}</TdDefault>
         <TdDefault hiddenCell="md">{formatedDate}</TdDefault>
+      </tr>
+    );
+  };
+
+  const LoadingMoreContent = () => {
+    return (
+      <tr>
+        <td colSpan={columns.length} className="py-4 text-center">
+          <div className="flex items-center justify-center gap-4">
+            <span>Carregando obras...</span>
+            <Spinner size={24} className="animate-spin" />
+          </div>
+        </td>
       </tr>
     );
   };
@@ -194,18 +218,24 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
             </td>
           </tr>
         ) : (
-          novels?.map((novel) => (
-            <LineTable
-              key={novel.id}
-              title={novel.titulo}
-              creator={novel.usuarioInclusao}
-              status={novel.statusObra}
-              privacy={'Público'}
-              type={novel.tipoObra}
-              date={novel.dataInclusao}
-              url={novel.slug}
-            />
-          ))
+          <>
+            {loadingNewPage ? (
+              <LoadingMoreContent />
+            ) : (
+              novels?.map((novel) => (
+                <LineTable
+                  key={novel.id}
+                  title={novel.titulo}
+                  creator={novel.usuarioInclusao}
+                  status={novel.statusObra}
+                  privacy={'Público'}
+                  type={novel.tipoObra}
+                  date={novel.dataInclusao}
+                  url={novel.slug}
+                />
+              ))
+            )}
+          </>
         )}
       </>
     );

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 
-import { ApiResponse, IGenres } from '@/@types/Api';
+import { ApiResponse, INovelResponse } from '@/@types/Api';
 import { api } from '@/services/api';
 
 interface ErrorResponse {
@@ -9,44 +9,9 @@ interface ErrorResponse {
   statusCode: number;
 }
 
-interface INovelResponse {
-  // TODO: validar esses dois campos em um middleware
-  statusCode?: number;
-  message?: string;
-
-  // campos reais
-  id: string;
-  titulo: string;
-  tituloAlternativo: string;
-  alias: string;
-  autor: string;
-  artista: string;
-  ano: string;
-  slug: string;
-  usuarioInclusao: string;
-  usuarioAlteracao: string;
-  imagemCapaPrincipal: string;
-  sinopse: string;
-  dataInclusao: string;
-  dataAlteracao: string;
-  ehObraMaiorIdade: boolean;
-  ehRecomendacao: boolean;
-  codigoCorHexaObra: string;
-  cargoObraDiscord: string;
-  statusObraSlug: string;
-  tipoObraSlug: string;
-  nacionalidadeSlug: string;
-  statusObra: string;
-
-  tipoObra: string;
-  nacionalidade: string;
-  generos: IGenres[];
-  diretorioImagemObra: string;
-}
-
 const getAdminNovels = async (): Promise<INovelResponse[]> => {
   try {
-    const response = await api.get('/admin/obra/novels');
+    const response = await api.get('/admin/obra/novels?take=12');
     console.log(response.data);
     return response.data;
   } catch (error) {

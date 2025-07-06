@@ -15,7 +15,7 @@ export const TdDefault = ({ children, main, hiddenCell }: TdDefaultProps) => {
       })}
     >
       <span
-        className={cn('font-medium text-black dark:text-gray-400', {
+        className={cn('font-medium text-appText', {
           'font-semibold text-gray-900 dark:text-white': main,
         })}
       >

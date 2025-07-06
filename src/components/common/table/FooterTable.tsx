@@ -72,18 +72,13 @@ export const FooterTable = ({
 
   return (
     <nav
-      className="flex-column flex flex-wrap items-center justify-end p-4 dark:bg-gray-900 md:flex-row md:justify-between"
+      className="flex-column flex flex-wrap items-center justify-end p-4 md:flex-row md:justify-between"
       aria-label="Table navigation"
     >
-      <span className="mb-4 hidden w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:block md:w-auto">
+      <span className="mb-4 hidden w-full text-sm font-normal text-appSubtitle md:mb-0 md:block md:w-auto">
         Mostrando{' '}
-        <span className="font-semibold text-gray-900 dark:text-white">
-          {itemsVisible}
-        </span>{' '}
-        de{' '}
-        <span className="font-semibold text-gray-900 dark:text-white">
-          {totalItems}
-        </span>
+        <span className="font-semibold text-appText">{itemsVisible}</span> de{' '}
+        <span className="font-semibold text-appText">{totalItems}</span>
       </span>
       <ul className="inline-flex h-8 -space-x-px text-sm">
         <CelNavegation

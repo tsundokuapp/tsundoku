@@ -307,3 +307,40 @@ export interface IWork {
   total: number;
   data: IWorkData[];
 }
+
+// ADMIN
+
+export interface INovelResponse {
+  // TODO: validar esses dois campos em um middleware
+  statusCode?: number;
+  message?: string;
+
+  // campos reais
+  id: string;
+  titulo: string;
+  tituloAlternativo: string;
+  alias: string;
+  autor: string;
+  artista: string;
+  ano: string;
+  slug: string;
+  usuarioInclusao: string;
+  usuarioAlteracao: string;
+  imagemCapaPrincipal: string;
+  sinopse: string;
+  dataInclusao: string;
+  dataAlteracao: string;
+  ehObraMaiorIdade: boolean;
+  ehRecomendacao: boolean;
+  codigoCorHexaObra: string;
+  cargoObraDiscord: string;
+  statusObraSlug: string;
+  tipoObraSlug: string;
+  nacionalidadeSlug: string;
+  statusObra: TStatusNovel;
+
+  tipoObra: string;
+  nacionalidade: string;
+  generos: IGenres[];
+  diretorioImagemObra: string;
+}

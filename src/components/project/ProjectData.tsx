@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 
 import { IGenres } from '@/@types/Api';
 import { TStatusNovel, TStatusComic } from '@/@types/System';
+import { MapStatusToColor } from '@/helpers/MapStatusToColor';
+import { cn } from '@/helpers/twUtils';
 import { useComicStore } from '@/store/useComicStore';
 
 import { CollapseText } from './CollapseText';
@@ -42,22 +44,6 @@ export function ProjectData({
       setComicBanner(banner);
     }
   }, [banner]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const mapStatusToColor = (status: TStatusNovel | TStatusComic) => {
-    const statusNormalized = status.toLowerCase();
-    switch (statusNormalized) {
-      case 'em andamento':
-        return 'bg-green-700';
-      case 'hiato':
-        return 'bg-yellow-700';
-      case 'cancelado':
-        return 'bg-red-700';
-      case 'concluído':
-        return 'bg-blue-700';
-      default:
-        return 'bg-gray-700';
-    }
-  };
 
   const renderGenres = (genres: string[] | IGenres[]) => {
     if (!genres || genres.length === 0) return null;
@@ -102,7 +88,10 @@ export function ProjectData({
           <li className="inline-block flex-wrap items-center">
             <span className="font-bold">Status:</span> {status}
             <span
-              className={`mx-2 inline-block h-2 w-2 rounded-full ${mapStatusToColor(status)}`}
+              className={cn(
+                'mx-2 inline-block h-2 w-2 rounded-full',
+                MapStatusToColor(status),
+              )}
               data-status={status}
             />
           </li>
