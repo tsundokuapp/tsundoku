@@ -45,10 +45,10 @@ export const FormInput = <T extends Record<string, unknown>>({
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full max-w-sm flex-col">
       <label
         htmlFor={label}
-        className="mb-1 block text-base font-normal text-gray-800 dark:text-white"
+        className="mb-1 block text-base font-normal text-appText"
       >
         {label}
       </label>
@@ -57,7 +57,7 @@ export const FormInput = <T extends Record<string, unknown>>({
         id={`input-${name}`}
         placeholder={placeholder}
         className={cn(
-          'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-black outline-none focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 dark:text-white disabled:dark:opacity-50',
+          'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-appSearchBackground px-3 py-2 text-base font-medium text-appSearchText outline-none focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 disabled:dark:opacity-50',
           className,
         )}
         min={type === 'number' ? min : undefined}

@@ -117,7 +117,7 @@ export const DragAndDropSingleImage = ({
             <strong
               role="button"
               onClick={onDeleteFile}
-              className="transation absolute z-10 mx-auto hidden h-full w-full flex-col items-center justify-center gap-2 bg-black bg-opacity-50 text-white group-hover:flex"
+              className="transation absolute z-10 mx-auto hidden h-full w-full flex-col items-center justify-center gap-2 bg-appBackground bg-opacity-50 text-appText group-hover:flex"
             >
               <span>{title}</span>
               <span className="flex flex-row items-center text-red-500">
@@ -153,7 +153,7 @@ export const DragAndDropSingleImage = ({
                     width={48}
                     height={48}
                   />
-                  <h3 className="mt-2 text-sm font-medium text-gray-800 dark:text-white">
+                  <h3 className="mt-2 text-sm font-medium text-appSubtitle">
                     <label
                       htmlFor="file-upload"
                       className="relative cursor-pointer"
@@ -172,7 +172,7 @@ export const DragAndDropSingleImage = ({
                     height={48}
                   />
 
-                  <h3 className="mt-2 text-sm font-medium text-gray-800 dark:text-white">
+                  <h3 className="mt-2 text-sm font-medium text-appSubtitle">
                     <label
                       htmlFor="file-upload"
                       className="relative cursor-pointer"
@@ -195,7 +195,7 @@ export const DragAndDropSingleImage = ({
                       />
                     </label>
                   </h3>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-appSubtitle">
                     PNG e JPG até 5MB
                   </p>
                 </>

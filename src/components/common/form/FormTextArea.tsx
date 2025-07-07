@@ -44,10 +44,10 @@ export const FormTextArea = <T extends Record<string, unknown>>({
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full max-w-lg flex-col">
       <label
         htmlFor={label}
-        className="mb-1 block text-base font-normal text-gray-800 dark:text-white"
+        className="mb-1 block text-base font-normal text-appText"
       >
         {label}
       </label>
@@ -55,7 +55,7 @@ export const FormTextArea = <T extends Record<string, unknown>>({
         id={`textarea-${name}`}
         placeholder={placeholder}
         className={cn(
-          'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-white outline-none focus:shadow-md dark:border-slate-700',
+          'dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-appSearchBackground px-3 py-2 text-base font-medium text-appSearchText outline-none focus:border-appHeaderText focus:shadow-md dark:border-slate-700',
           className,
         )}
         cols={cols}

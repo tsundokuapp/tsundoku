@@ -51,7 +51,7 @@ export const FormMultiSelect = <T extends Record<string, unknown>>({
           (item: string, index: number) => (
             <span
               key={index}
-              className="rounded-md bg-gray-200 px-2 py-1 text-xs text-black dark:bg-gray-700 dark:text-white"
+              className="rounded-md bg-appSearchPlaceholder px-2 py-1 text-xs text-appSearchText"
             >
               {item}
             </span>
@@ -73,7 +73,7 @@ export const FormMultiSelect = <T extends Record<string, unknown>>({
     <section>
       <label
         htmlFor={label}
-        className="mb-1 block text-base font-normal text-gray-800 dark:text-white"
+        className="mb-1 block text-base font-normal text-appText"
       >
         {label}
       </label>
