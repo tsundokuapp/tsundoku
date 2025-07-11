@@ -56,7 +56,7 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
-          <HeaderIcon action="/dashboard">
+          <HeaderIcon action="/">
             <User size={24} />
           </HeaderIcon>
         </div>

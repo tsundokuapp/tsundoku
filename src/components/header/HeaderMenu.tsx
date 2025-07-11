@@ -103,7 +103,7 @@ export function HeaderMenu() {
               <DialogClose asChild>
                 <LinkButton
                   text="Entrar"
-                  action="/dashboard"
+                  action="/"
                   className={cn(
                     'flex h-12 w-full max-w-xs items-center justify-center rounded-md border border-appButtonBorder',
                     'font-bold uppercase text-appButtonText hover:bg-appButtonHover',
