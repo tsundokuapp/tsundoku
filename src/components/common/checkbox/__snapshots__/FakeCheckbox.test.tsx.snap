@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testes para o componente <FakeCheckbox /> Teste de snapshot Deve manter o snapshot do Checkbox 1`] = `
+<div>
+  <div
+    class="flex items-center justify-center"
+  >
+    <div
+      class="flex h-5 items-center bg-transparent"
+    >
+      <input
+        aria-describedby="helper-faker-checkbox-input"
+        class="disabled:border-steel-400 disabled:bg-steel-400 focus-event-none checked:bg-primary focus:ring-primary dark:bg-appPrimary checked:dark:bg-primary dark:focus:ring-primary peer pointer-events-none relative mt-1 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 focus:outline-none focus:ring-2 focus:ring-offset-0 dark:border-slate-700 checked:dark:border-0 h-4 w-4"
+        disabled=""
+        id="helper-faker-checkbox"
+        tabindex="-1"
+        type="checkbox"
+      />
+      <svg
+        class="pointer-events-none absolute mt-1 hidden peer-checked:block h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="4"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polyline
+          points="20 6 9 17 4 12"
+        />
+      </svg>
+    </div>
+    <div
+      class="ms-2 text-md"
+    >
+      <label
+        class="font-medium text-gray-900 dark:text-gray-300"
+        for="helper-fake-checkbox"
+      >
+        Checkbox Teste
+      </label>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testes para o componente <Button /> Teste de snapshot Deve manter o snapshot do Button 1`] = `
+<div>
+  <button
+    class="disabled:dark:hover:bg-appPrimary focus:dark:border-primary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60"
+    tabindex="0"
+  >
+    clique
+  </button>
+</div>
+`;

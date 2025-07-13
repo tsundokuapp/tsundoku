@@ -1,0 +1,64 @@
+.theme-blue {
+  /* ...regras do tema blue extraídas do globals.css... */
+  --app-color-background: var(--color-slate-900);
+  /* Header */
+  --app-color-header-background: var(--color-slate-900);
+  --app-color-header-text: var(--color-white);
+  --app-color-header-highlight: var(--color-blue-500);
+  /* Footer */
+  --app-color-footer-background: var(--color-neutral);
+  --app-color-footer-text: var(--color-slate-900);
+  --app-color-footer-highlight: var(--color-slate-900);
+  /* Text */
+  --app-color-text: var(--color-white);
+  /* Elements */
+  --app-color-icon: var(--color-white);
+  --app-color-tag: var(--color-white);
+  /* Banner */
+  --app-color-banner-background: var(--color-slate-700);
+  --app-color-banner-text: var(--color-white);
+  --app-color-banner-button: var(--color-gray-900);
+  --app-color-banner-button-hover: var(--color-slate-800);
+  /* Botões */
+  --app-color-button-background: var(--color-slate-700);
+  --app-color-button-border: var(--color-slate-700);
+  --app-color-button-hover: var(--color-slate-800);
+  --app-color-button-text: var(--color-white);
+  --app-color-button-icon: var(--color-white);
+  --app-color-button-outline-border: var(--color-white);
+  --app-color-button-outline-text: var(--color-white);
+  --app-color-button-fill-background: var(--color-white);
+  --app-color-button-fill-text: var(--color-slate-900);
+  /* Buscar */
+  --app-color-search-background: var(--color-slate-700);
+  --app-color-search-placeholder: var(--color-gray-500);
+  --app-color-search-text: var(--color-white);
+  /* Grupo */
+  --app-color-group-background: var(--color-slate-800);
+  --app-color-group-hover: var(--color-slate-700);
+  --app-color-group-text: var(--color-white);
+  /* Inputs */
+  --app-color-input-background: var(--color-slate-700);
+  --app-color-input-border: var(--color-slate-900);
+  --app-color-input-placeholder: var(--color-slate-500);
+  --app-color-input-text: var(--color-white);
+  --app-color-input-icon: var(--color-slate-500);
+  --app-color-input-focus: var(--color-slate-500);
+  /* Lista */
+  --app-color-list-background: var(--color-slate-900);
+  --app-color-list-border: var(--color-slate-800);
+  --app-color-list-hover: var(--color-slate-700);
+  --app-color-list-text: var(--color-white);
+  /* Menu */
+  --app-color-menu-background: var(--color-slate-800);
+  --app-color-menu-border: var(--color-slate-900);
+  --app-color-menu-hover: var(--color-slate-500);
+  --app-color-menu-text: var(--color-white);
+  --app-color-menu-title: var(--color-zinc-600);
+  --app-color-menu-breakline: var(--color-zinc-600);
+  /* Titulos */
+  --app-color-title: var(--color-white);
+  --app-color-subtitle: var(--color-slate-500);
+  --app-color-highlight: var(--color-blue-500);
+  --app-color-highlight-text: var(--color-white);
+}

@@ -1,4 +1,4 @@
-## Tsundoku Traduções V2
+## Tsundoku Traduções V3
 Tsundoku é um site voltado para leitura de Light Novels e Mangás, que já está ativo no link [Tsundoku](https://tsundoku.com.br/).
 Este repo é a atualização do site para uma interface mais moderna e única com objetivos de solucionar problemas e limitações enfrentados no site atual.
 
@@ -11,11 +11,7 @@ A Tsundoku adoraria sua ajuda, apesar do esforço, o projeto é grande e muitos 
 - Fazer um fork do projeto
 - Clonar o projeto em sua máquina 
 - Rodar o comando "git pull" para se certificar das alterações
-- Rodar o comando "yarn" dentro da pasta
-- Alterar a configuração do eslint no arquivo node_modules/@rocketseat/eslint-config/react.js na linha 33 para " 'semi': true ".
-
-*(note que é preciso fazer isso todas as vezes que reinstalar as dependencias, caso queira, fique a vontade para fazer a configuração do eslint no projeto para que possamos nós livrar da lib do foguete roxo, isso seria de grande ajuda)*
-
+- Rodar o comando "pnpm i" dentro da pasta
 
 ## Orientações sobre Pull Requests
 
@@ -57,8 +53,3 @@ git push -f origin main
 
 
 ## Lembrentes
-
-- Evite mexer em arquivos desconexos dentro de um mesmo commit
-- Não altere versões de libs ou ferramentas.
-- Não mexa em TODOs que iniciem com "determinar/consultar sobre/verificar tal coisa" são TODOs que precisam de informações ainda não definidas.
-- Se precisar de ajuda, pergunte diretamente informando o problema que está tendo.

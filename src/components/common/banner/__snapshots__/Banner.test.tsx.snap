@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testes para o componente <Banner /> Teste de snapshot Deve manter o snapshot do Banner 1`] = `
+<div>
+  <a
+    href="/example"
+  >
+    <div
+      class="flex h-72 items-center justify-center overflow-hidden rounded-md bg-appBannerBackground text-appBannerText"
+    >
+      <img
+        alt="Recrutamento de editores"
+        data-nimg="1"
+        decoding="async"
+        height="400"
+        loading="lazy"
+        src="/_next/image?url=%2Frecrutamento-editor.png&w=828&q=75"
+        srcset="/_next/image?url=%2Frecrutamento-editor.png&w=640&q=75 1x, /_next/image?url=%2Frecrutamento-editor.png&w=828&q=75 2x"
+        style="color: transparent;"
+        width="400"
+      />
+    </div>
+  </a>
+</div>
+`;

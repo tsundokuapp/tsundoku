@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testes para o componente <Carousel /> Teste de snapshot Deve manter o snapshot do Carousel 1`] = `
+<div>
+  <div
+    class="relative w-full"
+  >
+    <div
+      class="relative h-72 w-full overflow-hidden rounded-md sm:h-64 sm:rounded-3xl"
+    >
+      <div
+        class="absolute inset-0 w-full transform transition-transform duration-500 translate-x-0"
+      >
+        <img
+          alt="Slide 0"
+          class="h-full w-full object-cover"
+          data-nimg="1"
+          decoding="async"
+          height="300"
+          loading="lazy"
+          src="/_next/image?url=%2Fimg1.jpg&w=750&q=75"
+          srcset="/_next/image?url=%2Fimg1.jpg&w=384&q=75 1x, /_next/image?url=%2Fimg1.jpg&w=750&q=75 2x"
+          style="color: transparent;"
+          width="350"
+        />
+      </div>
+      <div
+        class="absolute inset-0 w-full translate-x-full transform transition-transform duration-500"
+      >
+        <img
+          alt="Slide 1"
+          class="h-full w-full object-cover"
+          data-nimg="1"
+          decoding="async"
+          height="300"
+          loading="lazy"
+          src="/_next/image?url=%2Fimg2.jpg&w=750&q=75"
+          srcset="/_next/image?url=%2Fimg2.jpg&w=384&q=75 1x, /_next/image?url=%2Fimg2.jpg&w=750&q=75 2x"
+          style="color: transparent;"
+          width="350"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
