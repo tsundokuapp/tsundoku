@@ -1,10 +1,15 @@
-import { TStatusComic, TStatusNovel } from './System';
+import { TNacionality, TStatusComic, TStatusNovel, TTypeWork } from './System';
 
 export interface ApiResponse<T> {
   data: T[];
   proxima: string;
   anterior: string;
   total: number;
+}
+
+export interface ErrorResponse {
+  message: string;
+  statusCode: number;
 }
 
 export interface ApiResponseChapter<T> {
@@ -234,6 +239,41 @@ export interface IPublicComics {
   id: string;
 }
 
+export interface IPrivateComics {
+  publicado: boolean;
+  urlCapa: string;
+  alias: string;
+  titulo: string;
+  tituloAlternativo: string;
+  autor: string;
+  artista: string;
+  statusObra: TStatusComic;
+  listaGeneros: IGenres[];
+  descritivoVolume?: string;
+  slug: string;
+  tipoObra: string;
+  id: string;
+  ano: string;
+  usuarioInclusao: string;
+  usuarioAlteracao: string;
+  imagemCapaPrincipal: string; // url
+  sinopse: string;
+  dataInclusao: string; // 19/06/2025 02:23:45
+  dataAlteracao: string;
+  ehObraMaiorIdade: boolean;
+  ehRecomendacao: boolean;
+  codigoCorHexaObra: string; // #ffffff
+  cargoObraDiscord: string;
+  imagemBanner: string; // url
+  statusObra: TStatusComic;
+  tipoObra: TTypeWork;
+  nacionalidade: TNacionality;
+  generos: IGenres[];
+  diretorioImagemObra: string; // depreciado
+  integracaoDiscord: boolean;
+  publicado: boolean;
+}
+
 export interface IImagesChapterComic {
   id: number;
   url: string;
@@ -338,6 +378,41 @@ export interface INovelResponse {
   tipoObraSlug: string;
   nacionalidadeSlug: string;
   statusObra: TStatusNovel;
+
+  tipoObra: string;
+  nacionalidade: string;
+  generos: IGenres[];
+  diretorioImagemObra: string;
+}
+
+export interface IComicResponse {
+  // TODO: validar esses dois campos em um middleware
+  statusCode?: number;
+  message?: string;
+
+  // campos reais
+  id: string;
+  titulo: string;
+  tituloAlternativo: string;
+  alias: string;
+  autor: string;
+  artista: string;
+  ano: string;
+  slug: string;
+  usuarioInclusao: string;
+  usuarioAlteracao: string;
+  imagemCapaPrincipal: string;
+  sinopse: string;
+  dataInclusao: string;
+  dataAlteracao: string;
+  ehObraMaiorIdade: boolean;
+  ehRecomendacao: boolean;
+  codigoCorHexaObra: string;
+  cargoObraDiscord: string;
+  statusObraSlug: string;
+  tipoObraSlug: string;
+  nacionalidadeSlug: string;
+  statusObra: TStatusComic;
 
   tipoObra: string;
   nacionalidade: string;

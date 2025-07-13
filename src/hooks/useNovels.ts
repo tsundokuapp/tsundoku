@@ -1,13 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 
-import { ApiResponse, INovelResponse } from '@/@types/Api';
+import { ApiResponse, ErrorResponse, INovelResponse } from '@/@types/Api';
 import { api } from '@/services/api';
-
-interface ErrorResponse {
-  message: string;
-  statusCode: number;
-}
 
 const getAdminNovels = async (): Promise<INovelResponse[]> => {
   try {

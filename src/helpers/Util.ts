@@ -179,7 +179,14 @@ export const genres = [
   'Fantasia',
   'Romance',
 ];
-export const types = ['Light Novel', 'light-novel', 'Web Novel', 'Novel'];
+export const types = [
+  'Manhwa',
+  'Manhua',
+  'Comic',
+  'Light Novel',
+  'Web Novel',
+  'Novel',
+];
 export const privacy = ['Público', 'Privado'];
 export const titles = [
   'Tanya the Evil',
@@ -214,6 +221,7 @@ export const nationality = [
   'Chinesa',
   'Americana',
   'Brasileira',
+  'Espanhola',
 ];
 
 export const cargoObraDiscord = [
@@ -224,18 +232,6 @@ export const cargoObraDiscord = [
   'Youjo Senki',
   'Wandering Witch',
 ];
-
-export const NovelsList = Array.from({ length: 10 }, () => ({
-  id: randomId(),
-  title: randomOptions(titles),
-  creator: randomOptions(staff),
-  status: randomOptions(status),
-  genre: [randomOptions(genres), randomOptions(genres), randomOptions(genres)],
-  type: randomOptions(types),
-  privacy: randomOptions(privacy),
-  date: '21/10/2024',
-  url: '/project/majo-no-tabitabi',
-}));
 
 export const ChaptersList = Array.from({ length: 10 }, () => ({
   id: randomId(),

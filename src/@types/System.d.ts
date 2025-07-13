@@ -15,3 +15,22 @@ export type TGenresComic =
   | 'Drama'
   | 'Fantasia'
   | 'Romance';
+
+export type TStatusBlog = 'Rascunho' | 'Publicado' | 'Arquivado';
+
+export type TNacionality =
+  | 'Japonesa'
+  | 'Coreana'
+  | 'Chinesa'
+  | 'Americana'
+  | 'Brasileira'
+  | 'Espanhola';
+
+export type TTypeWork =
+  | 'Mangá'
+  | 'Manhwa'
+  | 'Manhua'
+  | 'Comic'
+  | 'Light Novel'
+  | 'Web Novel'
+  | 'Novel';

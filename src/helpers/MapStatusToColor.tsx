@@ -1,7 +1,7 @@
 import { TStatusComic, TStatusNovel } from '@/@types/System';
 
 export const MapStatusToColor = (status: TStatusNovel | TStatusComic) => {
-  const statusNormalized = status.toLowerCase();
+  const statusNormalized = String(status).toLowerCase();
   switch (statusNormalized) {
     case 'em andamento':
       return 'bg-green-700';
