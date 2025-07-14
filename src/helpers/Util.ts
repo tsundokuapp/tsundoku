@@ -171,14 +171,7 @@ const randomOptions = (options: string[]) => {
 };
 
 export const status = ['Em andamento', 'Concluído', 'Cancelado', 'Hiato'];
-export const genres = [
-  'Ação',
-  'Aventura',
-  'Comédia',
-  'Drama',
-  'Fantasia',
-  'Romance',
-];
+
 export const types = [
   'Manhwa',
   'Manhua',

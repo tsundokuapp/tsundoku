@@ -21,8 +21,9 @@ import {
   InputFormCreateProject,
 } from '@/helpers/Schemas';
 import { transformFormDataComic } from '@/helpers/TransformFormData';
-import { genres, nationality, status, types } from '@/helpers/Util';
+import { nationality, status, types } from '@/helpers/Util';
 import { createComic } from '@/hooks/usePrivateApi';
+import { usePublicGenres } from '@/hooks/usePublicApi';
 
 export default function NovelAdmin() {
   const { Modal, openModal, closeModal } = useModal();
@@ -40,7 +41,10 @@ export default function NovelAdmin() {
     resolver: zodResolver(formCreateProjectSchema),
   });
 
-  const { mutateAsync: createNovelFn } = useMutation({
+  const { data: arrayGenres } = usePublicGenres();
+  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+
+  const { mutateAsync: createComicFn } = useMutation({
     mutationFn: createComic,
   });
 
@@ -82,19 +86,22 @@ export default function NovelAdmin() {
       }
     }
 
-    const response = await createNovelFn(formData);
+    const response = await createComicFn(formData);
 
     if (response?.statusCode === 400) {
       toaster({
         type: 'error',
-        msg: response.message || 'Erro ao criar a novel',
+        msg:
+          typeof response.message === 'string'
+            ? response.message
+            : response.message?.title || 'Erro ao criar a Comic',
       });
       return;
     }
 
     toaster({
       type: 'success',
-      msg: 'Novel criada com sucesso',
+      msg: 'Comic criada com sucesso',
     });
 
     reset();
@@ -112,6 +119,7 @@ export default function NovelAdmin() {
           name="cover"
           setValue={setValue}
           errors={errors}
+          defaultValue={''}
         />
 
         <div className="col-span-2 mb-2 flex flex-col gap-4">
@@ -217,7 +225,7 @@ export default function NovelAdmin() {
               getValues={getValues}
               onClick={(key, item) => handleSetMultiValues(key, item)}
               errors={errors}
-              options={genres}
+              options={genresData}
             />
           </div>
 

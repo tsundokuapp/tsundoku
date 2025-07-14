@@ -12,6 +12,7 @@ interface DragAndDropSingleImageProps {
   name: string;
   setValue: UseFormSetValue<any>;
   errors: FieldErrors;
+  defaultValue: string;
 }
 
 export const DragAndDropSingleImage = ({
@@ -19,10 +20,18 @@ export const DragAndDropSingleImage = ({
   name,
   setValue,
   errors,
+  defaultValue,
 }: DragAndDropSingleImageProps) => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (defaultValue !== '' && !image) {
+    setImage({
+      src: defaultValue,
+      name: 'default-image',
+    } as HTMLImageElement);
+  }
 
   const { toaster } = useToaster();
 

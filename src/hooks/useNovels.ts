@@ -15,17 +15,6 @@ const getAdminNovels = async (): Promise<INovelResponse[]> => {
   }
 };
 
-const getAdminNovelBySlug = async (slug: string): Promise<INovelResponse> => {
-  try {
-    const response = await api.get(`/admin/obra/novel/slug/${slug}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return {} as INovelResponse;
-  }
-};
-
 export const useAdminNovels = (): UseQueryResult<
   ApiResponse<INovelResponse>
 > => {
@@ -54,18 +43,12 @@ export const createNovel = async (
       };
     }
     return {
-      message: 'Erro desconhecido',
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
       statusCode: 500,
     };
   }
-};
-
-export const useAdminNovelSlug = (
-  slug: string,
-): UseQueryResult<INovelResponse> => {
-  return useQuery({
-    queryKey: ['adm-novels-slug', slug],
-    queryFn: () => getAdminNovelBySlug(slug),
-    enabled: !!slug,
-  });
 };

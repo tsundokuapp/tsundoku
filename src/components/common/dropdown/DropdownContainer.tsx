@@ -215,7 +215,7 @@ export function DropdownContainer({
           aria-expanded={isOpen}
           data-testid="dropdown-trigger"
           className={cn(
-            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appInputPlaceholder focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
+            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appText focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
             buttonClassname,
           )}
           onClick={handleToggleDropdown}

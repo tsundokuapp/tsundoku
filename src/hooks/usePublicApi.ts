@@ -50,6 +50,15 @@ export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
   });
 };
 
+export const usePublicGenres = (): UseQueryResult<
+  ApiResponse<IPublicGenres>
+> => {
+  return useQuery({
+    queryKey: ['public-genres'],
+    queryFn: getGenres,
+  });
+};
+
 // ----------------NOVELS----------------
 
 export const usePublicNovels = (): UseQueryResult<
@@ -110,15 +119,6 @@ export const usePublicComicSlug = (
     queryKey: ['public-comic-slug', slug],
     queryFn: () => getComicBySlug(slug),
     enabled: !!slug,
-  });
-};
-
-export const usePublicGenres = (): UseQueryResult<
-  ApiResponse<IPublicGenres>
-> => {
-  return useQuery({
-    queryKey: ['public-genres'],
-    queryFn: getGenres,
   });
 };
 

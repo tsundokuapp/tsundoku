@@ -1,7 +1,11 @@
+import axios, { AxiosResponse } from 'axios';
+
 import {
+  ErrorResponse,
   IChapterComicData,
   IChapterNovelData,
   IImageChapterComic,
+  INovelResponse,
   IPublicNovel,
   IPublicNovels,
   IVolumesNovel,
@@ -98,5 +102,47 @@ export const getChapterComicBySlug = async (
   } catch (error) {
     console.error(error);
     return {} as IImageChapterComic;
+  }
+};
+
+// ---------ADMIN NOVELS----------------
+
+export const getAdminNovelBySlug = async (
+  slug: string,
+): Promise<INovelResponse> => {
+  try {
+    const response = await api.get(`/admin/obra/novel/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as INovelResponse;
+  }
+};
+
+export const updateNovel = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  try {
+    const response: AxiosResponse<INovelResponse> = await api.put(
+      '/admin/obra/novel',
+      data,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        message: error.response.data,
+        statusCode: error.response.status,
+      };
+    }
+    return {
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
+      statusCode: 500,
+    };
   }
 };

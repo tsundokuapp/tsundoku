@@ -61,6 +61,7 @@ export const formCreateProjectSchema = z.object({
     .string()
     .min(1, { message: 'Título alternativo é obrigatório' }),
   author: z.string().min(1, { message: 'Autor é obrigatório' }),
+  illustration: z.string().min(1, { message: 'Ilustrador é obrigatório' }),
   yearRelease: z.custom(
     (value) => {
       const valueOk = typeof value === 'string' ? /^\d{4}$/.test(value) : false;
@@ -78,6 +79,9 @@ export const formCreateProjectSchema = z.object({
     .array(z.string(), { message: 'Gêneros é obrigatório' })
     .min(1, { message: 'A obra deve ter pelo menos um gênero' }),
   type: z.string({ message: 'Tipo é obrigatório' }),
+  isAdult: z.string().optional(),
+  isRecommendation: z.string().optional(),
+  privacy: z.optional(z.string()),
   nationality: z.string({ message: 'Nacionalidade é obrigatória' }),
   hexColor: z.custom(
     (value) => {

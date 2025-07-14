@@ -52,6 +52,7 @@ export function HeaderMenu() {
               icon="Search"
               className="w-full"
               onOpenChangeDialog={setOpen}
+              ref={searchRef}
             />
             <DialogClose asChild>
               <HeaderLink

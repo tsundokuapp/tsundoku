@@ -8,7 +8,11 @@ export interface ApiResponse<T> {
 }
 
 export interface ErrorResponse {
-  message: string;
+  message: {
+    errors: Record<string, string[]>;
+    status: number;
+    title: string;
+  };
   statusCode: number;
 }
 
@@ -357,6 +361,8 @@ export interface INovelResponse {
 
   // campos reais
   id: string;
+  imagemBanner?: string;
+  imagemCapaPrincipal?: string;
   titulo: string;
   tituloAlternativo: string;
   alias: string;
@@ -383,6 +389,7 @@ export interface INovelResponse {
   nacionalidade: string;
   generos: IGenres[];
   diretorioImagemObra: string;
+  publicado: boolean;
 }
 
 export interface IComicResponse {

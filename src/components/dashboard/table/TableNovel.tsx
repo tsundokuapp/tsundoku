@@ -181,7 +181,7 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
     url,
   }: LineTableProps) => {
     const formatedDate = date.replace(/\s\d{2}:\d{2}:\d{2}$/, '');
-    const urlNext = `/project/${url}`;
+    const urlNext = `/project/novel/${url}`;
     return (
       <tr
         onClick={() => router.push(urlNext)}

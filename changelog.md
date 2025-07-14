@@ -10,7 +10,7 @@ Tags usadas Added, Changed, Fixed, Removed, Deprecated, Security devem ser usada
 ## [Unreleased]
 
 ### Added
--
+- Integração das seções de novel e comic admin com API
 ### Changed
 -
 ### Fixed

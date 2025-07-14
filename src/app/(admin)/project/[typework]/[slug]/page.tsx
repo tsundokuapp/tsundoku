@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,21 +16,27 @@ import {
 } from '@/components/common/form';
 import { NavTabs, Tab } from '@/components/common/tab';
 import { useToaster } from '@/contexts/ToasterContext';
-import { formProjectSchema, InputFormProject } from '@/helpers/Schemas';
+import {
+  formProjectSchema,
+  InputFormCreateProject,
+  InputFormProject,
+} from '@/helpers/Schemas';
 // Todo: migrar esses valores para os de SystemValues
+import { transformFormDataNovel } from '@/helpers/TransformFormData';
 import {
   status,
-  genres,
   types,
   privacy,
   nationality,
   cargoObraDiscord,
 } from '@/helpers/Util';
-import { useAdminNovelSlug } from '@/hooks/useNovels';
+import { useAdminNovelBySlug } from '@/hooks/usePrivateApi';
+import { usePublicGenres } from '@/hooks/usePublicApi';
+import { updateNovel } from '@/services/NovelService';
 
 import { Volumes } from './Volumes';
 
-interface ISession {
+interface ISection {
   title: string;
   children: ReactNode;
 }
@@ -47,32 +54,67 @@ export default function Project() {
   });
 
   const pathname = usePathname();
+  // const typework = pathname.split('/')[2];
   const slug = pathname.split('/').pop();
 
-  const { data: projectResponse } = useAdminNovelSlug((slug as string) || '');
+  const { data: projectResponse, isLoading } = useAdminNovelBySlug(
+    (slug as string) || '',
+  );
+  console.log('projectResponse', projectResponse);
+  const { data: arrayGenres } = usePublicGenres();
+  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
 
   const { toaster } = useToaster();
+
+  const { mutateAsync: updateNovelFn } = useMutation({
+    mutationFn: updateNovel,
+  });
 
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const booleanOptions = ['Sim', 'Não'];
 
-  const handleFormSubmit = async (data: InputFormProject) => {
-    console.log(data);
+  const handleFormSubmit = async (data: InputFormCreateProject) => {
+    const formData = new FormData();
+    const dataRequest = transformFormDataNovel(data);
 
-    // TODO: iterar nas opções booleanas e setar o valor correto
+    for (const [key, value] of Object.entries(dataRequest)) {
+      if (key === 'cover' && value instanceof File) {
+        formData.append(key, value);
+      } else if (key === 'listaGeneros' && Array.isArray(value)) {
+        value.forEach((genero) => {
+          formData.append(`${key}`, genero);
+        });
+      } else {
+        formData.append(key, value as string);
+      }
+    }
 
-    const rest = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 2000);
-    });
+    formData.append('id', String(projectResponse?.id));
 
-    await rest;
+    const response = await updateNovelFn(formData);
 
-    // TODO: adicionar toaster de sucesso ao finalizar o envio do formulário
+    if (response?.statusCode === 400) {
+      toaster({
+        type: 'error',
+        msg:
+          typeof response?.message === 'object' && 'title' in response.message
+            ? String(response.message.title)
+            : 'Erro ao atualizar novel',
+      });
+      return;
+    }
+
+    if (response?.statusCode === 404) {
+      toaster({
+        type: 'error',
+        msg: 'Novel não encontrada',
+      });
+      return;
+    }
+
     toaster({
       type: 'success',
-      msg: 'Toaster da Sorte',
+      msg: 'Novel atualizada com sucesso',
     });
   };
 
@@ -90,8 +132,6 @@ export default function Project() {
       type: 'success',
       msg: 'Imagens enviadas com sucesso',
     });
-
-    console.log(getValues());
   };
 
   const handleSetMultiValues = (key: keyof InputFormProject, value: string) => {
@@ -110,7 +150,7 @@ export default function Project() {
     }
   };
 
-  const Session = ({ title, children }: ISession) => {
+  const Section = ({ title, children }: ISection) => {
     return (
       <div className="mb-2 flex w-full flex-col justify-between p-2">
         <h3 className="mb-1 text-center text-lg font-semibold">{title}</h3>
@@ -138,7 +178,7 @@ export default function Project() {
   return (
     <div className="flex flex-row gap-6 p-4">
       <aside className="flex w-full max-w-xs flex-col flex-wrap items-center">
-        <Session title="Imagens da Obra">
+        <Section title="Imagens da Obra">
           <form
             onSubmit={(event: FormEvent) => handleUpload(event)}
             className="flex flex-col items-center gap-4"
@@ -148,17 +188,23 @@ export default function Project() {
               name="cover"
               setValue={setValue}
               errors={errors}
+              defaultValue={
+                !isLoading ? projectResponse?.imagemCapaPrincipal || '' : ''
+              }
             />
             <DragAndDropSingleImage
-              title="Capa Último Volume"
+              title="Banner da Obra"
               name="last-vol"
               setValue={setValue}
               errors={errors}
+              defaultValue={
+                !isLoading ? projectResponse?.imagemBanner || '' : ''
+              }
             />
 
             <button
               type="submit"
-              className="bg-primary mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg px-4 py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
+              className="mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg bg-appGroupBackground px-4 py-2 text-center text-base font-semibold text-appText shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
             >
               <svg
                 width="20"
@@ -173,9 +219,9 @@ export default function Project() {
               Enviar
             </button>
           </form>
-        </Session>
+        </Section>
       </aside>
-      <aside className="flex w-full flex-col flex-wrap rounded-md bg-slate-100 p-4 dark:bg-slate-800">
+      <aside className="flex w-full flex-col flex-wrap rounded-md bg-appGroupBackground p-4">
         <NavTabs defaultActiveKey="Geral">
           <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
             <div className="flex flex-col justify-between">
@@ -252,7 +298,7 @@ export default function Project() {
                     getValues={getValues}
                     onClick={(key, item) => handleSetMultiValues(key, item)}
                     errors={errors}
-                    options={genres}
+                    options={genresData}
                     defaultValue={projectResponse?.generos}
                   />
                 </div>
@@ -291,6 +337,9 @@ export default function Project() {
                     errors={errors}
                     setValue={setValue}
                     options={privacy}
+                    defaultValue={
+                      projectResponse?.publicado ? 'Público' : 'Privado'
+                    }
                   />
                 </div>
 
@@ -359,6 +408,9 @@ export default function Project() {
                     errors={errors}
                     setValue={setValue}
                     options={booleanOptions}
+                    defaultValue={
+                      projectResponse?.ehRecomendacao === true ? 'Sim' : 'Não'
+                    }
                   />
 
                   <FormDropdown<InputFormProject>
@@ -370,6 +422,9 @@ export default function Project() {
                     errors={errors}
                     setValue={setValue}
                     options={booleanOptions}
+                    defaultValue={
+                      projectResponse?.ehObraMaiorIdade === true ? 'Sim' : 'Não'
+                    }
                   />
                 </div>
 

@@ -66,12 +66,12 @@ export const NavTabs = ({ defaultActiveKey, children, fill }: INavTabs) => {
           <>
             <div
               className={cn(
-                'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded',
+                'absolute right-[-1px] top-[-1px] h-2 w-2 animate-ping rounded bg-red-600',
               )}
             />
             <div
               className={cn(
-                'bg-error absolute right-[-1px] top-[-1px] h-2 w-2 rounded',
+                'absolute right-[-1px] top-[-1px] h-2 w-2 rounded bg-red-600',
               )}
             />
           </>
