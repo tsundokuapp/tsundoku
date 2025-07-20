@@ -60,6 +60,7 @@ export const HeaderSearch = React.forwardRef<
             queryFn: () => getWorksBySearch(searchTerm),
           });
           setWorks(result);
+          setSearchInput('');
         } finally {
           setIsLoading(false);
           setShowResults(true);
