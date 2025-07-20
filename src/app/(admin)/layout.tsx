@@ -1,20 +1,19 @@
 import {
-  Users,
   AddressBookTabs,
-  IdentificationBadge,
-  Checkerboard,
-  UsersFour,
   BookOpenText,
+  Checkerboard,
+  IdentificationBadge,
+  Users,
+  UsersFour,
 } from '@phosphor-icons/react/dist/ssr';
 import type { ReactNode } from 'react';
 
-import { ScrollToTopButton } from '@/components/common/ScrollToTopButton';
 import { HeaderBar } from '@/components/header/HeaderBar';
 import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto flex min-h-screen w-full max-w-[1600px] flex-row">
+    <div className="relative mx-auto flex min-h-screen w-full flex-row">
       <Sidebar>
         <hr className="my-3 border-t border-gray-400" />
         <SidebarItem
@@ -52,11 +51,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
       </Sidebar>
 
-      <main className="ml-[72px] flex w-full max-w-[calc(100dvw-72px)] flex-col overflow-scroll pl-4 font-normal">
+      <main className="ml-[72px] flex w-full max-w-[calc(100dvw-72px)] flex-col pl-4 font-normal">
         <HeaderBar className="border-b-2 border-b-slate-700" />
-        {children}
+        <div className="overflow-auto">{children}</div>
       </main>
-      <ScrollToTopButton />
     </div>
   );
 }
