@@ -2,11 +2,11 @@
 
 import React, {
   createContext,
-  useState,
-  useEffect,
-  ReactNode,
   FC,
+  ReactNode,
   useContext,
+  useEffect,
+  useState,
 } from 'react';
 
 import { HeaderSearch } from '@/components/header/HeaderSearch';
@@ -57,14 +57,20 @@ export const SearchBarProvider: FC<SearchBarProviderProps> = ({ children }) => {
     if (isSearchBarVisible) {
       document.addEventListener('mousedown', checkClickOutsideHeader);
       document.addEventListener('keydown', checkKeyPress);
+      // Desabilita o scroll da página
+      document.body.style.overflow = 'hidden';
     } else {
       document.removeEventListener('mousedown', checkClickOutsideHeader);
       document.removeEventListener('keydown', checkKeyPress);
+      // Reabilita o scroll da página
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
       document.removeEventListener('mousedown', checkClickOutsideHeader);
       document.removeEventListener('keydown', checkKeyPress);
+      // Garante que o scroll seja reabilitado na limpeza
+      document.body.style.overflow = 'unset';
     };
   }, [closeSearchBar, isSearchBarVisible]);
 
@@ -95,10 +101,10 @@ export const SearchBarProvider: FC<SearchBarProviderProps> = ({ children }) => {
       {isSearchBarVisible && (
         <div
           id="containerSearch"
-          className="absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
+          className="absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-80"
         >
           <div id="contentSearch" className="relative w-full max-w-lg p-4">
-            <HeaderSearch autoFocus />
+            <HeaderSearch icon="Enter" autoFocus />
           </div>
         </div>
       )}
