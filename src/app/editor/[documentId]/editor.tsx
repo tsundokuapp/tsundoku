@@ -3,10 +3,18 @@
 import FileHandler from '@tiptap/extension-file-handler';
 import HighLight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
 import { TableKit } from '@tiptap/extension-table';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
-import { TextStyle, FontFamily, Color } from '@tiptap/extension-text-style';
+import TextAlign from '@tiptap/extension-text-align';
+import {
+  TextStyle,
+  FontFamily,
+  Color,
+  FontSize,
+  LineHeight,
+} from '@tiptap/extension-text-style';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -51,6 +59,18 @@ export const Editor = () => {
     },
     extensions: [
       StarterKit,
+      LineHeight,
+      FontSize,
+      TextAlign.configure({
+        types: ['heading', 'paragraph', 'image'],
+        defaultAlignment: 'left',
+      }),
+      Link.configure({
+        autolink: true,
+        openOnClick: false,
+        defaultProtocol: 'https',
+        protocols: ['http', 'https'],
+      }),
       Color,
       HighLight.configure({
         multicolor: true,

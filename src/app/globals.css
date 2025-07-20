@@ -185,4 +185,14 @@
       outline: 3px solid #0284C7;
     }
   }
+
+  /* Link styles */
+  a {
+    color: #0284C7;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

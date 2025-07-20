@@ -14,6 +14,7 @@ export interface DropdownOptionProps extends ComponentProps<'label'> {
   action?: (args: { value: string }) => void;
   onClick?: () => void;
   setIsOpen?: (isOpen: boolean) => void;
+  icon?: React.ReactNode;
   triggerRef?: React.RefObject<HTMLButtonElement>;
 }
 
@@ -26,6 +27,7 @@ export function DropdownOption({
   setIsOpen,
   triggerRef,
   className,
+  icon,
   ...props
 }: DropdownOptionProps) {
   const handleOptionAction = async () => {
@@ -61,6 +63,7 @@ export function DropdownOption({
         onKeyDown={handleKeyDown}
         {...props}
       >
+        {icon && <span>{icon}</span>}
         <span className="ml-2">{label}</span>
         {selected && <Check className="ml-auto h-5 w-5" />}
       </label>
