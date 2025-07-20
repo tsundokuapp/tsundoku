@@ -2,7 +2,7 @@
 // Color Checked
 // Components Checked
 import { useTheme } from 'next-themes';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { DropdownContainer } from '../common/dropdown/DropdownContainer';
 import { DropdownOption } from '../common/dropdown/DropdownOption';
