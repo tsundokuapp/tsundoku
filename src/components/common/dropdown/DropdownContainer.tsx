@@ -206,7 +206,7 @@ export function DropdownContainer({
           >
             <div
               className={cn(
-                'max-h-[400px] overflow-y-auto',
+                'max-h-[220px] overflow-y-auto',
                 scrollbarClassname,
               )}
             >
