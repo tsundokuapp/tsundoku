@@ -47,6 +47,7 @@ export const HeaderSearch = React.forwardRef<
     const [searchInput, setSearchInput] = useState('');
     const [showResults, setShowResults] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const commandRef = useRef<HTMLDivElement>(null);
 
     const handleFormSubmit = React.useCallback(
       async (searchTerm: string) => {
@@ -85,6 +86,28 @@ export const HeaderSearch = React.forwardRef<
       return () => document.removeEventListener('keydown', handleKeyPress);
     }, [searchInput, handleFormSubmit]);
 
+    // UseEffect para fechar resultados ao clicar fora
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          commandRef.current &&
+          !commandRef.current.contains(event.target as Node) &&
+          showResults
+        ) {
+          setShowResults(false);
+          setWorks(null);
+        }
+      };
+
+      if (showResults) {
+        document.addEventListener('mousedown', handleClickOutside);
+      }
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [showResults]);
+
     const handleInputChange = React.useCallback((value: string) => {
       setSearchInput(value);
       // Só limpa os resultados se o input ficar completamente vazio
@@ -120,7 +143,7 @@ export const HeaderSearch = React.forwardRef<
 
     const CommandReturn = () => {
       return (
-        <Command shouldFilter={true}>
+        <Command shouldFilter={true} ref={commandRef}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
