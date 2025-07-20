@@ -1,5 +1,5 @@
-import { Editor } from './editor';
-import { Toolbar } from './toolbar';
+import { Editor } from './Editor';
+import { Toolbar } from './Toolbar';
 
 interface DocumentEditorProps {
   documentId: string;
