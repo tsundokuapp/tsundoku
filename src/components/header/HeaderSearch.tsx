@@ -173,7 +173,7 @@ export const HeaderSearch = React.forwardRef<
                         )}
                         <div className="flex w-full items-center justify-between gap-2">
                           <span>{work.titulo}</span>
-                          <span className="flex items-center justify-center rounded border border-appSearchPlaceholder px-2 py-1 text-xs text-appSearchPlaceholder">
+                          <span className="flex items-center justify-center rounded border border-appHighlight px-2 py-1 text-xs">
                             {work.tipo}
                           </span>
                         </div>
