@@ -53,7 +53,6 @@ export const HeaderSearch = React.forwardRef<
         if (!searchTerm?.trim()) return;
 
         setIsLoading(true);
-        setShowResults(true); // Mostra a área de resultados imediatamente
 
         try {
           const result = await queryClient.fetchQuery({
@@ -63,6 +62,7 @@ export const HeaderSearch = React.forwardRef<
           setWorks(result);
         } finally {
           setIsLoading(false);
+          setShowResults(true);
         }
       },
       [queryClient],
@@ -119,7 +119,7 @@ export const HeaderSearch = React.forwardRef<
 
     const CommandReturn = () => {
       return (
-        <Command shouldFilter={false}>
+        <Command shouldFilter={true}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
