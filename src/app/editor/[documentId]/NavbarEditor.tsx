@@ -31,12 +31,48 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from '@/components/shadcn/menubar';
+import { useEditorStore } from '@/store/useEditor';
 
 import { DocumentInput } from './DocumentInput';
 
-const tsunColor = '#0284C7';
-
 export const NavBarEditor = () => {
+  const { editor } = useEditorStore();
+
+  const insertTable = (rows: number, cols: number) => {
+    editor
+      ?.chain()
+      .focus()
+      .insertTable({ rows, cols, withHeaderRow: false })
+      .run();
+  };
+
+  const onDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const onSaveHtml = () => {
+    if (!editor) return;
+
+    const content = editor.getHTML();
+    const blob = new Blob([content], { type: 'text/html' });
+    onDownload(blob, 'document.html');
+  };
+
+  const onSaveText = () => {
+    if (!editor) return;
+
+    const content = editor.getText();
+    const blob = new Blob([content], { type: 'text/plain' });
+    onDownload(blob, 'document.txt');
+  };
+
   return (
     <nav className="flex items-center justify-between">
       <div className="flex items-center gap-2">
@@ -56,15 +92,15 @@ export const NavBarEditor = () => {
                       Salvar
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveHtml}>
                         <FileHtml className="mr-2 size-4" />
                         HTML
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => window.print()}>
                         <FilePdf className="mr-2 size-4" />
                         PDF
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveText}>
                         <FileText className="mr-2 size-4" />
                         Texto
                       </MenubarItem>
@@ -97,12 +133,16 @@ export const NavBarEditor = () => {
                   Editar
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().undo().run()}
+                  >
                     <ArrowUUpLeft className="mr-2 size-4" />
                     Desfazer
                     <MenubarShortcut>Ctrl+Z</MenubarShortcut>
                   </MenubarItem>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().redo().run()}
+                  >
                     <ArrowUUpLeft className="mr-2 size-4 rotate-180" />
                     Refazer
                     <MenubarShortcut>Ctrl+Y</MenubarShortcut>
@@ -117,10 +157,18 @@ export const NavBarEditor = () => {
                   <MenubarSub>
                     <MenubarSubTrigger>Tabela</MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>1 x 1</MenubarItem>
-                      <MenubarItem>2 x 2</MenubarItem>
-                      <MenubarItem>3 x 3</MenubarItem>
-                      <MenubarItem>4 x 4</MenubarItem>
+                      <MenubarItem onClick={() => insertTable(1, 1)}>
+                        1 x 1
+                      </MenubarItem>
+                      <MenubarItem onClick={() => insertTable(2, 2)}>
+                        2 x 2
+                      </MenubarItem>
+                      <MenubarItem onClick={() => insertTable(3, 3)}>
+                        3 x 3
+                      </MenubarItem>
+                      <MenubarItem onClick={() => insertTable(4, 4)}>
+                        4 x 4
+                      </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
                 </MenubarContent>
@@ -136,29 +184,49 @@ export const NavBarEditor = () => {
                       Texto
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleBold().run()
+                        }
+                      >
                         <TextB className="mr-2 size-4" />
                         Negrito
                         <MenubarShortcut>Ctrl+B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleItalic().run()
+                        }
+                      >
                         <TextItalic className="mr-2 size-4" />
                         Itálico
                         <MenubarShortcut>Ctrl+I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleUnderline().run()
+                        }
+                      >
                         <TextUnderline className="mr-2 size-4" />
                         Sublinhado
                         <MenubarShortcut>Ctrl+U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleStrike().run()
+                        }
+                      >
                         <TextStrikethrough className="mr-2 size-4" />
                         Tachado&nbsp;&nbsp;
                         <MenubarShortcut>Ctrl+Shift+X</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() =>
+                      editor?.chain().focus().unsetAllMarks().run()
+                    }
+                  >
                     <TextTSlash className="mr-2 size-4" />
                     Limpar Formatação
                   </MenubarItem>
