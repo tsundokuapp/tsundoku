@@ -628,7 +628,7 @@ export const Toolbar = () => {
   ];
 
   return (
-    <div className="relative flex min-h-[40px] items-center gap-x-0.5 rounded-[24px] bg-[#F1F4F9] px-2.5 py-0.5 print:hidden">
+    <div className="relative flex min-h-[40px] items-center gap-x-0.5 rounded-[10px] rounded-b-none bg-[#FAFAFB] px-2.5 py-0.5 print:hidden">
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
