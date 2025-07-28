@@ -42,10 +42,7 @@ export const FormDropdown = <T extends Record<string, unknown>>({
 
   return (
     <section>
-      <label
-        htmlFor="Status"
-        className="mb-1 block text-base font-normal text-appText"
-      >
+      <label className="mb-1 block text-base font-normal text-appText">
         {label}
       </label>
 

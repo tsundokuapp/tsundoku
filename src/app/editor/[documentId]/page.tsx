@@ -1,7 +1,6 @@
 import { Editor } from './Editor';
 import { NavBarEditor } from './NavbarEditor';
 import { Toolbar } from './Toolbar';
-
 interface DocumentEditorProps {
   documentId: string;
 }
@@ -15,8 +14,8 @@ export default function DocumentEditor({
   console.log('Document ID:', documentId);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFB]">
-      <div className="fixed left-0 right-0 top-0 z-10 flex flex-col gap-y-2 bg-slate-800 px-4 print:hidden">
+    <div className="min-h-screen bg-appBackground">
+      <div className="fixed left-0 right-0 top-0 z-10 flex flex-col gap-y-2 bg-appGroupBackground px-4 print:hidden">
         <NavBarEditor />
         <Toolbar />
       </div>

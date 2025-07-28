@@ -21,7 +21,7 @@ import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
 import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { cn } from '@/helpers/twUtils';
-import { useAdminNovels } from '@/hooks/useNovels';
+import { useAdminNovels } from '@/hooks/usePrivateApi';
 import { getWorksBySearch } from '@/services/ProjectService';
 import { api } from '@/services/api';
 

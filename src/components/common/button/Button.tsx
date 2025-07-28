@@ -21,9 +21,12 @@ export const Button = ({
   return (
     <button
       tabIndex={0}
-      onClick={onClick}
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        onClick();
+      }}
       className={cn(
-        'disabled:dark:hover:bg-appPrimary focus:dark:border-primary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60',
+        'disabled:hover:bg-appPrimary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60',
         className,
       )}
       {...props}

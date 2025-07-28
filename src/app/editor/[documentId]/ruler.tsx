@@ -1,6 +1,8 @@
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { useRef, useState } from 'react';
 
+import { useEditorStore } from '@/store/useEditor';
+
 interface IMarkerProps {
   position: number;
   isLeft: boolean;
@@ -44,8 +46,7 @@ const Marker = ({
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
-  const [leftMargin, setLeftMargin] = useState<number>(56);
-  const [rightMargin, setRightMargin] = useState<number>(56);
+  const { margin, setMargin } = useEditorStore();
   const [isDraggingLeft, setIsDraggingLeft] = useState<boolean>(false);
   const [isDraggingRight, setIsDraggingRight] = useState<boolean>(false);
   const rulerRef = useRef<HTMLDivElement | null>(null);
@@ -69,17 +70,24 @@ export const Ruler = () => {
         const rawPosition = Math.max(0, Math.min(PAGE_WIDTH, relativeX));
 
         if (isDraggingLeft) {
-          const maxLeftPoisition = PAGE_WIDTH - rightMargin - MINIMUM_SPACE;
-          const newLeftPosition = Math.min(rawPosition, maxLeftPoisition);
-          setLeftMargin(newLeftPosition);
+          const maxLeftPosition = PAGE_WIDTH - margin.right - MINIMUM_SPACE;
+          const newLeftPosition = Math.min(rawPosition, maxLeftPosition);
+          setMargin({
+            left: newLeftPosition,
+            right: margin.right ?? 56,
+          });
         } else if (isDraggingRight) {
-          const maxRightPosition = PAGE_WIDTH - (leftMargin + MINIMUM_SPACE);
+          const maxRightPosition =
+            PAGE_WIDTH - (margin.left ?? 56 + MINIMUM_SPACE);
           const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
           const constrainedRightPosition = Math.min(
             newRightPosition,
             maxRightPosition,
           );
-          setRightMargin(constrainedRightPosition);
+          setMargin({
+            left: margin.left ?? 56,
+            right: constrainedRightPosition,
+          });
         }
       }
     }
@@ -91,11 +99,11 @@ export const Ruler = () => {
   };
 
   const handleLeftDoubleClick = () => {
-    setLeftMargin(56);
+    setMargin({ ...margin, left: 56 });
   };
 
   const handleRightDoubleClick = () => {
-    setRightMargin(56);
+    setMargin({ ...margin, right: 56 });
   };
 
   return (
@@ -108,14 +116,14 @@ export const Ruler = () => {
     >
       <div id="ruler-container" className="relative h-full w-full">
         <Marker
-          position={leftMargin}
+          position={margin.left ?? 56}
           isLeft={true}
           isDragging={isDraggingLeft}
           onMouseDown={handleLeftMouseDown}
           onDoubleClick={handleLeftDoubleClick}
         />
         <Marker
-          position={rightMargin}
+          position={margin.right ?? 56}
           isLeft={false}
           isDragging={isDraggingRight}
           onMouseDown={handleRightMouseDown}

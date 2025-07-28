@@ -23,7 +23,7 @@ export const TitleColTable = ({
     <th
       scope="col"
       className={cn(
-        'table-cell py-3 pl-3',
+        'table-cell bg-appHeaderBackground py-3 pl-3',
         {
           'hidden md:table-cell': hiddenCell === 'md',
           'hidden sm:table-cell': hiddenCell === 'sm',
@@ -32,7 +32,7 @@ export const TitleColTable = ({
       )}
     >
       <div
-        className={cn('flex items-center px-3', {
+        className={cn('flex items-center px-3 text-appHeaderText', {
           'justify-start': position === 'left',
           'justify-end': position === 'right',
           'justify-center': position === 'center',

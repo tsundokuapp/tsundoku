@@ -18,7 +18,9 @@ import {
   Trash,
 } from '@phosphor-icons/react/dist/ssr';
 
+import { Avatar } from '@/components/common/Avatar';
 import { LogoLink } from '@/components/common/logoLink/LogoLink';
+import { Tooltip } from '@/components/common/tooltip/Tooltip';
 import {
   Menubar,
   MenubarContent,
@@ -31,6 +33,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from '@/components/shadcn/menubar';
+import { ThemeToggle } from '@/components/theme/ThemeToogle';
 import { useEditorStore } from '@/store/useEditor';
 
 import { DocumentInput } from './DocumentInput';
@@ -80,9 +83,9 @@ export const NavBarEditor = () => {
         <div className="flex flex-col">
           <DocumentInput />
           <div className="flex">
-            <Menubar className="h-auto border-none bg-transparent p-0 text-white shadow-none">
+            <Menubar className="h-auto border-none bg-transparent p-0 text-appText shadow-none">
               <MenubarMenu>
-                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal">
+                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal hover:cursor-pointer">
                   Arquivo
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
@@ -129,7 +132,7 @@ export const NavBarEditor = () => {
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
-                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal">
+                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal hover:cursor-pointer">
                   Editar
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
@@ -150,7 +153,7 @@ export const NavBarEditor = () => {
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
-                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal">
+                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal hover:cursor-pointer">
                   Inserir
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
@@ -174,7 +177,7 @@ export const NavBarEditor = () => {
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
-                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal">
+                <MenubarTrigger className="hover-bg-muted h-auto rounded-sm px-[7px] py-0.5 text-sm font-normal hover:cursor-pointer">
                   Formatar
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
@@ -235,6 +238,15 @@ export const NavBarEditor = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex items-center justify-center gap-2">
+        <ThemeToggle />
+        <Tooltip text={'Axios'}>
+          <Avatar
+            className="h-8 w-8 p-0 hover:cursor-pointer"
+            src="/cover-alya.webp"
+          />
+        </Tooltip>
       </div>
     </nav>
   );

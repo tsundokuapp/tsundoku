@@ -163,10 +163,7 @@ export const DragAndDropSingleImage = ({
                     height={48}
                   />
                   <h3 className="mt-2 text-sm font-medium text-appSubtitle">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer"
-                    >
+                    <label className="relative cursor-pointer">
                       <span>Solte a imagem aqui</span>
                     </label>
                   </h3>
@@ -182,10 +179,7 @@ export const DragAndDropSingleImage = ({
                   />
 
                   <h3 className="mt-2 text-sm font-medium text-appSubtitle">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer"
-                    >
+                    <label className="relative cursor-pointer">
                       <span>Arraste e solte </span>
                       <span
                         className="text-primary"

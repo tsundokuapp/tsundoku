@@ -69,6 +69,7 @@ export interface IChapterListNovelVolume {
 
   parteCapitulo: string; // esse campo não existe no retorno da API
   publicado?: boolean; // esse campo não existe no retorno da API
+  conteudoCapitulo?: string; // esse campo não existe no retorno da API
 }
 export interface IVolumeNovelData {
   id: string;

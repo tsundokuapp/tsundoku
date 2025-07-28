@@ -10,7 +10,11 @@ import {
   IPrivateComics,
 } from '@/@types/Api';
 import { createComicService, getPrivateComics } from '@/services/ComicService';
-import { getAdminNovelBySlug } from '@/services/NovelService';
+import {
+  createNovelService,
+  getAdminNovelBySlug,
+  getAdminNovels,
+} from '@/services/NovelService';
 
 export const usePrivateComics = (): UseQueryResult<
   ApiResponse<IPrivateComics>
@@ -34,5 +38,26 @@ export const useAdminNovelBySlug = (
     queryKey: ['adm-novels-slug', slug],
     queryFn: () => getAdminNovelBySlug(slug),
     enabled: !!slug,
+  });
+};
+
+export const createNovel = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  return createNovelService(data);
+};
+
+export const createVolumeNovel = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  return createVolumeNovelService(data);
+};
+
+export const useAdminNovels = (): UseQueryResult<
+  ApiResponse<INovelResponse>
+> => {
+  return useQuery({
+    queryKey: ['adm-novels'],
+    queryFn: getAdminNovels,
   });
 };

@@ -146,3 +146,128 @@ export const updateNovel = async (
     };
   }
 };
+
+export const createNovelService = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  try {
+    const response: AxiosResponse<INovelResponse> = await api.post(
+      '/admin/obra/novel',
+      data,
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        message: error.response.data,
+        statusCode: error.response.status,
+      };
+    }
+    return {
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
+      statusCode: 500,
+    };
+  }
+};
+
+export const createNovelVolume = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  try {
+    const response: AxiosResponse<INovelResponse> = await api.post(
+      '/admin/volume/novel',
+      data,
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        message: error.response.data,
+        statusCode: error.response.status,
+      };
+    }
+    return {
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
+      statusCode: 500,
+    };
+  }
+};
+
+export const createNovelChapter = async (
+  data: FormData,
+): Promise<INovelResponse | ErrorResponse> => {
+  try {
+    const response: AxiosResponse<INovelResponse> = await api.post(
+      '/admin/obra/capitulo/novel',
+      data,
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        message: error.response.data,
+        statusCode: error.response.status,
+      };
+    }
+    return {
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
+      statusCode: 500,
+    };
+  }
+};
+
+export const getAdminNovels = async (): Promise<INovelResponse[]> => {
+  try {
+    const response = await api.get('/admin/obra/novels?take=12');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const deleteNovelVolume = async (
+  idVolume: string,
+): Promise<INovelResponse | ErrorResponse> => {
+  try {
+    const response: AxiosResponse<INovelResponse> = await api.delete(
+      `/admin/volume/novel/${idVolume}/true`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        message: error.response.data,
+        statusCode: error.response.status,
+      };
+    }
+    return {
+      message: {
+        errors: {},
+        status: 500,
+        title: 'Erro desconhecido',
+      },
+      statusCode: 500,
+    };
+  }
+};

@@ -1,4 +1,7 @@
-import { InputFormCreateProject } from './Schemas';
+import {
+  InputFormCreateProject,
+  InputFormUnifiedVolumeAndChapter,
+} from './Schemas';
 
 export function transformFormDataNovel(data: InputFormCreateProject) {
   return {
@@ -66,6 +69,40 @@ export function transformFormDataComic(data: InputFormCreateProject) {
     usuarioAlteracao: 'admin',
     dataAlteracao: new Date().toISOString(),
     publicado: data.privacy === 'publico',
+    ...Object.fromEntries(
+      Object.entries(data).filter(
+        ([key]) =>
+          ![
+            'title',
+            'titleAlternative',
+            'author',
+            'yearRelease',
+            'hexColor',
+            'type',
+            'status',
+            'nationality',
+            'synopsis',
+            'cover',
+            'genres',
+            'aliasTitle',
+          ].includes(key),
+      ),
+    ),
+  };
+}
+
+export function transformFormDataNovelVolumeAndChapter(
+  data: InputFormUnifiedVolumeAndChapter,
+) {
+  const isVolume = data.type === 'volume';
+  return {
+    titulo: data.title,
+    sinopse: isVolume ? data.description : undefined,
+    ImagemVolumeFile: isVolume ? data.cover : undefined,
+    numero: isVolume ? data.number : undefined,
+    usuarioAlteracao: 'admin',
+    usuarioInclusao: 'admin',
+    dataAlteracao: new Date().toISOString(),
     ...Object.fromEntries(
       Object.entries(data).filter(
         ([key]) =>

@@ -63,7 +63,7 @@ const LineHeightButton = () => {
     <DropdownContainer
       isButton
       label={
-        <div className="flex w-[16px] flex-col items-center">
+        <div className="flex w-[16px] flex-col items-center text-appText">
           <span className="text-appText">LH</span>
           <span className="h-1 w-full" style={{ lineHeight }} />
         </div>
@@ -174,7 +174,7 @@ const ListButton = () => {
 
   const LabelButton = () => {
     return (
-      <div className="flex w-[16px] flex-col items-center">
+      <div className="flex w-[16px] flex-col items-center text-appText">
         <ListBullets size={16} />
       </div>
     );
@@ -216,7 +216,7 @@ const AlignButton = () => {
 
   const LabelButton = () => {
     return (
-      <div className="flex w-[16px] flex-col items-center">
+      <div className="flex w-[16px] flex-col items-center text-appText">
         <TextAlignCenter size={16} />
       </div>
     );
@@ -312,7 +312,7 @@ const ImageButton = () => {
             className="w-full rounded border border-gray-300 p-2"
           />
           <button
-            className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-appText hover:bg-blue-600"
             onClick={handleImageUrlSubmit}
           >
             Adicionar Imagem
@@ -346,7 +346,7 @@ const LinkButton = () => {
         className="w-full rounded border border-gray-300 p-2"
       />
       <button
-        className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        className="mt-2 w-full rounded bg-blue-500 px-4 py-2 text-appText hover:bg-blue-600"
         onClick={() => {
           onChange(value);
         }}
@@ -400,7 +400,7 @@ const TextColorButton = () => {
 
   const LabelButton = () => {
     return (
-      <div className="flex w-[16px] flex-col items-center">
+      <div className="flex w-[16px] flex-col items-center text-appText">
         <span className="text-appText">A</span>
         <span className="h-1 w-full" style={{ backgroundColor: value }} />
       </div>
@@ -529,7 +529,7 @@ const FontFamilyButton = () => {
 };
 
 const ToolbarSeparator = () => {
-  return <span className="mx-1 h-6 w-[1px] bg-neutral-300" />;
+  return <span className="mx-1 h-6 w-[1px] bg-appText" />;
 };
 
 const ToolbarButton = ({
@@ -541,7 +541,7 @@ const ToolbarButton = ({
     <button
       onClick={onClick}
       className={cn(
-        'flex h-7 min-w-7 items-center justify-center rounded-sm text-sm hover:bg-neutral-200/80',
+        'flex h-7 min-w-7 items-center justify-center rounded-sm text-sm text-appText hover:bg-neutral-200/80',
         {
           'bg-neutral-200/80': isActive,
         },
@@ -628,7 +628,7 @@ export const Toolbar = () => {
   ];
 
   return (
-    <div className="relative flex min-h-[40px] items-center gap-x-0.5 rounded-[10px] rounded-b-none bg-[#FAFAFB] px-2.5 py-0.5 print:hidden">
+    <div className="relative flex min-h-[40px] items-center gap-x-0.5 rounded-[10px] rounded-b-none bg-appBackground px-2.5 py-0.5 print:hidden">
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}

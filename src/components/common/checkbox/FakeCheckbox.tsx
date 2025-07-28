@@ -54,10 +54,7 @@ export const FakeCheckbox = ({
           'text-md': size === 'md' || 'lg',
         })}
       >
-        <label
-          htmlFor="helper-fake-checkbox"
-          className="font-medium text-gray-900 dark:text-gray-300"
-        >
+        <label className="font-medium text-gray-900 dark:text-gray-300">
           {label}
         </label>
         {description && (
