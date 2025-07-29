@@ -55,14 +55,14 @@ const DialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'flex justify-between space-y-1.5 text-center sm:text-left',
+      'flex items-center justify-between space-y-1.5 text-center sm:text-left',
       className,
     )}
     {...props}
   >
     {props.children}
     <DialogPrimitive.Close className="rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 disabled:pointer-events-none">
-      <X weight="bold" className="h-6 w-6 text-appHeaderText" />
+      <X weight="bold" className="h-6 w-6 text-appText" />
       <span className="sr-only">Close</span>
     </DialogPrimitive.Close>
   </div>
@@ -90,7 +90,7 @@ const DialogTitle = React.forwardRef<
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
-      'text-lg font-semibold leading-none tracking-tight',
+      'text-lg font-semibold leading-none tracking-tight text-appText',
       className,
     )}
     {...props}

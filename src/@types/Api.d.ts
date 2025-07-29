@@ -69,6 +69,7 @@ export interface IChapterListNovelVolume {
 
   parteCapitulo: string; // esse campo não existe no retorno da API
   publicado?: boolean; // esse campo não existe no retorno da API
+  conteudoCapitulo?: string; // esse campo não existe no retorno da API
 }
 export interface IVolumeNovelData {
   id: string;
@@ -128,6 +129,20 @@ export interface IChapterNovelData {
 
   ehIlustracoesNovel?: boolean; // esse campo não existe no retorno da API
   publicado?: boolean; // esse campo não existe no retorno da API
+}
+
+export interface IChapterNovelUpdateRetorn {
+  id: string;
+  usuarioAlteracao: string;
+  dataInclusao: string; // '05/04/2025 15:26:19'
+  dataAlteracao: string;
+  diretorioImagemCapitulo: string; // TODO: remover isso do backend
+  ordemCapitulo: number;
+  ehIlustracoesNovel: boolean;
+  volumeId: string;
+  publicado: boolean;
+  slug?: string;
+  [key: string]: string | number | boolean; // parâmetro enviado na requisição
 }
 
 export interface IChapterNovel {

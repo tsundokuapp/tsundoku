@@ -45,10 +45,7 @@ export const FormTextArea = <T extends Record<string, unknown>>({
 
   return (
     <div className="flex w-full max-w-lg flex-col">
-      <label
-        htmlFor={label}
-        className="mb-1 block text-base font-normal text-appText"
-      >
+      <label className="mb-1 block text-base font-normal text-appText">
         {label}
       </label>
       <textarea

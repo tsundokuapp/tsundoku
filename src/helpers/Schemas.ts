@@ -110,6 +110,7 @@ export type InputFormCreateProject = z.infer<typeof formCreateProjectSchema>;
 export const formVolumesSchema = z.object({
   type: z.literal('volume'),
   title: z.optional(z.string()),
+  cover: z.optional(z.any()),
   number: z.preprocess(
     (val) => (typeof val === 'string' ? Number(val) : val),
     z
@@ -157,6 +158,15 @@ export const formChapterSchema = z.object({
 });
 
 export type InputFormChapter = z.infer<typeof formChapterSchema>;
+
+export const unifiedVolumeAndChapterSchema = z.discriminatedUnion('type', [
+  formVolumesSchema,
+  formChapterSchema,
+]);
+
+export type InputFormUnifiedVolumeAndChapter = z.infer<
+  typeof unifiedVolumeAndChapterSchema
+>;
 
 export const formSearchSchema = z.object({
   search: z.string().min(1, { message: 'Digite uma obra para pesquisar' }),

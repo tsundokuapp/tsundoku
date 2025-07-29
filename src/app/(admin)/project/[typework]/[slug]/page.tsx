@@ -60,7 +60,7 @@ export default function Project() {
   const { data: projectResponse, isLoading } = useAdminNovelBySlug(
     (slug as string) || '',
   );
-  console.log('projectResponse', projectResponse);
+
   const { data: arrayGenres } = usePublicGenres();
   const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
 
@@ -443,7 +443,11 @@ export default function Project() {
             </div>
           </Tab>
           <Tab title="Volumes" eventKey="Volumes">
-            <Volumes />
+            {!isLoading && projectResponse ? (
+              <Volumes novelId={projectResponse.id} />
+            ) : (
+              <></>
+            )}
           </Tab>
           <Tab title="Registros" eventKey="Logs">
             <h1>Logs para admins</h1>

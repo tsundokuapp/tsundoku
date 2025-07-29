@@ -20,7 +20,7 @@ export const Checkbox = ({
           tabIndex={0}
           disabled={disabled}
           className={cn(
-            'disabled:border-steel-400 disabled:bg-steel-400 checked:bg-primary focus:ring-primary dark:bg-appPrimary checked:dark:bg-primary dark:focus:ring-primary peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 focus:outline-none focus:ring-2 focus:ring-offset-0 dark:border-slate-700 checked:dark:border-0',
+            'disabled:border-steel-400 disabled:bg-steel-400 focus:ring-primary focus:ring-primary peer relative mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-0',
             {
               'h-4 w-4': size === 'sm',
               'h-5 w-5': size === 'md',
@@ -46,7 +46,7 @@ export const Checkbox = ({
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <polyline points="20 6 9 17 4 12"></polyline>
+          <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
       <div
@@ -54,16 +54,11 @@ export const Checkbox = ({
           'text-md': size === 'md' || 'lg',
         })}
       >
-        <label
-          htmlFor="helper-checkbox"
-          className="font-medium text-gray-900 dark:text-gray-300"
-        >
-          {label}
-        </label>
+        <label className="font-medium text-appText">{label}</label>
         {description && (
           <p
             id="helper-checkbox-text"
-            className="flex-wrap text-xs font-normal text-gray-500 dark:text-slate-500"
+            className="flex-wrap text-xs font-normal text-appSubtitle"
           >
             {description}
           </p>

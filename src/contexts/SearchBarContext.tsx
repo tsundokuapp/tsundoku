@@ -7,6 +7,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  useRef,
 } from 'react';
 
 import { HeaderSearch } from '@/components/header/HeaderSearch';
@@ -27,6 +28,7 @@ const SearchBarContext = createContext<SearchBarContextProps>(
 
 export const SearchBarProvider: FC<SearchBarProviderProps> = ({ children }) => {
   const [isSearchBarVisible, setIsSearchBarVisible] = useState<boolean>(false);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const closeSearchBar = React.useCallback(() => {
     setIsSearchBarVisible(false);
@@ -104,7 +106,7 @@ export const SearchBarProvider: FC<SearchBarProviderProps> = ({ children }) => {
           className="absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-80"
         >
           <div id="contentSearch" className="relative w-full max-w-lg p-4">
-            <HeaderSearch icon="Enter" autoFocus />
+            <HeaderSearch icon="Enter" autoFocus ref={searchRef} />
           </div>
         </div>
       )}

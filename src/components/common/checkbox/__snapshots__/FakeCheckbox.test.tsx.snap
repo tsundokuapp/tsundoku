@@ -36,7 +36,6 @@ exports[`Testes para o componente <FakeCheckbox /> Teste de snapshot Deve manter
     >
       <label
         class="font-medium text-gray-900 dark:text-gray-300"
-        for="helper-fake-checkbox"
       >
         Checkbox Teste
       </label>

@@ -6,9 +6,10 @@ import { cn } from '@/helpers/twUtils';
 
 interface LogoLinkProps {
   className?: string;
+  label?: string;
 }
 
-export const LogoLink = ({ className }: LogoLinkProps) => {
+export const LogoLink = ({ className, label }: LogoLinkProps) => {
   return (
     <Link
       className={cn(
@@ -18,7 +19,7 @@ export const LogoLink = ({ className }: LogoLinkProps) => {
       href="/"
     >
       <span className="text-appHeaderHighlight">/</span>
-      Tsundoku
+      {label ? <>{label}</> : <>Tsundoku</>}
       <span className="text-appHeaderHighlight">/</span>
     </Link>
   );

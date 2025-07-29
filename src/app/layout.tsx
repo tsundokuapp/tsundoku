@@ -6,6 +6,7 @@ import { useState } from 'react';
 import './globals.css';
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { ConvexClientProvider } from '@/contexts/ConvexClientProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
 import { SearchBarProvider } from '@/contexts/SearchBarContext';
 import { ToasterProvider } from '@/contexts/ToasterContext';
@@ -48,18 +49,25 @@ export default function RootLayout({
       </head>
       <body className="bg-appBackground text-appText transition-colors duration-100">
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider
-            themes={['theme-light', 'theme-sepia', 'theme-blue', 'theme-dark']}
-            attribute="class"
-            defaultTheme="theme-light"
-            enableColorScheme
-          >
-            <ToasterProvider>
-              <SearchBarProvider>
-                <ModalProvider>{children}</ModalProvider>
-              </SearchBarProvider>
-            </ToasterProvider>
-          </ThemeProvider>
+          <ConvexClientProvider>
+            <ThemeProvider
+              themes={[
+                'theme-light',
+                'theme-sepia',
+                'theme-blue',
+                'theme-dark',
+              ]}
+              attribute="class"
+              defaultTheme="theme-light"
+              enableColorScheme
+            >
+              <ToasterProvider>
+                <SearchBarProvider>
+                  <ModalProvider>{children}</ModalProvider>
+                </SearchBarProvider>
+              </ToasterProvider>
+            </ThemeProvider>
+          </ConvexClientProvider>
         </QueryClientProvider>
       </body>
     </html>

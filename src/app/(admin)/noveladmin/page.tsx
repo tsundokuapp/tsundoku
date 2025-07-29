@@ -22,7 +22,7 @@ import {
 } from '@/helpers/Schemas';
 import { transformFormDataNovel } from '@/helpers/TransformFormData';
 import { status, types, nationality } from '@/helpers/Util';
-import { createNovel } from '@/hooks/useNovels';
+import { createNovel } from '@/hooks/usePrivateApi';
 import { usePublicGenres } from '@/hooks/usePublicApi';
 
 export default function NovelAdmin() {

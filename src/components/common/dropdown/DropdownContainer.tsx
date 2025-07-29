@@ -30,11 +30,35 @@ interface DropdownContainerProps extends ComponentProps<'div'> {
   noIcon?: boolean;
   onClear?: () => void;
   children: ReactNode;
+  isButton?: boolean;
+  customIcon?: ReactNode;
 }
 
 interface Position {
   vertical: 'up' | 'down';
   horizontal: 'left' | 'right';
+}
+
+export function DropdownButtonContainer({
+  label,
+  ref,
+  onClick,
+}: {
+  label: string | ReactElement;
+  icon?: ReactNode;
+  ref?: React.Ref<HTMLButtonElement>;
+  onClick?: () => void;
+}) {
+  return (
+    <button
+      ref={ref}
+      onClick={onClick}
+      type="button"
+      className="inline-flex items-center gap-2 rounded-lg bg-transparent px-1 py-0.5 text-sm text-appText"
+    >
+      {label}
+    </button>
+  );
 }
 
 export function DropdownContainer({
@@ -48,6 +72,8 @@ export function DropdownContainer({
   onClear,
   children,
   className,
+  isButton = false,
+  customIcon,
   ...props
 }: DropdownContainerProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -163,27 +189,41 @@ export function DropdownContainer({
     <div
       data-dropdown-options
       ref={dropdownRef}
-      className={cn('relative inline-block min-w-[180px] text-left', className)}
+      className={cn(
+        'relative inline-block text-left',
+        isButton ? '' : 'min-w-[180px]',
+        className,
+      )}
       style={{ zIndex: isOpen ? 9999 : 'auto' }}
       {...props}
     >
-      <div>
-        <button
+      {isButton ? (
+        <DropdownButtonContainer
+          label={label}
+          icon={customIcon}
           ref={triggerRef}
-          type="button"
-          aria-haspopup="menu"
-          aria-expanded={isOpen}
-          data-testid="dropdown-trigger"
-          className={cn(
-            'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appText focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
-            buttonClassname,
-          )}
           onClick={handleToggleDropdown}
-        >
-          {isOpen ? label : value}
-          {!noIcon && <CaretUpDown className="ml-2 h-5 w-5" />}
-        </button>
-      </div>
+        />
+      ) : (
+        <div>
+          <button
+            ref={triggerRef}
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={isOpen}
+            data-testid="dropdown-trigger"
+            className={cn(
+              'focus:border-primary inline-flex h-10 w-full items-center justify-between rounded-lg border border-appInputBorder bg-appInputBackground px-3 text-sm text-appText focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2',
+              buttonClassname,
+            )}
+            onClick={handleToggleDropdown}
+          >
+            {isOpen ? label : value}
+            {!noIcon && <CaretUpDown className="ml-2 h-5 w-5" />}
+          </button>
+        </div>
+      )}
+
       {isOpen && (
         <DropdownAnimation
           duration={0.3}
