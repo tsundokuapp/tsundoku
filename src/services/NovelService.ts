@@ -4,6 +4,7 @@ import {
   ErrorResponse,
   IChapterComicData,
   IChapterNovelData,
+  IChapterNovelUpdateRetorn,
   IImageChapterComic,
   INovelResponse,
   IPublicNovel,
@@ -269,5 +270,30 @@ export const deleteNovelVolume = async (
       },
       statusCode: 500,
     };
+  }
+};
+
+export const getChapterNovelAdmin = async (
+  slugChapter: string,
+): Promise<IChapterNovel> => {
+  try {
+    const response = await api.get(`admin/capitulo/novel/${slugChapter}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IChapterNovel;
+  }
+};
+
+export const updateChapterNovel = async (
+  idChapter: string,
+  data: FormData,
+): Promise<IChapterNovelUpdateRetorn> => {
+  try {
+    const response = await api.put(`admin/capitulo/novel/${idChapter}`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IChapterNovelUpdateRetorn;
   }
 };

@@ -15,7 +15,7 @@ import { formatDate } from '@/helpers/Util';
 interface IChapterDocumentsTableProps {
   chapters: IVolumeNovelData['listaCapitulos'];
   onHandleClick?:
-    | ((info: { title: string; id: string; contentChapter: string }) => void)
+    | ((info: { title: string; id: string; idChapter: string }) => void)
     | undefined;
 }
 
@@ -45,7 +45,7 @@ export const ChapterDocumentsTable = ({
             onHandleClick?.({
               title: chapter.tituloCapitulo,
               id: chapter.id,
-              contentChapter: chapter.conteudoCapitulo ?? '',
+              idChapter: chapter.id,
             })
           }
         >

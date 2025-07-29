@@ -5,6 +5,8 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import {
   ApiResponse,
   ErrorResponse,
+  IChapterNovelData,
+  IChapterNovelUpdateRetorn,
   IComicResponse,
   INovelResponse,
   IPrivateComics,
@@ -14,6 +16,8 @@ import {
   createNovelService,
   getAdminNovelBySlug,
   getAdminNovels,
+  getChapterNovelAdmin,
+  updateChapterNovel,
 } from '@/services/NovelService';
 
 export const usePrivateComics = (): UseQueryResult<
@@ -31,6 +35,8 @@ export const createComic = async (
   return createComicService(data);
 };
 
+// ----------------NOVELS----------------
+
 export const useAdminNovelBySlug = (
   slug: string,
 ): UseQueryResult<INovelResponse> => {
@@ -47,11 +53,12 @@ export const createNovel = async (
   return createNovelService(data);
 };
 
-export const createVolumeNovel = async (
-  data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
-  return createVolumeNovelService(data);
-};
+// TODO: Corrigir para o modal de novel chamar esse função invés do service direto
+// export const createVolumeNovel = async (
+//   data: FormData,
+// ): Promise<INovelResponse | ErrorResponse> => {
+//   return createNovelVolume(data);
+// };
 
 export const useAdminNovels = (): UseQueryResult<
   ApiResponse<INovelResponse>
@@ -60,4 +67,21 @@ export const useAdminNovels = (): UseQueryResult<
     queryKey: ['adm-novels'],
     queryFn: getAdminNovels,
   });
+};
+
+export const useAdminChapterNovel = (
+  slugChapter: string,
+): UseQueryResult<IChapterNovelData> => {
+  return useQuery({
+    queryKey: ['chapter-novel', slugChapter],
+    queryFn: () => getChapterNovelAdmin(slugChapter),
+    enabled: !!slugChapter,
+  });
+};
+
+export const useAdminUpdateChapterNovel = async (
+  idChapter: string,
+  data: FormData,
+): Promise<IChapterNovelUpdateRetorn> => {
+  return updateChapterNovel(idChapter, data);
 };

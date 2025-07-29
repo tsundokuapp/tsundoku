@@ -38,7 +38,12 @@ import { useEditorStore } from '@/store/useEditor';
 
 import { DocumentInput } from './DocumentInput';
 
-export const NavBarEditor = () => {
+interface NavBarEditorProps {
+  id: string;
+  title?: string;
+}
+
+export const NavBarEditor = ({ id, title }: NavBarEditorProps) => {
   const { editor } = useEditorStore();
 
   const insertTable = (rows: number, cols: number) => {
@@ -65,7 +70,7 @@ export const NavBarEditor = () => {
 
     const content = editor.getHTML();
     const blob = new Blob([content], { type: 'text/html' });
-    onDownload(blob, 'document.html');
+    onDownload(blob, `${title}.html`);
   };
 
   const onSaveText = () => {
@@ -73,7 +78,7 @@ export const NavBarEditor = () => {
 
     const content = editor.getText();
     const blob = new Blob([content], { type: 'text/plain' });
-    onDownload(blob, 'document.txt');
+    onDownload(blob, `${title}.txt`);
   };
 
   return (
@@ -81,7 +86,7 @@ export const NavBarEditor = () => {
       <div className="flex items-center gap-2">
         <LogoLink label="Tsun Editor" />
         <div className="flex flex-col">
-          <DocumentInput />
+          <DocumentInput id={id} title={title || 'Documento sem título'} />
           <div className="flex">
             <Menubar className="h-auto border-none bg-transparent p-0 text-appText shadow-none">
               <MenubarMenu>

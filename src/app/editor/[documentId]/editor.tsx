@@ -20,9 +20,13 @@ import StarterKit from '@tiptap/starter-kit';
 
 import { useEditorStore } from '@/store/useEditor';
 
-import { Ruler } from './Ruler';
+import { Ruler } from './ruler';
 
-export const Editor = () => {
+interface IEditorProps {
+  contentEditor?: string | HTMLElement;
+}
+
+export const Editor = ({ contentEditor }: IEditorProps) => {
   const { setEditor, margin } = useEditorStore();
 
   const editor = useEditor({
@@ -144,7 +148,7 @@ export const Editor = () => {
         },
       }),
     ],
-    content: '',
+    content: contentEditor,
   });
 
   return (

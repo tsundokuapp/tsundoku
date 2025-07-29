@@ -13,7 +13,7 @@ export const LogoLink = ({ className, label }: LogoLinkProps) => {
   return (
     <Link
       className={cn(
-        'flex items-center gap-2 text-2xl font-extrabold text-appText',
+        'flex items-center gap-2 text-2xl font-extrabold text-appHeaderText',
         className,
       )}
       href="/"

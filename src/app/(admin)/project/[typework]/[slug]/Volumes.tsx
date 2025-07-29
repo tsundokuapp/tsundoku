@@ -43,7 +43,7 @@ interface IPreInfo {
   title: string;
   volumeNumber?: string;
   id: string;
-  contentChapter?: string; // usado para editar o conteúdo do capítulo
+  idChapter?: string; // usado para editar o conteúdo do capítulo
   // props de volumes abaixo
   cover?: string;
   sinopse?: string;
@@ -112,9 +112,17 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
     }
   }, [volumesNovelResponse?.data]);
 
-  const onTemplateClick = (title: string, initialContent: string) => {
+  const onTemplateClick = (chapterId: string) => {
     setIsCreatingOrLoading(true);
-    console.log('Creating chapter with title:', title, initialContent);
+    if (!chapterId) {
+      toaster({
+        type: 'error',
+        msg: 'Erro ao carregar capítulo.',
+      });
+      setIsCreatingOrLoading(false);
+      return;
+    }
+    router.push(`/editor/${chapterId}`);
   };
 
   const {
@@ -347,14 +355,16 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
         </div>
         <div className="col-span-3 flex flex-col items-center justify-center gap-4">
           <FormButton isSubmitting={isSubmitting} className="col-span-3" />
-          <Button
-            onClick={() => {
-              handleDeleteVolume(infoEditing.idVolume!);
-            }}
-            className="col-span-3 w-full bg-red-500 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-300"
-          >
-            Deletar Volume
-          </Button>
+          {isEditing && (
+            <Button
+              onClick={() => {
+                handleDeleteVolume(infoEditing.idVolume!);
+              }}
+              className="col-span-3 w-full bg-red-500 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-300"
+            >
+              Deletar Volume
+            </Button>
+          )}
         </div>
       </form>
     );
@@ -426,10 +436,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
               <Button
                 disabled={isCreatingOrLoading}
                 onClick={() => {
-                  onTemplateClick(
-                    infoEditing.title,
-                    infoEditing.contentChapter ?? '',
-                  );
+                  onTemplateClick(infoEditing.idChapter || '');
                   closeModal();
                 }}
                 className="w-full p-1"
@@ -460,7 +467,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
             <Button
               disabled={isCreatingOrLoading}
               onClick={() => {
-                onTemplateClick('Título do Capítulo', '');
+                // onTemplateClick(infoEditing.idChapter || '');
                 closeModal();
               }}
               className="col-span-2 w-full p-1"
