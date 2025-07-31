@@ -4,9 +4,10 @@ import { Spinner } from '@phosphor-icons/react/dist/ssr';
 
 import { useAdminChapterNovel } from '@/hooks/usePrivateApi';
 
+import { Editor } from './Editor';
 import { NavBarEditor } from './NavbarEditor';
-import { Editor } from './editor';
-import { Toolbar } from './toolbar';
+import { Toolbar } from './Toolbar';
+
 interface DocumentEditorProps {
   documentId: string;
 }

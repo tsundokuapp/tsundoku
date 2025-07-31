@@ -20,7 +20,7 @@ import StarterKit from '@tiptap/starter-kit';
 
 import { useEditorStore } from '@/store/useEditor';
 
-import { Ruler } from './ruler';
+import { Ruler } from './Ruler';
 
 interface IEditorProps {
   contentEditor?: string | HTMLElement;
