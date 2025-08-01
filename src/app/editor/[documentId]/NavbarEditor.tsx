@@ -34,6 +34,7 @@ import {
   MenubarTrigger,
 } from '@/components/shadcn/menubar';
 import { ThemeToggle } from '@/components/theme/ThemeToogle';
+import { useToaster } from '@/contexts/ToasterContext';
 import { useEditorStore } from '@/store/useEditor';
 
 import { DocumentInput } from './DocumentInput';
@@ -46,6 +47,15 @@ interface NavBarEditorProps {
 export const NavBarEditor = ({ id, title }: NavBarEditorProps) => {
   const { editor } = useEditorStore();
 
+  const { toaster } = useToaster();
+
+  const ToasterNotImplemented = () => {
+    // TODO: Implementar as funções marcadas com essa mensagem
+    toaster({
+      msg: 'Essa função estará disponível em breve.',
+      type: 'info',
+    });
+  };
   const insertTable = (rows: number, cols: number) => {
     editor
       ?.chain()
@@ -114,17 +124,17 @@ export const NavBarEditor = ({ id, title }: NavBarEditorProps) => {
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem onClick={() => ToasterNotImplemented()}>
                     <FilePlus className="mr-2 size-4" />
                     Novo Documento&nbsp;&nbsp;
                     <MenubarShortcut>Ctrl+N</MenubarShortcut>
                   </MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>
+                  <MenubarItem onClick={() => ToasterNotImplemented()}>
                     <NotePencil className="mr-2 size-4" />
                     Renomear
                   </MenubarItem>
-                  <MenubarItem>
+                  <MenubarItem onClick={() => ToasterNotImplemented()}>
                     <Trash className="mr-2 size-4" />
                     Excluir
                   </MenubarItem>
