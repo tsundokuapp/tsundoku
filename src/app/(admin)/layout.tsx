@@ -41,13 +41,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <SidebarItem
           icon={<IdentificationBadge size={24} />}
           text="Permissões"
-          action="/staffmanagement"
+          action="/staffadmin"
         />
         <hr className="my-3 border-t border-gray-400" />
         <SidebarItem
           icon={<Users size={24} />}
           text="Usuário"
-          action="/usermanagement"
+          action="/useradmin"
         />
       </Sidebar>
 

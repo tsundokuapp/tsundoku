@@ -41,7 +41,7 @@ interface ISection {
   children: ReactNode;
 }
 
-export default function Project() {
+export function ProjectNovel() {
   const {
     register,
     handleSubmit,
@@ -54,7 +54,6 @@ export default function Project() {
   });
 
   const pathname = usePathname();
-  // const typework = pathname.split('/')[2];
   const slug = pathname.split('/').pop();
 
   const { data: projectResponse, isLoading } = useAdminNovelBySlug(

@@ -435,6 +435,8 @@ export interface IComicResponse {
   tipoObraSlug: string;
   nacionalidadeSlug: string;
   statusObra: TStatusComic;
+  publicado: boolean;
+  imagemBanner: string;
 
   tipoObra: string;
   nacionalidade: string;

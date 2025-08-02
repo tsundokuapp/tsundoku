@@ -63,3 +63,15 @@ export const createComicService = async (data: FormData) => {
     };
   }
 };
+
+export const getAdminComicBySlug = async (
+  slug: string,
+): Promise<IComicResponse> => {
+  try {
+    const response = await api.get(`/admin/obra/comic/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return {} as IComicResponse;
+  }
+};

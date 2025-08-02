@@ -189,6 +189,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
           </div>
           <div className="flex gap-2">
             <ChapterDocumentsTable
+              type="novel"
               chapters={chapters}
               onHandleClick={(preInfo: IPreInfo) => {
                 preInfo = { ...preInfo, volumeNumber };

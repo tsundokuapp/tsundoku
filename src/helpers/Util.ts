@@ -50,6 +50,12 @@ export const formatDate = (
   extense: boolean,
   includesDayOfWeek: boolean,
 ) => {
+  const isNotValidDate = isNaN(date.getTime());
+
+  if (isNotValidDate) {
+    return 'Data inválida';
+  }
+
   const day = date.getDate();
   const monthNumber = date.getMonth() + 1;
   const dayOfWeek = [

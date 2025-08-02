@@ -306,7 +306,7 @@ export const TableComic = ({ openModal }: ITableComic) => {
       </Table>
       <FooterTable
         onGoToPage={(skip) =>
-          goToUrl(`/admin/obra/novels?Skip=${skip}&Take=${SKIP_DEFAULT}`)
+          goToUrl(`/admin/obra/comics?Skip=${skip}&Take=${SKIP_DEFAULT}`)
         }
         currentPage={pagination.currentPage}
         totalItems={pagination.total || 0}
