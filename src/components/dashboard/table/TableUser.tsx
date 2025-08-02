@@ -287,8 +287,8 @@ export const TableUser = ({ openModal }: ITableNovel) => {
   return (
     <div className="relative w-full overflow-x-auto transition-all sm:rounded-lg">
       <HeaderTable
-        title="Novels"
-        description="Inclui novels pausadas e canceladas."
+        title="Usuários"
+        description="Gerencie os usuários do sistema"
       >
         <SearchTable value={search} onChange={handleChange} disabled />
         <Button onClick={() => openModal()}>Adicionar</Button>
