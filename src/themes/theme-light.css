@@ -1,24 +1,35 @@
 .theme-light {
-  /* ...regras do tema light extraídas do globals.css... */
+  /* 
+  ---------------------- 
+  APP                    
+  ---------------------- 
+  */
+
   --app-color-background: var(--color-white);
+
   /* Header */
   --app-color-header-background: var(--color-slate-900);
   --app-color-header-text: var(--color-white);
   --app-color-header-highlight: var(--color-blue-500);
+
   /* Footer */
   --app-color-footer-background: var(--color-neutral);
   --app-color-footer-text: var(--color-slate-900);
   --app-color-footer-highlight: var(--color-slate-900);
+
   /* Text */
   --app-color-text: var(--color-slate-900);
+
   /* Elements */
   --app-color-icon: var(--color-white);
   --app-color-tag: var(--color-white);
+
   /* Banner */
   --app-color-banner-background: var(--color-slate-700);
   --app-color-banner-text: var(--color-white);
   --app-color-banner-button: var(--color-gray-900);
   --app-color-banner-button-hover: var(--color-slate-800);
+
   /* Botões */
   --app-color-button-background: var(--color-slate-700);
   --app-color-button-border: var(--color-slate-700);
@@ -29,14 +40,17 @@
   --app-color-button-outline-text: var(--color-slate-900);
   --app-color-button-fill-background: var(--color-slate-900);
   --app-color-button-fill-text: var(--color-white);
+
   /* Buscar */
   --app-color-search-background: var(--color-slate-700);
   --app-color-search-placeholder: var(--color-gray-500);
   --app-color-search-text: var(--color-white);
+
   /* Grupo */
   --app-color-group-background: var(--color-slate-200);
   --app-color-group-hover: var(--color-slate-300);
   --app-color-group-text: var(--color-slate-900);
+
   /* Inputs */
   --app-color-input-background: var(--color-white);
   --app-color-input-border: var(--color-slate-900);
@@ -44,11 +58,13 @@
   --app-color-input-text: var(--color-slate-900);
   --app-color-input-icon: var(--color-slate-900);
   --app-color-input-focus: var(--color-slate-800);
+
   /* Lista */
   --app-color-list-background: var(--color-white);
   --app-color-list-border: var(--color-slate-200);
   --app-color-list-hover: var(--color-slate-100);
   --app-color-list-text: var(--color-slate-900);
+
   /* Menu */
   --app-color-menu-background: var(--color-white);
   --app-color-menu-border: var(--color-slate-100);
@@ -56,9 +72,79 @@
   --app-color-menu-text: var(--color-zinc-700);
   --app-color-menu-title: var(--color-zinc-600);
   --app-color-menu-breakline: var(--color-zinc-600);
+
   /* Titulos */
   --app-color-title: var(--color-slate-900);
   --app-color-subtitle: var(--color-slate-700);
   --app-color-highlight: var(--color-blue-500);
   --app-color-highlight-text: var(--color-white);
+
+  /* Tabs */
+  --app-color-tabs-background: var(--color-gray-100);
+  --app-color-tabs-text: var(--color-gray-500);
+  --app-color-tabs-active: var(--color-white);
+  --app-color-tabs-active-text: var(--color-gray-900);
+
+  /* 
+  ---------------------- 
+  PROFILE                    
+  ---------------------- 
+  */
+
+  /* Profile Header */
+  --profile-color-header-background-from: var(--color-slate-900);
+  --profile-color-header-background-to: var(--color-slate-800);
+
+  /* Profile Avatar */
+  --profile-color-avatar-border: var(--color-white);
+  --profile-color-avatar-fallback-bg: var(--color-slate-500);
+  --profile-color-avatar-fallback-text: var(--color-white);
+
+  /* Profile Text */
+  --profile-color-text-primary: var(--color-slate-900);
+  --profile-color-text-secondary: var(--color-slate-700);
+  --profile-color-text-tertiary: var(--color-white);
+  --profile-color-icon: var(--color-slate-600);
+
+  /* Profile Cards */
+  --profile-color-card-background: var(--color-gray-100);
+  --profile-color-card-border: var(--color-slate-200);
+  --profile-color-card-hover: var(--color-slate-100);
+  --profile-color-card-menu-background: var(--color-white);
+
+  /* Profile Statistics */
+  --profile-color-stats-total: var(--color-green-500);
+  --profile-color-stats-reading: var(--color-red-500);
+  --profile-color-stats-completed: var(--color-blue-500);
+  --profile-color-stats-favorited: var(--color-purple-500);
+
+  /* Profile Activity Tab */
+  --profile-color-activity-background-from: var(--color-slate-900);
+  --profile-color-activity-background-to: var(--color-slate-800);
+  --profile-color-activity-header-text: var(--color-white);
+  --profile-color-activity-header-text-secondary: var(--color-white);
+  --profile-color-activity-header-icon: var(--color-white);
+
+  /* Profile Reading Tab */
+  --profile-color-reading-background-from: var(--color-slate-900);
+  --profile-color-reading-background-to: var(--color-slate-800);
+  --profile-color-reading-header-text: var(--color-white);
+  --profile-color-reading-header-text-secondary: var(--color-white);
+  --profile-color-reading-header-icon: var(--color-white);
+  --profile-color-reading-progress-primary: var(--color-slate-800);
+  --profile-color-reading-progress-secondary: var(--color-slate-300);
+
+  /* Profile Favorites Tab */
+  --profile-color-favorites-background-from: var(--color-slate-900);
+  --profile-color-favorites-background-to: var(--color-slate-800);
+  --profile-color-favorites-header-text: var(--color-white);
+  --profile-color-favorites-header-text-secondary: var(--color-white);
+  --profile-color-favorites-header-icon: var(--color-white);
+
+  /* Profile Achievements Tab */
+  --profile-color-achievements-background-from: var(--color-slate-900);
+  --profile-color-achievements-background-to: var(--color-slate-800);
+  --profile-color-achievements-header-text: var(--color-white);
+  --profile-color-achievements-header-text-secondary: var(--color-white);
+  --profile-color-achievements-header-icon: var(--color-white);
 }

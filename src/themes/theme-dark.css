@@ -56,9 +56,79 @@
   --app-color-menu-text: var(--color-white);
   --app-color-menu-title: var(--color-zinc-600);
   --app-color-menu-breakline: var(--color-zinc-600);
+
   /* Titulos */
   --app-color-title: var(--color-white);
   --app-color-subtitle: var(--color-gray-500);
   --app-color-highlight: var(--color-black-highlight);
   --app-color-highlight-text: var(--color-white);
+
+  /* Tabs */
+  --app-color-tabs-background: var(--color-zinc-800);
+  --app-color-tabs-text: var(--color-zinc-300);
+  --app-color-tabs-active: var(--color-zinc-700);
+  --app-color-tabs-active-text: var(--color-white);
+
+  /* 
+  ---------------------- 
+  PROFILE                    
+  ---------------------- 
+  */
+
+  /* Profile Header */
+  --profile-color-header-background-from: var(--color-black-900);
+  --profile-color-header-background-to: var(--color-zinc-900);
+
+  /* Profile Avatar */
+  --profile-color-avatar-border: var(--color-zinc-600);
+  --profile-color-avatar-fallback-bg: var(--color-zinc-800);
+  --profile-color-avatar-fallback-text: var(--color-white);
+
+  /* Profile Text */
+  --profile-color-text-primary: var(--color-white);
+  --profile-color-text-secondary: var(--color-gray-500);
+  --profile-color-text-tertiary: var(--color-white);
+  --profile-color-icon: var(--color-gray-400);
+
+  /* Profile Cards */
+  --profile-color-card-background: var(--color-zinc-900);
+  --profile-color-card-border: var(--color-zinc-700);
+  --profile-color-card-hover: var(--color-zinc-800);
+  --profile-color-card-menu-background: var(--color-zinc-800);
+
+  /* Profile Statistics */
+  --profile-color-stats-total: var(--color-green-400);
+  --profile-color-stats-reading: var(--color-red-400);
+  --profile-color-stats-completed: var(--color-blue-400);
+  --profile-color-stats-favorited: var(--color-purple-400);
+
+  /* Profile Activity Tab */
+  --profile-color-activity-background-from: var(--color-zinc-900);
+  --profile-color-activity-background-to: var(--color-zinc-800);
+  --profile-color-activity-header-text: var(--color-white);
+  --profile-color-activity-header-text-secondary: var(--color-zinc-200);
+  --profile-color-activity-header-icon: var(--color-white);
+
+  /* Profile Reading Tab */
+  --profile-color-reading-background-from: var(--color-zinc-900);
+  --profile-color-reading-background-to: var(--color-zinc-800);
+  --profile-color-reading-header-text: var(--color-white);
+  --profile-color-reading-header-text-secondary: var(--color-white);
+  --profile-color-reading-header-icon: var(--color-white);
+  --profile-color-reading-progress-primary: var(--color-zinc-300);
+  --profile-color-reading-progress-secondary: var(--color-zinc-600);
+
+  /* Profile Favorites Tab */
+  --profile-color-favorites-background-from: var(--color-zinc-900);
+  --profile-color-favorites-background-to: var(--color-zinc-800);
+  --profile-color-favorites-header-text: var(--color-white);
+  --profile-color-favorites-header-text-secondary: var(--color-white);
+  --profile-color-favorites-header-icon: var(--color-white);
+
+  /* Profile Achievements Tab */
+  --profile-color-achievements-background-from: var(--color-zinc-900);
+  --profile-color-achievements-background-to: var(--color-zinc-800);
+  --profile-color-achievements-header-text: var(--color-white);
+  --profile-color-achievements-header-text-secondary: var(--color-white);
+  --profile-color-achievements-header-icon: var(--color-white);
 }

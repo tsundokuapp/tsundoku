@@ -63,6 +63,98 @@ const config: Config = {
         appSubtitle: 'var(--app-color-subtitle)',
         appHighlight: 'var(--app-color-highlight)',
         appHighlightText: 'var(--app-color-highlight-text)',
+        appTabsBackground: 'var(--app-color-tabs-background)',
+        appTabsText: 'var(--app-color-tabs-text)',
+        appTabsActive: 'var(--app-color-tabs-active)',
+        appTabsActiveText: 'var(--app-color-tabs-active-text)',
+
+        // Profile Colors
+        profileHeaderBgFrom: 'var(--profile-color-header-background-from)',
+
+        profileHeaderBgTo: 'var(--profile-color-header-background-to)',
+        profileAvatarBorder: 'var(--profile-color-avatar-border)',
+        profileAvatarFallbackBg: 'var(--profile-color-avatar-fallback-bg)',
+        profileAvatarFallbackText: 'var(--profile-color-avatar-fallback-text)',
+        profileTextPrimary: 'var(--profile-color-text-primary)',
+        profileTextSecondary: 'var(--profile-color-text-secondary)',
+        profileTextTertiary: 'var(--profile-color-text-tertiary)',
+        profileIcon: 'var(--profile-color-icon)',
+        profileCardBackground: 'var(--profile-color-card-background)',
+        profileCardBorder: 'var(--profile-color-card-border)',
+        profileCardHover: 'var(--profile-color-card-hover)',
+        profileCardMenuBg: 'var(--profile-color-card-menu-background)',
+        profileStatsTotal: 'var(--profile-color-stats-total)',
+        profileStatsReading: 'var(--profile-color-stats-reading)',
+        profileStatsCompleted: 'var(--profile-color-stats-completed)',
+        profileStatsFavorited: 'var(--profile-color-stats-favorited)',
+        profileActivityBgFrom: 'var(--profile-color-activity-background-from)',
+        profileActivityBgTo: 'var(--profile-color-activity-background-to)',
+        profileActivityText: 'var(--profile-color-activity-header-text)',
+        profileActivityTextSecondary:
+          'var(--profile-color-activity-header-text-secondary)',
+        profileActivityIcon: 'var(--profile-color-activity-header-icon)',
+        profileReadingBgFrom: 'var(--profile-color-reading-background-from)',
+        profileReadingBgTo: 'var(--profile-color-reading-background-to)',
+        profileReadingText: 'var(--profile-color-reading-header-text)',
+        profileReadingTextSecondary:
+          'var(--profile-color-reading-header-text-secondary)',
+        profileReadingIcon: 'var(--profile-color-reading-header-icon)',
+        profileReadingProgressPrimary:
+          'var(--profile-color-reading-progress-primary)',
+        profileReadingProgressSecondary:
+          'var(--profile-color-reading-progress-secondary)',
+        profileFavoritesBgFrom:
+          'var(--profile-color-favorites-background-from)',
+        profileFavoritesBgTo: 'var(--profile-color-favorites-background-to)',
+        profileFavoritesText: 'var(--profile-color-favorites-header-text)',
+        profileFavoritesTextSecondary:
+          'var(--profile-color-favorites-header-text-secondary)',
+        profileFavoritesIcon: 'var(--profile-color-favorites-header-icon)',
+        profileAchievementsBgFrom:
+          'var(--profile-color-achievements-background-from)',
+        profileAchievementsBgTo:
+          'var(--profile-color-achievements-background-to)',
+        profileAchievementsText:
+          'var(--profile-color-achievements-header-text)',
+        profileAchievementsTextSecondary:
+          'var(--profile-color-achievements-header-text-secondary)',
+        profileAchievementsIcon:
+          'var(--profile-color-achievements-header-icon)',
+
+        // Achievement Colors
+        achievementLegendaryText: 'var(--achievement-color-legendary-text)',
+        achievementLegendaryBackground:
+          'var(--achievement-color-legendary-background)',
+        achievementLegendaryBgFrom:
+          'var(--achievement-color-legendary-background-from)',
+        achievementLegendaryBgTo:
+          'var(--achievement-color-legendary-background-to)',
+        achievementEpicText: 'var(--achievement-color-epic-text)',
+        achievementEpicBackground: 'var(--achievement-color-epic-background)',
+        achievementEpicBgFrom: 'var(--achievement-color-epic-background-from)',
+        achievementEpicBgTo: 'var(--achievement-color-epic-background-to)',
+        achievementRareText: 'var(--achievement-color-rare-text)',
+        achievementRareBackground: 'var(--achievement-color-rare-background)',
+        achievementRareBgFrom: 'var(--achievement-color-rare-background-from)',
+        achievementRareBgTo: 'var(--achievement-color-rare-background-to)',
+        achievementCommonText: 'var(--achievement-color-common-text)',
+        achievementCommonBackground:
+          'var(--achievement-color-common-background)',
+        achievementCommonBgFrom:
+          'var(--achievement-color-common-background-from)',
+        achievementCommonBgTo: 'var(--achievement-color-common-background-to)',
+
+        // Role Colors
+        roleAdmin: 'var(--role-color-admin)',
+        roleStaff: 'var(--role-color-staff)',
+        roleModerador: 'var(--role-color-moderador)',
+        roleTradutor: 'var(--role-color-tradutor)',
+        roleRevisor: 'var(--role-color-revisor)',
+        roleEditor: 'var(--role-color-editor)',
+        roleParceiro: 'var(--role-color-parceiro)',
+        roleApoiador: 'var(--role-color-apoiador)',
+        roleUser: 'var(--role-color-user)',
+
         bgDark: '#0f172a',
         bgLight: '#FFFFFF',
         textLight: '#1F2937',
@@ -70,7 +162,7 @@ const config: Config = {
         hoverBgLight: '#f1f5f9',
         hoverBgDark: '#475569',
         admin: '#D4AF37',
-        staff: '##1e40af',
+        staff: '#1e40af',
         moderador: '#92400e',
         tradutor: '#9d174d',
         revisor: '#86198f',
