@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 @import "@/themes/colors.css";
+@import "@/themes/common.css";
 @import "@/themes/theme-light.css";
 @import "@/themes/theme-sepia.css";
 @import "@/themes/theme-blue.css";
 @import "@/themes/theme-dark.css";
 
 .transition-theme {
-  transition: transform var(--transition-duration) ease-in-out,
-              opacity var(--transition-duration) ease-in-out;
+  transition:
+    transform var(--transition-duration) ease-in-out,
+    opacity var(--transition-duration) ease-in-out;
   transform-origin: top;
 }
 
@@ -82,9 +84,8 @@
     }
   }
 
-
   /* Task list specific styles */
-  ul[data-type='taskList'] {
+  ul[data-type="taskList"] {
     list-style: none;
     margin-left: 0;
     padding: 0;
@@ -104,11 +105,11 @@
       }
     }
 
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       cursor: pointer;
     }
 
-    ul[data-type='taskList'] {
+    ul[data-type="taskList"] {
       margin: 0;
     }
   }
@@ -136,14 +137,14 @@
     }
 
     th {
-      background-color: #C7C7C7;
+      background-color: #c7c7c7;
       font-weight: bold;
       text-align: left;
     }
 
     .selectedCell:after {
       background: #959595;
-      content: '';
+      content: "";
       left: 0;
       right: 0;
       top: 0;
@@ -154,7 +155,7 @@
     }
 
     .column-resize-handle {
-      background-color: #0284C7;
+      background-color: #0284c7;
       bottom: -2px;
       pointer-events: none;
       position: absolute;
@@ -182,13 +183,13 @@
     max-width: 100%;
 
     &.ProseMirror-selectednode {
-      outline: 3px solid #0284C7;
+      outline: 3px solid #0284c7;
     }
   }
 
   /* Link styles */
   a {
-    color: #0284C7;
+    color: #0284c7;
     cursor: pointer;
 
     &:hover {

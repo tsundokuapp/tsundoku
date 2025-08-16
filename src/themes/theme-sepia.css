@@ -61,4 +61,73 @@
   --app-color-subtitle: var(--color-stone-700);
   --app-color-highlight: var(--color-stone-500);
   --app-color-highlight-text: var(--color-white);
+
+  /* Tabs */
+  --app-color-tabs-background: var(--color-stone-200);
+  --app-color-tabs-text: var(--color-stone-500);
+  --app-color-tabs-active: var(--color-stone-100);
+  --app-color-tabs-active-text: var(--color-stone-900);
+
+  /* 
+  ---------------------- 
+  PROFILE                    
+  ---------------------- 
+  */
+
+  /* Profile Header */
+  --profile-color-header-background-from: var(--color-stone-900);
+  --profile-color-header-background-to: var(--color-stone-800);
+
+  /* Profile Avatar */
+  --profile-color-avatar-border: var(--color-white);
+  --profile-color-avatar-fallback-bg: var(--color-stone-500);
+  --profile-color-avatar-fallback-text: var(--color-white);
+
+  /* Profile Text */
+  --profile-color-text-primary: var(--color-stone-900);
+  --profile-color-text-secondary: var(--color-stone-700);
+  --profile-color-text-tertiary: var(--color-white);
+  --profile-color-icon: var(--color-stone-600);
+
+  /* Profile Cards */
+  --profile-color-card-background: var(--color-stone-200);
+  --profile-color-card-border: var(--color-stone-400);
+  --profile-color-card-hover: var(--color-stone-100);
+  --profile-color-card-menu-background: var(--color-white);
+
+  /* Profile Statistics */
+  --profile-color-stats-total: var(--color-green-600);
+  --profile-color-stats-reading: var(--color-red-600);
+  --profile-color-stats-completed: var(--color-blue-600);
+  --profile-color-stats-favorited: var(--color-purple-600);
+
+  /* Profile Activity Tab */
+  --profile-color-activity-background-from: var(--color-stone-900);
+  --profile-color-activity-background-to: var(--color-stone-800);
+  --profile-color-activity-header-text: var(--color-white);
+  --profile-color-activity-header-text-secondary: var(--color-white);
+  --profile-color-activity-header-icon: var(--color-white);
+
+  /* Profile Reading Tab */
+  --profile-color-reading-background-from: var(--color-stone-900);
+  --profile-color-reading-background-to: var(--color-stone-800);
+  --profile-color-reading-header-text: var(--color-white);
+  --profile-color-reading-header-text-secondary: var(--color-white);
+  --profile-color-reading-header-icon: var(--color-white);
+  --profile-color-reading-progress-primary: var(--color-stone-800);
+  --profile-color-reading-progress-secondary: var(--color-stone-400);
+
+  /* Profile Favorites Tab */
+  --profile-color-favorites-background-from: var(--color-stone-900);
+  --profile-color-favorites-background-to: var(--color-stone-800);
+  --profile-color-favorites-header-text: var(--color-white);
+  --profile-color-favorites-header-text-secondary: var(--color-white);
+  --profile-color-favorites-header-icon: var(--color-white);
+
+  /* Profile Achievements Tab */
+  --profile-color-achievements-background-from: var(--color-stone-900);
+  --profile-color-achievements-background-to: var(--color-stone-800);
+  --profile-color-achievements-header-text: var(--color-white);
+  --profile-color-achievements-header-text-secondary: var(--color-white);
+  --profile-color-achievements-header-icon: var(--color-white);
 }
