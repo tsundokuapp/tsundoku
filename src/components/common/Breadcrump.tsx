@@ -73,11 +73,13 @@ export function Breadcrump({
                 <DotOutline size={24} weight="fill" />
 
                 {isLastItem && !isReader ? (
-                  <span className="font-bold">{pathNameWithSuffix}</span>
+                  <span className="mr-4 text-nowrap font-bold">
+                    {pathNameWithSuffix}
+                  </span>
                 ) : (
                   <Link
                     href={pathLink}
-                    className="hover:underline hover:decoration-appHighlight hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
+                    className="text-center hover:underline hover:decoration-appHighlight hover:decoration-dotted hover:decoration-2 hover:underline-offset-4"
                   >
                     {pathNameWithSuffix}
                   </Link>
