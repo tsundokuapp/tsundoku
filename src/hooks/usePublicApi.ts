@@ -3,6 +3,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import {
   ApiResponse,
   ApiResponseChapter,
+  ErrorResponse,
   IChapterComic,
   IChapterNovel,
   IImageChapterComic,
@@ -13,6 +14,8 @@ import {
   IPublicGenres,
   IPublicNovel,
   IPublicNovels,
+  IUserRegisterData,
+  IUserRegisterResponse,
   IVolumesNovel,
   IWork,
 } from '@/@types/Api';
@@ -33,6 +36,7 @@ import {
   getRecomendations,
   getWorksBySearch,
 } from '@/services/ProjectService';
+import { createUserService } from '@/services/UserSevice';
 
 export const useRecomendations = (): UseQueryResult<
   ApiResponse<IProjectRecomendations>
@@ -161,4 +165,12 @@ export const usePublicSearchWorks = (
     queryFn: () => getWorksBySearch(searchTerm),
     enabled: !!searchTerm,
   });
+};
+
+// User
+
+export const createUser = async (
+  data: IUserRegisterData,
+): Promise<IUserRegisterResponse | ErrorResponse> => {
+  return createUserService(data);
 };

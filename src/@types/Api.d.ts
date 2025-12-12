@@ -367,6 +367,19 @@ export interface IWork {
   data: IWorkData[];
 }
 
+export interface IUserRegisterResponse {
+  UserName: string;
+  token: string;
+  refreshToken: string;
+}
+
+export interface IUserRegisterData {
+  UserName: string;
+  Email: string;
+  Senha: string;
+  ConfirmeSenha: string;
+}
+
 // ADMIN
 
 export interface INovelResponse {

@@ -15,3 +15,11 @@ const selectAPI = () => {
 export const api = axios.create({
   baseURL: selectAPI(),
 });
+
+const authAPI = () => {
+  return process.env.NEXT_PUBLIC_TORII_URL;
+};
+
+export const auth = axios.create({
+  baseURL: authAPI(),
+});
