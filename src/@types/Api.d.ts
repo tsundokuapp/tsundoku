@@ -16,6 +16,17 @@ export interface ErrorResponse {
   statusCode: number;
 }
 
+export interface ApiError {
+  message: {
+    errors: Record<string, string[]>;
+    status: number;
+    title: string;
+  };
+  statusCode: number;
+}
+
+type ApiResult<T> = { ok: true; data: T } | { ok: false; error: ApiError };
+
 export interface ApiResponseChapter<T> {
   data: T;
   proxima: string;
@@ -370,14 +381,24 @@ export interface IWork {
 export interface IUserRegisterResponse {
   UserName: string;
   token: string;
-  refreshToken: string;
+  refreshToken: string; // TODO: remover quando ajustar esse endpoint no back
 }
 
 export interface IUserRegisterData {
   UserName: string;
   Email: string;
   Senha: string;
-  ConfirmeSenha: string;
+  ConfirmaSenha: string;
+}
+
+export interface IUserLoginData {
+  UserName: string;
+  Password: string;
+}
+
+export interface IUserLoginResponse {
+  userName: string;
+  accessToken: string;
 }
 
 // ADMIN

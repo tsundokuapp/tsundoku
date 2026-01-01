@@ -1,13 +1,21 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { IUserLoginData } from '@/@types/Api';
 import { Button } from '@/components/common/button/Button';
 import { FormInput } from '@/components/common/form';
+import { useToaster } from '@/contexts/ToasterContext';
+import { loginUser } from '@/hooks/usePublicApi';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const signInFormSchema = z.object({
-  email: z.string().email('E-mail inválido'),
+  username: z
+    .string()
+    .min(2, 'O nome de usuário deve ter pelo menos 2 caracteres'),
   password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
 });
 
@@ -18,16 +26,46 @@ export const SignIn = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { isSubmitting, errors },
-  } = useForm<ISignInForm>();
+  } = useForm<ISignInForm>({
+    resolver: zodResolver(signInFormSchema),
+  });
+  const { setUsername, setAccessToken } = useAuthStore();
+  const { toaster } = useToaster();
 
-  const handleFormSubmit = async (data: ISignInForm) => {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
+  const { mutateAsync: loginUserFn } = useMutation({
+    mutationFn: loginUser,
+  });
+
+  const handleFormLoginSubmit = async (data: ISignInForm) => {
+    const formData: IUserLoginData = {
+      UserName: data.username,
+      Password: data.password,
+    };
+
+    const result = await loginUserFn(formData);
+
+    if (!result.ok) {
+      toaster({
+        type: 'error',
+        msg:
+          typeof result.error.message?.title === 'string'
+            ? result.error.message.title
+            : 'Erro ao realizar o login',
+      });
+      return;
+    }
+
+    setUsername(result.data.userName);
+    setAccessToken(result.data.accessToken);
+
+    toaster({
+      type: 'success',
+      msg: 'Login realizado com sucesso! Bem-vindo de volta.',
     });
-    console.log('Form submitted with data:', data);
+
+    reset();
   };
 
   return (
@@ -40,13 +78,13 @@ export const SignIn = () => {
           </p>
         </div>
         <form
-          onSubmit={handleSubmit(handleFormSubmit)}
+          onSubmit={handleSubmit(handleFormLoginSubmit)}
           className="flex flex-col items-center justify-center space-y-4"
         >
           <div className="space-y-2">
             <FormInput
-              label="E-mail"
-              name="email"
+              label="Nome"
+              name="username"
               placeholder="Digite seu e-mail"
               errors={errors}
               setValue={setValue}
@@ -60,10 +98,11 @@ export const SignIn = () => {
               errors={errors}
               setValue={setValue}
               register={register}
+              isPassword
             />
           </div>
           <Button
-            onClick={handleSubmit(handleFormSubmit)}
+            onClick={handleSubmit(handleFormLoginSubmit)}
             disabled={isSubmitting}
             className="w-full"
             type="submit"

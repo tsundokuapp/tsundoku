@@ -2,13 +2,15 @@
 // Color Checked
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './globals.css';
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
 import { SearchBarProvider } from '@/contexts/SearchBarContext';
 import { ToasterProvider } from '@/contexts/ToasterContext';
+import { auth } from '@/services/api';
+import { useAuthStore } from '@/store/useAuthStore';
 
 // Definição da Fonte Inter como a padrão do projeto
 const inter = Inter({
@@ -32,6 +34,17 @@ export default function RootLayout({
         },
       }),
   );
+
+  useEffect(() => {
+    auth
+      .post('refresh-token')
+      .then((res) => {
+        useAuthStore.getState().setAccessToken(res.data.accessToken);
+      })
+      .catch(() => {
+        useAuthStore.getState().setAccessToken(null);
+      });
+  }, []);
 
   return (
     <html suppressHydrationWarning className={inter.variable} lang="pt-BR">

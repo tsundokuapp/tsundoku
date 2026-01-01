@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,7 +15,15 @@ const signUpFormSchema = z
   .object({
     name: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres'),
     email: z.string().email('E-mail inválido'),
-    password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+    password: z
+      .string()
+      .min(6, 'A senha deve ter pelo menos 6 caracteres')
+      .regex(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
+      .regex(/[0-9]/, 'A senha deve conter pelo menos um número')
+      .regex(
+        /[^A-Za-z0-9]/,
+        'A senha deve conter pelo menos um caractere especial',
+      ),
     confirmPassword: z.string(),
   })
   .superRefine((data, ctx) => {
@@ -36,7 +45,9 @@ export const SignUp = () => {
     setValue,
     reset,
     formState: { isSubmitting, errors },
-  } = useForm<ISignUpForm>();
+  } = useForm<ISignUpForm>({
+    resolver: zodResolver(signUpFormSchema),
+  });
 
   const { toaster } = useToaster();
 
@@ -44,41 +55,97 @@ export const SignUp = () => {
     mutationFn: createUser,
   });
 
-  const handleFormSubmit = async (data: ISignUpForm) => {
+  const handleFormRegisterSubmit = async (data: ISignUpForm) => {
     const formData: IUserRegisterData = {
       UserName: data.name,
       Email: data.email,
       Senha: data.password,
-      ConfirmeSenha: data.confirmPassword,
+      ConfirmaSenha: data.confirmPassword,
     };
 
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(formData);
-      }, 1000);
-    });
-    console.log('Form submitted with data:', formData);
+    const result = await createUserFn(formData);
 
-    // temporario enquanto espera refatoração da api
-    // const response = await createUserFn(formData);
-
-    // if (response?.statusCode === 400) {
-    //   toaster({
-    //     type: 'error',
-    //     msg:
-    //       typeof response.message === 'string'
-    //         ? response.message
-    //         : response.message?.title || 'Erro ao criar a novel',
-    //   });
-    //   return;
-    // }
+    if (!result.ok) {
+      toaster({
+        type: 'error',
+        msg:
+          typeof result.error.message?.title === 'string'
+            ? result.error.message.title
+            : 'Erro ao realizar o login',
+      });
+      return;
+    }
 
     toaster({
       type: 'success',
-      msg: 'Cadastro realizado com sucesso!',
+      msg: 'Cadastro realizado com sucesso! Confira seu e-mail para ativar a conta.',
     });
     reset();
   };
+
+  const DivForms = () => (
+    <form
+      onSubmit={handleSubmit(handleFormRegisterSubmit)}
+      className="flex flex-col items-center justify-center space-y-4"
+    >
+      <div className="space-y-2">
+        <div>
+          <FormInput
+            label="Nome"
+            name="name"
+            placeholder="Digite seu nome"
+            errors={errors}
+            setValue={setValue}
+            register={register}
+          />
+        </div>
+
+        <div>
+          <FormInput
+            label="E-mail"
+            name="email"
+            placeholder="Digite seu e-mail"
+            errors={errors}
+            setValue={setValue}
+            register={register}
+          />
+        </div>
+
+        <div>
+          <FormInput
+            label="Senha"
+            name="password"
+            type="password"
+            placeholder="Digite sua senha"
+            errors={errors}
+            setValue={setValue}
+            register={register}
+            isPassword
+          />
+        </div>
+
+        <div>
+          <FormInput
+            label="Confirmar Senha"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirme sua senha"
+            errors={errors}
+            setValue={setValue}
+            register={register}
+          />
+        </div>
+      </div>
+      <Button
+        onClick={handleSubmit(handleFormRegisterSubmit)}
+        disabled={isSubmitting}
+        className="w-full"
+        type="submit"
+      >
+        Cadastrar
+      </Button>
+    </form>
+  );
 
   return (
     <div className="rounded-md bg-appGroupBackground p-8">
@@ -89,94 +156,7 @@ export const SignUp = () => {
             Seja um membro da Tsundoku e aproveite nossas histórias!
           </p>
         </div>
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="flex flex-col items-center justify-center space-y-4"
-        >
-          <div className="space-y-2">
-            <div>
-              <FormInput
-                label="Nome"
-                name="name"
-                placeholder="Digite seu nome"
-                errors={errors}
-                setValue={setValue}
-                register={register}
-              />
-              {!!errors.name && (
-                <span className="text-red-500">
-                  {typeof errors?.name?.message === 'string'
-                    ? errors.name.message
-                    : null}
-                </span>
-              )}
-            </div>
-
-            <div>
-              <FormInput
-                label="E-mail"
-                name="email"
-                placeholder="Digite seu e-mail"
-                errors={errors}
-                setValue={setValue}
-                register={register}
-              />
-              {!!errors.email && (
-                <span className="text-red-500">
-                  {typeof errors?.email?.message === 'string'
-                    ? errors.email.message
-                    : null}
-                </span>
-              )}
-            </div>
-
-            <div>
-              <FormInput
-                label="Senha"
-                name="password"
-                type="password"
-                placeholder="Digite sua senha"
-                errors={errors}
-                setValue={setValue}
-                register={register}
-              />
-              {!!errors.password && (
-                <span className="text-red-500">
-                  {typeof errors?.password?.message === 'string'
-                    ? errors.password.message
-                    : null}
-                </span>
-              )}
-            </div>
-
-            <div>
-              <FormInput
-                label="Confirmar Senha"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirme sua senha"
-                errors={errors}
-                setValue={setValue}
-                register={register}
-              />
-              {!!errors.confirmPassword && (
-                <span className="text-red-500">
-                  {typeof errors?.confirmPassword?.message === 'string'
-                    ? errors.confirmPassword.message
-                    : null}
-                </span>
-              )}
-            </div>
-          </div>
-          <Button
-            onClick={handleSubmit(handleFormSubmit)}
-            disabled={isSubmitting}
-            className="w-full"
-            type="submit"
-          >
-            Finalizar Cadastro
-          </Button>
-        </form>
+        <DivForms />
       </div>
     </div>
   );

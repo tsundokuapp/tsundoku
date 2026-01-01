@@ -103,7 +103,7 @@ export const SearchBarProvider: FC<SearchBarProviderProps> = ({ children }) => {
       {isSearchBarVisible && (
         <div
           id="containerSearch"
-          className="absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-80"
+          className="absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/80"
         >
           <div id="contentSearch" className="relative w-full max-w-lg p-4">
             <HeaderSearch icon="Enter" autoFocus ref={searchRef} />
