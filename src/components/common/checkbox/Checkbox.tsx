@@ -1,4 +1,4 @@
-import { ICheckbox } from '@/@types/Checkbox';
+import { ICheckbox } from '@/@types/ui/Checkbox';
 import { cn } from '@/helpers/twUtils';
 
 export const Checkbox = ({

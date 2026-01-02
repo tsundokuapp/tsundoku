@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { IChapterListNovelVolume } from '@/@types/Api';
-import { IVolumeNovel } from '@/@types/Volume';
+import { IVolumeNovel } from '@/@types/domain/novel/Volume';
 
 import { Chapter } from './Chapter';
 import { Accordion } from '../common/Accordion';

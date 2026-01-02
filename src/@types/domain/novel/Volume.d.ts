@@ -1,5 +1,6 @@
-import { IChapterNovelForVolume } from './Api';
-import { IListChapterZustand } from './Chapter';
+import { IChapterNovelApiPublic } from './Chapter';
+import { IChapterNovelForVolume } from '../../Api';
+import { IListChapterZustand } from '../../Chapter';
 
 export interface IVolumeNovel {
   title: string;
@@ -10,7 +11,7 @@ export interface IVolumeNovel {
   chapters: IChapterNovelForVolume[];
 }
 
-export interface IVolumeZustand {
+export interface IVolumeNovelZustand {
   id: string;
   descritivoTituloNumeroVolume: string;
   numero: string;
@@ -18,16 +19,6 @@ export interface IVolumeZustand {
 }
 
 // Retornos da API
-
-export interface IChapterNovelApiPublic {
-  id: string;
-  slug: string;
-  numero: string;
-  ordemCapitulo: number;
-  publicado: boolean;
-  titulo: string;
-}
-
 export interface IVolumeNovelApiPublic {
   id: string;
   idObra: string;

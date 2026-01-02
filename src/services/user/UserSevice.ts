@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 
 import {
-  ErrorResponse,
   IUserLoginData,
   IUserLoginResponse,
   IUserRegisterData,
   IUserRegisterResponse,
 } from '@/@types/Api';
+import { ErrorResponse } from '@/@types/api/Error';
 
-import { auth } from './api';
+import { auth } from '../api/api';
 
 export type LoginResult =
   | { ok: true; data: IUserLoginResponse }

@@ -9,7 +9,8 @@ import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
 import { SearchBarProvider } from '@/contexts/SearchBarContext';
 import { ToasterProvider } from '@/contexts/ToasterContext';
-import { auth } from '@/services/api';
+import { auth } from '@/services/api/api';
+import { setupInterceptors } from '@/services/api/interceptors';
 import { useAuthStore } from '@/store/useAuthStore';
 
 // Definição da Fonte Inter como a padrão do projeto
@@ -34,6 +35,8 @@ export default function RootLayout({
         },
       }),
   );
+
+  setupInterceptors();
 
   useEffect(() => {
     auth

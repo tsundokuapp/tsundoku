@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 
-import { IVolumeZustand } from '@/@types/Volume';
+import { IVolumeNovelZustand } from '@/@types/domain/novel/Volume';
 
 interface INovelStore {
   novelBanner: string | null;
   chapterId: string | null;
-  volumeList: IVolumeZustand[] | null;
+  volumeList: IVolumeNovelZustand[] | null;
   setNovelBanner: (novel: string | null) => void;
   setChapterId: (id: string | null) => void;
-  setVolumeList: (list: IVolumeZustand[] | null) => void;
+  setVolumeList: (list: IVolumeNovelZustand[] | null) => void;
 }
 
 export const useNovelStore = create<INovelStore>((set) => ({

@@ -1,7 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import {
-  ApiResponse,
   ApiResponseChapter,
   IChapterComic,
   IChapterNovel,
@@ -18,8 +17,9 @@ import {
   IVolumesNovel,
   IWork,
 } from '@/@types/Api';
-import { IVolumeNovelApiPublic } from '@/@types/Volume';
-import { getComicBySlug, getComics } from '@/services/ComicService';
+import { ApiResponse } from '@/@types/api/Response';
+import { IVolumeNovelApiPublic } from '@/@types/domain/novel/Volume';
+import { getComicBySlug, getComics } from '@/services/comic/ComicService';
 import {
   getChapterComicBySlug,
   getChapterNovel,
@@ -28,14 +28,17 @@ import {
   getNovels,
   getVolumesNovel,
   getVolumesNovelBySlug,
-} from '@/services/NovelService';
+} from '@/services/novel/NovelService';
 import {
   getGenres,
   getProjects,
   getRecomendations,
   getWorksBySearch,
-} from '@/services/ProjectService';
-import { createUserService, loginUserService } from '@/services/UserSevice';
+} from '@/services/project/ProjectService';
+import {
+  createUserService,
+  loginUserService,
+} from '@/services/user/UserSevice';
 
 export const useRecomendations = (): UseQueryResult<
   ApiResponse<IProjectRecomendations>

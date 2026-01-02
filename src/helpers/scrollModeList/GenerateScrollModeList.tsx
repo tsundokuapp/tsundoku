@@ -1,4 +1,4 @@
-import type { IScrollModeListItem } from '@/@types/ScrollModeListItem';
+import { IScrollModeListItem } from '@/@types/ui/ScrollModeListItem';
 
 export function GenerateScrollModeList(): IScrollModeListItem[] {
   const scrollModeList: IScrollModeListItem[] = [

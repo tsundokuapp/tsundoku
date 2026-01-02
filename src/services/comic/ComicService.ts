@@ -7,7 +7,7 @@ import {
   IPublicComics,
 } from '@/@types/Api';
 
-import { api } from './api';
+import { api } from '../api/api';
 
 export const getComics = async (): Promise<IPublicComics[]> => {
   try {

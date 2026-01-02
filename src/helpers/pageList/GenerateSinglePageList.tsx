@@ -1,4 +1,4 @@
-import type { IPageListItem } from '@/@types/PageListItem';
+import type { IPageListItem } from '@/@types/ui/PageListItem';
 
 import { GetPageLabelOnSingleList } from './GetPageLabelOnSingleList';
 

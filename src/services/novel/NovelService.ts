@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
 import {
-  ErrorResponse,
   IChapterComicData,
   IChapterNovelData,
   IChapterNovelUpdateRetorn,
@@ -11,8 +10,9 @@ import {
   IPublicNovels,
   IVolumesNovel,
 } from '@/@types/Api';
+import { ApiError } from '@/@types/api/Error';
 
-import { api } from './api';
+import { api } from '../api/api';
 
 interface IChapterNovel {
   total: number;
@@ -122,7 +122,7 @@ export const getAdminNovelBySlug = async (
 
 export const updateNovel = async (
   data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
+): Promise<INovelResponse | ApiError> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.put(
       '/admin/obra/novel',
@@ -150,7 +150,7 @@ export const updateNovel = async (
 
 export const createNovelService = async (
   data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
+): Promise<INovelResponse | ApiError> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.post(
       '/admin/obra/novel',
@@ -179,7 +179,7 @@ export const createNovelService = async (
 
 export const createNovelVolume = async (
   data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
+): Promise<INovelResponse | ApiError> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.post(
       '/admin/volume/novel',
@@ -208,7 +208,7 @@ export const createNovelVolume = async (
 
 export const createNovelChapter = async (
   data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
+): Promise<INovelResponse | ApiError> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.post(
       '/admin/obra/capitulo/novel',
@@ -248,7 +248,7 @@ export const getAdminNovels = async (): Promise<INovelResponse[]> => {
 
 export const deleteNovelVolume = async (
   idVolume: string,
-): Promise<INovelResponse | ErrorResponse> => {
+): Promise<INovelResponse | ApiError> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.delete(
       `/admin/volume/novel/${idVolume}/true`,

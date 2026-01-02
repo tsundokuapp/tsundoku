@@ -22,8 +22,8 @@ import { Debounce } from '@/helpers/Debounce';
 import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { cn } from '@/helpers/twUtils';
 import { usePrivateComics } from '@/hooks/usePrivateApi';
-import { getWorksBySearch } from '@/services/ProjectService';
-import { api } from '@/services/api';
+import { api } from '@/services/api/api';
+import { getWorksBySearch } from '@/services/project/ProjectService';
 
 interface LineTableProps {
   title: string;

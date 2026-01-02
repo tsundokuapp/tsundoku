@@ -15,7 +15,7 @@ import {
   createComicService,
   getAdminComicBySlug,
   getPrivateComics,
-} from '@/services/ComicService';
+} from '@/services/comic/ComicService';
 import {
   createNovelService,
   getAdminNovelBySlug,

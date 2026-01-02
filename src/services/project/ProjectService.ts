@@ -5,7 +5,7 @@ import {
   IWork,
 } from '@/@types/Api';
 
-import { api } from './api';
+import { api } from '../api/api';
 
 export const getProjects = async (): Promise<IProjectsHome[]> => {
   try {

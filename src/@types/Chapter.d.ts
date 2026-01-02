@@ -1,3 +1,5 @@
+// TODO: Mover isso para domain/novel/Chapter.d.ts ou domain/comic/Chapter.d.ts dependendo do uso
+
 export interface IListChapterZustand {
   id: string;
   numero: string;

@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { IWork } from '@/@types/Api';
 import { useSearchBar } from '@/contexts/SearchBarContext';
-import { getWorksBySearch } from '@/services/ProjectService';
+import { getWorksBySearch } from '@/services/project/ProjectService';
 
 import {
   Command,

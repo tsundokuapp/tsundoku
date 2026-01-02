@@ -1,7 +1,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { IVolumeNovelApiPublic } from '@/@types/Volume';
+import { IVolumeNovelApiPublic } from '@/@types/domain/novel/Volume';
 import { DropdownBreakLine } from '@/components/common/dropdown/DropdownBreakLine';
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';

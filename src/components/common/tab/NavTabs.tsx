@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useCallback } from 'react';
 
-import { ITab } from '@/@types/Tab';
+import { ITab } from '@/@types/ui/Tab';
 import { cn } from '@/helpers/twUtils';
 
 interface CustomChildrenProps extends ReactElement, ITab {

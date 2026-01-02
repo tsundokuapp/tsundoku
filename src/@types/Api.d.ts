@@ -1,31 +1,6 @@
+// TODO: Mover isso para domain/ ou api/ dependendo do uso
+
 import { TNacionality, TStatusComic, TStatusNovel, TTypeWork } from './System';
-
-export interface ApiResponse<T> {
-  data: T[];
-  proxima: string;
-  anterior: string;
-  total: number;
-}
-
-export interface ErrorResponse {
-  message: {
-    errors: Record<string, string[]>;
-    status: number;
-    title: string;
-  };
-  statusCode: number;
-}
-
-export interface ApiError {
-  message: {
-    errors: Record<string, string[]>;
-    status: number;
-    title: string;
-  };
-  statusCode: number;
-}
-
-type ApiResult<T> = { ok: true; data: T } | { ok: false; error: ApiError };
 
 export interface ApiResponseChapter<T> {
   data: T;
@@ -176,10 +151,6 @@ export interface IProjectsHome {
 }
 
 export interface IProjectRecomendations {
-  // TODO: validar esses dois campos em um middleware
-  statusCode?: number;
-  message?: string;
-
   titulo: string;
   capa: string;
   slugObra: string;
@@ -404,11 +375,6 @@ export interface IUserLoginResponse {
 // ADMIN
 
 export interface INovelResponse {
-  // TODO: validar esses dois campos em um middleware
-  statusCode?: number;
-  message?: string;
-
-  // campos reais
   id: string;
   imagemBanner?: string;
   imagemCapaPrincipal?: string;
@@ -442,11 +408,6 @@ export interface INovelResponse {
 }
 
 export interface IComicResponse {
-  // TODO: validar esses dois campos em um middleware
-  statusCode?: number;
-  message?: string;
-
-  // campos reais
   id: string;
   titulo: string;
   tituloAlternativo: string;
