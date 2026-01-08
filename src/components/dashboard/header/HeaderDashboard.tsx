@@ -1,17 +1,19 @@
 import { BookOpenText, Files, UsersFour } from '@phosphor-icons/react/dist/ssr';
 
 import { formatDate } from '@/helpers/Util';
+import { useAuthStore } from '@/store/useAuthStore';
 
 import { CardInfo } from '../cardInfo/CardInfo';
 
 export const HeaderDashboard = () => {
   const dateFormatted = formatDate(new Date(), true, true);
+  const { username } = useAuthStore();
 
   return (
     <div className="row bg-background flex h-64 w-full justify-between rounded-b-2xl px-16 py-8 transition-all dark:border-2 dark:border-t-0 dark:border-slate-700">
       <div className="flex flex-col justify-between">
         <h1 className="text-3xl font-bold capitalize text-white lg:text-4xl">
-          Bem-vindo, Usuário!
+          Bem-vindo, {username}!
         </h1>
         <div>
           <p className="text-primary my-2 text-lg capitalize">Carteira Tsun</p>

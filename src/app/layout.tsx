@@ -1,17 +1,11 @@
 'use client';
 // Color Checked
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
-import { useEffect, useState } from 'react';
 import './globals.css';
 
-import { ThemeProvider } from '@/components/theme/ThemeProvider';
-import { ModalProvider } from '@/contexts/ModalContext';
-import { SearchBarProvider } from '@/contexts/SearchBarContext';
-import { ToasterProvider } from '@/contexts/ToasterContext';
-import { auth } from '@/services/api/api';
 import { setupInterceptors } from '@/services/api/interceptors';
-import { useAuthStore } from '@/store/useAuthStore';
+
+import { Providers } from './providers';
 
 // Definição da Fonte Inter como a padrão do projeto
 const inter = Inter({
@@ -24,30 +18,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            staleTime: 60 * 1000,
-          },
-        },
-      }),
-  );
-
   setupInterceptors();
-
-  useEffect(() => {
-    auth
-      .post('refresh-token')
-      .then((res) => {
-        useAuthStore.getState().setAccessToken(res.data.accessToken);
-      })
-      .catch(() => {
-        useAuthStore.getState().setAccessToken(null);
-      });
-  }, []);
 
   return (
     <html suppressHydrationWarning className={inter.variable} lang="pt-BR">
@@ -63,20 +34,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
       </head>
       <body className="bg-appBackground text-appText transition-colors duration-100">
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider
-            themes={['theme-light', 'theme-sepia', 'theme-blue', 'theme-dark']}
-            attribute="class"
-            defaultTheme="theme-light"
-            enableColorScheme
-          >
-            <ToasterProvider>
-              <SearchBarProvider>
-                <ModalProvider>{children}</ModalProvider>
-              </SearchBarProvider>
-            </ToasterProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

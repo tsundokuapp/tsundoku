@@ -10,6 +10,7 @@ import { type ComponentProps } from 'react';
 
 import { useSearchBar } from '@/contexts/SearchBarContext';
 import { cn } from '@/helpers/twUtils';
+import { useAuthStore } from '@/store/useAuthStore';
 
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
@@ -21,6 +22,7 @@ type HeaderBarProps = ComponentProps<'header'>;
 
 export function HeaderBar({ className, ...props }: HeaderBarProps) {
   const { isSearchBarVisible, openSearchBar } = useSearchBar();
+  const { username } = useAuthStore();
 
   const handleSearchButton = () => {
     openSearchBar();
@@ -56,9 +58,10 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
-          <HeaderIcon action="/">
+          <HeaderIcon action="/dashboard">
             <User size={24} />
           </HeaderIcon>
+          <p>{username || null}</p>
         </div>
 
         <div className="flex items-center gap-4 lg:hidden">

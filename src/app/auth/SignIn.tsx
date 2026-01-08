@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -38,6 +39,8 @@ export const SignIn = () => {
     mutationFn: loginUser,
   });
 
+  const router = useRouter();
+
   const handleFormLoginSubmit = async (data: ISignInForm) => {
     const formData: IUserLoginData = {
       UserName: data.username,
@@ -66,6 +69,8 @@ export const SignIn = () => {
     });
 
     reset();
+
+    router.push('/dashboard');
   };
 
   return (

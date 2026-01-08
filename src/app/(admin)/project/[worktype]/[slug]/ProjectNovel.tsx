@@ -32,7 +32,7 @@ import {
 } from '@/helpers/Util';
 import { useAdminNovelBySlug } from '@/hooks/usePrivateApi';
 import { usePublicGenres } from '@/hooks/usePublicApi';
-import { updateNovel } from '@/services/NovelService';
+import { updateNovel } from '@/services/novel/NovelService';
 
 import { Volumes } from './Volumes';
 

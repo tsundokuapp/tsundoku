@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 
 import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
-import { updateChapterNovel } from '@/services/NovelService';
+import { updateChapterNovel } from '@/services/novel/NovelService';
 
 interface IDocumentInputProps {
   id: string;

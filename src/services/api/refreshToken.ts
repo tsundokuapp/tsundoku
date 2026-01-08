@@ -1,5 +1,3 @@
-// src/services/api/refreshToken.ts
-
 import { useAuthStore } from '@/store/useAuthStore';
 
 import { auth } from './api';
@@ -18,7 +16,7 @@ export const refreshAccessToken = async () => {
   isRefreshing = true;
 
   try {
-    const { data } = await auth.post('refresh-token');
+    const { data } = await auth.get('refresh-token');
 
     useAuthStore.getState().setAccessToken(data.accessToken);
 

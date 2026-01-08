@@ -1,5 +1,3 @@
-// src/services/api/interceptors.ts
-
 import { useAuthStore } from '@/store/useAuthStore';
 
 import { api } from './api';

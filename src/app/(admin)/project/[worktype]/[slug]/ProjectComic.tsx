@@ -33,7 +33,7 @@ import {
 } from '@/helpers/Util';
 import { useAdminComicBySlug } from '@/hooks/usePrivateApi';
 import { useChapterComic, usePublicGenres } from '@/hooks/usePublicApi';
-import { updateNovel } from '@/services/NovelService';
+import { updateNovel } from '@/services/novel/NovelService';
 
 interface ISection {
   title: string;

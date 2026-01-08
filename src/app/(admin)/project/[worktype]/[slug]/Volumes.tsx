@@ -28,7 +28,10 @@ import {
 } from '@/helpers/Schemas';
 import { transformFormDataNovelVolumeAndChapter } from '@/helpers/TransformFormData';
 import { useVolumesNovel } from '@/hooks/usePublicApi';
-import { createNovelVolume, deleteNovelVolume } from '@/services/NovelService';
+import {
+  createNovelVolume,
+  deleteNovelVolume,
+} from '@/services/novel/NovelService';
 
 interface IVolumeContentProps {
   idVolume: string;
@@ -332,9 +335,9 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
               setValue={setValue}
               errors={errors}
               register={register}
-              // defaultValue={
-              //   isEditing ? infoEditing.volumeNumber! : undefined
-              // }
+            // defaultValue={
+            //   isEditing ? infoEditing.volumeNumber! : undefined
+            // }
             />
             <Checkbox
               label="Volume Único ou One-Shot"

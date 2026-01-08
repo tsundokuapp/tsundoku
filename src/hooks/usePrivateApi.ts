@@ -3,14 +3,14 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import {
-  ApiResponse,
-  ErrorResponse,
   IChapterNovelData,
   IChapterNovelUpdateRetorn,
   IComicResponse,
   INovelResponse,
   IPrivateComics,
 } from '@/@types/Api';
+import { ErrorResponse } from '@/@types/api/Error';
+import { ApiResponse } from '@/@types/api/Response';
 import {
   createComicService,
   getAdminComicBySlug,
@@ -22,7 +22,7 @@ import {
   getAdminNovels,
   getChapterNovelAdmin,
   updateChapterNovel,
-} from '@/services/NovelService';
+} from '@/services/novel/NovelService';
 
 export const usePrivateComics = (): UseQueryResult<
   ApiResponse<IPrivateComics>
