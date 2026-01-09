@@ -1,17 +1,13 @@
 'use client';
 // Color Checked
 // Components Checked
-import {
-  MagnifyingGlass,
-  DiscordLogo,
-  User,
-} from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlass, DiscordLogo } from '@phosphor-icons/react/dist/ssr';
 import { type ComponentProps } from 'react';
 
 import { useSearchBar } from '@/contexts/SearchBarContext';
 import { cn } from '@/helpers/twUtils';
-import { useAuthStore } from '@/store/useAuthStore';
 
+import { HeaderButtonLogin } from './HeaderButtonLogin';
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
 import { HeaderMenu } from './HeaderMenu';
@@ -22,7 +18,6 @@ type HeaderBarProps = ComponentProps<'header'>;
 
 export function HeaderBar({ className, ...props }: HeaderBarProps) {
   const { isSearchBarVisible, openSearchBar } = useSearchBar();
-  const { username } = useAuthStore();
 
   const handleSearchButton = () => {
     openSearchBar();
@@ -58,10 +53,7 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
-          <HeaderIcon action="/dashboard">
-            <User size={24} />
-          </HeaderIcon>
-          <p>{username || null}</p>
+          <HeaderButtonLogin />
         </div>
 
         <div className="flex items-center gap-4 lg:hidden">

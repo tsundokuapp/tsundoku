@@ -5,6 +5,7 @@ interface IAuthStore {
   setUsername: (username: string | null) => void;
   accessToken: string | null;
   setAccessToken: (token: string | null) => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<IAuthStore>((set) => ({
@@ -12,4 +13,10 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   setUsername: (username) => set({ username }),
   accessToken: null,
   setAccessToken: (token) => set({ accessToken: token }),
+  logout: () => {
+    set({
+      username: null,
+      accessToken: null,
+    });
+  },
 }));
