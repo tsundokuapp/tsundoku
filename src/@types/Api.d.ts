@@ -349,29 +349,6 @@ export interface IWork {
   data: IWorkData[];
 }
 
-export interface IUserRegisterResponse {
-  UserName: string;
-  token: string;
-  refreshToken: string; // TODO: remover quando ajustar esse endpoint no back
-}
-
-export interface IUserRegisterData {
-  UserName: string;
-  Email: string;
-  Senha: string;
-  ConfirmaSenha: string;
-}
-
-export interface IUserLoginData {
-  UserName: string;
-  Password: string;
-}
-
-export interface IUserLoginResponse {
-  userName: string;
-  accessToken: string;
-}
-
 // ADMIN
 
 export interface INovelResponse {

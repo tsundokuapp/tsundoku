@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { IUserRegisterData } from '@/@types/Api';
+import { IUserRegisterData } from '@/@types/domain/user/auth';
 import { Button } from '@/components/common/button/Button';
 import { FormInput } from '@/components/common/form';
 import { useToaster } from '@/contexts/ToasterContext';

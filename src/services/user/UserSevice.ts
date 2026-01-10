@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 
+import { ErrorResponse } from '@/@types/api/Error';
 import {
   IUserLoginData,
   IUserLoginResponse,
   IUserRegisterData,
   IUserRegisterResponse,
-} from '@/@types/Api';
-import { ErrorResponse } from '@/@types/api/Error';
+} from '@/@types/domain/user/auth';
 
 import { auth } from '../api/api';
 

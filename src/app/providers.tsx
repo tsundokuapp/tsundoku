@@ -11,7 +11,7 @@ import { auth } from '@/services/api/api';
 import { useAuthStore } from '@/store/useAuthStore';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const { setUsername, setAccessToken } = useAuthStore();
+  const { setUsername, setAccessToken, setTsunId } = useAuthStore();
 
   useEffect(() => {
     const hydrateAuth = async () => {
@@ -20,6 +20,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
         setAccessToken(data.accessToken);
         setUsername(data.userName);
+        setTsunId(data.TsunId);
       } catch {
         console.log('Fail to refresh token in authProvider');
       }

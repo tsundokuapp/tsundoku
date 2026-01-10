@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { IUserLoginData } from '@/@types/Api';
+import { IUserLoginData } from '@/@types/domain/user/auth';
 import { Button } from '@/components/common/button/Button';
 import { FormInput } from '@/components/common/form';
 import { useToaster } from '@/contexts/ToasterContext';
@@ -32,7 +32,7 @@ export const SignIn = () => {
   } = useForm<ISignInForm>({
     resolver: zodResolver(signInFormSchema),
   });
-  const { setUsername, setAccessToken } = useAuthStore();
+  const { setUsername, setAccessToken, setTsunId } = useAuthStore();
   const { toaster } = useToaster();
 
   const { mutateAsync: loginUserFn } = useMutation({
@@ -62,6 +62,7 @@ export const SignIn = () => {
 
     setUsername(result.data.userName);
     setAccessToken(result.data.accessToken);
+    setTsunId(result.data.TsunId);
 
     toaster({
       type: 'success',

@@ -12,13 +12,12 @@ import {
   IPublicGenres,
   IPublicNovel,
   IPublicNovels,
-  IUserLoginData,
-  IUserRegisterData,
   IVolumesNovel,
   IWork,
 } from '@/@types/Api';
 import { ApiResponse } from '@/@types/api/Response';
 import { IVolumeNovelApiPublic } from '@/@types/domain/novel/Volume';
+import { IUserLoginData, IUserRegisterData } from '@/@types/domain/user/auth';
 import { getComicBySlug, getComics } from '@/services/comic/ComicService';
 import {
   getChapterComicBySlug,
