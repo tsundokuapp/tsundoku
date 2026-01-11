@@ -1,109 +1,94 @@
 'use client';
 
-import { UsersFour, FrameCorners } from '@phosphor-icons/react/dist/ssr';
-import { ChartTypeRegistry } from 'chart.js';
-import { CSSProperties, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { Button } from '@/components/common/button/Button';
-import { CardInfo } from '@/components/dashboard/cardInfo/CardInfo';
-import { DataCharts } from '@/components/dashboard/chart/DataChart';
-import {
-  lineDataChart,
-  lineDataChartYear,
-} from '@/components/dashboard/chart/mockData';
-import { HeaderDashboard } from '@/components/dashboard/header/HeaderDashboard';
-import { TableActivityStaff } from '@/components/dashboard/table/TableActivityStaff';
-import { CardTransactions } from '@/components/padrim/CardTransaction/CardTransactions';
-import { useModal } from '@/contexts/ModalContext';
-import { cn } from '@/helpers/twUtils';
 
-interface ChartProps {
-  type: keyof ChartTypeRegistry;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any;
-}
 
-interface CardDashboardProps {
-  children: ReactNode;
-  className?: CSSProperties | string;
-}
+import TableRecentProjects from '@/components/dashboard/table/TableRecentProjects';
+import TablePendingProjects from '@/components/dashboard/table/TablePendingProjects';
+import { TrackerProjectsStaff } from '@/components/dashboard/chart/TrackerProjectsStaff';
+import { useAuthStore } from '@/store/useAuthStore';
+import { formatDate } from '@/helpers/Util';
+import FileUpload from '@/components/dashboard/fileDropzone';
+
 
 export default function Dashboard() {
-  const [currentChart, setCurrentChart] = useState<ChartProps>({
-    type: 'line',
-    data: lineDataChart,
-  });
+  const [registryProjectByMonth, setRegistryProjectByMonth] = useState(true);
+  const dateFormatted = formatDate(new Date(), true, true);
+  const { username } = useAuthStore();
 
-  const { Modal, openModal } = useModal();
-
-  const toogleChart = () => {
-    if (currentChart.type === 'line') {
-      setCurrentChart({ type: 'bar', data: lineDataChartYear });
-    } else {
-      setCurrentChart({ type: 'line', data: lineDataChart });
-    }
-  };
-
-  const CardDashboard = ({ children, className }: CardDashboardProps) => {
+  const Card = ({ children }: { children: ReactNode }) => {
     return (
-      <div
-        className={cn(
-          'flex flex-col items-center justify-between rounded-md bg-gray-50 p-4 dark:bg-gray-800',
-          className,
-        )}
-      >
+      <div className="col-span-2 flex h-full flex-1 flex-col items-center justify-between rounded-md bg-appMenuBackground p-4">
         {children}
       </div>
     );
   };
 
-  return (
-    <div className="flex flex-1 flex-col">
-      <HeaderDashboard />
-
-      <CardDashboard className="dark:bg-tranparent w-full flex-row gap-x-2 bg-transparent">
-        <CardTransactions />
-        <div className="flex-1 flex-col rounded-md bg-gray-50 p-4 dark:bg-gray-800">
+  const HeaderDashboard = () => {
+    return (
+      <div className="rounded-b-2x flex gap-6 w-full max-w-full flex-col justify-between p-4 transition-all">
+        <div className="flex flex-col justify-between">
           <div className="flex flex-row items-center justify-between">
-            <Button onClick={() => toogleChart()}>Trocar Gráfico</Button>
-            <Button
-              onClick={openModal}
-              icon={<FrameCorners size={24} />}
-              sideIcon="right"
-            >
-              Fullscreen
-            </Button>
+            <h3 className="text-3xl font-bold capitalize text-appText lg:text-4xl">
+              Bem-vindo, {username}!
+            </h3>
+            <h3 className="hidden text-appText lg:flex">{dateFormatted}</h3>
           </div>
-          <DataCharts type={currentChart.type} data={currentChart.data} />
+          <p className="text-xl font-bold text-appText lg:text-3xl">T$ 34,00</p>
         </div>
 
-        <CardDashboard className="hidden gap-2 lg:flex">
-          <CardInfo
-            icon={<UsersFour size={24} />}
-            title="Total Visitas do Mês"
-            data={{ value: '540' }}
-          />
-          <CardInfo
-            icon={<UsersFour size={24} />}
-            title="Total Visitas do Mês Anterior"
-            data={{ value: '371' }}
-          />
-          <CardInfo
-            icon={<UsersFour size={24} />}
-            title="Total Visitas do Ano"
-            data={{ value: '9341' }}
-          />
-        </CardDashboard>
-      </CardDashboard>
+        <div className="justify-between items-start flex flex-col gap-2 md:flex-row rounded-md">
+          <FileUpload />
+          <FileUpload />
+        </div>
+      </div>
+    );
+  };
 
-      <TableActivityStaff />
+  return (
+    <div className="grid min-h-screen w-full grid-cols-1 gap-4 p-4 md:grid-cols-6">
+      {/* LADO ESQUERDO */}
+      <div className="col-span-4 flex flex-col gap-4">
+        <div className='flex-1'>
+          <HeaderDashboard />
+        </div>
 
-      <div>
-        <Modal title="Gráficos Comparativos">
-          <div className="w-screen max-w-[1200px] rounded-lg bg-white p-8 dark:bg-gray-800">
-            <DataCharts type={currentChart.type} data={currentChart.data} />
+        {/* Tabela de Pendências */}
+        <div className="h-min-fit">
+          <Card>
+            <div className='min-h-[200px] w-full flex flex-col items-center justify-center gap-2'>
+              <p className='text-appText text-sm text-nowrap'>Minhas Pendências</p>
+              <TablePendingProjects />
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {/* LADO DIREITO */}
+      <div className="col-span-2 flex flex-col gap-4">
+        {/* Projetos feitos semana/mês */}
+        <Card>
+          <div className='flex flex-row items-center w-full justify-between mb-2 gap-4'>
+            <Button
+              onClick={() => setRegistryProjectByMonth(!registryProjectByMonth)}
+              size='sm'
+            >
+              {registryProjectByMonth ? 'Por Semana' : 'Por Mês'}
+            </Button>
+            <p className='text-appText text-center text-sm text-nowrap lg:block hidden'>Capítulos Entregues</p>
           </div>
-        </Modal>
+          <TrackerProjectsStaff ByMonth={registryProjectByMonth} />
+        </Card>
+
+        {/* Projetos recentes */}
+        <Card>
+          <div className='min-h-[200px] w-full flex flex-col items-center justify-center gap-2'>
+            <p className='text-appText text-sm text-nowrap'>Projetos Recentes</p>
+            <TableRecentProjects />
+          </div>
+        </Card>
       </div>
     </div>
   );

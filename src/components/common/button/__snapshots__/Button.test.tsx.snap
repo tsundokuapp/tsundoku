@@ -3,7 +3,7 @@
 exports[`Testes para o componente <Button /> Teste de snapshot Deve manter o snapshot do Button 1`] = `
 <div>
   <button
-    class="disabled:hover:bg-appPrimary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white px-4 py-2 font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60"
+    class="disabled:hover:bg-appPrimary focus:border-primary flex w-full max-w-[180px] items-center justify-center rounded-lg border-2 bg-white font-semibold text-textLight transition-colors hover:bg-hoverBgLight disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-60 px-4 py-2 text-base"
     tabindex="0"
   >
     clique

@@ -53,7 +53,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
       <main className="ml-[72px] flex w-full max-w-[calc(100dvw-72px)] flex-col pl-4 font-normal">
         <HeaderBar className="border-b-2 border-b-slate-700" />
-        <div className="overflow-auto">{children}</div>
+        <div className="max-w-full flex-1 overflow-y-auto bg-appBackground">
+          {children}
+        </div>
       </main>
     </div>
   );

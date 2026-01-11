@@ -111,6 +111,9 @@ export const colorByRole = (role: string) => {
   return rolesMap[role as keyof typeof rolesMap];
 };
 
+const avatarDefault =
+  'https://cdn.discordapp.com/avatars/210734975023185921/e0699181fe56f826ce8ca49b067b200e.png?size=1024';
+
 export const StaffMembers = [
   {
     id: Math.random() * 1000,
@@ -120,8 +123,7 @@ export const StaffMembers = [
     activity: 'Download: Raw Chihara 51',
     typeActivity: 'down',
     date: '21/10/2024',
-    avatar:
-      'https://cdn.discordapp.com/avatars/116347060738850821/1facc3f48bb8b173ce2dc1696b68c3cf.png?size=1024',
+    avatar: avatarDefault,
   },
   {
     id: Math.random() * 1000,
@@ -131,8 +133,7 @@ export const StaffMembers = [
     activity: 'Upload: Tanya the Evil Vol. 2 - Cap. 3',
     typeActivity: 'up',
     date: '21/10/2024',
-    avatar:
-      'https://cdn.discordapp.com/avatars/409133348749836289/0639eeb28659b1c986a1973ba9fa0dcf.png?size=1024',
+    avatar: avatarDefault,
   },
   {
     id: Math.random() * 1000,
@@ -142,8 +143,7 @@ export const StaffMembers = [
     activity: 'Download: Tradução Chihara 52',
     typeActivity: 'down',
     date: '21/10/2024',
-    avatar:
-      'https://cdn.discordapp.com/avatars/371389558312402945/28a35bba313500a95db75790c705aed6.png?size=1024',
+    avatar: avatarDefault,
   },
   {
     id: Math.random() * 1000,
@@ -153,8 +153,7 @@ export const StaffMembers = [
     activity: 'Download: Raw Shadow 87',
     typeActivity: 'down',
     date: '21/10/2024',
-    avatar:
-      'https://cdn.discordapp.com/avatars/210734975023185921/e0699181fe56f826ce8ca49b067b200e.png?size=1024',
+    avatar: avatarDefault,
   },
   {
     id: Math.random() * 1000,
@@ -164,8 +163,7 @@ export const StaffMembers = [
     activity: 'Upload: Tanya the Evil Vol. 2 - Cap. 2',
     typeActivity: 'up',
     date: '21/10/2024',
-    avatar:
-      'https://cdn.discordapp.com/avatars/569944055044243477/aa3de5dd8f434f63f7a61593b4e37ae2.png?size=1024',
+    avatar: avatarDefault,
   },
 ];
 
