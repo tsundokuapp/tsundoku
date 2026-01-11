@@ -33,7 +33,9 @@ export default function Dashboard() {
             </h3>
             <h3 className="hidden text-appText lg:flex">{dateFormatted}</h3>
           </div>
-          <p className="text-xl font-bold text-appText lg:text-3xl">T$ 34,00</p>
+          <p className="text-xl font-bold text-appSubtitle lg:text-3xl">
+            T$ 34,00
+          </p>
         </div>
 
         <div className="flex flex-col items-start justify-between gap-2 rounded-md md:flex-row">
