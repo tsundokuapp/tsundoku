@@ -19,8 +19,7 @@ import {
 import { TdDefault } from '@/components/common/table/TdDefault';
 import { useToaster } from '@/contexts/ToasterContext';
 import { Debounce } from '@/helpers/Debounce';
-import { MapStatusToColor } from '@/helpers/MapStatusToColor';
-import { cn } from '@/helpers/twUtils';
+import { GetBadgeByStatusProject } from '@/helpers/GetBagde';
 import { usePrivateComics } from '@/hooks/usePrivateApi';
 import { api } from '@/services/api/api';
 import { getWorksBySearch } from '@/services/project/ProjectService';
@@ -201,13 +200,7 @@ export const TableComic = ({ openModal }: ITableComic) => {
 
         <TdDefault>
           <div className="relative flex items-center justify-center gap-x-1">
-            <div
-              className={cn(
-                'right-2 top-2 h-2 w-2 rounded bg-appMenuBackground',
-                MapStatusToColor(status),
-              )}
-            />
-            {status}
+            <GetBadgeByStatusProject status={status} />
           </div>
         </TdDefault>
 
