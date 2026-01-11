@@ -9,7 +9,6 @@ import {
   INovelResponse,
   IPrivateComics,
 } from '@/@types/Api';
-import { ErrorResponse } from '@/@types/api/Error';
 import { ApiResponse } from '@/@types/api/Response';
 import {
   createComicService,
@@ -33,9 +32,7 @@ export const usePrivateComics = (): UseQueryResult<
   });
 };
 
-export const createComic = async (
-  data: FormData,
-): Promise<IComicResponse | ErrorResponse> => {
+export const createComic = async (data: FormData) => {
   return createComicService(data);
 };
 
@@ -61,18 +58,9 @@ export const useAdminNovelBySlug = (
   });
 };
 
-export const createNovel = async (
-  data: FormData,
-): Promise<INovelResponse | ErrorResponse> => {
+export const createNovel = async (data: FormData) => {
   return createNovelService(data);
 };
-
-// TODO: Corrigir para o modal de novel chamar esse função invés do service direto
-// export const createVolumeNovel = async (
-//   data: FormData,
-// ): Promise<INovelResponse | ErrorResponse> => {
-//   return createNovelVolume(data);
-// };
 
 export const useAdminNovels = (): UseQueryResult<
   ApiResponse<INovelResponse>

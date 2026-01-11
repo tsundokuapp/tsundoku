@@ -6,8 +6,13 @@ import {
   IPublicComic,
   IPublicComics,
 } from '@/@types/Api';
+import { ApiError } from '@/@types/api/Error';
 
 import { api } from '../api/api';
+
+export type ApiResult =
+  | { ok: true; data: IComicResponse }
+  | { ok: false; error: ApiError };
 
 export const getComics = async (): Promise<IPublicComics[]> => {
   try {
@@ -41,25 +46,37 @@ export const getPrivateComics = async (): Promise<IPrivateComics[]> => {
   }
 };
 
-export const createComicService = async (data: FormData) => {
+export const createComicService = async (
+  data: FormData,
+): Promise<ApiResult> => {
   try {
     const response: AxiosResponse<IComicResponse> = await api.post(
       '/admin/obra/comic',
       data,
     );
-    console.log(response.data);
-    return response.data;
+    return { ok: true, data: response.data };
   } catch (error) {
     console.error(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
-        message: error.response.data,
-        statusCode: error.response.status,
+        ok: false,
+        error: {
+          message: error.response.data,
+          statusCode: error.response.status,
+        },
       };
     }
+
     return {
-      message: 'Erro desconhecido',
-      statusCode: 500,
+      ok: false,
+      error: {
+        message: {
+          errors: {},
+          status: 500,
+          title: 'Erro desconhecido',
+        },
+        statusCode: 500,
+      },
     };
   }
 };

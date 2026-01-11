@@ -88,13 +88,13 @@ export default function NovelAdmin() {
 
     const response = await createNovelFn(formData);
 
-    if (response?.statusCode === 400) {
+    if (!response.ok) {
       toaster({
         type: 'error',
         msg:
-          typeof response.message === 'string'
-            ? response.message
-            : response.message?.title || 'Erro ao criar a novel',
+          typeof response.error.message?.title === 'string'
+            ? response.error.message.title
+            : 'Erro ao criar a novel',
       });
       return;
     }
