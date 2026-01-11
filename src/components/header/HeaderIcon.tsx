@@ -23,7 +23,7 @@ export function HeaderIcon({
         <Link href={action}>
           <span
             {...props}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-appButtonBackground text-appButtonIcon hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
+            className="flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground"
           >
             {children}
           </span>
@@ -31,7 +31,7 @@ export function HeaderIcon({
       ) : (
         <span
           {...props}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-appButtonBackground text-appButtonIcon hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground"
         >
           {children}
         </span>

@@ -8,6 +8,8 @@ interface IAuthStore {
   tsunId: string | null;
   setTsunId: (tsunId: string) => void;
   logout: () => void;
+  position: string | null;
+  setPosition: (position: string | null) => void;
 }
 
 export const useAuthStore = create<IAuthStore>((set) => ({
@@ -22,6 +24,9 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       username: null,
       accessToken: null,
       tsunId: null,
+      position: null,
     });
   },
+  position: null,
+  setPosition: (position) => set({ position }),
 }));

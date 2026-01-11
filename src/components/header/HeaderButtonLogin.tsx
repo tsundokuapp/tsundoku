@@ -1,6 +1,7 @@
 'use client';
 // Color Checked
 // Components Checked
+import { LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -9,11 +10,13 @@ import { useToaster } from '@/contexts/ToasterContext';
 import { auth } from '@/services/api/api';
 import { useAuthStore } from '@/store/useAuthStore';
 
+import { Avatar, AvatarFallback } from '../shadcn/avatar';
+
 export function HeaderButtonLogin() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { toaster } = useToaster();
-  const { username, logout } = useAuthStore();
+  const { username, logout, position } = useAuthStore();
   const router = useRouter();
 
   const isLogged = username;
@@ -46,21 +49,37 @@ export function HeaderButtonLogin() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  function getInitials(name: string) {
+    const names = name.split(' ');
+    const initials = names.map((n) => n.charAt(0).toUpperCase());
+    return initials.slice(0, 2).join('');
+  }
+
   return (
     <div ref={dropdownRef} className="relative">
       {isLogged ? (
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-md bg-appButtonBackground px-8 text-appButtonIcon hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
+          className="flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p>{username}</p>
+          <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
+            <AvatarFallback className="bg-appMenuBackground font-medium text-appText">
+              {getInitials(username)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="ml-2 flex flex-1 flex-col items-start justify-start">
+            <p className="text-sm capitalize text-appText">{username}</p>
+            <p className="text-xs capitalize text-appSubtitle">
+              {position || 'Leitor'}
+            </p>
+          </div>
         </button>
       ) : (
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-md bg-appButtonBackground px-8 text-appButtonIcon hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
+          className="flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
           onClick={() => handleLogin()}
         >
-          <p>{'Logar'}</p>
+          <p>Logar</p>
         </button>
       )}
 
@@ -73,6 +92,7 @@ export function HeaderButtonLogin() {
               }}
               className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
             >
+              <LayoutDashboard size={16} />
               <span className="ml-2">Dashboad</span>
             </li>
 
@@ -80,6 +100,7 @@ export function HeaderButtonLogin() {
               onClick={() => handleLogout()}
               className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
             >
+              <LogOut size={16} />
               <span className="ml-2">Sair</span>
             </li>
           </ul>

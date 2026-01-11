@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { EnterAnimation } from '@/animation/EnterAnimation';
 import { useToaster } from '@/contexts/ToasterContext';
+import { cn } from '@/helpers/twUtils';
 
 const themeOptions = [
   { label: 'Light', value: 'theme-light' },
@@ -55,7 +56,10 @@ export function ThemeToggle() {
   return (
     <div ref={dropdownRef} className="relative">
       <button
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-appButtonBackground text-appButtonIcon hover:bg-gradient-to-b hover:from-appButtonBackground hover:to-appButtonHover"
+        className={cn(
+          'flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground',
+          isOpen && 'bg-appButtonBackground',
+        )}
         onClick={() => setIsOpen(!isOpen)}
       >
         {theme === 'dark' || theme === 'blue' ? (
