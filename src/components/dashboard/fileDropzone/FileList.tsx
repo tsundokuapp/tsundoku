@@ -1,6 +1,6 @@
+import { cn } from '@/helpers/twUtils';
 
-import { cn } from "@/helpers/twUtils";
-import { UploadedFileItem } from "./file-item";
+import { UploadedFileItem } from './FileItem';
 
 interface UploadedFileListProps {
   uploadedFiles: File[];
@@ -18,7 +18,7 @@ export function FileList({
   }
 
   return (
-    <div className={cn("px-6 pb-5 space-y-3 mt-4")}>
+    <div className={cn('mt-4 space-y-3 px-6 pb-5')}>
       {uploadedFiles.map((file, index) => (
         <UploadedFileItem
           key={file.name + index}

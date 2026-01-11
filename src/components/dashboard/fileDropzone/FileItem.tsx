@@ -1,6 +1,7 @@
-import { Button } from "@/components/shadcn/button";
-import { Trash2 } from "lucide-react";
-import { useEffect } from "react";
+import { Trash2 } from 'lucide-react';
+import { useEffect } from 'react';
+
+import { Button } from '@/components/shadcn/button';
 
 interface UploadedFileItemProps {
   file: File;
@@ -21,32 +22,32 @@ export function UploadedFileItem({
 
   return (
     <div
-      className="border border-border rounded-lg p-2 flex flex-col bg-appBackground"
+      className="border-border flex flex-col rounded-lg border bg-appBackground p-2"
       key={file.name}
     >
       <div className="flex items-center gap-2">
-        <div className="w-18 h-14 bg-muted rounded-sm flex items-center justify-center self-start row-span-2 overflow-hidden">
+        <div className="w-18 bg-muted row-span-2 flex h-14 items-center justify-center self-start overflow-hidden rounded-sm">
           <img
             src={imageUrl}
             alt={file.name}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
 
         <div className="flex-1 pr-1">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-appText truncate max-w-[250px]">
+              <span className="max-w-[250px] truncate text-sm text-appText">
                 {file.name}
               </span>
-              <span className="text-sm text-appText whitespace-nowrap">
+              <span className="whitespace-nowrap text-sm text-appText">
                 {Math.round(file.size / 1024)} KB
               </span>
             </div>
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 w-8 bg-transparent! text-appText hover:text-red-500"
+              className="bg-transparent! h-8 w-8 text-appText hover:text-red-500"
               onClick={() => onRemove(file.name)}
             >
               <Trash2 className="h-4 w-4" />
@@ -54,7 +55,7 @@ export function UploadedFileItem({
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="h-2 bg-muted rounded-full overflow-hidden flex-1">
+            <div className="bg-muted h-2 flex-1 overflow-hidden rounded-full">
               <div
                 className="h-full bg-appHeaderHighlight"
                 style={{
@@ -62,7 +63,7 @@ export function UploadedFileItem({
                 }}
               ></div>
             </div>
-            <span className="text-xs text-appText whitespace-nowrap">
+            <span className="whitespace-nowrap text-xs text-appText">
               {Math.round(progress || 0)}%
             </span>
           </div>

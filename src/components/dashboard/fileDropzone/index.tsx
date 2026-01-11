@@ -1,24 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/shadcn/button";
-import { Card, CardContent } from "@/components/shadcn/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/shadcn/tooltip";
-import { HelpCircle } from "lucide-react";
-import { useRef, useState } from "react";
-import { FileList } from "./file-list";
-import { Form } from "./form";
-import { FileDropzone } from "./dropzone";
+import { useRef, useState } from 'react';
 
-export default function FileUpload() {
+import { Button } from '@/components/shadcn/button';
+import { Card, CardContent } from '@/components/shadcn/card';
+
+import { FileDropzone } from './Dropzone';
+import { FileList } from './FileList';
+import { FormDropzone } from './FormDropzone';
+
+export function FileUpload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [fileProgresses, setFileProgresses] = useState<Record<string, number>>(
-    {}
+    {},
   );
 
   const handleFileSelect = (files: FileList | null) => {
@@ -66,19 +61,19 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="flex items-center justify-center p-2 bg-appMenuBackground rounded-md">
-      <Card className="w-full mx-auto max-w-sm bg-background rounded-lg p-0 shadow-md">
+    <div className="flex items-center justify-center rounded-md bg-appMenuBackground p-2">
+      <Card className="bg-background mx-auto w-full max-w-sm rounded-lg p-0 shadow-md">
         <CardContent className="p-0">
           <div className="p-6 pb-1">
-            <div className="flex justify-between items-start">
+            <div className="flex items-start justify-between">
               <div>
-                <h2 className="text-lg text-appText font-medium">
+                <h2 className="text-lg font-medium text-appText">
                   Envio rápido de arquivos - Novel
                 </h2>
               </div>
             </div>
           </div>
-          <Form />
+          <FormDropzone />
           <FileDropzone
             fileInputRef={fileInputRef}
             handleBoxClick={handleBoxClick}
@@ -91,7 +86,7 @@ export default function FileUpload() {
             fileProgresses={fileProgresses}
             removeFile={removeFile}
           />
-          <div className="px-6 py-3 border-t border-border bg-muted rounded-b-lg flex justify-end items-center">
+          <div className="border-border bg-muted flex items-center justify-end rounded-b-lg border-t px-6 py-3">
             <div className="flex gap-2">
               <Button
                 variant="outline"
@@ -99,7 +94,9 @@ export default function FileUpload() {
               >
                 Cancelar
               </Button>
-              <Button className="h-9 px-4 text-sm font-medium">Conitnuar</Button>
+              <Button className="h-9 px-4 text-sm font-medium">
+                Continuar
+              </Button>
             </div>
           </div>
         </CardContent>

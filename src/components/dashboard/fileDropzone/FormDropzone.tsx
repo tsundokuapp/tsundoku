@@ -1,5 +1,6 @@
-import { Input } from "@/components/shadcn/input";
-import { Label } from "@/components/shadcn/label";
+import { useState } from 'react';
+
+import { Label } from '@/components/shadcn/label';
 import {
   Select,
   SelectContent,
@@ -7,19 +8,18 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/shadcn/select";
-import { useState } from "react";
+} from '@/components/shadcn/select';
+
+interface chapterList {
+  id: string;
+  titleChapter: string;
+}
 
 interface Item {
   id: string;
   titleProject: string;
   typeProject: string;
   chapters: chapterList[];
-}
-
-interface chapterList {
-  id: string;
-  titleChapter: string;
 }
 
 const data: Item[] = [
@@ -35,7 +35,6 @@ const data: Item[] = [
       { id: '5', titleChapter: 'C.04 - V.01' },
       { id: '6', titleChapter: 'C.05 - V.01' },
       { id: '7', titleChapter: 'C.06 - V.01' },
-
     ],
   },
   {
@@ -76,17 +75,20 @@ const data: Item[] = [
   },
 ];
 
-export function Form() {
-  const [valueProject, setValueProject] = useState("1");
+export function FormDropzone() {
+  const [valueProject, setValueProject] = useState('1');
 
   return (
-    <div className="flex flex-row gap-4 px-6 pb-4 mt-2">
+    <div className="mt-2 flex flex-row gap-4 px-6 pb-4">
       <div className="flex gap-4">
         <div>
           <Label htmlFor="projectName" className="mb-2 text-appText">
             Projeto
           </Label>
-          <Select defaultValue="1" onValueChange={(value) => setValueProject(value)}>
+          <Select
+            defaultValue="1"
+            onValueChange={(value) => setValueProject(value)}
+          >
             <SelectTrigger id="projectName" className="ps-2">
               <SelectValue placeholder="Selecione o projeto" />
             </SelectTrigger>
@@ -114,13 +116,14 @@ export function Form() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {valueProject && data
-                  .find((item) => item.id === valueProject)
-                  ?.chapters.map((chapter) => (
-                    <SelectItem key={chapter.id} value={chapter.id}>
-                      <span className="truncate">{chapter.titleChapter}</span>
-                    </SelectItem>
-                  ))}
+                {valueProject &&
+                  data
+                    .find((item) => item.id === valueProject)
+                    ?.chapters.map((chapter) => (
+                      <SelectItem key={chapter.id} value={chapter.id}>
+                        <span className="truncate">{chapter.titleChapter}</span>
+                      </SelectItem>
+                    ))}
               </SelectGroup>
             </SelectContent>
           </Select>
