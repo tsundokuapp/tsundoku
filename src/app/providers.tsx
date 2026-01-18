@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ModalProvider } from '@/contexts/ModalContext';
@@ -11,10 +11,17 @@ import { auth } from '@/services/api/api';
 import { useAuthStore } from '@/store/useAuthStore';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const { setUsername, setAccessToken, setTsunId } = useAuthStore();
+  const { setUsername, setAccessToken, setTsunId, setIsPending } =
+    useAuthStore();
+
+  const hydrated = useRef(false);
 
   useEffect(() => {
+    if (hydrated.current) return;
+    hydrated.current = true;
+
     const hydrateAuth = async () => {
+      setIsPending(true);
       try {
         const { data } = await auth.get('refresh-token');
 
@@ -23,6 +30,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
         setTsunId(data.TsunId);
       } catch {
         console.log('Fail to refresh token in authProvider');
+      } finally {
+        setIsPending(false);
       }
     };
 
