@@ -32,11 +32,14 @@ export const HeaderSearch = React.forwardRef<
   HTMLInputElement,
   HeaderSearchProps
 >(
-  ({
-    placeholder = 'Buscar...',
-    icon = 'Search',
-    onOpenChangeDialog,
-  }: HeaderSearchProps) => {
+  (
+    {
+      placeholder = 'Buscar...',
+      icon = 'Search',
+      onOpenChangeDialog,
+    }: HeaderSearchProps,
+    ref: React.Ref<HTMLInputElement>,
+  ) => {
     const router = useRouter();
     const { closeSearchBar } = useSearchBar();
 
@@ -46,8 +49,9 @@ export const HeaderSearch = React.forwardRef<
     const [isLoading, setIsLoading] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [showResults, setShowResults] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
     const commandRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
     const handleFormSubmit = React.useCallback(
       async (searchTerm: string) => {
@@ -84,7 +88,7 @@ export const HeaderSearch = React.forwardRef<
 
       document.addEventListener('keydown', handleKeyPress);
       return () => document.removeEventListener('keydown', handleKeyPress);
-    }, [searchInput, handleFormSubmit]);
+    }, [searchInput, handleFormSubmit, inputRef]);
 
     // UseEffect para fechar resultados ao clicar fora
     useEffect(() => {
