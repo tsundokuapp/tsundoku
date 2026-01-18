@@ -1,5 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   type FieldErrors,
   type Path,
@@ -34,15 +34,21 @@ export const FormDropdown = <T extends Record<string, unknown>>({
   setValue,
   defaultValue,
 }: FormDropdownProps<T>) => {
+  const hasSetDefault = useRef(false);
+
   useEffect(() => {
-    if (defaultValue) {
-      setValue(name, defaultValue);
-    }
+    if (!defaultValue || hasSetDefault.current) return;
+
+    setValue(name, defaultValue);
+    hasSetDefault.current = true;
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section>
-      <label className="mb-1 block text-base font-normal text-appText">
+      <label
+        className="mb-1 block text-base font-normal text-appText"
+        htmlFor={`dropdown-${name}`}
+      >
         {label}
       </label>
 

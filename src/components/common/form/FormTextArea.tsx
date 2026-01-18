@@ -1,5 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Path,
   PathValue,
@@ -37,10 +37,13 @@ export const FormTextArea = <T extends Record<string, unknown>>({
   setValue,
   ...props
 }: TextAreaProps<T>) => {
+  const hasSetDefault = useRef(false);
+
   useEffect(() => {
-    if (defaultValue) {
-      setValue(name, defaultValue as PathValue<T, Path<T>>);
-    }
+    if (!defaultValue || hasSetDefault.current) return;
+
+    setValue(name, defaultValue as PathValue<T, Path<T>>);
+    hasSetDefault.current = true;
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

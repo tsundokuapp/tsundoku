@@ -1,6 +1,7 @@
 'use client';
 // Color Checked
 // Components Checked
+import { Spinner } from '@phosphor-icons/react/dist/ssr';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -16,7 +17,7 @@ export function HeaderButtonLogin() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { toaster } = useToaster();
-  const { username, logout, position } = useAuthStore();
+  const { username, logout, position, isPending } = useAuthStore();
   const router = useRouter();
 
   const isLogged = username;
@@ -79,7 +80,11 @@ export function HeaderButtonLogin() {
           className="flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
           onClick={() => handleLogin()}
         >
-          <p>Logar</p>
+          {isPending ? (
+            <Spinner size={16} className="animate-spin" />
+          ) : (
+            <p>Logar</p>
+          )}
         </button>
       )}
 

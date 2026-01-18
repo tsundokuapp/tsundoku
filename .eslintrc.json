@@ -3,7 +3,6 @@
     "eslint:recommended",
     "next/core-web-vitals",
     "next/typescript",
-    "standard",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/stylistic",
     "plugin:prettier/recommended"
@@ -21,11 +20,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "jsx-a11y",
-    "@typescript-eslint",
-    "import"
-  ],
+  "plugins": ["jsx-a11y", "@typescript-eslint", "import"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -36,25 +31,10 @@
         "trailingComma": "all",
         "arrowParens": "always",
         "semi": true,
-        "endOfLine": "auto",
-        "plugins": ["prettier-plugin-tailwindcss"]
+        "endOfLine": "auto"
       }
     ],
-    "jsx-a11y/alt-text": [
-      "warn",
-      {
-        "elements": ["img", "object", "area", "input[type='image']"],
-        "img": ["Image"],
-        "object": ["Object"],
-        "area": ["Area"],
-        "input[type='image']": ["InputImage"]
-      }
-    ],
-    "jsx-a11y/aria-props": "warn",
-    "jsx-a11y/aria-proptypes": "warn",
-    "jsx-a11y/aria-unsupported-elements": "warn",
-    "jsx-a11y/role-has-required-aria-props": "warn",
-    "jsx-a11y/role-supports-aria-props": "warn",
+
     "import/order": [
       "error",
       {
@@ -62,11 +42,7 @@
           "builtin",
           "external",
           "internal",
-          [
-          "parent",
-          "sibling",
-          "index"
-        ]
+          ["parent", "sibling", "index"]
         ],
         "pathGroups": [
           {
@@ -83,13 +59,5 @@
         }
       }
     ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
-    }
   }
 }

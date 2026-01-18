@@ -32,6 +32,7 @@ import {
   createNovelVolume,
   deleteNovelVolume,
 } from '@/services/novel/NovelService';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface IVolumeContentProps {
   idVolume: string;
@@ -85,6 +86,7 @@ const OPTIONS_MODAL = {
 export const Volumes = ({ novelId }: { novelId: string }) => {
   // TODO: Refatorar esse componente em pequenos componentes, principalmente os Modais
   const router = useRouter();
+  const { isAdmin } = useAuthStore();
 
   const { Modal, openModal, closeModal } = useModal();
   const { toaster } = useToaster();
@@ -162,23 +164,25 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
                 width={180}
                 height={256}
               />
-              <Button
-                onClick={() => {
-                  const preInfo = {
-                    idVolume,
-                    cover,
-                    title,
-                    volumeNumber,
-                    sinopse,
-                    id: novelId,
-                  };
-                  handleOpenModal({ ...OPTIONS_MODAL.editVolume }, preInfo);
-                }}
-                className="gap-2"
-              >
-                <p className="text-xs">Editar</p>
-                <Pencil size={16} />
-              </Button>
+              {isAdmin && (
+                <Button
+                  onClick={() => {
+                    const preInfo = {
+                      idVolume,
+                      cover,
+                      title,
+                      volumeNumber,
+                      sinopse,
+                      id: novelId,
+                    };
+                    handleOpenModal({ ...OPTIONS_MODAL.editVolume }, preInfo);
+                  }}
+                  className="gap-2"
+                >
+                  <Pencil size={16} />
+                  <p className="text-xs">Editar</p>
+                </Button>
+              )}
             </div>
             <div className="flex w-full flex-col gap-2">
               <span className="inline-flex flex-row items-center gap-2">
@@ -241,21 +245,19 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
     }
 
     const isCreatingVolume = data.type === 'volume' && modeModal === 'create';
-    let msg = '';
-    let response;
+    const msg = isCreatingVolume
+      ? 'Volume criado com sucesso'
+      : 'Volume atualizado com sucesso';
 
-    if (isCreatingVolume) {
-      response = await createNovelVolumeFn(formData);
-      msg = 'Volume criado com sucesso';
-    }
+    const response = await createNovelVolumeFn(formData);
 
-    if (response?.statusCode === 400) {
+    if (!response.ok) {
       toaster({
         type: 'error',
         msg:
-          typeof response.message === 'string'
-            ? response.message
-            : response.message?.title || 'Erro ao criar a novel',
+          typeof response.error.message?.title === 'string'
+            ? response.error.message.title
+            : 'Erro ao criar volume',
       });
       return;
     }
@@ -280,13 +282,13 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
 
     const response = await deleteNovelVolumeFn(volumeId);
 
-    if (response?.statusCode === 400) {
+    if (!response.ok) {
       toaster({
         type: 'error',
         msg:
-          typeof response.message === 'string'
-            ? response.message
-            : response.message?.title || 'Erro ao criar a novel',
+          typeof response.error.message?.title === 'string'
+            ? response.error.message.title
+            : 'Erro ao deletar o volume',
       });
       return;
     }

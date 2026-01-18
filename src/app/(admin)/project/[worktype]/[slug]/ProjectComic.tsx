@@ -33,7 +33,7 @@ import {
 } from '@/helpers/Util';
 import { useAdminComicBySlug } from '@/hooks/usePrivateApi';
 import { useChapterComic, usePublicGenres } from '@/hooks/usePublicApi';
-import { updateNovel } from '@/services/novel/NovelService';
+import { updateComicService } from '@/services/comic/ComicService';
 
 interface ISection {
   title: string;
@@ -69,8 +69,8 @@ export function ProjectComic() {
 
   const { toaster } = useToaster();
 
-  const { mutateAsync: updateNovelFn } = useMutation({
-    mutationFn: updateNovel,
+  const { mutateAsync: updateComicFn } = useMutation({
+    mutationFn: updateComicService,
   });
 
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -94,30 +94,22 @@ export function ProjectComic() {
 
     formData.append('id', String(projectResponse?.id));
 
-    const response = await updateNovelFn(formData);
+    const response = await updateComicFn(formData);
 
-    if (response?.statusCode === 400) {
+    if (!response.ok) {
       toaster({
         type: 'error',
         msg:
-          typeof response?.message === 'object' && 'title' in response.message
-            ? String(response.message.title)
-            : 'Erro ao atualizar novel',
-      });
-      return;
-    }
-
-    if (response?.statusCode === 404) {
-      toaster({
-        type: 'error',
-        msg: 'Novel não encontrada',
+          typeof response.error.message?.title === 'string'
+            ? response.error.message.title
+            : 'Erro ao atualizar a comic',
       });
       return;
     }
 
     toaster({
       type: 'success',
-      msg: 'Novel atualizada com sucesso',
+      msg: 'Comic atualizada com sucesso',
     });
   };
 

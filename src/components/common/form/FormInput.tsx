@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { Eye, EyeClosed } from '@phosphor-icons/react/dist/ssr';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   type Path,
   type PathValue,
@@ -45,15 +45,21 @@ export const FormInput = <T extends Record<string, unknown>>({
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
+  const hasSetDefault = useRef(false);
+
   useEffect(() => {
-    if (defaultValue) {
-      setValue(name, defaultValue);
-    }
+    if (!defaultValue || hasSetDefault.current) return;
+
+    setValue(name, defaultValue);
+    hasSetDefault.current = true;
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex w-full max-w-sm flex-col">
-      <label className="mb-1 block text-base font-normal text-appText">
+      <label
+        className="mb-1 block text-base font-normal text-appText"
+        htmlFor={`input-${name}`}
+      >
         {label}
       </label>
       <div className="relative">

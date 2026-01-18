@@ -28,6 +28,18 @@ export type ApiResult =
   | { ok: true; data: INovelResponse }
   | { ok: false; error: ApiError };
 
+const unknownErrorDefault: ApiResult = {
+  ok: false,
+  error: {
+    message: {
+      errors: {},
+      status: 500,
+      title: 'Erro desconhecido',
+    },
+    statusCode: 500,
+  },
+};
+
 export const getNovels = async (): Promise<IPublicNovels[]> => {
   try {
     const response = await api.get('/obras/novels?take=999');
@@ -124,31 +136,28 @@ export const getAdminNovelBySlug = async (
   }
 };
 
-export const updateNovel = async (
+export const updateNovelService = async (
   data: FormData,
-): Promise<INovelResponse | ApiError> => {
+): Promise<ApiResult> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.put(
       '/admin/obra/novel',
       data,
     );
-    return response.data;
+    return { ok: true, data: response.data };
   } catch (error) {
     console.error(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
-        message: error.response.data,
-        statusCode: error.response.status,
+        ok: false,
+        error: {
+          message: error.response.data,
+          statusCode: error.response.status,
+        },
       };
     }
-    return {
-      message: {
-        errors: {},
-        status: 500,
-        title: 'Erro desconhecido',
-      },
-      statusCode: 500,
-    };
+
+    return unknownErrorDefault;
   }
 };
 
@@ -173,46 +182,30 @@ export const createNovelService = async (
       };
     }
 
-    return {
-      ok: false,
-      error: {
-        message: {
-          errors: {},
-          status: 500,
-          title: 'Erro desconhecido',
-        },
-        statusCode: 500,
-      },
-    };
+    return unknownErrorDefault;
   }
 };
 
-export const createNovelVolume = async (
-  data: FormData,
-): Promise<INovelResponse | ApiError> => {
+export const createNovelVolume = async (data: FormData): Promise<ApiResult> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.post(
       '/admin/volume/novel',
       data,
     );
-    console.log(response.data);
-    return response.data;
+    return { ok: true, data: response.data };
   } catch (error) {
     console.error(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
-        message: error.response.data,
-        statusCode: error.response.status,
+        ok: false,
+        error: {
+          message: error.response.data,
+          statusCode: error.response.status,
+        },
       };
     }
-    return {
-      message: {
-        errors: {},
-        status: 500,
-        title: 'Erro desconhecido',
-      },
-      statusCode: 500,
-    };
+
+    return unknownErrorDefault;
   }
 };
 
@@ -258,28 +251,24 @@ export const getAdminNovels = async (): Promise<INovelResponse[]> => {
 
 export const deleteNovelVolume = async (
   idVolume: string,
-): Promise<INovelResponse | ApiError> => {
+): Promise<ApiResult> => {
   try {
     const response: AxiosResponse<INovelResponse> = await api.delete(
       `/admin/volume/novel/${idVolume}/true`,
     );
-    return response.data;
+    return { ok: true, data: response.data };
   } catch (error) {
     console.error(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
-        message: error.response.data,
-        statusCode: error.response.status,
+        ok: false,
+        error: {
+          message: error.response.data,
+          statusCode: error.response.status,
+        },
       };
     }
-    return {
-      message: {
-        errors: {},
-        status: 500,
-        title: 'Erro desconhecido',
-      },
-      statusCode: 500,
-    };
+    return unknownErrorDefault;
   }
 };
 

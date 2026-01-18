@@ -14,6 +14,18 @@ export type ApiResult =
   | { ok: true; data: IComicResponse }
   | { ok: false; error: ApiError };
 
+const unknownErrorDefault: ApiResult = {
+  ok: false,
+  error: {
+    message: {
+      errors: {},
+      status: 500,
+      title: 'Erro desconhecido',
+    },
+    statusCode: 500,
+  },
+};
+
 export const getComics = async (): Promise<IPublicComics[]> => {
   try {
     const response = await api.get('/obras/comics?take=999');
@@ -46,6 +58,31 @@ export const getPrivateComics = async (): Promise<IPrivateComics[]> => {
   }
 };
 
+export const updateComicService = async (
+  data: FormData,
+): Promise<ApiResult> => {
+  try {
+    const response: AxiosResponse<IComicResponse> = await api.put(
+      '/admin/obra/comic',
+      data,
+    );
+    return { ok: true, data: response.data };
+  } catch (error) {
+    console.error(error);
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        ok: false,
+        error: {
+          message: error.response.data,
+          statusCode: error.response.status,
+        },
+      };
+    }
+
+    return unknownErrorDefault;
+  }
+};
+
 export const createComicService = async (
   data: FormData,
 ): Promise<ApiResult> => {
@@ -67,17 +104,7 @@ export const createComicService = async (
       };
     }
 
-    return {
-      ok: false,
-      error: {
-        message: {
-          errors: {},
-          status: 500,
-          title: 'Erro desconhecido',
-        },
-        statusCode: 500,
-      },
-    };
+    return unknownErrorDefault;
   }
 };
 

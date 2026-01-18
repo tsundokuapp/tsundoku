@@ -14,6 +14,7 @@ import {
   FormTextArea,
   DragAndDropSingleImage,
 } from '@/components/common/form';
+import { MultiSelect } from '@/components/common/select/MultisSelect';
 import { NavTabs, Tab } from '@/components/common/tab';
 import { useToaster } from '@/contexts/ToasterContext';
 import {
@@ -32,7 +33,8 @@ import {
 } from '@/helpers/Util';
 import { useAdminNovelBySlug } from '@/hooks/usePrivateApi';
 import { usePublicGenres } from '@/hooks/usePublicApi';
-import { updateNovel } from '@/services/novel/NovelService';
+import { updateNovelService } from '@/services/novel/NovelService';
+import { useAuthStore } from '@/store/useAuthStore';
 
 import { Volumes } from './Volumes';
 
@@ -52,6 +54,7 @@ export function ProjectNovel() {
   } = useForm<InputFormProject>({
     resolver: zodResolver(formProjectSchema),
   });
+  const { isAdmin, isPending } = useAuthStore();
 
   const pathname = usePathname();
   const slug = pathname.split('/').pop();
@@ -66,7 +69,7 @@ export function ProjectNovel() {
   const { toaster } = useToaster();
 
   const { mutateAsync: updateNovelFn } = useMutation({
-    mutationFn: updateNovel,
+    mutationFn: updateNovelService,
   });
 
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -92,21 +95,13 @@ export function ProjectNovel() {
 
     const response = await updateNovelFn(formData);
 
-    if (response?.statusCode === 400) {
+    if (!response.ok) {
       toaster({
         type: 'error',
         msg:
-          typeof response?.message === 'object' && 'title' in response.message
-            ? String(response.message.title)
-            : 'Erro ao atualizar novel',
-      });
-      return;
-    }
-
-    if (response?.statusCode === 404) {
-      toaster({
-        type: 'error',
-        msg: 'Novel não encontrada',
+          typeof response.error.message?.title === 'string'
+            ? response.error.message.title
+            : 'Erro ao atualizar a novel',
       });
       return;
     }
@@ -174,6 +169,29 @@ export function ProjectNovel() {
   const errorExtras =
     !!errors.hexColor || !!errors.nationality || !!errors.isAdult;
 
+  const IsVisibleForAdmins = ({ children }: { children: React.ReactNode }) => {
+    if (isPending) return null;
+
+    if (!isAdmin) {
+      return (
+        <div className="flex flex-col items-center justify-center p-4">
+          <p className="text-appSubtitle">Acesso restrito a administradores.</p>
+        </div>
+      );
+    }
+    return <>{children}</>;
+  };
+
+  const optionsGenres =
+    arrayGenres?.data.map((genre) => {
+      return {
+        value: genre.descricao.toLocaleLowerCase(),
+        label: genre.descricao,
+      };
+    }) || [];
+
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
   return (
     <div className="flex flex-row gap-6 p-4">
       <aside className="flex w-full max-w-xs flex-col flex-wrap items-center">
@@ -221,8 +239,32 @@ export function ProjectNovel() {
         </Section>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-appGroupBackground p-4">
-        <NavTabs defaultActiveKey="Geral">
-          <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
+        <NavTabs defaultActiveKey={isAdmin ? 'Geral' : 'Volumes'}>
+          <Tab
+            title="Teste de Render"
+            eventKey="Teste de Render"
+            alert={errorGeral}
+            disabled={!isAdmin}
+          >
+            <IsVisibleForAdmins>
+              <div className="max-w-[200px]">
+                <MultiSelect
+                  options={optionsGenres}
+                  onValueChange={setSelectedValues}
+                  defaultValue={selectedValues}
+                  placeholder="Selecione"
+                  deduplicateOptions={true}
+                />
+              </div>
+            </IsVisibleForAdmins>
+          </Tab>
+          <Tab
+            title="Geral"
+            eventKey="Geral"
+            alert={errorGeral}
+            disabled={!isAdmin}
+          >
+            {/* <IsVisibleForAdmins> */}
             <div className="flex flex-col justify-between">
               <form
                 onSubmit={handleSubmit(handleFormSubmit)}
@@ -356,8 +398,16 @@ export function ProjectNovel() {
                 <FormButton isSubmitting={isSubmitting} />
               </form>
             </div>
+            {/* </IsVisibleForAdmins> */}
           </Tab>
-          <Tab title="Extras" eventKey="Extras" alert={errorExtras}>
+
+          <Tab
+            title="Extras"
+            eventKey="Extras"
+            alert={errorExtras}
+            disabled={!isAdmin}
+          >
+            {/* <IsVisibleForAdmins> */}
             <div className="flex flex-col justify-between">
               <form
                 onSubmit={handleSubmit(handleFormSubmit)}
@@ -440,7 +490,9 @@ export function ProjectNovel() {
                 <FormButton isSubmitting={isSubmitting} />
               </form>
             </div>
+            {/* </IsVisibleForAdmins> */}
           </Tab>
+
           <Tab title="Volumes" eventKey="Volumes">
             {!isLoading && projectResponse ? (
               <Volumes novelId={projectResponse.id} />
@@ -448,8 +500,10 @@ export function ProjectNovel() {
               <></>
             )}
           </Tab>
-          <Tab title="Registros" eventKey="Logs">
-            <h1>Logs para admins</h1>
+          <Tab title="Registros" eventKey="Logs" disabled={!isAdmin}>
+            <IsVisibleForAdmins>
+              <h1>Logs para admins, ainda em construção</h1>
+            </IsVisibleForAdmins>
           </Tab>
         </NavTabs>
       </aside>
