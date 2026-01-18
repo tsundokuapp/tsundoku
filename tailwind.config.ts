@@ -7,6 +7,21 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    'bg-emerald-50',
+    'text-emerald-700',
+    'bg-amber-50',
+    'text-amber-700',
+    'bg-blue-50',
+    'text-blue-700',
+    'bg-muted',
+    'text-muted-foreground',
+    'bg-emerald-500',
+    'bg-amber-500',
+    'bg-blue-500',
+    'bg-muted-foreground',
+    'size-1.5',
+  ],
   theme: {
     extend: {
       fontFamily: {

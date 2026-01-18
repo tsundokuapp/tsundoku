@@ -6,17 +6,17 @@ import { cn } from './twUtils';
 type StatusVariant = TStatusNovel | TStatusComic;
 
 const statusStyles: Record<StatusVariant, { badge: string; dot: string }> = {
+  // TODO: Essas classes estão no safelist do tailwind.config.ts, qualquer mudança aqui deve ser refletida lá, porque o tailwind não consegue detectar o uso dinâmico dessas classes (o lib burra do cacete)
   Concluído: {
-    badge:
-      'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300',
+    badge: 'bg-emerald-50 text-emerald-700',
     dot: 'bg-emerald-500',
   },
   Hiato: {
-    badge: 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300',
+    badge: 'bg-amber-50 text-amber-700',
     dot: 'bg-amber-500',
   },
   'Em andamento': {
-    badge: 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
+    badge: 'bg-blue-50 text-blue-700',
     dot: 'bg-blue-500',
   },
   Cancelado: {
