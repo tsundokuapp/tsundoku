@@ -169,48 +169,18 @@ export const StaffMembers = [
 
 // -------------------
 
-const randomId = () => Math.floor(Math.random() * 1000);
-const randomOptions = (options: string[]) => {
-  return options[Math.floor(Math.random() * options.length)];
-};
-
 export const status = ['Em andamento', 'Concluído', 'Cancelado', 'Hiato'];
 
 export const types = [
   'Manhwa',
   'Manhua',
+  'Mangá',
   'Comic',
   'Light Novel',
   'Web Novel',
   'Novel',
 ];
 export const privacy = ['Público', 'Privado'];
-export const titles = [
-  'Tanya the Evil',
-  'Re:Zero',
-  'Overlord',
-  'Kumo desu ga, Nani ka?',
-  'Youjo Senki',
-  'Wandering Witch',
-  'Shadow',
-  'Konosuba',
-  'Re:Monster',
-  'The Rising of the Shield Hero',
-  'The Eminence in Shadow',
-  'The World of Otome Games is Tough for Mobs',
-];
-
-export const staff = [
-  'Rlc',
-  'Sky',
-  'Detros',
-  'Pride',
-  'Axios',
-  'Bravo',
-  'Nero',
-  'Cloe',
-  'Plon',
-];
 
 export const nationality = [
   'Japonesa',
@@ -229,12 +199,3 @@ export const cargoObraDiscord = [
   'Youjo Senki',
   'Wandering Witch',
 ];
-
-export const ChaptersList = Array.from({ length: 10 }, () => ({
-  id: randomId(),
-  name: `Capítulo ${randomId()}`,
-  author: randomOptions(staff),
-  privacy: randomOptions(privacy),
-  date: '21/10/2024',
-  url: '/project/majo-no-tabitabi',
-}));

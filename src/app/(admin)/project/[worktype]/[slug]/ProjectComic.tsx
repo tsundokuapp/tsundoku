@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
-import { FormEvent, ReactNode, useState } from 'react';
+import { FormEvent, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ChapterComicDocumentsTable } from '@/components/admin/table/ChapterComicDocumentsTable';
@@ -62,8 +62,6 @@ export function ProjectComic() {
   const { data: chapterComicResponse, isLoading: isLoadingChapters } =
     useChapterComic(slug as string);
 
-  console.log('projectResponse', projectResponse);
-
   const { data: arrayGenres } = usePublicGenres();
   const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
 
@@ -73,7 +71,6 @@ export function ProjectComic() {
     mutationFn: updateComicService,
   });
 
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const booleanOptions = ['Sim', 'Não'];
 
   const handleFormSubmit = async (data: InputFormCreateProject) => {
@@ -129,22 +126,6 @@ export function ProjectComic() {
     });
   };
 
-  const handleSetMultiValues = (key: keyof InputFormProject, value: string) => {
-    if (selectedGenres.includes(value)) {
-      setSelectedGenres((prev) => {
-        const newGenres = prev.filter((item) => item !== value);
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    } else {
-      setSelectedGenres((prev) => {
-        const newGenres = [...prev, value];
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    }
-  };
-
   const Section = ({ title, children }: ISection) => {
     return (
       <div className="mb-2 flex w-full flex-col justify-between p-2">
@@ -169,8 +150,6 @@ export function ProjectComic() {
     !!errors.synopsis;
   const errorExtras =
     !!errors.hexColor || !!errors.nationality || !!errors.isAdult;
-
-  console.log('projectResponse', projectResponse);
 
   return (
     <div className="flex flex-row gap-6 p-4">
@@ -291,13 +270,17 @@ export function ProjectComic() {
 
                   <FormMultiSelect<InputFormProject>
                     label="Gêneros"
+                    placeholder="Gêneros"
                     name="genres"
                     watch={watch}
+                    setValue={setValue}
                     getValues={getValues}
-                    onClick={(key, item) => handleSetMultiValues(key, item)}
-                    errors={errors}
+                    onClick={(items) => setValue('genres', items)}
                     options={genresData}
-                    defaultValue={projectResponse?.generos}
+                    errors={errors}
+                    defaultValue={projectResponse?.generos.map(
+                      (genre) => genre.descricao,
+                    )}
                   />
                 </div>
 

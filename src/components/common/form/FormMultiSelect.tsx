@@ -1,98 +1,75 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import {
-  type FieldErrors,
   type Path,
+  type UseFormSetValue,
+  type FieldErrors,
   type PathValue,
   type UseFormGetValues,
   type UseFormWatch,
 } from 'react-hook-form';
 
-import type { IGenres } from '@/@types/Api';
-import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
-import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
 import { cn } from '@/helpers/twUtils';
+
+import { MultiSelect } from '../select/MultiSelect';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;
   name: Path<T>;
   watch: UseFormWatch<T>;
   getValues: UseFormGetValues<T>;
-  onClick: (key: keyof T, item: T[keyof T]) => void;
-  errors: FieldErrors;
+  onClick: (items: T[keyof T]) => void;
   options: string[];
   className?: string;
-  defaultValue?: IGenres[];
+  defaultValue?: PathValue<T, Path<T>>;
+  errors: FieldErrors;
+  placeholder?: string;
+  setValue: UseFormSetValue<T>;
 }
 
 export const FormMultiSelect = <T extends Record<string, unknown>>({
   label,
   name,
   watch,
-  getValues,
   onClick,
+  getValues,
   errors,
   options,
+  setValue,
   className,
   defaultValue,
+  placeholder = 'Selecione...',
 }: FormMultiSelectProps<T>) => {
+  const hasSetDefault = useRef(false);
+
   useEffect(() => {
-    if (defaultValue) {
-      defaultValue.forEach((item) => {
-        onClick(name, item.descricao as T[keyof T]);
-      });
-    }
+    if (!defaultValue || hasSetDefault.current) return;
+
+    setValue(name, defaultValue);
+    hasSetDefault.current = true;
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function ItemsSelected() {
-    return (
-      <div className="flex flex-wrap gap-2">
-        {(watch(name) as unknown as string[]).map(
-          (item: string, index: number) => (
-            <span
-              key={index}
-              className="rounded-md bg-appSearchPlaceholder px-2 py-1 text-xs text-appSearchText"
-            >
-              {item}
-            </span>
-          ),
-        )}
-      </div>
-    );
-  }
-
-  const isSelected = (item: PathValue<T, Path<T>>) => {
-    const values = getValues(name);
-
-    const arrayValues = Array.isArray(values) ? values : [values];
-
-    return arrayValues.includes(item);
+  const generateOptions = (items: string[]) => {
+    return items.map((item) => ({ label: item, value: item }));
   };
 
   return (
-    <section>
+    <div className={cn('w-[380px]', className)}>
       <label className="mb-1 block text-base font-normal text-appText">
         {label}
       </label>
 
-      <DropdownContainer
-        className={(cn('w-[280px]'), className)}
-        label={label}
-        value={watch(name) ? <ItemsSelected /> : 'Selecione'}
-      >
-        {options.map((item, index) => (
-          <DropdownOption
-            key={index}
-            label={item}
-            onClick={() => onClick(name, item as T[keyof T])}
-            value={item}
-            selected={isSelected(item as PathValue<T, Path<T>>)}
-          />
-        ))}
-      </DropdownContainer>
+      <MultiSelect
+        options={generateOptions(options)}
+        onValueChange={(itemsSelected) => onClick(itemsSelected as T[keyof T])}
+        defaultValue={getValues(name) as unknown as string[]}
+        placeholder={placeholder}
+        value={watch(name) as unknown as string[]}
+        aria-label={label}
+      />
       <p className="mt-1 text-xs text-red-400">
         <ErrorMessage errors={errors} name={name} />
       </p>
-    </section>
+    </div>
   );
 };

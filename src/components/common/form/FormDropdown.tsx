@@ -37,7 +37,7 @@ export const FormDropdown = <T extends Record<string, unknown>>({
   const hasSetDefault = useRef(false);
 
   useEffect(() => {
-    if (!defaultValue || hasSetDefault.current) return;
+    if (defaultValue === undefined || hasSetDefault.current) return;
 
     setValue(name, defaultValue);
     hasSetDefault.current = true;

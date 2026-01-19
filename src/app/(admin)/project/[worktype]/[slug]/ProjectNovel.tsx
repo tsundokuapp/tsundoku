@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
-import { FormEvent, ReactNode, useState } from 'react';
+import { FormEvent, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -14,7 +14,6 @@ import {
   FormTextArea,
   DragAndDropSingleImage,
 } from '@/components/common/form';
-import { MultiSelect } from '@/components/common/select/MultisSelect';
 import { NavTabs, Tab } from '@/components/common/tab';
 import { useToaster } from '@/contexts/ToasterContext';
 import {
@@ -72,7 +71,6 @@ export function ProjectNovel() {
     mutationFn: updateNovelService,
   });
 
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const booleanOptions = ['Sim', 'Não'];
 
   const handleFormSubmit = async (data: InputFormCreateProject) => {
@@ -128,22 +126,6 @@ export function ProjectNovel() {
     });
   };
 
-  const handleSetMultiValues = (key: keyof InputFormProject, value: string) => {
-    if (selectedGenres.includes(value)) {
-      setSelectedGenres((prev) => {
-        const newGenres = prev.filter((item) => item !== value);
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    } else {
-      setSelectedGenres((prev) => {
-        const newGenres = [...prev, value];
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    }
-  };
-
   const Section = ({ title, children }: ISection) => {
     return (
       <div className="mb-2 flex w-full flex-col justify-between p-2">
@@ -182,15 +164,9 @@ export function ProjectNovel() {
     return <>{children}</>;
   };
 
-  const optionsGenres =
-    arrayGenres?.data.map((genre) => {
-      return {
-        value: genre.descricao.toLocaleLowerCase(),
-        label: genre.descricao,
-      };
-    }) || [];
-
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const getStatusPublish = () => {
+    return projectResponse?.publicado ? 'Público' : 'Privado';
+  };
 
   return (
     <div className="flex flex-row gap-6 p-4">
@@ -240,24 +216,6 @@ export function ProjectNovel() {
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-appGroupBackground p-4">
         <NavTabs defaultActiveKey={isAdmin ? 'Geral' : 'Volumes'}>
-          <Tab
-            title="Teste de Render"
-            eventKey="Teste de Render"
-            alert={errorGeral}
-            disabled={!isAdmin}
-          >
-            <IsVisibleForAdmins>
-              <div className="max-w-[200px]">
-                <MultiSelect
-                  options={optionsGenres}
-                  onValueChange={setSelectedValues}
-                  defaultValue={selectedValues}
-                  placeholder="Selecione"
-                  deduplicateOptions={true}
-                />
-              </div>
-            </IsVisibleForAdmins>
-          </Tab>
           <Tab
             title="Geral"
             eventKey="Geral"
@@ -310,6 +268,7 @@ export function ProjectNovel() {
                     setValue={setValue}
                     defaultValue={projectResponse?.autor}
                   />
+
                   <FormInput
                     label="Ilustrador"
                     name="illustration"
@@ -334,12 +293,14 @@ export function ProjectNovel() {
 
                   <FormMultiSelect<InputFormProject>
                     label="Gêneros"
+                    placeholder="Gêneros"
                     name="genres"
                     watch={watch}
+                    setValue={setValue}
                     getValues={getValues}
-                    onClick={(key, item) => handleSetMultiValues(key, item)}
-                    errors={errors}
+                    onClick={(items) => setValue('genres', items)}
                     options={genresData}
+                    errors={errors}
                     defaultValue={projectResponse?.generos}
                   />
                 </div>
@@ -378,9 +339,7 @@ export function ProjectNovel() {
                     errors={errors}
                     setValue={setValue}
                     options={privacy}
-                    defaultValue={
-                      projectResponse?.publicado ? 'Público' : 'Privado'
-                    }
+                    defaultValue={getStatusPublish()}
                   />
                 </div>
 

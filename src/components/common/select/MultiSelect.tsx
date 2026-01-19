@@ -1,11 +1,6 @@
+import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
 import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  CheckIcon,
-  XCircle,
-  ChevronDown,
-  XIcon,
-  WandSparkles,
-} from 'lucide-react';
+import { CheckIcon, XCircle, XIcon, WandSparkles } from 'lucide-react';
 import * as React from 'react';
 
 import { Badge } from '@/components/shadcn/badge';
@@ -961,8 +956,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                       orientation="vertical"
                       className="flex h-full min-h-6"
                     />
-                    <ChevronDown
-                      className="text-muted-foreground mx-2 h-4 cursor-pointer"
+                    <CaretUpDown
+                      className="mx-2 h-5 w-5 cursor-pointer text-sm text-appText"
                       aria-hidden="true"
                     />
                   </div>
@@ -972,7 +967,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                   <span className="text-muted-foreground mx-3 text-sm">
                     {placeholder}
                   </span>
-                  <ChevronDown className="text-muted-foreground mx-2 h-4 cursor-pointer" />
+                  <CaretUpDown className="mx-2 h-5 w-5 cursor-pointer text-sm text-appText" />
                 </div>
               )}
             </Button>
@@ -983,7 +978,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
             aria-multiselectable="true"
             aria-label="Available options"
             className={cn(
-              'w-auto p-0',
+              'w-auto bg-appMenuBackground p-0',
               getPopoverAnimationClass(),
               screenSize === 'mobile' && 'w-[85vw] max-w-[280px]',
               screenSize === 'tablet' && 'w-[70vw] max-w-md',
@@ -1019,13 +1014,13 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
               )}
               <CommandList
                 className={cn(
-                  'multiselect-scrollbar max-h-[40vh] overflow-y-auto',
+                  'multiselect-scrollbar max-h-[40vh] max-w-[280px] overflow-y-auto border border-black bg-appMenuBackground',
                   screenSize === 'mobile' && 'max-h-[50vh]',
                   'overscroll-behavior-y-contain',
                 )}
               >
                 <CommandEmpty>
-                  {emptyIndicator || 'No results found.'}
+                  {emptyIndicator || 'Nenhum resultado encontrado.'}
                 </CommandEmpty>{' '}
                 {!hideSelectAll && !searchValue && (
                   <CommandGroup>
@@ -1157,6 +1152,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                   </CommandGroup>
                 )}
                 <CommandSeparator />
+                {/* footer */}
                 <CommandGroup>
                   <div className="flex items-center justify-between">
                     {selectedValues.length > 0 && (
