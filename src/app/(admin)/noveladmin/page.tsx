@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -26,7 +25,6 @@ import { createNovel } from '@/hooks/usePrivateApi';
 import { usePublicGenres } from '@/hooks/usePublicApi';
 
 export default function NovelAdmin() {
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const { Modal, openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const {
@@ -47,25 +45,6 @@ export default function NovelAdmin() {
   const { mutateAsync: createNovelFn } = useMutation({
     mutationFn: createNovel,
   });
-
-  const handleSetMultiValues = (
-    key: keyof InputFormCreateProject,
-    value: string,
-  ) => {
-    if (selectedGenres.includes(value)) {
-      setSelectedGenres((prev) => {
-        const newGenres = prev.filter((item) => item !== value);
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    } else {
-      setSelectedGenres((prev) => {
-        const newGenres = [...prev, value];
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    }
-  };
 
   const handleSelectOption = <K extends keyof InputFormCreateProject>(
     key: K,
@@ -221,9 +200,11 @@ export default function NovelAdmin() {
             <FormMultiSelect<InputFormCreateProject>
               label="Gêneros"
               name="genres"
+              placeholder="Gêneros"
               watch={watch}
               getValues={getValues}
-              onClick={(key, item) => handleSetMultiValues(key, item)}
+              setValue={setValue}
+              onClick={(items) => setValue('genres', items)}
               errors={errors}
               options={genresData}
             />

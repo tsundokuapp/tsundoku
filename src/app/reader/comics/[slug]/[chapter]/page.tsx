@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
 
 import { IChapterData } from '@/@types/Chapter';
-import type { ScrollMode } from '@/@types/ScrollMode';
+import { ScrollMode } from '@/@types/ui/ScrollMode';
 import { ActionsBarContainer } from '@/components/reader/ActionsBarContainer';
 import { ReaderContainer } from '@/components/reader/ReaderContainer';
 import { ActionChapterList } from '@/components/reader/actions/ActionChapterList';

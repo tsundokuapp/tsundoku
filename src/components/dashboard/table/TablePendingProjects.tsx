@@ -57,14 +57,16 @@ const data: Item[] = [
 
 export default function TablePendingProjects() {
   return (
-    <div className="rounded-lg border w-full">
+    <div className="w-full rounded-lg border">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-48 font-medium">Nome</TableHead>
-            <TableHead className="font-medium">Tipo</TableHead>
-            <TableHead className="font-medium">Capítulo</TableHead>
-            <TableHead className="font-medium">Notas</TableHead>
+            <TableHead className="w-48 font-medium text-appText">
+              Nome
+            </TableHead>
+            <TableHead className="font-medium text-appText">Tipo</TableHead>
+            <TableHead className="font-medium text-appText">Capítulo</TableHead>
+            <TableHead className="font-medium text-appText">Notas</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
