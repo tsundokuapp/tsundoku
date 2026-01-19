@@ -10,6 +10,7 @@
     "cssVariables": false,
     "prefix": ""
   },
+  "iconLibrary": "phosphor",
   "aliases": {
     "components": "@/components",
     "utils": "@/helpers/twUtils",
@@ -17,5 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "iconLibrary": "phosphor"
+  "registries": {
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
+  }
 }

@@ -1,7 +1,7 @@
 'use client';
 // Color Checked
 // Components Checked
-import { Spinner } from '@phosphor-icons/react/dist/ssr';
+import { Spinner, User } from '@phosphor-icons/react/dist/ssr';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -56,19 +56,35 @@ export function HeaderButtonLogin() {
     return initials.slice(0, 2).join('');
   }
 
+  const ItemList = ({
+    icon,
+    text,
+    action,
+  }: {
+    icon: React.ReactNode;
+    text: string;
+    action: () => void;
+  }) => {
+    return (
+      <li
+        onClick={action}
+        className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
+      >
+        {icon}
+        <span className="ml-2">{text}</span>
+      </li>
+    );
+  };
+
   const ItemsStaff = () => {
     if (position !== 'Admin' && position !== 'Staff') return;
 
     return (
-      <li
-        onClick={() => {
-          router.push('/dashboard');
-        }}
-        className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
-      >
-        <LayoutDashboard size={16} />
-        <span className="ml-2">Dashboad</span>
-      </li>
+      <ItemList
+        icon={<LayoutDashboard size={16} />}
+        text="Dashboad"
+        action={() => router.push('/dashboard')}
+      />
     );
   };
 
@@ -108,14 +124,20 @@ export function HeaderButtonLogin() {
         <EnterAnimation delay={0.3} className="relative z-10">
           <ul className="absolute right-0 mt-2 w-36 rounded-md bg-appMenuBackground p-1 shadow-md">
             <ItemsStaff />
-
-            <li
-              onClick={() => handleLogout()}
-              className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
-            >
-              <LogOut size={16} />
-              <span className="ml-2">Sair</span>
-            </li>
+            <ItemList
+              icon={<User size={16} />}
+              text="Perfil"
+              action={() => {
+                username
+                  ? router.push(`/profile/${username}`)
+                  : router.push('/auth');
+              }}
+            />
+            <ItemList
+              icon={<LogOut size={16} />}
+              text="Sair"
+              action={() => handleLogout()}
+            />
           </ul>
         </EnterAnimation>
       )}

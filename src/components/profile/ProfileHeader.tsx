@@ -1,5 +1,4 @@
 import { Heart, PencilSimple } from '@phosphor-icons/react/dist/ssr';
-import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/common/button/Button';
 import {
@@ -19,10 +18,8 @@ export function ProfileHeader({
   avatarImage = '',
   allowEdit = false,
 }: ProfileHeaderProps) {
-  const router = useRouter();
-
   function handleEditProfile() {
-    router.push('/me/edit');
+    alert('Função de editar perfil ainda não implementada.');
   }
 
   function handleFollowUser() {
@@ -30,7 +27,7 @@ export function ProfileHeader({
   }
 
   return (
-    <div className="from-profileHeaderBgFrom to-profileHeaderBgTo h-48 bg-gradient-to-b">
+    <div className="h-48 bg-gradient-to-b from-profileHeaderBgFrom to-profileHeaderBgTo">
       <div className="mx-auto flex h-48 w-full max-w-[1300px] flex-col justify-between lg:flex-row lg:px-8">
         {allowEdit ? (
           <div className="flex w-full justify-end px-6 py-4 lg:hidden">
@@ -56,7 +53,7 @@ export function ProfileHeader({
           <div className="h-32 w-32 translate-y-1/4 rounded-full border-4 border-appBackground">
             <Avatar className="h-full w-full">
               <AvatarImage src={avatarImage} />
-              <AvatarFallback className="bg-profileAvatarFallbackBg text-profileAvatarFallbackText text-3xl font-semibold">
+              <AvatarFallback className="bg-profileAvatarFallbackBg text-3xl font-semibold text-profileAvatarFallbackText">
                 {avatarFallback}
               </AvatarFallback>
             </Avatar>

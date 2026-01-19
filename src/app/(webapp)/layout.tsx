@@ -15,11 +15,13 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
   const parts = path.split('/');
 
   const { comicBanner } = useComicStore();
+  const isNovelOrMangaPage =
+    parts.length > 2 && (parts[1] === 'novels' || parts[1] === 'comics');
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
       <HeaderBar className="z-10" />
-      {parts.length > 2 && (
+      {isNovelOrMangaPage && (
         <div className="relative h-auto max-h-64 w-full overflow-hidden">
           <Image
             src={comicBanner}

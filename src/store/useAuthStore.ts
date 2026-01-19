@@ -37,7 +37,6 @@ function normalizeRole(role: string): string {
 }
 
 function isUserAdmin(roles: string[] | null): boolean {
-  console.log(roles);
   if (!roles) return false;
   const rolesLower = roles.map(normalizeRole);
   return rolesLower.includes('admin');

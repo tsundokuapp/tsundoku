@@ -20,7 +20,6 @@ export function FooterBar() {
         </div>
         <div className="flex items-center gap-4 sm:gap-8">
           <FooterLink text="dcma" action="dcma/" />
-          <FooterLink text="Contato" action="contact/" />
         </div>
       </div>
     </footer>

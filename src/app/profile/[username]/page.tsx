@@ -101,8 +101,3 @@ export default function UserProfile() {
     </AsyncSection>
   );
 }
-
-/*
-Fiz a estrutura completamente independente para facilitar a implementação.
-Acredito que a parte das tabs não será usada no alpha pelo excesso de informação que necessita. 
-*/
