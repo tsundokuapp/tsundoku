@@ -56,6 +56,22 @@ export function HeaderButtonLogin() {
     return initials.slice(0, 2).join('');
   }
 
+  const ItemsStaff = () => {
+    if (position !== 'Admin' && position !== 'Staff') return;
+
+    return (
+      <li
+        onClick={() => {
+          router.push('/dashboard');
+        }}
+        className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
+      >
+        <LayoutDashboard size={16} />
+        <span className="ml-2">Dashboad</span>
+      </li>
+    );
+  };
+
   return (
     <div ref={dropdownRef} className="relative">
       {isLogged ? (
@@ -91,15 +107,7 @@ export function HeaderButtonLogin() {
       {isOpen && (
         <EnterAnimation delay={0.3} className="relative z-10">
           <ul className="absolute right-0 mt-2 w-36 rounded-md bg-appMenuBackground p-1 shadow-md">
-            <li
-              onClick={() => {
-                router.push('/dashboard');
-              }}
-              className="m-1 flex cursor-pointer items-center rounded-lg bg-appMenuBackground px-3 py-2 text-sm text-appMenuText hover:bg-appMenuHover"
-            >
-              <LayoutDashboard size={16} />
-              <span className="ml-2">Dashboad</span>
-            </li>
+            <ItemsStaff />
 
             <li
               onClick={() => handleLogout()}

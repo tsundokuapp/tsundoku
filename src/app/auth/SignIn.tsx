@@ -71,7 +71,7 @@ export const SignIn = () => {
 
     reset();
 
-    router.push('/dashboard');
+    router.push('/');
   };
 
   return (
