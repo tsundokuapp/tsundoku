@@ -196,7 +196,6 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
           </div>
           <div className="flex gap-2">
             <ChapterDocumentsTable
-              type="novel"
               chapters={chapters}
               onHandleClick={(preInfo: IPreInfo) => {
                 preInfo = { ...preInfo, volumeNumber };
@@ -337,9 +336,9 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
               setValue={setValue}
               errors={errors}
               register={register}
-            // defaultValue={
-            //   isEditing ? infoEditing.volumeNumber! : undefined
-            // }
+              // defaultValue={
+              //   isEditing ? infoEditing.volumeNumber! : undefined
+              // }
             />
             <Checkbox
               label="Volume Único ou One-Shot"
@@ -532,6 +531,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
       )}
 
       <Modal
+        side
         title={`Edição/Criação de ${typeModal === 'volume' ? 'Volume' : 'Capítulo'}`}
       >
         {typeModal === 'volume' ? (

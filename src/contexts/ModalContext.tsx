@@ -2,6 +2,8 @@
 
 import { useState, createContext, ReactNode, useContext } from 'react';
 
+import { EnterAnimation } from '@/animation/EnterAnimation';
+import { SideAnimation } from '@/animation/SideAnimation';
 import {
   Dialog,
   DialogContent,
@@ -37,6 +39,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsModalOpen(false);
   };
 
+  const sideStyles = `!left-auto right-0 top-0 flex h-full max-w-[620px] w-fit !translate-y-0 flex-col border-appHeaderBackground bg-appHeaderBackground transition-transform duration-300 data-[state=closed]:translate-x-full data-[state=open]:translate-x-0 sm:rounded-none`;
+
   const Modal = ({
     children,
     title,
@@ -44,17 +48,37 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     side = false,
   }: ModalProps) => {
     return (
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen} modal={!side}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            {description && (
-              <DialogDescription>{description}</DialogDescription>
-            )}
-          </DialogHeader>
-          {children}
-        </DialogContent>
-      </Dialog>
+      <>
+        {side ? (
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className={side ? sideStyles : ''}>
+              <SideAnimation>
+                <DialogHeader>
+                  <DialogTitle>{title}</DialogTitle>
+                  {description && (
+                    <DialogDescription>{description}</DialogDescription>
+                  )}
+                </DialogHeader>
+                {children}
+              </SideAnimation>
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className={side ? sideStyles : ''}>
+              <EnterAnimation>
+                <DialogHeader>
+                  <DialogTitle>{title}</DialogTitle>
+                  {description && (
+                    <DialogDescription>{description}</DialogDescription>
+                  )}
+                </DialogHeader>
+                {children}
+              </EnterAnimation>
+            </DialogContent>
+          </Dialog>
+        )}
+      </>
     );
   };
 
