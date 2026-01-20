@@ -28,6 +28,7 @@ import { type ColorResult, CirclePicker } from 'react-color';
 
 import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
 import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
+import { SearchAndReplaceButton } from '@/components/editor/SearchAndReplaceButton';
 import { useModal } from '@/contexts/ModalContext';
 import { cn } from '@/helpers/twUtils';
 import { useEditorStore } from '@/store/useEditor';
@@ -574,7 +575,16 @@ export const Toolbar = () => {
       },
       {
         label: 'Ortografia',
-        icon: <FileMagnifyingGlass size={sizeDefault} />,
+        icon: (
+          <FileMagnifyingGlass
+            size={sizeDefault}
+            fill={
+              editor?.view.dom.getAttribute('spellcheck') === 'false'
+                ? '#ffffff'
+                : '#0284C7'
+            }
+          />
+        ),
         onClick: () => {
           const current = editor?.view.dom.getAttribute('spellcheck');
           editor?.view.dom.setAttribute(
@@ -653,6 +663,7 @@ export const Toolbar = () => {
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
+      <SearchAndReplaceButton />
     </div>
   );
 };

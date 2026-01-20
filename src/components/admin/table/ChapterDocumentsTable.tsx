@@ -41,7 +41,7 @@ export const ChapterDocumentsTable = ({
         </td>
         <Tooltip text={chapter.tituloCapitulo}>
           <td
-            className="max-w-[480px] cursor-pointer overflow-hidden truncate px-4 py-2 text-start text-sm font-medium text-appText"
+            className="w-full cursor-pointer overflow-hidden truncate px-4 py-2 text-start text-sm font-medium text-appText"
             onClick={() =>
               onHandleClick?.({
                 title: chapter.tituloCapitulo,
@@ -106,7 +106,7 @@ export const ChapterDocumentsTable = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       {chapters === undefined ? (
         <div className="flex items-center justify-center gap-4">
           <span>Carregando...</span>
@@ -119,7 +119,7 @@ export const ChapterDocumentsTable = ({
               Nenhum capítulo encontrado.
             </div>
           ) : (
-            <div className="relative w-full transition-all sm:rounded-lg">
+            <div className="relative transition-all sm:rounded-lg">
               <Table>
                 <THeadTable>
                   <tr>

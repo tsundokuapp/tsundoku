@@ -24,8 +24,6 @@ export default function DocumentEditor({
     isError,
   } = useAdminChapterNovel(documentId);
 
-  console.log('chapterNovelResponse', chapterNovelResponse);
-
   if (isError) {
     return (
       <div className="min-h-screen bg-appBackground">

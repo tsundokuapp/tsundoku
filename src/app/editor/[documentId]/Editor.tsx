@@ -21,6 +21,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { useEditorStore } from '@/store/useEditor';
 
 import { Ruler } from './Ruler';
+import { SearchAndReplace } from './SearchAndReplace';
 
 interface IEditorProps {
   contentEditor?: string | HTMLElement;
@@ -64,6 +65,9 @@ export const Editor = ({ contentEditor }: IEditorProps) => {
       },
     },
     extensions: [
+      SearchAndReplace.configure({
+        selectedResultClass: 'bg-red-500',
+      }),
       StarterKit,
       LineHeight,
       FontSize,
