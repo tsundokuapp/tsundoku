@@ -50,6 +50,7 @@
     "chart.js": "4.2.1",
     "class-variance-authority": "0.7.1",
     "cmdk": "^1.1.1",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.562.0",
     "motion": "11.15.0",
     "next": "14.2.14",

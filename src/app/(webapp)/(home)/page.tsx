@@ -1,9 +1,7 @@
-// Color Checked
-// Components Checked
-import { BannerAds } from '@/components/banners/bannerAds';
-import { BannerRecruitment } from '@/components/banners/bannerRecruitment';
-import { NewProjectsList } from '@/components/projectsList/newProjectsList';
-import { UpdatedProjectsList } from '@/components/projectsList/updatedProjectsList';
+import { NewProjectsList } from '@/features/project/components/projectsList/newProjectsList';
+import { UpdatedProjectsList } from '@/features/project/components/projectsList/updatedProjectsList';
+import { BannerAds } from '@/shared/components/ui/banners/bannerAds';
+import { BannerRecruitment } from '@/shared/components/ui/banners/bannerRecruitment';
 
 export default function Home() {
   return (

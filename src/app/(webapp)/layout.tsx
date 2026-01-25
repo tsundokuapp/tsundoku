@@ -1,20 +1,19 @@
 'use client';
-// Color Checked
-// Components Checked
+
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 
-import { ScrollToTopButton } from '@/components/common/ScrollToTopButton';
-import { FooterBar } from '@/components/footer/FooterBar';
-import { HeaderBar } from '@/components/header/HeaderBar';
-import { useComicStore } from '@/store/useComicStore';
+import { FooterBar } from '@/shared/components/layout/footer/FooterBar';
+import { HeaderBar } from '@/shared/components/layout/header/HeaderBar';
+import { ScrollToTopButton } from '@/shared/components/ui/ScrollToTopButton';
+import { useBannerStore } from '@/shared/stores/useBannerStore';
 
 export default function WebappLayout({ children }: { children: ReactNode }) {
   const path = usePathname();
   const parts = path.split('/');
 
-  const { comicBanner } = useComicStore();
+  const { banner } = useBannerStore();
   const isNovelOrMangaPage =
     parts.length > 2 && (parts[1] === 'novels' || parts[1] === 'comics');
 
@@ -24,7 +23,7 @@ export default function WebappLayout({ children }: { children: ReactNode }) {
       {isNovelOrMangaPage && (
         <div className="relative h-auto max-h-64 w-full overflow-hidden">
           <Image
-            src={comicBanner}
+            src={banner}
             overrideSrc="/banner.jpg"
             alt="Banner"
             width={0}

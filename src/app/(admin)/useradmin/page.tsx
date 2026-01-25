@@ -2,9 +2,18 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { TableUser } from '@/features/admin/components/dashboard/table/TableUser';
+import { status, types, nationality } from '@/features/admin/constants/project';
+import { createNovelService } from '@/features/admin/novels/api/novelAdminApi';
+import {
+  InputFormCreateProject,
+  formCreateProjectSchema,
+} from '@/features/admin/schemas';
+import { transformFormDataNovel } from '@/features/admin/utils/transformers';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { Modal } from '@/shared/components/feedback/Modal';
 import {
   DragAndDropSingleImage,
   FormButton,
@@ -12,22 +21,12 @@ import {
   FormInput,
   FormMultiSelect,
   FormTextArea,
-} from '@/components/common/form';
-import { TableUser } from '@/components/dashboard/table/TableUser';
-import { useModal } from '@/contexts/ModalContext';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  InputFormCreateProject,
-  formCreateProjectSchema,
-} from '@/helpers/Schemas';
-import { transformFormDataNovel } from '@/helpers/TransformFormData';
-import { status, types, nationality } from '@/helpers/Util';
-import { createNovel } from '@/hooks/usePrivateApi';
-import { usePublicGenres } from '@/hooks/usePublicApi';
+} from '@/shared/components/ui/form';
+import { useModal } from '@/shared/contexts/ModalContext';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 export default function UserAdmin() {
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const { Modal, openModal, closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const {
     register,
@@ -42,30 +41,11 @@ export default function UserAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
 
   const { mutateAsync: createNovelFn } = useMutation({
-    mutationFn: createNovel,
+    mutationFn: createNovelService,
   });
-
-  const handleSetMultiValues = (
-    key: keyof InputFormCreateProject,
-    value: string,
-  ) => {
-    if (selectedGenres.includes(value)) {
-      setSelectedGenres((prev) => {
-        const newGenres = prev.filter((item) => item !== value);
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    } else {
-      setSelectedGenres((prev) => {
-        const newGenres = [...prev, value];
-        setValue(key, newGenres);
-        return newGenres;
-      });
-    }
-  };
 
   const handleSelectOption = <K extends keyof InputFormCreateProject>(
     key: K,
@@ -88,13 +68,10 @@ export default function UserAdmin() {
 
     const response = await createNovelFn(formData);
 
-    if (response?.statusCode === 400) {
+    if (response.ok === false) {
       toaster({
         type: 'error',
-        msg:
-          typeof response.message === 'string'
-            ? response.message
-            : response.message?.title || 'Erro ao criar a novel',
+        msg: response.error.message.title,
       });
       return;
     }
@@ -221,9 +198,10 @@ export default function UserAdmin() {
             <FormMultiSelect<InputFormCreateProject>
               label="Gêneros"
               name="genres"
+              setValue={setValue}
               watch={watch}
               getValues={getValues}
-              onClick={(key, item) => handleSetMultiValues(key, item)}
+              onClick={(item) => setValue('genres', item)}
               errors={errors}
               options={genresData}
             />

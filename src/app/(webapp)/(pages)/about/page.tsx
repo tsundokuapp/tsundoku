@@ -1,13 +1,12 @@
 'use client';
-// Color Checked
-// Components Checked
-import { Accordion as AccordionTsun } from '@/components/common/Accordion';
-import { Title } from '@/components/common/Title';
+
+import { Accordion } from '@/shared/components/ui/Accordion';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@/components/shadcn/avatar';
+} from '@/shared/components/ui/avatar';
+import { Title } from '@/shared/components/ui/title/Title';
 
 const ItemAccordionTsun = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -51,7 +50,7 @@ export default function About() {
       </div>
       <div className="flex w-[800px] flex-col gap-4">
         <Title title="Nossa Equipe" />
-        <AccordionTsun title="Administradores">
+        <Accordion title="Administradores">
           <section className="flex flex-col gap-4">
             <ItemAccordionTsun>
               <Avatar className="h-16 w-16">
@@ -93,31 +92,31 @@ export default function About() {
               </div>
             </ItemAccordionTsun>
           </section>
-        </AccordionTsun>
+        </Accordion>
 
-        <AccordionTsun title="Editores">
+        <Accordion title="Editores">
           <section className="flex flex-col gap-4 sm:flex-row">
             <div className="flex w-full space-x-4">
               <p>Em breve</p>
             </div>
           </section>
-        </AccordionTsun>
+        </Accordion>
 
-        <AccordionTsun title="Tradutores">
+        <Accordion title="Tradutores">
           <section className="flex flex-col gap-4 sm:flex-row">
             <div className="flex w-full space-x-4">
               <p>Em breve</p>
             </div>
           </section>
-        </AccordionTsun>
+        </Accordion>
 
-        <AccordionTsun title="Revisores">
+        <Accordion title="Revisores">
           <section className="flex flex-col gap-4 sm:flex-row">
             <div className="flex w-full space-x-4">
               <p>Em breve</p>
             </div>
           </section>
-        </AccordionTsun>
+        </Accordion>
       </div>
     </div>
   );

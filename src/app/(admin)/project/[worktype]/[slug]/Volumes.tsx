@@ -8,31 +8,32 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IVolumeNovelData } from '@/@types/Api';
-import { ChapterDocumentsTable } from '@/components/admin/table/ChapterDocumentsTable';
-import { Accordion } from '@/components/common/Accordion';
-import { Title } from '@/components/common/Title';
-import { Button } from '@/components/common/button/Button';
-import { Checkbox } from '@/components/common/checkbox/Checkbox';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import { ChapterDocumentsTable } from '@/features/admin/components/table/ChapterDocumentsTable';
+import {
+  createNovelVolume,
+  deleteNovelVolume,
+} from '@/features/admin/novels/api/novelAdminApi';
+import {
+  InputFormUnifiedVolumeAndChapter,
+  unifiedVolumeAndChapterSchema,
+} from '@/features/admin/schemas';
+import { transformFormDataNovelVolumeAndChapter } from '@/features/admin/utils/transformers';
+import { IVolumeNovelData } from '@/features/novels/api/types';
+import { useVolumesNovel } from '@/features/novels/hooks/usePublicNovels';
+import { Modal } from '@/shared/components/feedback/Modal';
+import { Accordion } from '@/shared/components/ui/Accordion';
+import { Button } from '@/shared/components/ui/button/Button';
+import { Checkbox } from '@/shared/components/ui/checkbox/Checkbox';
 import {
   DragAndDropSingleImage,
   FormButton,
   FormInput,
   FormTextArea,
-} from '@/components/common/form';
-import { useModal } from '@/contexts/ModalContext';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  InputFormUnifiedVolumeAndChapter,
-  unifiedVolumeAndChapterSchema,
-} from '@/helpers/Schemas';
-import { transformFormDataNovelVolumeAndChapter } from '@/helpers/TransformFormData';
-import { useVolumesNovel } from '@/hooks/usePublicApi';
-import {
-  createNovelVolume,
-  deleteNovelVolume,
-} from '@/services/novel/NovelService';
-import { useAuthStore } from '@/store/useAuthStore';
+} from '@/shared/components/ui/form';
+import { Title } from '@/shared/components/ui/title/Title';
+import { useModal } from '@/shared/contexts/ModalContext';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 interface IVolumeContentProps {
   idVolume: string;
@@ -88,7 +89,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
   const router = useRouter();
   const { isAdmin } = useAuthStore();
 
-  const { Modal, openModal, closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const [typeModal, setTypeModal] = useState<'volume' | 'chapter'>('volume');
   const [modeModal, setModeModal] = useState<'create' | 'edit'>('create');

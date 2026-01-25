@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { LogoLink } from '@/components/common/logoLink/LogoLink';
+import { LogoLink } from '@/shared/components/ui/logoLink/LogoLink';
 
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';

@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "@/themes/colors.css";
-@import "@/themes/common.css";
-@import "@/themes/theme-light.css";
-@import "@/themes/theme-sepia.css";
-@import "@/themes/theme-blue.css";
-@import "@/themes/theme-dark.css";
+@import "@/shared/themes/colors.css";
+@import "@/shared/themes/common.css";
+@import "@/shared/themes/theme-light.css";
+@import "@/shared/themes/theme-sepia.css";
+@import "@/shared/themes/theme-blue.css";
+@import "@/shared/themes/theme-dark.css";
 
 .transition-theme {
   transition:

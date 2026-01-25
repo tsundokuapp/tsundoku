@@ -2,13 +2,13 @@
 
 import { ReactNode, useState } from 'react';
 
-import { Button } from '@/components/common/button/Button';
-import { TrackerProjectsStaff } from '@/components/dashboard/chart/TrackerProjectsStaff';
-import { FileUpload } from '@/components/dashboard/fileDropzone';
-import TablePendingProjects from '@/components/dashboard/table/TablePendingProjects';
-import TableRecentProjects from '@/components/dashboard/table/TableRecentProjects';
-import { formatDate } from '@/helpers/Util';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import { TrackerProjectsStaff } from '@/features/admin/components/dashboard/chart/TrackerProjectsStaff';
+import { FileUpload } from '@/features/admin/components/dashboard/fileDropzone';
+import TablePendingProjects from '@/features/admin/components/dashboard/table/TablePendingProjects';
+import TableRecentProjects from '@/features/admin/components/dashboard/table/TableRecentProjects';
+import { Button } from '@/shared/components/ui/button/Button';
+import { formatDate } from '@/shared/utils/date';
 
 export default function Dashboard() {
   const [registryProjectByMonth, setRegistryProjectByMonth] = useState(true);

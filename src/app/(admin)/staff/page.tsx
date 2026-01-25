@@ -1,13 +1,18 @@
 'use client';
 
-import { Avatar } from '@/components/common/Avatar';
-import { FormEditStaff } from '@/components/common/form/FormEditStaff';
-import { TableStaff } from '@/components/dashboard/table';
-import { useModal } from '@/contexts/ModalContext';
-import { StaffMembers } from '@/helpers/Util';
+import { StaffMembers } from '@/features/admin/__mocks__/staffMembers';
+import { TableStaff } from '@/features/admin/components/dashboard/table';
+import { Modal } from '@/shared/components/feedback/Modal';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/components/ui/avatar';
+import { FormEditStaff } from '@/shared/components/ui/form/FormEditStaff';
+import { useModal } from '@/shared/contexts/ModalContext';
 
 export default function Staff() {
-  const { Modal, openModal } = useModal();
+  const { openModal } = useModal();
 
   return (
     <div className="flex flex-row">
@@ -16,13 +21,10 @@ export default function Staff() {
         <Modal title="Edição de Staff">
           <main className="mx-4 flex flex-row items-center justify-between gap-4 px-4">
             <aside className="flex flex-col items-center justify-center gap-4 border-r-[1px] px-2">
-              <Avatar
-                src={StaffMembers[1].avatar}
-                name={StaffMembers[0].name}
-                description={StaffMembers[0].inHouse}
-                size={120}
-                className="h-32 w-32 ring-4"
-              />
+              <Avatar className="h-32 w-32 ring-4">
+                <AvatarImage src={StaffMembers[1].avatar} />
+                <AvatarFallback>{StaffMembers[0].name}</AvatarFallback>
+              </Avatar>
 
               <div className="flex flex-col justify-center text-center">
                 <span className="text-xs">

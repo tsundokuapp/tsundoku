@@ -5,11 +5,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { IUserRegisterData } from '@/@types/domain/user/auth';
-import { Button } from '@/components/common/button/Button';
-import { FormInput } from '@/components/common/form';
-import { useToaster } from '@/contexts/ToasterContext';
-import { createUser } from '@/hooks/usePublicApi';
+import { createUserService } from '@/features/auth/api/authApi';
+import { IUserRegisterData } from '@/features/auth/api/types';
+import { Button } from '@/shared/components/ui/button/Button';
+import { FormInput } from '@/shared/components/ui/form';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 const signUpFormSchema = z
   .object({
@@ -52,7 +52,7 @@ export const SignUp = () => {
   const { toaster } = useToaster();
 
   const { mutateAsync: createUserFn } = useMutation({
-    mutationFn: createUser,
+    mutationFn: createUserService,
   });
 
   const handleFormRegisterSubmit = async (data: ISignUpForm) => {

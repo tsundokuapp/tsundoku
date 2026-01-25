@@ -1,43 +1,44 @@
 'use client';
-// Color Checked
-// Components Checked
-import { usePathname } from 'next/navigation';
 
-import { TStatusComic } from '@/@types/System';
-import { AsyncSection } from '@/components/common/section/AsyncSection';
-import { ComicData } from '@/components/project/ComicData';
-import { ProjectData } from '@/components/project/ProjectData';
-import { usePublicComicSlug } from '@/hooks/usePublicApi';
+import { usePublicComicSlug } from '@/features/comics/hooks/usePublicComics';
+import { ProjectData } from '@/features/project/components/ProjectData';
+import { ComicData } from '@/features/project/components/comic/ComicData';
+import { NoContent } from '@/shared/components/feedback/noContent';
+import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
+import { TStatusComic } from '@/shared/types/system';
 
-export default function Comic() {
-  const pathname = usePathname();
-  const slug = pathname.split('/').pop();
+export default function Comic({ params }: { params: { slug: string } }) {
+  const slug = params.slug;
 
-  const { data: comicResponse, isLoading } = usePublicComicSlug(
-    (slug as string) || '',
-  );
+  const { data: response, isLoading } = usePublicComicSlug(slug || '');
+
+  // Extrai dados apenas se response.ok === true
+  const comic = response?.ok ? response.data : undefined;
+  const hasError = response && !response.ok;
 
   const infoOrDefault = (info: string | undefined) => info || 'Não informado';
+
+  if (hasError) {
+    return <NoContent msg="Erro ao carregar o mangá. Tente novamente." />;
+  }
 
   return (
     <AsyncSection isLoading={isLoading}>
       <div className="flex w-full flex-col gap-12">
         <ProjectData
-          src={comicResponse?.urlCapa || ''}
-          banner={comicResponse?.urlBanner || ''}
-          title={infoOrDefault(comicResponse?.titulo)}
-          altTitle={infoOrDefault(comicResponse?.tituloAlternativo)}
-          author={infoOrDefault(comicResponse?.autor)}
-          artist={infoOrDefault(comicResponse?.artista)}
-          status={infoOrDefault(comicResponse?.statusObra) as TStatusComic}
-          description={infoOrDefault(comicResponse?.sinopse)}
-          genres={comicResponse?.listaGeneros || []}
-          note={comicResponse?.observacao}
+          src={comic?.urlCapa || ''}
+          banner={comic?.urlBanner || ''}
+          title={infoOrDefault(comic?.titulo)}
+          altTitle={infoOrDefault(comic?.tituloAlternativo)}
+          author={infoOrDefault(comic?.autor)}
+          artist={infoOrDefault(comic?.artista)}
+          status={infoOrDefault(comic?.statusObra) as TStatusComic}
+          description={infoOrDefault(comic?.sinopse)}
+          genres={comic?.listaGeneros || []}
+          note={comic?.observacao}
         />
 
-        {comicResponse?.slug && (
-          <ComicData title="Mangá" comicSlug={comicResponse.slug} />
-        )}
+        {comic?.slug && <ComicData title="Mangá" comicSlug={comic.slug} />}
       </div>
     </AsyncSection>
   );

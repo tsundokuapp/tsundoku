@@ -13,7 +13,7 @@
   "iconLibrary": "phosphor",
   "aliases": {
     "components": "@/components",
-    "utils": "@/helpers/twUtils",
+    "utils": "@/shared/utils/cn",
     "ui": "@/components/shadcn",
     "lib": "@/lib",
     "hooks": "@/hooks"

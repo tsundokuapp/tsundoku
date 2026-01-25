@@ -1,1 +1,0 @@
-export { CardTransactions } from './CardTransactions';

@@ -9,10 +9,10 @@ import * as motion from 'motion/react-client';
 import { useState } from 'react';
 
 import { Avatar } from '@/components/common/Avatar';
-import { Title } from '@/components/common/Title';
-import { Button } from '@/components/common/button/Button';
-import { FakeCheckbox } from '@/components/common/checkbox';
-import { cn } from '@/helpers/twUtils';
+import { Title } from '@/shared/components/ui/title/Title';
+import { Button } from '@/shared/components/ui/button/Button';
+import { FakeCheckbox } from '@/shared/components/ui/checkbox/index';
+import { cn } from '@/shared/utils/cn';
 
 interface ICardRoadmap {
   className?: string;

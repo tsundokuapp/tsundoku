@@ -4,6 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
+import { createComicService } from '@/features/admin/comics/api/comicAdmin';
+import { TableComic } from '@/features/admin/components/dashboard/table/TableComic';
+import { nationality, status, types } from '@/features/admin/constants/project';
+import {
+  formCreateProjectSchema,
+  InputFormCreateProject,
+} from '@/features/admin/schemas';
+import { transformFormDataComic } from '@/features/admin/utils/transformers';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { Modal } from '@/shared/components/feedback/Modal';
 import {
   DragAndDropSingleImage,
   FormButton,
@@ -11,21 +21,12 @@ import {
   FormInput,
   FormMultiSelect,
   FormTextArea,
-} from '@/components/common/form';
-import { TableComic } from '@/components/dashboard/table/TableComic';
-import { useModal } from '@/contexts/ModalContext';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  formCreateProjectSchema,
-  InputFormCreateProject,
-} from '@/helpers/Schemas';
-import { transformFormDataComic } from '@/helpers/TransformFormData';
-import { nationality, status, types } from '@/helpers/Util';
-import { createComic } from '@/hooks/usePrivateApi';
-import { usePublicGenres } from '@/hooks/usePublicApi';
+} from '@/shared/components/ui/form';
+import { useModal } from '@/shared/contexts/ModalContext';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 export default function NovelAdmin() {
-  const { Modal, openModal, closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const {
     register,
@@ -40,10 +41,10 @@ export default function NovelAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
 
   const { mutateAsync: createComicFn } = useMutation({
-    mutationFn: createComic,
+    mutationFn: createComicService,
   });
 
   const handleSelectOption = <K extends keyof InputFormCreateProject>(

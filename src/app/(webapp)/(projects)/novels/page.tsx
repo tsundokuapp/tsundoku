@@ -1,248 +1,147 @@
 'use client';
-// Color Checked
-// Components Checked
-import { useEffect, useState } from 'react';
 
-import { IPublicGenres, IPublicNovels } from '@/@types/Api';
-import { Title } from '@/components/common/Title';
-import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
-import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
-import { AsyncSection } from '@/components/common/section/AsyncSection';
-import { SearchTable } from '@/components/common/table';
-import { NoContent } from '@/components/noContent';
-import { Cover } from '@/components/project/Cover';
-import { Debounce } from '@/helpers/Debounce';
-import { ORDER_BY, STATUS_NOVEL, TOrderBy } from '@/helpers/systemValues';
-import { usePublicGenres, usePublicNovels } from '@/hooks/usePublicApi';
+import { useMemo, useState } from 'react';
+
+import { Title } from '@/shared/components/ui/title/Title';
+import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
+import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
+import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
+import { SearchTable } from '@/shared/components/ui/table/index';
+import { NoContent } from '@/shared/components/feedback/noContent';
+import { Cover } from '@/features/project/components/Cover';
+import { usePublicNovels } from '@/features/novels/hooks/usePublicNovels';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { ORDER_BY, STATUS_NOVEL, TOrderBy } from '@/shared/utils/systemValues';
 
 export default function Novels() {
-  const INITIAL_GENRES = [
-    { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
-  ];
-
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState('Filtrar por Status');
-  const [orderBy, setOrderBy] = useState('Padrão');
-  const [genres, setGenres] = useState('Filtrar por Gênero');
-  const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
+  const [status, setStatus] = useState('');
+  const [genre, setGenre] = useState('');
+  const [orderBy, setOrderBy] = useState<TOrderBy>('Padrão');
 
-  const [novelList, setNovelList] = useState<IPublicNovels[]>();
-  const { data: projectsResponse, isLoading } = usePublicNovels();
-  const { data: genresResponse } = usePublicGenres();
+  const { data: novels, isLoading } = usePublicNovels();
+  const { data: genres } = usePublicGenres();
 
-  useEffect(() => {
-    if (projectsResponse?.data) {
-      setNovelList(projectsResponse?.data);
-    }
-  }, [projectsResponse]);
+  const filteredNovels = useMemo(() => {
+    let result = Array.isArray(novels) ? novels : [];
 
-  useEffect(() => {
-    if (genresResponse?.data) {
-      const genresOrdered = genresResponse?.data.sort((a, b) =>
-        a.descricao.localeCompare(b.descricao),
+    if (search) {
+      const searchLower = search.toLowerCase();
+      result = result.filter((novel) =>
+        novel.titulo.toLowerCase().includes(searchLower),
       );
-      setGenresList(genresOrdered);
-    }
-  }, [genresResponse]);
-
-  const debouncedHandleChange = Debounce((value: string) => {
-    if (value === '' && projectsResponse?.data) {
-      setNovelList(projectsResponse?.data);
-      return;
     }
 
-    const filtered = projectsResponse?.data.filter((item) =>
-      item.titulo.toLowerCase().includes(value.toLowerCase()),
-    );
-
-    setNovelList(filtered);
-  }, 1000);
-
-  const handleChange = (value: string) => {
-    setSearch(value);
-    debouncedHandleChange(value);
-  };
-
-  const findByStatus = (status: string) => {
-    setStatus(status);
-
-    if (status === 'Filtrar por Status') {
-      setNovelList(projectsResponse?.data);
-      return;
+    if (status) {
+      result = result.filter((novel) => novel.statusObra === status);
     }
 
-    if (projectsResponse?.data) {
-      const filtered = projectsResponse?.data.filter(
-        (item) => item.statusObra === status,
+    if (genre) {
+      result = result.filter((novel) =>
+        novel.listaGeneros.some((g) => g === genre),
       );
-
-      setNovelList(filtered);
     }
 
-    setSearch('');
-  };
-
-  const findByGenre = (genre: string) => {
-    setGenres(genre);
-    if (genre === 'Filtrar por Gênero') {
-      setNovelList(projectsResponse?.data);
-      return;
+    switch (orderBy) {
+      case 'A-Z':
+        result = [...result].sort((a, b) => a.titulo.localeCompare(b.titulo));
+        break;
+      case 'Z-A':
+        result = [...result].sort((a, b) => b.titulo.localeCompare(a.titulo));
+        break;
+      default:
+        break;
     }
 
-    if (projectsResponse?.data) {
-      const filtered = projectsResponse?.data.filter((item) => {
-        return item.listaGeneros.some((g) => g === genre);
-      });
+    return result;
+  }, [novels, search, status, genre, orderBy]);
 
-      setNovelList(filtered);
-    }
-
-    setSearch('');
-  };
-
-  const FilterByStatus = () => {
-    return (
-      <DropdownContainer
-        value={status}
-        label={status || 'Filtrar Status'}
-        className="w-full sm:w-[180px]"
-        onClear={() => {
-          findByStatus('Filtrar por Status');
-        }}
-      >
-        {STATUS_NOVEL.map((item, index) => (
-          <DropdownOption
-            key={index}
-            label={item}
-            onClick={() => findByStatus(item)}
-            value={item}
-            selected={item === status}
-          />
-        ))}
-      </DropdownContainer>
+  const sortedGenres = useMemo(() => {
+    if (!genres) return [];
+    const genreArray = Array.isArray(genres) ? genres : [];
+    return [...genreArray].sort((a, b) =>
+      a.descricao.localeCompare(b.descricao),
     );
-  };
-
-  const FilterByGenres = () => {
-    return (
-      <DropdownContainer
-        value={genres}
-        label={genres || 'Filtrar Gênero'}
-        className="w-full sm:w-[190px]"
-        onClear={() => {
-          findByGenre('Filtrar por Gênero');
-        }}
-      >
-        {genresList.map((genre) => (
-          <DropdownOption
-            key={genre.id}
-            label={genre.descricao}
-            onClick={() => findByGenre(genre.descricao)}
-            value={genre.descricao}
-            selected={genre.descricao === genres}
-          />
-        ))}
-      </DropdownContainer>
-    );
-  };
-
-  const OrganizeBy = () => {
-    if (!novelList) return;
-
-    const orderByToken = (item: TOrderBy) => {
-      if (item === orderBy) return;
-
-      setOrderBy(item);
-
-      let sortedList: IPublicNovels[] = [];
-
-      switch (item) {
-        case 'A-Z':
-          sortedList = [...novelList].sort((a, b) =>
-            a.titulo.localeCompare(b.titulo),
-          );
-          break;
-        case 'Z-A':
-          sortedList = [...novelList].sort((a, b) =>
-            b.titulo.localeCompare(a.titulo),
-          );
-          break;
-        // case 'Mais recentes':
-        //   sortedList = [...novelList].sort(
-        //     (a, b) =>
-        //       new Date(b.dataLancamento).getTime() -
-        //       new Date(a.dataLancamento).getTime(),
-        //   );
-        //   break;
-        // case 'Mais antigos':
-        //   sortedList = [...novelList].sort(
-        //     (a, b) =>
-        //       new Date(a.dataLancamento).getTime() -
-        //       new Date(b.dataLancamento).getTime(),
-        //   );
-        //   break;
-        // case 'Lançamento':
-        //   sortedList = [...novelList].sort(
-        //     (a, b) =>
-        //       new Date(b.dataLancamento).getTime() -
-        //       new Date(a.dataLancamento).getTime(),
-        //   );
-        //   break;
-        default:
-          // volta para o original
-          sortedList = projectsResponse?.data || [];
-      }
-
-      setNovelList(sortedList);
-    };
-
-    return (
-      <DropdownContainer
-        value={orderBy}
-        label={orderBy || 'Organizar por'}
-        className="w-full sm:w-[180px]"
-        onClear={() => {
-          orderByToken('Organizar por');
-        }}
-      >
-        {ORDER_BY.map((item, index) => (
-          <DropdownOption
-            key={index}
-            label={item}
-            onClick={() => orderByToken(item)}
-            value={item}
-            selected={item === orderBy}
-          />
-        ))}
-      </DropdownContainer>
-    );
-  };
+  }, [genres]);
 
   return (
     <div className="flex flex-col gap-4">
       <Title title="Novels da Tsun" />
+
       <SearchTable
         value={search}
-        onChange={handleChange}
+        onChange={setSearch}
         fullWidth
         placeholder="Buscar por título ou título alternativo"
       />
+
       <div className="flex flex-row items-center justify-between gap-4 sm:justify-start">
-        <FilterByStatus />
-        <FilterByGenres />
-        <OrganizeBy />
+        {/* Filtro Status */}
+        <DropdownContainer
+          value={status || 'Status'}
+          label="Status"
+          className="w-full sm:w-[180px]"
+          onClear={() => setStatus('')}
+        >
+          {STATUS_NOVEL.map((item) => (
+            <DropdownOption
+              key={item}
+              label={item}
+              onClick={() => setStatus(item)}
+              value={item}
+              selected={item === status}
+            />
+          ))}
+        </DropdownContainer>
+
+        {/* Filtro Gênero */}
+        <DropdownContainer
+          value={genre || 'Gênero'}
+          label="Gênero"
+          className="w-full sm:w-[190px]"
+          onClear={() => setGenre('')}
+        >
+          {sortedGenres.map((g) => (
+            <DropdownOption
+              key={g.id}
+              label={g.descricao}
+              onClick={() => setGenre(g.descricao)}
+              value={g.descricao}
+              selected={g.descricao === genre}
+            />
+          ))}
+        </DropdownContainer>
+
+        {/* Ordenação */}
+        <DropdownContainer
+          value={orderBy || 'Ordenar'}
+          label="Ordenar"
+          className="w-full sm:w-[180px]"
+          onClear={() => setOrderBy('Padrão')}
+        >
+          {ORDER_BY.map((item) => (
+            <DropdownOption
+              key={item}
+              label={item}
+              onClick={() => setOrderBy(item)}
+              value={item}
+              selected={item === orderBy}
+            />
+          ))}
+        </DropdownContainer>
       </div>
+
       <AsyncSection isLoading={isLoading} className="mt-8">
-        {!novelList ? (
+        {filteredNovels.length === 0 ? (
           <NoContent msg="Desculpe, em breve teremos conteúdos" />
         ) : (
-          novelList?.map((item) => (
+          filteredNovels.map((novel) => (
             <Cover
-              key={item.id}
-              src={item.urlCapa}
-              title={item.titulo}
-              category={item.tipoObra}
-              action={'/novels/' + item.slug}
+              key={novel.id}
+              src={novel.urlCapa}
+              title={novel.titulo}
+              category={novel.tipoObra}
+              action={`/novels/${novel.slug}`}
             />
           ))
         )}

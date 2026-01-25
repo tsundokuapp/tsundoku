@@ -1,0 +1,74 @@
+import { ErrorMessage } from '@hookform/error-message';
+import { useEffect, useRef } from 'react';
+import {
+  type FieldErrors,
+  type Path,
+  type PathValue,
+  type UseFormGetValues,
+  type UseFormSetValue,
+  type UseFormWatch,
+} from 'react-hook-form';
+
+import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
+import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
+interface FormDropdownProps<T extends Record<string, unknown>> {
+  label: string;
+  name: Path<T>;
+  watch: UseFormWatch<T>;
+  getValues: UseFormGetValues<T>;
+  setValue: UseFormSetValue<T>;
+  onClick: (key: keyof T, item: T[keyof T]) => void;
+  errors: FieldErrors;
+  options: string[];
+  defaultValue?: PathValue<T, Path<T>>;
+}
+
+export const FormDropdown = <T extends Record<string, unknown>>({
+  label,
+  name,
+  watch,
+  getValues,
+  onClick,
+  errors,
+  options,
+  setValue,
+  defaultValue,
+}: FormDropdownProps<T>) => {
+  const hasSetDefault = useRef(false);
+
+  useEffect(() => {
+    if (defaultValue === undefined || hasSetDefault.current) return;
+
+    setValue(name, defaultValue);
+    hasSetDefault.current = true;
+  }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <section>
+      <label
+        className="mb-1 block text-base font-normal text-appText"
+        htmlFor={`dropdown-${name}`}
+      >
+        {label}
+      </label>
+
+      <DropdownContainer
+        label={label}
+        value={watch(name) ? String(getValues(name)) : 'Selecione'}
+      >
+        {options.map((item, index) => (
+          <DropdownOption
+            key={index}
+            label={item}
+            onClick={() => onClick(name, item as T[keyof T])}
+            value={item}
+            selected={item === getValues(name)}
+          />
+        ))}
+      </DropdownContainer>
+      <p className="mt-1 text-xs text-red-400">
+        <ErrorMessage errors={errors} name={name} />
+      </p>
+    </section>
+  );
+};

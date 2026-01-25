@@ -6,6 +6,24 @@ import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import {
+  status,
+  types,
+  privacy,
+  nationality,
+  cargoObraDiscord,
+} from '@/features/admin/constants/project';
+import { updateNovelService } from '@/features/admin/novels/api/novelAdminApi';
+import { useAdminNovelBySlug } from '@/features/admin/novels/hooks/usePrivateNovels';
+import {
+  formProjectSchema,
+  InputFormCreateProject,
+  InputFormProject,
+} from '@/features/admin/schemas';
+import { transformFormDataNovel } from '@/features/admin/utils/transformers';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { NavTabs, Tab } from '@/shared/components/layout/tab';
 import {
   FormButton,
   FormDropdown,
@@ -13,27 +31,9 @@ import {
   FormMultiSelect,
   FormTextArea,
   DragAndDropSingleImage,
-} from '@/components/common/form';
-import { NavTabs, Tab } from '@/components/common/tab';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  formProjectSchema,
-  InputFormCreateProject,
-  InputFormProject,
-} from '@/helpers/Schemas';
-// Todo: migrar esses valores para os de SystemValues
-import { transformFormDataNovel } from '@/helpers/TransformFormData';
-import {
-  status,
-  types,
-  privacy,
-  nationality,
-  cargoObraDiscord,
-} from '@/helpers/Util';
-import { useAdminNovelBySlug } from '@/hooks/usePrivateApi';
-import { usePublicGenres } from '@/hooks/usePublicApi';
-import { updateNovelService } from '@/services/novel/NovelService';
-import { useAuthStore } from '@/store/useAuthStore';
+} from '@/shared/components/ui/form';
+import { useToaster } from '@/shared/contexts/ToasterContext';
+import { IGenres } from '@/shared/types/common';
 
 import { Volumes } from './Volumes';
 
@@ -63,7 +63,8 @@ export function ProjectNovel() {
   );
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+  const genresData =
+    arrayGenres?.map((genre: IGenres) => genre.descricao) || [];
 
   const { toaster } = useToaster();
 

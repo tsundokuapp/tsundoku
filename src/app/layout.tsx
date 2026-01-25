@@ -1,13 +1,9 @@
-'use client';
-// Color Checked
 import { Inter } from 'next/font/google';
+
+import { Providers } from '@/providers';
+
 import './globals.css';
 
-import { setupInterceptors } from '@/services/api/interceptors';
-
-import { Providers } from './providers';
-
-// Definição da Fonte Inter como a padrão do projeto
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -18,8 +14,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  setupInterceptors();
-
   return (
     <html suppressHydrationWarning className={inter.variable} lang="pt-BR">
       <head>

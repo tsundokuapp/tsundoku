@@ -6,7 +6,25 @@ import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ChapterComicDocumentsTable } from '@/components/admin/table/ChapterComicDocumentsTable';
+import { updateComicService } from '@/features/admin/comics/api/comicAdmin';
+import { useAdminComicBySlug } from '@/features/admin/comics/hooks/usePrivateComics';
+import { ChapterComicDocumentsTable } from '@/features/admin/components/table/ChapterComicDocumentsTable';
+import {
+  status,
+  types,
+  privacy,
+  nationality,
+  cargoObraDiscord,
+} from '@/features/admin/constants/project';
+import {
+  formProjectSchema,
+  InputFormCreateProject,
+  InputFormProject,
+} from '@/features/admin/schemas';
+import { transformFormDataNovel } from '@/features/admin/utils/transformers';
+import { useChapterComic } from '@/features/comics/hooks/usePublicComics';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { NavTabs, Tab } from '@/shared/components/layout/tab';
 import {
   FormButton,
   FormDropdown,
@@ -14,26 +32,8 @@ import {
   FormMultiSelect,
   FormTextArea,
   DragAndDropSingleImage,
-} from '@/components/common/form';
-import { NavTabs, Tab } from '@/components/common/tab';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  formProjectSchema,
-  InputFormCreateProject,
-  InputFormProject,
-} from '@/helpers/Schemas';
-// Todo: migrar esses valores para os de SystemValues
-import { transformFormDataNovel } from '@/helpers/TransformFormData';
-import {
-  status,
-  types,
-  privacy,
-  nationality,
-  cargoObraDiscord,
-} from '@/helpers/Util';
-import { useAdminComicBySlug } from '@/hooks/usePrivateApi';
-import { useChapterComic, usePublicGenres } from '@/hooks/usePublicApi';
-import { updateComicService } from '@/services/comic/ComicService';
+} from '@/shared/components/ui/form';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 interface ISection {
   title: string;
@@ -63,7 +63,7 @@ export function ProjectComic() {
     useChapterComic(slug as string);
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
 
   const { toaster } = useToaster();
 

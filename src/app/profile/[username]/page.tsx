@@ -1,12 +1,10 @@
 'use client';
-// Color Checked
-// Components Checked
 
-import { AsyncSection } from '@/components/common/section/AsyncSection';
-import { ProfileBio } from '@/components/profile/ProfileBio';
-import { ProfileHeader } from '@/components/profile/ProfileHeader';
-import { ProfileStats } from '@/components/profile/ProfileStats';
-import { ProfileTabs } from '@/components/profile/ProfileTabs';
+import { ProfileBio } from '@/features/profile/components/ProfileBio';
+import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
+import { ProfileStats } from '@/features/profile/components/ProfileStats';
+import { ProfileTabs } from '@/features/profile/components/ProfileTabs';
+import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 
 export default function UserProfile() {
   const isLoading = false; // Mudar quando carregar os dados pela API

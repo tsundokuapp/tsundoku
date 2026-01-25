@@ -2,11 +2,10 @@
 
 import { Spinner } from '@phosphor-icons/react/dist/ssr';
 
-import { useAdminChapterNovel } from '@/hooks/usePrivateApi';
-
-import { Editor } from './Editor';
-import { NavBarEditor } from './NavbarEditor';
-import { Toolbar } from './Toolbar';
+import { useAdminChapterNovel } from '@/features/admin/novels/hooks/usePrivateNovels';
+import { Editor } from '@/features/editor/components/Editor';
+import { NavBarEditor } from '@/features/editor/components/NavbarEditor';
+import { Toolbar } from '@/features/editor/components/toolbar';
 
 interface DocumentEditorProps {
   documentId: string;

@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { IUserLoginData } from '@/@types/domain/user/auth';
-import { Button } from '@/components/common/button/Button';
-import { FormInput } from '@/components/common/form';
-import { useToaster } from '@/contexts/ToasterContext';
-import { loginUser } from '@/hooks/usePublicApi';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import { loginUserService } from '@/features/auth/api/authApi';
+import { IUserLoginData } from '@/features/auth/api/types';
+import { Button } from '@/shared/components/ui/button/Button';
+import { FormInput } from '@/shared/components/ui/form';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
 const signInFormSchema = z.object({
   username: z
@@ -36,7 +36,7 @@ export const SignIn = () => {
   const { toaster } = useToaster();
 
   const { mutateAsync: loginUserFn } = useMutation({
-    mutationFn: loginUser,
+    mutationFn: loginUserService,
   });
 
   const router = useRouter();

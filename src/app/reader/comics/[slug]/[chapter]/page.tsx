@@ -1,41 +1,40 @@
 'use client';
-import { usePathname } from 'next/navigation';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-import { IChapterData } from '@/@types/Chapter';
-import { ScrollMode } from '@/@types/ui/ScrollMode';
-import { ActionsBarContainer } from '@/components/reader/ActionsBarContainer';
-import { ReaderContainer } from '@/components/reader/ReaderContainer';
-import { ActionChapterList } from '@/components/reader/actions/ActionChapterList';
-import { ActionPageList } from '@/components/reader/actions/ActionPageList';
-import { ActionScrollModeList } from '@/components/reader/actions/ActionScrollModeList';
-import { ComicDoubleView } from '@/components/reader/comic/ComicDoubleView';
-import { ComicInfiniteView } from '@/components/reader/comic/ComicInfiniteView';
-import { ComicSingleView } from '@/components/reader/comic/ComicSingleView';
-import { ReaderProgressBar } from '@/components/reader/utils/ReaderProgressBar';
-import { fakeComicChapter } from '@/fakeApi/comicChapter';
-import { ScrollPage } from '@/helpers/ScrollPage';
+import { fakeComicChapter } from '@/features/reader/utils/fakeComicChapter';
 import {
   useChapterComic,
   usePublicComicAndChapterBySlug,
-} from '@/hooks/usePublicApi';
+} from '@/features/comics/hooks/usePublicComics';
+import { IChapterData } from '@/features/comics/types/IChapterData';
+import { ActionsBar } from '@/features/reader/components/ActionsBar';
+import { ActionChapterList } from '@/features/reader/components/ActionsBar/ActionChapterList';
+import { ActionPageList } from '@/features/reader/components/ActionsBar/ActionPageList';
+import { ActionScrollModeList } from '@/features/reader/components/ActionsBar/ActionScrollModeList';
+import { ReaderContainer } from '@/features/reader/components/ReaderContainer';
+import { ComicDoubleView } from '@/features/reader/components/comic/ComicDoubleView';
+import { ComicInfiniteView } from '@/features/reader/components/comic/ComicInfiniteView';
+import { ComicSingleView } from '@/features/reader/components/comic/ComicSingleView';
+import { useReaderPreferences } from '@/features/reader/stores/useReaderPreferences';
+import { ReaderProgressBar } from '@/features/reader/utils/ReaderProgressBar';
+import { ScrollPage } from '@/features/reader/utils/ScrollPage';
 
 interface ComicReaderProps {
   params: {
+    slug: string;
     chapter: string;
   };
   images: string[];
 }
 
-export default function ComicReader({ images }: ComicReaderProps) {
-  const pathname = usePathname();
-  const slugChapter = pathname.split('/').pop();
-  const slugComic = pathname.split('/')[3];
+export default function ComicReader({ images, params }: ComicReaderProps) {
+  const { slug: slugComic, chapter: slugChapter } = params;
 
   const [chapterListData, setChapterListData] = useState<IChapterData[]>([]);
   const comicContainerRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
+
+  const { scrollMode, setScrollMode } = useReaderPreferences();
 
   const { data: imageChapterResponse, isLoading } =
     usePublicComicAndChapterBySlug(slugComic, slugChapter!);
@@ -60,18 +59,17 @@ export default function ComicReader({ images }: ComicReaderProps) {
 
   images = fakeComicChapter.images;
 
-  const handleScrollModeChange = (mode: ScrollMode) => {
-    setScrollMode(mode);
-  };
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page);
+      ScrollPage(scrollMode, page);
+    },
+    [scrollMode],
+  );
 
-  const handlePageChange = (page: number) => {
+  const handlePageOnRead = useCallback((page: number) => {
     setCurrentPage(page);
-    ScrollPage(scrollMode, page);
-  };
-
-  const handlePageOnRead = (page: number) => {
-    setCurrentPage(page);
-  };
+  }, []);
 
   // Corrigir modo de rolagem duplo quando currentPage é par
   useEffect(() => {
@@ -85,24 +83,24 @@ export default function ComicReader({ images }: ComicReaderProps) {
     if (scrollMode === 'infinite' && comicContainerRef.current) {
       ScrollPage(scrollMode, currentPage, 'instant');
     }
-  }, [scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [scrollMode, currentPage]);
 
   return (
     <div ref={comicContainerRef} className="relative h-[100vh] pt-[74px]">
-      <ActionsBarContainer removeList={['reader']}>
+      <ActionsBar removeList={['reader']}>
         <ActionChapterList
           totalChapters={chapterListData.length}
           currentChapter={slugChapter ? slugChapter!.replace(/-/g, ' ') : '0'}
           chapterList={chapterListData}
         />
         <ActionPageList
-          totalPages={imageChapterResponse?.data?.listaImagens.length ?? 40} // antes de carregar o capitulo, assume 40 páginas para evitar um erro configurado nos helpers
+          totalPages={imageChapterResponse?.data?.listaImagens.length ?? 40}
           showPage={currentPage}
           scrollMode={scrollMode}
           onPageChange={handlePageChange}
         />
-        <ActionScrollModeList onScrollModeChange={handleScrollModeChange} />
-      </ActionsBarContainer>
+        <ActionScrollModeList onScrollModeChange={setScrollMode} />
+      </ActionsBar>
 
       {isLoading ? (
         <div className="flex h-full items-center justify-center">

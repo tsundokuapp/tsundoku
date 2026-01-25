@@ -4,6 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
+import { TableNovel } from '@/features/admin/components/dashboard/table';
+import { status, types, nationality } from '@/features/admin/constants/project';
+import { createNovelService } from '@/features/admin/novels/api/novelAdminApi';
+import {
+  InputFormCreateProject,
+  formCreateProjectSchema,
+} from '@/features/admin/schemas';
+import { transformFormDataNovel } from '@/features/admin/utils/transformers';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { Modal } from '@/shared/components/feedback/Modal';
 import {
   DragAndDropSingleImage,
   FormButton,
@@ -11,21 +21,13 @@ import {
   FormInput,
   FormMultiSelect,
   FormTextArea,
-} from '@/components/common/form';
-import { TableNovel } from '@/components/dashboard/table';
-import { useModal } from '@/contexts/ModalContext';
-import { useToaster } from '@/contexts/ToasterContext';
-import {
-  InputFormCreateProject,
-  formCreateProjectSchema,
-} from '@/helpers/Schemas';
-import { transformFormDataNovel } from '@/helpers/TransformFormData';
-import { status, types, nationality } from '@/helpers/Util';
-import { createNovel } from '@/hooks/usePrivateApi';
-import { usePublicGenres } from '@/hooks/usePublicApi';
+} from '@/shared/components/ui/form';
+import { useModal } from '@/shared/contexts/ModalContext';
+import { useToaster } from '@/shared/contexts/ToasterContext';
+import { IGenres } from '@/shared/types/common';
 
 export default function NovelAdmin() {
-  const { Modal, openModal, closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const {
     register,
@@ -40,10 +42,11 @@ export default function NovelAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.data.map((genre) => genre.descricao) || [];
+  const genresData =
+    arrayGenres?.map((genre: IGenres) => genre.descricao) || [];
 
   const { mutateAsync: createNovelFn } = useMutation({
-    mutationFn: createNovel,
+    mutationFn: createNovelService,
   });
 
   const handleSelectOption = <K extends keyof InputFormCreateProject>(

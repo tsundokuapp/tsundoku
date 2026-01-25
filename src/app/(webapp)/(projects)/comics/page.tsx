@@ -1,19 +1,20 @@
 'use client';
-// Color Checked
-// Components Checked
 import { useEffect, useState } from 'react';
 
-import { IPublicComics, IPublicGenres } from '@/@types/Api';
-import { Title } from '@/components/common/Title';
-import { DropdownContainer } from '@/components/common/dropdown/DropdownContainer';
-import { DropdownOption } from '@/components/common/dropdown/DropdownOption';
-import { AsyncSection } from '@/components/common/section/AsyncSection';
-import { SearchTable } from '@/components/common/table';
-import { NoContent } from '@/components/noContent';
-import { Cover } from '@/components/project/Cover';
-import { Debounce } from '@/helpers/Debounce';
-import { ORDER_BY, STATUS_COMIC, TOrderBy } from '@/helpers/systemValues';
-import { usePublicComics, usePublicGenres } from '@/hooks/usePublicApi';
+import { IPublicComics } from '@/features/comics/api/types';
+import { usePublicComics } from '@/features/comics/hooks/usePublicComics';
+import { IPublicGenres } from '@/features/project/api/types';
+import { Cover } from '@/features/project/components/Cover';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { NoContent } from '@/shared/components/feedback/noContent';
+import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
+import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
+import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
+import { SearchTable } from '@/shared/components/ui/table/index';
+import { Title } from '@/shared/components/ui/title/Title';
+import { IGenres } from '@/shared/types/common';
+import { Debounce } from '@/shared/utils/Debounce';
+import { ORDER_BY, STATUS_COMIC, TOrderBy } from '@/shared/utils/systemValues';
 
 export default function Comics() {
   const INITIAL_GENRES = [
@@ -32,13 +33,13 @@ export default function Comics() {
 
   useEffect(() => {
     if (projectsResponse?.data) {
-      setComicList(projectsResponse?.data);
+      setComicList(projectsResponse.data);
     }
   }, [projectsResponse]);
 
   useEffect(() => {
-    if (genresResponse?.data) {
-      const genresOrdered = genresResponse?.data.sort((a, b) =>
+    if (genresResponse) {
+      const genresOrdered = genresResponse.sort((a, b) =>
         a.descricao.localeCompare(b.descricao),
       );
       setGenresList(genresOrdered);
@@ -46,7 +47,9 @@ export default function Comics() {
   }, [genresResponse]);
 
   const debouncedHandleChange = Debounce((value: string) => {
-    if (value === '' && projectsResponse?.data) {
+    if (!projectsResponse?.data) return;
+
+    if (value === '') {
       setComicList(projectsResponse?.data);
       return;
     }
@@ -84,7 +87,7 @@ export default function Comics() {
 
     if (projectsResponse?.data) {
       const filtered = projectsResponse?.data.filter((item) => {
-        return item.listaGeneros.some((g) => g === genre);
+        return item.listaGeneros.some((g: IGenres) => g.descricao === genre);
       });
 
       setComicList(filtered);

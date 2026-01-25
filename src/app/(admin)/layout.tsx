@@ -8,8 +8,8 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import type { ReactNode } from 'react';
 
-import { HeaderBar } from '@/components/header/HeaderBar';
-import { Sidebar, SidebarItem } from '@/components/sidebar/Sidebar';
+import { HeaderBar } from '@/shared/components/layout/header/HeaderBar';
+import { Sidebar, SidebarItem } from '@/shared/components/layout/sidebar';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
