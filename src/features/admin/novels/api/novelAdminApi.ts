@@ -4,16 +4,11 @@ import { api } from '@/core/api';
 import { ApiResponse, PaginatedResponse } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
 
-import {
-  IAdminNovels,
-  IChapterNovel,
-  IChapterNovelResponse,
-  INovelResponse,
-} from './types';
+import { IChapterNovel, IChapterNovelResponse, INovelResponse } from './types';
 
 export const getAdminNovelBySlug = async (
   slug: string,
-): Promise<ApiResponse<IAdminNovels[]>> => {
+): Promise<ApiResponse<INovelResponse>> => {
   try {
     const { data } = await api.get(`/admin/obra/novel/slug/${slug}`);
     return { ok: true, data };

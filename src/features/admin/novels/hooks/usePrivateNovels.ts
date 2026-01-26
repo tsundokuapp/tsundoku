@@ -11,7 +11,7 @@ import { IChapterNovelData, INovelResponse } from '../api/types';
 
 export const useAdminNovelBySlug = (
   slug: string,
-): UseQueryResult<INovelResponse> => {
+): UseQueryResult<ApiResponse<INovelResponse>> => {
   return useQuery({
     queryKey: ['adm-novels-slug', slug],
     queryFn: () => getAdminNovelBySlug(slug),
@@ -30,7 +30,7 @@ export const useAdminNovels = (): UseQueryResult<
 
 export const useAdminChapterNovel = (
   slugChapter: string,
-): UseQueryResult<IChapterNovelData> => {
+): UseQueryResult<ApiResponse<IChapterNovelData>> => {
   return useQuery({
     queryKey: ['chapter-novel', slugChapter],
     queryFn: () => getChapterNovelAdmin(slugChapter),

@@ -1,5 +1,4 @@
 import { IGenres } from '@/shared/types/common';
-
 import { TStatusNovel } from '@/shared/types/system';
 
 export interface IAdminNovels {

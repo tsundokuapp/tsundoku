@@ -58,9 +58,11 @@ export function ProjectNovel() {
   const pathname = usePathname();
   const slug = pathname.split('/').pop();
 
-  const { data: projectResponse, isLoading } = useAdminNovelBySlug(
+  const { data: response, isLoading } = useAdminNovelBySlug(
     (slug as string) || '',
   );
+
+  const projectResponse = response?.ok ? response.data : undefined;
 
   const { data: arrayGenres } = usePublicGenres();
   const genresData =

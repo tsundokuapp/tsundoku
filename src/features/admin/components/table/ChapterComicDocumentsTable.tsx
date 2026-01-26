@@ -7,7 +7,6 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 
 import { IChapterComicData } from '@/features/comics/api/types';
-import { formatDate } from '@/shared/utils/date';
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar';
 import {
   THeadTable,
@@ -17,8 +16,10 @@ import {
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
+import { formatDate } from '@/shared/utils/date';
 
 interface IChapterDocumentsTableProps {
   chapters: IChapterComicData[];
@@ -59,60 +60,68 @@ export const ChapterComicDocumentsTable = ({
         <td className="px-4 py-2 text-center">
           <div className="flex flex-row justify-end gap-1">
             <div className="flex items-center justify-center hover:cursor-pointer">
-              <Tooltip>
-                <TooltipContent>
-                  <p>{`Criador: ${chapter.usuarioInclusao}`}</p>
-                  <Avatar className="h-8 min-h-8 w-8 min-w-8 p-0 ring-0">
-                    <AvatarImage src="/cover-alya.webp" />
-                  </Avatar>
-                </TooltipContent>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipContent>
+                    <p>{`Criador: ${chapter.usuarioInclusao}`}</p>
+                    <Avatar className="h-8 min-h-8 w-8 min-w-8 p-0 ring-0">
+                      <AvatarImage src="/cover-alya.webp" />
+                    </Avatar>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             {/* adicionar no modelo "Pronto" ou "Em andamento" */}
             <div className="flex cursor-help items-center justify-center">
-              <Tooltip>
-                <TooltipContent>
-                  <p>{isFileDashed ? 'Em andamento' : 'Pronto'}</p>
-                </TooltipContent>
-                <TooltipTrigger>
-                  {isFileDashed ? (
-                    <FileDashed size={sizeDefault} fill={colorFalse} />
-                  ) : (
-                    <FileText size={sizeDefault} fill={colorTrue} />
-                  )}
-                </TooltipTrigger>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipContent>
+                    <p>{isFileDashed ? 'Em andamento' : 'Pronto'}</p>
+                  </TooltipContent>
+                  <TooltipTrigger>
+                    {isFileDashed ? (
+                      <FileDashed size={sizeDefault} fill={colorFalse} />
+                    ) : (
+                      <FileText size={sizeDefault} fill={colorTrue} />
+                    )}
+                  </TooltipTrigger>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             <div className="flex cursor-help items-center justify-center">
-              <Tooltip>
-                <TooltipContent>
-                  <p>{chapter.publicado ? 'Postado' : 'Não Postado'}</p>
-                </TooltipContent>
-                <TooltipTrigger>
-                  {
-                    <Check
-                      size={sizeDefault}
-                      fill={chapter.publicado ? colorTrue : colorFalse}
-                    />
-                  }
-                </TooltipTrigger>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipContent>
+                    <p>{chapter.publicado ? 'Postado' : 'Não Postado'}</p>
+                  </TooltipContent>
+                  <TooltipTrigger>
+                    {
+                      <Check
+                        size={sizeDefault}
+                        fill={chapter.publicado ? colorTrue : colorFalse}
+                      />
+                    }
+                  </TooltipTrigger>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             {/* adicionar no modelo */}
             <div className="flex cursor-help items-center justify-center">
-              <Tooltip>
-                <TooltipContent>
-                  <p>{isShared ? 'Compartilhado' : 'Não compartilhado'}</p>
-                </TooltipContent>
-                <TooltipTrigger>
-                  {
-                    <UsersThree
-                      size={sizeDefault}
-                      fill={isShared ? colorTrue : colorFalse}
-                    />
-                  }
-                </TooltipTrigger>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipContent>
+                    <p>{isShared ? 'Compartilhado' : 'Não compartilhado'}</p>
+                  </TooltipContent>
+                  <TooltipTrigger>
+                    {
+                      <UsersThree
+                        size={sizeDefault}
+                        fill={isShared ? colorTrue : colorFalse}
+                      />
+                    }
+                  </TooltipTrigger>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </td>

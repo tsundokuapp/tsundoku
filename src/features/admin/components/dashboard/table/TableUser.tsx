@@ -5,8 +5,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { TStatusComic, TStatusNovel } from '@/shared/types/system';
+import { api } from '@/core/api';
+import { INovelResponse } from '@/features/admin/novels/api/types';
+import { useAdminNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
+import { getWorksBySearch } from '@/features/project/api/projectApi';
+import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { Button } from '@/shared/components/ui/button/Button';
+import { TdDefault } from '@/shared/components/ui/table/TdDefault';
 import {
   FooterTable,
   HeaderTable,
@@ -15,15 +20,10 @@ import {
   THeadTable,
   TitleColTable,
 } from '@/shared/components/ui/table/index';
-import { TdDefault } from '@/shared/components/ui/table/TdDefault';
 import { useToaster } from '@/shared/contexts/ToasterContext';
-import { api } from '@/core/api';
+import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 import { Debounce } from '@/shared/utils/Debounce';
-import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { cn } from '@/shared/utils/cn';
-import { useAdminNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
-import { getWorksBySearch } from '@/features/project/api/projectApi';
-import { INovelResponse } from '@/features/admin/novels/api/types';
 
 interface LineTableProps {
   title: string;

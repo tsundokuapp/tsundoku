@@ -8,10 +8,10 @@ import {
 import * as motion from 'motion/react-client';
 import { useState } from 'react';
 
-import { Avatar } from '@/components/common/Avatar';
-import { Title } from '@/shared/components/ui/title/Title';
+import { Avatar, AvatarImage } from '@/shared/components/ui/avatar';
 import { Button } from '@/shared/components/ui/button/Button';
 import { FakeCheckbox } from '@/shared/components/ui/checkbox/index';
+import { Title } from '@/shared/components/ui/title/Title';
 import { cn } from '@/shared/utils/cn';
 
 interface ICardRoadmap {
@@ -116,7 +116,9 @@ export default function ChapterNovelAdmin() {
       >
         <header className="flex w-full flex-col items-center justify-start gap-4">
           <div className="flex w-full flex-row items-center justify-start gap-4">
-            <Avatar className="h-12 w-12" src="/cover-alya.webp" />
+            <Avatar className="h-12 w-12">
+              <AvatarImage src="/cover-alya.webp" />
+            </Avatar>
             <p className="text-lg font-bold">Roadmap</p>
           </div>
 
@@ -124,8 +126,12 @@ export default function ChapterNovelAdmin() {
 
           <div className="g flex w-full flex-row items-center justify-between">
             <div className="flex flex-row -space-x-4">
-              <Avatar className="h-10 w-10" src="/cover-alya.webp" />
-              <Avatar className="h-10 w-10" src="/cover-shadow.webp" />
+              <Avatar className="h-10 w-10">
+                <AvatarImage src="/cover-alya.webp" />
+              </Avatar>
+              <Avatar className="h-10 w-10">
+                <AvatarImage src="/cover-shadow.webp" />
+              </Avatar>
             </div>
 
             <div className="flex flex-row items-end gap-4">
@@ -179,8 +185,9 @@ export default function ChapterNovelAdmin() {
         </span>
         <Avatar
           className={`h-8 w-8 ${done ? 'ring-primary dark:ring-primary' : ''}`}
-          src="/cover-alya.webp"
-        />
+        >
+          <AvatarImage src="/cover-alya.webp" />
+        </Avatar>
       </div>
     );
   };
@@ -198,10 +205,21 @@ export default function ChapterNovelAdmin() {
       <Title title="Capítulo - 01" />
       <div className="relative flex h-full w-full flex-col items-center justify-start rounded-lg bg-slate-100 px-4 pb-4 dark:bg-slate-800">
         <div className="dark:bg-appPrimary relative top-[-30px] flex h-20 w-auto flex-row items-end gap-4 rounded-xl bg-white px-8 pb-2 text-lg font-bold before:absolute before:left-[-25px] before:top-7 before:h-[50px] before:w-[25px] before:rounded-tr-[25px] before:shadow-[0_-25px_0_0_#FFF] before:content-[''] after:absolute after:right-[-25px] after:top-7 after:h-[50px] after:w-[25px] after:rounded-tl-[25px] after:shadow-[0_-25px_0_0_#FFF] after:content-[''] before:dark:shadow-[0_-25px_0_0_#0F172A] after:dark:shadow-[0_-25px_0_0_#0F172A]">
-          <Avatar className="h-12 w-12" src="/cover-alya.webp" />
-          <Avatar className="h-12 w-12" src="/cover-shadow.webp" />
-          <Avatar className="h-12 w-12" src="/cover-seven.webp" />
-          <Avatar className="h-12 w-12" src="/elaina-banner.jpg" />
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/cover-alya.webp" />
+          </Avatar>
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/cover-alya.webp" />
+          </Avatar>
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/cover-shadow.webp" />
+          </Avatar>
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/cover-seven.webp" />
+          </Avatar>
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="/elaina-banner.jpg" />
+          </Avatar>
         </div>
 
         <div className="gap-4l flex w-full flex-row items-center justify-between">
