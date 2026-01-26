@@ -20,7 +20,9 @@ import StarterKit from '@tiptap/starter-kit';
 
 import { useEditorStore } from '@/features/editor/store/useEditorStore';
 
+import { Footer } from './Footer';
 import { Ruler } from './Ruler';
+import CharacterCount from '../extensions/CharacterCount';
 import SearchAndReplace from '../extensions/SearchAndReplace';
 
 interface IEditorProps {
@@ -67,6 +69,10 @@ export const Editor = ({ contentEditor }: IEditorProps) => {
     extensions: [
       SearchAndReplace.configure({
         selectedResultClass: 'bg-red-500',
+      }),
+      CharacterCount.configure({
+        limit: null,
+        mode: 'textSize',
       }),
       StarterKit,
       LineHeight,
@@ -158,9 +164,10 @@ export const Editor = ({ contentEditor }: IEditorProps) => {
   return (
     <div className="size-full overflow-x-auto bg-appGroupBackground px-4 text-black print:overflow-visible print:bg-white print:p-0">
       <Ruler />
-      <div className="mx-auto flex w-[816px] min-w-max justify-center py-4 print:w-full print:min-w-0 print:py-0">
+      <div className="mx-auto mb-4 flex w-[816px] min-w-max justify-center py-4 print:w-full print:min-w-0 print:py-0">
         <EditorContent editor={editor} />
       </div>
+      <Footer />
     </div>
   );
 };

@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight, Repeat, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import type { SearchAndReplaceStorage } from '@/features/editor/extensions/SearchAndReplace';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Input } from '@/shared/components/ui/input';
@@ -19,7 +20,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
-import type { SearchAndReplaceStorage } from '@/features/editor/extensions/SearchAndReplace';
 import { cn } from '@/shared/utils/cn';
 
 import { useEditorStore } from '../store/useEditorStore';

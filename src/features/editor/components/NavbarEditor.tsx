@@ -41,6 +41,7 @@ import { ThemeToggle } from '@/shared/components/ui/theme/ThemeToggle';
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
 import { useToaster } from '@/shared/contexts/ToasterContext';
@@ -264,17 +265,19 @@ export const NavBarEditor = ({ id, title }: NavBarEditorProps) => {
       </div>
       <div className="flex items-center justify-center gap-2">
         <ThemeToggle />
-        <Tooltip>
-          <TooltipContent>
-            <p>Axios</p>
-          </TooltipContent>
-          <TooltipTrigger>
-            <Avatar className="h-8 w-8 p-0 hover:cursor-pointer">
-              <AvatarImage src="/cover-alya.webp" alt="Avatar do usuário" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
-          </TooltipTrigger>
-        </Tooltip>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipContent>
+              <p>Axios</p>
+            </TooltipContent>
+            <TooltipTrigger>
+              <Avatar className="h-8 w-8 p-0 hover:cursor-pointer">
+                <AvatarImage src="/cover-alya.webp" alt="Avatar do usuário" />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+            </TooltipTrigger>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </nav>
   );

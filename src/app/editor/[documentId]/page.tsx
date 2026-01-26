@@ -18,10 +18,12 @@ export default function DocumentEditor({
 }) {
   const { documentId } = params;
   const {
-    data: chapterNovelResponse,
+    data: response,
     isLoading,
     isError,
   } = useAdminChapterNovel(documentId);
+
+  const chapterNovelResponse = response?.ok ? response.data : undefined;
 
   if (isError) {
     return (
