@@ -7,11 +7,13 @@ import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 import { Cover } from '../Cover';
 
 export function NewProjectsList() {
-  const { data: recomendations, isLoading } = useRecomendations();
+  const { data: response, isLoading } = useRecomendations();
+
+  const recomendations = response?.ok ? response.data : undefined;
 
   return (
     <AsyncSection isLoading={isLoading} title="Indicadas pela Tsun">
-      {recomendations?.data.map((item: IProjectRecomendations) => (
+      {recomendations?.map((item: IProjectRecomendations) => (
         <Cover
           key={item.slugObra}
           src={item.capa}

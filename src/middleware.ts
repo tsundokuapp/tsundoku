@@ -51,13 +51,14 @@ const redirectForComics = (url: URL): NextResponse | null => {
   return null;
 };
 
-const isInMaintenanceMode = async (req: NextRequest) => {
-  // Verifica se a aplicação está em modo de manutenção
-  const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode');
+// TODO: implementar modo de manutenção
+// const isInMaintenanceMode = async (req: NextRequest) => {
+//   // Verifica se a aplicação está em modo de manutenção
+//   const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode');
 
-  if (isInMaintenanceMode) {
-    req.nextUrl.pathname = `/maintenance`;
+//   if (isInMaintenanceMode) {
+//     req.nextUrl.pathname = `/maintenance`;
 
-    return NextResponse.rewrite(req.nextUrl);
-  }
-};
+//     return NextResponse.rewrite(req.nextUrl);
+//   }
+// };

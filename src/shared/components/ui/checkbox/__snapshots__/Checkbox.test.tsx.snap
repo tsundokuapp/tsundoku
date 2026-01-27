@@ -9,7 +9,7 @@ exports[`Testes para o componente <Checkbox /> Teste de snapshot Deve manter o s
       class="flex h-5 items-center bg-transparent"
     >
       <input
-        aria-describedby="helper-checkbox-input"
+        aria-describedby="helper-checkbox-input-checkboxTeste"
         class="disabled:border-steel-400 disabled:bg-steel-400 focus:ring-primary peer relative mt-1 shrink-0 appearance-none rounded-sm border-2 border-[#e0e0e0] bg-white checked:border-0 checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-0 h-4 w-4"
         id="helper-checkbox"
         tabindex="0"

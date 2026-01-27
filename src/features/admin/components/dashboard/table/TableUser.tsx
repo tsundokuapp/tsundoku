@@ -9,7 +9,6 @@ import { api } from '@/core/api';
 import { INovelResponse } from '@/features/admin/novels/api/types';
 import { useAdminNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
 import { getWorksBySearch } from '@/features/project/api/projectApi';
-import { MapStatusToColor } from '@/helpers/MapStatusToColor';
 import { Button } from '@/shared/components/ui/button/Button';
 import { TdDefault } from '@/shared/components/ui/table/TdDefault';
 import {
@@ -23,7 +22,7 @@ import {
 import { useToaster } from '@/shared/contexts/ToasterContext';
 import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 import { Debounce } from '@/shared/utils/Debounce';
-import { cn } from '@/shared/utils/cn';
+import { GetBadgeByStatusProject } from '@/shared/utils/GetBagde';
 
 interface LineTableProps {
   title: string;
@@ -40,8 +39,10 @@ interface ITableNovel {
 }
 
 export const TableUser = ({ openModal }: ITableNovel) => {
-  const { data: novelsResponse, isLoading } = useAdminNovels();
+  const { data: response, isLoading } = useAdminNovels();
   const queryClient = useQueryClient();
+
+  const novelsResponse = response?.ok ? response?.data : undefined;
 
   // TODO: Mover a lógica de calculo de paginação para dentro do footer
   const router = useRouter();
@@ -216,13 +217,7 @@ export const TableUser = ({ openModal }: ITableNovel) => {
 
         <TdDefault>
           <div className="relative flex items-center justify-center gap-x-1">
-            <div
-              className={cn(
-                'right-2 top-2 h-2 w-2 rounded bg-appMenuBackground',
-                MapStatusToColor(status),
-              )}
-            />
-            {status}
+            <GetBadgeByStatusProject status={status} />
           </div>
         </TdDefault>
 

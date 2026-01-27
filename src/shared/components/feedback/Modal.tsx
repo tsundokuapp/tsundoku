@@ -2,6 +2,8 @@
 
 import { ReactNode } from 'react';
 
+import { EnterAnimation } from '@/shared/animations/EnterAnimation';
+import { SideAnimation } from '@/shared/animations/SideAnimation';
 import {
   Dialog,
   DialogContent,
@@ -9,8 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/components/ui/dialog';
-import { EnterAnimation } from '@/shared/animations/EnterAnimation';
-import { SideAnimation } from '@/shared/animations/SideAnimation';
 import { useModal } from '@/shared/contexts/ModalContext';
 
 interface ModalProps {

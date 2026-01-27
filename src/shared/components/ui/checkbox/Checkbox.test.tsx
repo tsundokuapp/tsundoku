@@ -1,23 +1,16 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { type UseFormRegister } from 'react-hook-form';
 
 import { Checkbox } from './Checkbox';
 
 describe('Testes para o componente <Checkbox />', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const fakeRegister: UseFormRegister<any> = jest.fn();
+  // const fakeRegister: UseFormRegister<any> = jest.fn();
 
   describe('Testes de renderização', () => {
     it('Deve renderizar Checkbox corretamente', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -28,13 +21,7 @@ describe('Testes para o componente <Checkbox />', () => {
 
     it('Deve renderizar a label do Checkbox corretamente', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       const label = screen.getByText('Checkbox Teste');
@@ -49,7 +36,6 @@ describe('Testes para o componente <Checkbox />', () => {
         <Checkbox
           label="Checkbox Teste"
           name="checkboxTeste"
-          register={fakeRegister}
           description="Texto de apoio do Checkbox Teste"
         />,
       );
@@ -67,7 +53,6 @@ describe('Testes para o componente <Checkbox />', () => {
         <Checkbox
           label="Checkbox Teste"
           name="checkboxTeste"
-          register={fakeRegister}
           description="Texto de apoio do Checkbox Teste"
         />,
       );
@@ -85,16 +70,10 @@ describe('Testes para o componente <Checkbox />', () => {
       // Given
       render(
         <div>
+          <Checkbox label="Checkbox Teste" name="checkboxTeste" size="lg" />
           <Checkbox
             label="Checkbox Teste"
             name="checkboxTeste"
-            register={fakeRegister}
-            size="lg"
-          />
-          <Checkbox
-            label="Checkbox Teste"
-            name="checkboxTeste"
-            register={fakeRegister}
             id="checkbox-default"
           />
         </div>,
@@ -113,13 +92,7 @@ describe('Testes para o componente <Checkbox />', () => {
   describe('Testes de interação e comportamento', () => {
     it('Deve iniciar "não-checkado" por padrão', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -130,13 +103,7 @@ describe('Testes para o componente <Checkbox />', () => {
 
     it('Deve ficar "checkado" quando clicado', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       fireEvent.click(screen.getByRole('checkbox'));
@@ -148,13 +115,7 @@ describe('Testes para o componente <Checkbox />', () => {
 
     it('Deve ficar "não-checkado" quando clicado duas vezes', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       fireEvent.click(screen.getByRole('checkbox'));
@@ -168,14 +129,7 @@ describe('Testes para o componente <Checkbox />', () => {
 
     it('Deve tornar Checkbox inacessível quando desabilitado', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-          disabled
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" disabled />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -188,13 +142,7 @@ describe('Testes para o componente <Checkbox />', () => {
   describe('Testes de acessibilidade', () => {
     it('Deve ter o atributo role igual a checkbox', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -205,13 +153,7 @@ describe('Testes para o componente <Checkbox />', () => {
 
     it('Deve ter o atributo tabindex igual a 0', () => {
       // Given
-      render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
-      );
+      render(<Checkbox label="Checkbox Teste" name="checkboxTeste" />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -226,7 +168,6 @@ describe('Testes para o componente <Checkbox />', () => {
         <Checkbox
           label="Checkbox Teste"
           name="checkboxTeste"
-          register={fakeRegister}
           aria-label="Checkbox de teste"
         />,
       );
@@ -244,11 +185,7 @@ describe('Testes para o componente <Checkbox />', () => {
     it('Deve manter o snapshot do Checkbox', () => {
       // Given
       const { container } = render(
-        <Checkbox
-          label="Checkbox Teste"
-          name="checkboxTeste"
-          register={fakeRegister}
-        />,
+        <Checkbox label="Checkbox Teste" name="checkboxTeste" />,
       );
 
       // Then

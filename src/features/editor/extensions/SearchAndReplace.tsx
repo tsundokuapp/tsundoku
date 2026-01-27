@@ -7,6 +7,24 @@ import {
   type Range,
 } from '@tiptap/react';
 
+export interface SearchAndReplaceStorage {
+  searchTerm: string;
+  replaceTerm: string;
+  results: Range[];
+  lastSearchTerm: string;
+  selectedResult: number;
+  lastSelectedResult: number;
+  caseSensitive: boolean;
+  lastCaseSensitiveState: boolean;
+}
+
+// Augment Storage type to include searchAndReplace for @tiptap/react
+declare module '@tiptap/react' {
+  interface Storage {
+    searchAndReplace: SearchAndReplaceStorage;
+  }
+}
+
 declare module '@tiptap/react' {
   interface Commands<ReturnType> {
     search: {
@@ -118,7 +136,7 @@ function processSearches(
 const replace = (
   replaceTerm: string,
   results: Range[],
-  { state, dispatch }: any,
+  { state, dispatch }: { state: unknown; dispatch?: (tr: unknown) => void },
 ) => {
   const firstResult = results[0];
 
@@ -129,7 +147,11 @@ const replace = (
   const { from, to } = results[0];
 
   if (dispatch) {
-    dispatch(state.tr.insertText(replaceTerm, from, to));
+    // Narrow state to expected type
+    const s = state as {
+      tr: { insertText: (text: string, from: number, to: number) => unknown };
+    };
+    dispatch(s.tr.insertText(replaceTerm, from, to));
   }
 };
 
@@ -162,7 +184,7 @@ const rebaseNextResult = (
 const replaceAll = (
   replaceTerm: string,
   results: Range[],
-  { tr, dispatch }: { tr: any; dispatch: any },
+  { tr, dispatch }: { tr: unknown; dispatch?: (tr: unknown) => void },
 ) => {
   if (!results.length) {
     return;
@@ -172,7 +194,12 @@ const replaceAll = (
 
   for (let i = 0; i < results.length; i++) {
     const { from, to } = results[i];
-    tr.insertText(replaceTerm, from, to);
+    // Narrow tr to expected type
+    (
+      tr as {
+        insertText: (text: string, from: number, to: number) => unknown;
+      }
+    ).insertText(replaceTerm, from, to);
     const rebaseResponse = rebaseNextResult(replaceTerm, i, offset, results);
 
     if (rebaseResponse) {
@@ -180,7 +207,9 @@ const replaceAll = (
     }
   }
 
-  dispatch(tr);
+  if (dispatch) {
+    dispatch(tr);
+  }
 };
 
 const selectNext = (editor: CoreEditor) => {
@@ -251,6 +280,8 @@ export interface SearchAndReplaceOptions {
 }
 
 export interface SearchAndReplaceStorage {
+  // Export for module augmentation
+
   searchTerm: string;
   replaceTerm: string;
   results: Range[];
@@ -424,5 +455,4 @@ export const SearchAndReplace = Extension.create<
     ];
   },
 });
-
 export default SearchAndReplace;

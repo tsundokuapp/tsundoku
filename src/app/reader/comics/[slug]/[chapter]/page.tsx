@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-import { fakeComicChapter } from '@/features/reader/utils/fakeComicChapter';
 import {
   useChapterComic,
   usePublicComicAndChapterBySlug,
@@ -18,16 +17,13 @@ import { ComicSingleView } from '@/features/reader/components/comic/ComicSingleV
 import { useReaderPreferences } from '@/features/reader/stores/useReaderPreferences';
 import { ReaderProgressBar } from '@/features/reader/utils/ReaderProgressBar';
 import { ScrollPage } from '@/features/reader/utils/ScrollPage';
+import { fakeComicChapter } from '@/features/reader/utils/fakeComicChapter';
 
-interface ComicReaderProps {
-  params: {
-    slug: string;
-    chapter: string;
-  };
-  images: string[];
-}
-
-export default function ComicReader({ images, params }: ComicReaderProps) {
+export default function ComicReader({
+  params,
+}: {
+  params: { slug: string; chapter: string };
+}) {
   const { slug: slugComic, chapter: slugChapter } = params;
 
   const [chapterListData, setChapterListData] = useState<IChapterData[]>([]);
@@ -36,9 +32,16 @@ export default function ComicReader({ images, params }: ComicReaderProps) {
 
   const { scrollMode, setScrollMode } = useReaderPreferences();
 
-  const { data: imageChapterResponse, isLoading } =
-    usePublicComicAndChapterBySlug(slugComic, slugChapter!);
-  const { data: chapterComicResponse } = useChapterComic(slugComic);
+  const { data: responseImages, isLoading } = usePublicComicAndChapterBySlug(
+    slugComic,
+    slugChapter!,
+  );
+  const { data: response } = useChapterComic(slugComic);
+
+  const chapterComicResponse = response?.ok ? response.data : undefined;
+  const imageChapterResponse = responseImages?.ok
+    ? responseImages.data
+    : undefined;
 
   useEffect(() => {
     if (chapterComicResponse?.data) {
@@ -56,8 +59,6 @@ export default function ComicReader({ images, params }: ComicReaderProps) {
       setChapterListData(listChapter);
     }
   }, [chapterComicResponse?.data]);
-
-  images = fakeComicChapter.images;
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -94,7 +95,7 @@ export default function ComicReader({ images, params }: ComicReaderProps) {
           chapterList={chapterListData}
         />
         <ActionPageList
-          totalPages={imageChapterResponse?.data?.listaImagens.length ?? 40}
+          totalPages={imageChapterResponse?.listaImagens.length ?? 40}
           showPage={currentPage}
           scrollMode={scrollMode}
           onPageChange={handlePageChange}
@@ -109,18 +110,18 @@ export default function ComicReader({ images, params }: ComicReaderProps) {
       ) : (
         <ReaderContainer data-view-mode={scrollMode} className="group">
           <ComicInfiniteView
-            images={imageChapterResponse?.data?.listaImagens ?? []}
+            images={imageChapterResponse?.listaImagens ?? []}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=infinite]:flex"
           />
           <ComicSingleView
-            images={imageChapterResponse?.data?.listaImagens ?? []}
+            images={imageChapterResponse?.listaImagens ?? []}
             showPage={currentPage}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=single]:flex"
           />
           <ComicDoubleView
-            images={images}
+            images={fakeComicChapter.images}
             showPage={currentPage}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=double]:flex"
@@ -129,7 +130,7 @@ export default function ComicReader({ images, params }: ComicReaderProps) {
       )}
 
       <ReaderProgressBar
-        totalSteps={imageChapterResponse?.data?.listaImagens.length ?? 10}
+        totalSteps={imageChapterResponse?.listaImagens.length ?? 10}
         progressStep={currentPage}
         scrollMode={scrollMode}
         onPageChange={handlePageChange}

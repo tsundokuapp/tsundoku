@@ -1,6 +1,7 @@
 import { api } from '@/core/api';
 import { ApiResponse, PaginatedResponse } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
+import { IVolumeNovelApiPublic } from '@/features/admin/novels/types/Volume';
 
 import {
   IChapterNovel,
@@ -68,7 +69,7 @@ export const getChapterNovel = async (
 
 export const getVolumesNovelBySlug = async (
   slugNovel: string,
-): Promise<ApiResponse<IVolumesNovel[]>> => {
+): Promise<ApiResponse<PaginatedResponse<IVolumeNovelApiPublic[]>>> => {
   try {
     const { data } = await api.get(`/novels/volumes/slug/${slugNovel}`);
     return { ok: true, data };

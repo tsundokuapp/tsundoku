@@ -2,8 +2,8 @@ import { CloudCheck, Spinner } from '@phosphor-icons/react/dist/ssr';
 import { useRef, useState } from 'react';
 
 import { updateChapterNovel } from '@/features/admin/novels/api/novelAdminApi';
-import { Debounce } from '@/shared/utils/Debounce';
 import { useToaster } from '@/shared/contexts/ToasterContext';
+import { Debounce } from '@/shared/utils/Debounce';
 
 interface IDocumentInputProps {
   id: string;

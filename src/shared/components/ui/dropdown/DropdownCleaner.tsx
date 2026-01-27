@@ -1,8 +1,8 @@
 import { XCircle } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
 
-import { cn } from '@/shared/utils/cn';
 import { useDropdownNavigation } from '@/shared/hooks/useDropdownNavigation';
+import { cn } from '@/shared/utils/cn';
 
 type DropdownCleanerProps = ComponentProps<'label'> & {
   onClean?: () => void;

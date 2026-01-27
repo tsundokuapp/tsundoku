@@ -1,6 +1,3 @@
-// Color Checked
-// Components Checked
-
 import { CaretUpDown } from '@phosphor-icons/react/dist/ssr';
 import React, {
   ComponentProps,

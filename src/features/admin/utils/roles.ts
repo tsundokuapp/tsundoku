@@ -15,6 +15,10 @@ export type UserRole = keyof typeof ROLE_COLORS;
 /**
  * Retorna a cor hexadecimal associada a um cargo/role
  */
-export function colorByRole(role: string): string | undefined {
-  return ROLE_COLORS[role as UserRole];
+export function colorByRole(role: string): string {
+  const colorSelected = ROLE_COLORS[role as UserRole];
+  if (colorSelected) {
+    return colorSelected;
+  }
+  return '#6b7280'; // Cor padrão cinza se o cargo não for encontrado
 }

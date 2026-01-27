@@ -5,7 +5,10 @@ import { useProjects } from '@/features/project/hooks/useProject';
 import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 
 export function UpdatedProjectsList() {
-  const { data: projectsResponse, isLoading } = useProjects();
+  const { data: response, isLoading } = useProjects();
+
+  const projectsResponse = response?.ok ? response.data : undefined;
+
   const currentChapter = (chapter: string) => {
     if (!chapter) return '';
 
@@ -24,7 +27,7 @@ export function UpdatedProjectsList() {
       isLoading={isLoading}
       className="flex-wrap"
     >
-      {projectsResponse?.data?.map((item) => (
+      {projectsResponse?.map((item) => (
         <Cover
           key={item.slugObra}
           src={item.urlCapa}

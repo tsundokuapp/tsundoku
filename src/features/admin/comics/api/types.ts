@@ -1,5 +1,5 @@
-import { TNacionality, TStatusComic, TTypeWork } from '@/shared/types/system';
 import { IGenres } from '@/shared/types/common';
+import { TNacionality, TStatusComic, TTypeWork } from '@/shared/types/system';
 
 export interface IPrivateComics {
   urlCapa: string;

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { Path, useForm } from 'react-hook-form';
 
 import { TableUser } from '@/features/admin/components/dashboard/table/TableUser';
 import { status, types, nationality } from '@/features/admin/constants/project';
@@ -93,7 +93,7 @@ export default function UserAdmin() {
       >
         <DragAndDropSingleImage
           title="Capa Principal"
-          name="cover"
+          name={'cover' as Path<InputFormCreateProject>}
           setValue={setValue}
           errors={errors}
           defaultValue={''}

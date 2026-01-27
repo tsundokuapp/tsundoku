@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { ScrollToTopButton } from '@/shared/components/ui/ScrollToTopButton';
 import { FooterBar } from '@/shared/components/layout/footer/FooterBar';
 import { HeaderBar } from '@/shared/components/layout/header/HeaderBar';
+import { ScrollToTopButton } from '@/shared/components/ui/ScrollToTopButton';
 
 export default function WebappLayout({ children }: { children: ReactNode }) {
   return (

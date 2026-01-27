@@ -18,15 +18,18 @@ export function ActionChapterWithVolumeList() {
   const [totalChaptersDropdown, setTotalChaptersDropdown] = useState(0);
   const [currentChapterDropdown, setCurrentChapterDropdown] = useState('');
   const [currentVolumeDropdown, setCurrentVolumeDropdown] = useState('');
-  const { data: responseVolumes } = usePublicVolumesNovelBySlug(projectSlug!);
+  const { data: response } = usePublicVolumesNovelBySlug(projectSlug!);
+
+  // TODO: esse retorno ta paginaado, verificar se deveria.
+  const volumes = response?.ok ? response.data.data : undefined;
 
   useEffect(() => {
-    if (responseVolumes?.data) {
-      setVolumesData(responseVolumes.data);
-      countChapters(responseVolumes.data);
-      currentChapter(responseVolumes.data);
+    if (volumes) {
+      setVolumesData(volumes);
+      countChapters(volumes);
+      currentChapter(volumes);
     }
-  }, [responseVolumes]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [volumes]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const volumesListToDropdown = volumesData?.map((volume) => ({
     volume: volume.numeroVolume,

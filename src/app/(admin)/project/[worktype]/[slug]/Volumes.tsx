@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Path, useForm } from 'react-hook-form';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import { ChapterDocumentsTable } from '@/features/admin/components/table/ChapterDocumentsTable';
@@ -311,7 +311,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
       >
         <DragAndDropSingleImage
           title="Capa Principal"
-          name="cover"
+          name={'cover' as Path<InputFormUnifiedVolumeAndChapter>}
           setValue={setValue}
           errors={errors}
           defaultValue={isEditing ? infoEditing.cover! : ''}
@@ -345,7 +345,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
               label="Volume Único ou One-Shot"
               description="Digite '1' no número do volume se usar essa opção"
               name="oneshot"
-              register={register}
+              // register={register}
             />
           </div>
           <FormTextArea

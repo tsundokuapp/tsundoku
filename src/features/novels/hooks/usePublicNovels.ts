@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
-import { ApiResponse } from '@/core/api/types';
+import { ApiResponse, PaginatedResponse } from '@/core/api/types';
 import { IVolumeNovelApiPublic } from '@/features/admin/novels/types/Volume';
 
 import {
@@ -65,14 +65,10 @@ export const useChapterNovel = (
 
 export const usePublicVolumesNovelBySlug = (
   slugNovel: string,
-): UseQueryResult<ApiResponse<IVolumeNovelApiPublic>> => {
+): UseQueryResult<ApiResponse<PaginatedResponse<IVolumeNovelApiPublic>>> => {
   return useQuery({
     queryKey: ['volumes-novel-slug', slugNovel],
-    queryFn: async () => {
-      const result = await getVolumesNovelBySlug(slugNovel);
-      if (!result.ok) throw result.error;
-      return result.data;
-    },
+    queryFn: () => getVolumesNovelBySlug(slugNovel),
     enabled: !!slugNovel,
   });
 };

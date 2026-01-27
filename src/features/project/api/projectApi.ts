@@ -1,5 +1,5 @@
 import { api } from '@/core/api';
-import { PaginatedResponse } from '@/core/api/types';
+import { ApiResponse, PaginatedResponse } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
 
 import {
@@ -8,7 +8,7 @@ import {
   IPublicGenres,
   IWork,
 } from './types';
-export const getProjects = async (): Promise<ApiResult<IProjectsHome[]>> => {
+export const getProjects = async (): Promise<ApiResponse<IProjectsHome[]>> => {
   try {
     const { data } = await api.get('/obras/home');
     return { ok: true, data };
@@ -18,7 +18,7 @@ export const getProjects = async (): Promise<ApiResult<IProjectsHome[]>> => {
 };
 
 export const getRecomendations = async (): Promise<
-  ApiResult<IProjectRecomendations[]>
+  ApiResponse<IProjectRecomendations[]>
 > => {
   try {
     const { data } = await api.get('/obras/recomendadas');
@@ -29,7 +29,7 @@ export const getRecomendations = async (): Promise<
 };
 
 export const getGenres = async (): Promise<
-  ApiResult<PaginatedResponse<IPublicGenres[]>>
+  ApiResponse<PaginatedResponse<IPublicGenres[]>>
 > => {
   try {
     const { data } = await api.get('/generos');
@@ -44,7 +44,7 @@ export const getGenres = async (): Promise<
 
 export const getWorksBySearch = async (
   searchTerm: string,
-): Promise<ApiResult<IWork>> => {
+): Promise<ApiResponse<IWork>> => {
   try {
     const { data } = await api.get(
       `/obras/pesquisa?obra=${encodeURIComponent(searchTerm)}`,

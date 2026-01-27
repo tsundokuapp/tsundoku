@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode } from 'react';
-import { useForm } from 'react-hook-form';
+import { Path, useForm } from 'react-hook-form';
 
 import { updateComicService } from '@/features/admin/comics/api/comicAdmin';
 import { useAdminComicBySlug } from '@/features/admin/comics/hooks/usePrivateComics';
@@ -59,8 +59,12 @@ export function ProjectComic() {
     (slug as string) || '',
   );
 
-  const { data: chapterComicResponse, isLoading: isLoadingChapters } =
+  const { data: responseChapters, isLoading: isLoadingChapters } =
     useChapterComic(slug as string);
+
+  const chapterComicResponse = responseChapters?.ok
+    ? responseChapters.data
+    : undefined;
 
   const { data: arrayGenres } = usePublicGenres();
   const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
@@ -161,7 +165,7 @@ export function ProjectComic() {
           >
             <DragAndDropSingleImage
               title="Capa Principal"
-              name="cover"
+              name={'cover' as Path<InputFormProject>}
               setValue={setValue}
               errors={errors}
               defaultValue={
@@ -171,7 +175,7 @@ export function ProjectComic() {
 
             <DragAndDropSingleImage
               title="Banner da Obra"
-              name="last-vol"
+              name={'last-vol' as Path<InputFormProject>}
               setValue={setValue}
               errors={errors}
               defaultValue={

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { FormEvent, ReactNode } from 'react';
-import { useForm } from 'react-hook-form';
+import { Path, useForm } from 'react-hook-form';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import {
@@ -181,7 +181,7 @@ export function ProjectNovel() {
           >
             <DragAndDropSingleImage
               title="Capa Principal"
-              name="cover"
+              name={'cover' as Path<InputFormProject>}
               setValue={setValue}
               errors={errors}
               defaultValue={
@@ -190,7 +190,7 @@ export function ProjectNovel() {
             />
             <DragAndDropSingleImage
               title="Banner da Obra"
-              name="last-vol"
+              name={'last-vol' as Path<InputFormProject>}
               setValue={setValue}
               errors={errors}
               defaultValue={

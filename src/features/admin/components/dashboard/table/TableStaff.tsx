@@ -3,18 +3,17 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { StaffMembers } from '@/features/admin/__mocks__/staffMembers';
 import { BadgeRole } from '@/features/admin/components/badge/BadgeRole';
+import { colorByRole } from '@/features/admin/utils/roles';
+import { TdDefault } from '@/shared/components/ui/table/TdDefault';
 import {
-  FooterTable,
   HeaderTable,
   SearchTable,
   Table,
   THeadTable,
   TitleColTable,
 } from '@/shared/components/ui/table/index';
-import { TdDefault } from '@/shared/components/ui/table/TdDefault';
-import { colorByRole } from '@/features/admin/utils/roles';
-import { StaffMembers } from '@/features/admin/__mocks__/staffMembers';
 
 interface TableStaffProps {
   withModal: () => void;
@@ -120,7 +119,7 @@ export const TableStaff = ({ withModal }: TableStaffProps) => {
           ))}
         </tbody>
       </Table>
-      <FooterTable />
+      {/* <FooterTable /> */}
     </div>
   );
 };

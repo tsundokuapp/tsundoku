@@ -2,10 +2,10 @@ import { Upload } from 'lucide-react';
 import React, { RefObject } from 'react';
 
 interface FileDropzoneProps {
-  fileInputRef: RefObject<HTMLInputElement | null>;
+  fileInputRef: RefObject<HTMLInputElement>;
   handleBoxClick: () => void;
-  handleDragOver: (e: React.DragEvent) => void;
-  handleDrop: (e: React.DragEvent) => void;
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  handleDrop: (e: React.DragEvent<HTMLDivElement>) => void;
   handleFileSelect: (files: FileList | null) => void;
 }
 
@@ -47,7 +47,9 @@ export function FileDropzone({
           ref={fileInputRef}
           className="hidden"
           accept="image/*"
-          onChange={(e) => handleFileSelect(e.target.files)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleFileSelect(e.target.files)
+          }
         />
       </div>
     </div>

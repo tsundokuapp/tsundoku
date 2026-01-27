@@ -114,7 +114,7 @@ export const Toolbar = () => {
   return (
     <div className="relative flex min-h-[40px] items-center gap-x-0.5 rounded-[10px] rounded-b-none bg-appBackground px-2.5 py-0.5 print:hidden">
       {sections[0].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} tooltip={item.label} {...item} />
       ))}
       <ToolbarSeparator />
       <FontFamilyButton />
@@ -123,7 +123,7 @@ export const Toolbar = () => {
       <FontSizeButton />
       <ToolbarSeparator />
       {sections[1].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} tooltip={item.label} {...item} />
       ))}
       <TextColorButton />
       <HightLightColorButton />
@@ -135,7 +135,7 @@ export const Toolbar = () => {
       <ListButton />
       <ToolbarSeparator />
       {sections[2].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} tooltip={item.label} {...item} />
       ))}
       <SearchAndReplaceButton />
     </div>

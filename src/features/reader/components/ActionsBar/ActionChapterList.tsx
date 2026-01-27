@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { type ComponentProps } from 'react';
 
-import { IChapterData } from '@/@types/Chapter';
+import { IChapterData } from '@/features/comics/types/IChapterData';
 import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
 import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
 

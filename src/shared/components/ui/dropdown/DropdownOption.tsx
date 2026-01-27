@@ -4,8 +4,8 @@
 import { Check } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps } from 'react';
 
-import { cn } from '@/shared/utils/cn';
 import { useDropdownNavigation } from '@/shared/hooks/useDropdownNavigation';
+import { cn } from '@/shared/utils/cn';
 
 export interface DropdownOptionProps extends ComponentProps<'label'> {
   label: string;

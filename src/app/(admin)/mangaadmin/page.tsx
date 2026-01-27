@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { Path, useForm } from 'react-hook-form';
 
 import { createComicService } from '@/features/admin/comics/api/comicAdmin';
 import { TableComic } from '@/features/admin/components/dashboard/table/TableComic';
@@ -96,7 +96,7 @@ export default function NovelAdmin() {
       >
         <DragAndDropSingleImage
           title="Capa Principal"
-          name="cover"
+          name={'cover' as Path<InputFormCreateProject>}
           setValue={setValue}
           errors={errors}
           defaultValue={''}

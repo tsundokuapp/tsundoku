@@ -1,7 +1,7 @@
 // components/ReaderProgressBar.tsx
 import React from 'react';
 
-import type { ScrollMode } from '@/@types/ScrollMode';
+import { ScrollMode } from '../types/ScrollMode';
 
 interface ReaderProgressBarProps {
   totalSteps: number;

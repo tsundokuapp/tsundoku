@@ -15,6 +15,7 @@ type InputProps = z.infer<typeof FormEditStaffSchema>;
 export const FormEditStaff = () => {
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<InputProps>({
@@ -48,6 +49,7 @@ export const FormEditStaff = () => {
           <FormInput
             label="Nome"
             name="name"
+            setValue={setValue}
             placeholder="digite..."
             errors={errors}
             register={register}
@@ -55,6 +57,7 @@ export const FormEditStaff = () => {
           <FormInput
             label="Sobrenome"
             name="sobrenome"
+            setValue={setValue}
             placeholder="digite..."
             errors={errors}
             register={register}

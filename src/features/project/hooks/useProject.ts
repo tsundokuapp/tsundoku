@@ -16,26 +16,18 @@ import {
 } from '../api/types';
 
 export const useRecomendations = (): UseQueryResult<
-  ApiResponse<IProjectRecomendations>
+  ApiResponse<IProjectRecomendations[]>
 > => {
   return useQuery({
     queryKey: ['recomendations'],
-    queryFn: async () => {
-      const result = await getRecomendations();
-      if (!result.ok) throw result.error;
-      return result.data;
-    },
+    queryFn: () => getRecomendations(),
   });
 };
 
-export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome>> => {
+export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome[]>> => {
   return useQuery({
     queryKey: ['projects-home'],
-    queryFn: async () => {
-      const result = await getProjects();
-      if (!result.ok) throw result.error;
-      return result.data;
-    },
+    queryFn: () => getProjects(),
   });
 };
 

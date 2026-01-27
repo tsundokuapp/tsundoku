@@ -2,26 +2,25 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Trash } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import { useState, useRef } from 'react';
-import { FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { FieldErrors, UseFormSetValue, Path, PathValue } from 'react-hook-form';
 
-import { validateVerticalImage } from '@/shared/utils/image';
 import { useToaster } from '@/shared/contexts/ToasterContext';
-
-interface DragAndDropSingleImageProps {
+import { validateVerticalImage } from '@/shared/utils/image';
+interface DragAndDropSingleImageProps<T extends Record<string, unknown>> {
   title: string;
-  name: string;
-  setValue: UseFormSetValue<any>;
-  errors: FieldErrors;
+  name: Path<T>;
+  setValue: UseFormSetValue<T>;
+  errors: FieldErrors<T>;
   defaultValue: string;
 }
 
-export const DragAndDropSingleImage = ({
+export const DragAndDropSingleImage = <T extends Record<string, unknown>>({
   title,
   name,
   setValue,
   errors,
   defaultValue,
-}: DragAndDropSingleImageProps) => {
+}: DragAndDropSingleImageProps<T>) => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +64,7 @@ export const DragAndDropSingleImage = ({
       name: file.name,
     } as HTMLImageElement);
 
-    setValue(name, file);
+    setValue(name, file as PathValue<T, typeof name>);
   }
 
   function onDragOver(event: React.DragEvent<HTMLDivElement>) {
@@ -102,7 +101,7 @@ export const DragAndDropSingleImage = ({
       name: file.name,
     } as HTMLImageElement);
 
-    setValue(name, file);
+    setValue(name, file as PathValue<T, typeof name>);
   }
 
   function onDeleteFile() {
@@ -208,6 +207,7 @@ export const DragAndDropSingleImage = ({
         )}
       </div>
       <p className="mt-1 text-xs text-red-400">
+        {/* @ts-expect-error: React Hook Form type mismatch workaround */}
         <ErrorMessage errors={errors} name={name} />
       </p>
     </div>

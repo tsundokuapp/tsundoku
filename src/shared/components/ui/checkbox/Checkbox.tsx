@@ -3,7 +3,7 @@ import { cn } from '@/shared/utils/cn';
 export interface ICheckbox {
   label: string;
   description?: string;
-  register: (name: string) => object;
+  // register: UseFormRegister<FieldValues>;
   name: string;
   size?: 'sm' | 'md' | 'lg';
   id?: string;
@@ -15,7 +15,7 @@ export const Checkbox = ({
   label,
   description,
   name,
-  register,
+  // register,
   size = 'sm',
   id = '',
   disabled = false,
@@ -25,7 +25,7 @@ export const Checkbox = ({
       <div className="flex h-5 items-center bg-transparent">
         <input
           id={id || 'helper-checkbox'}
-          aria-describedby="helper-checkbox-input"
+          aria-describedby={`helper-checkbox-input-${name}`}
           type="checkbox"
           tabIndex={0}
           disabled={disabled}
@@ -37,7 +37,7 @@ export const Checkbox = ({
               'h-6 w-6': size === 'lg',
             },
           )}
-          {...register(name)}
+          // {...register(name)}
         />
         <svg
           className={cn(

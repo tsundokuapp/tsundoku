@@ -1,16 +1,16 @@
 import { DownloadSimple, UploadSimple } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
+import { StaffMembers } from '@/features/admin/__mocks__/staffMembers';
 import { BadgeRole } from '@/features/admin/components/badge/BadgeRole';
+import { colorByRole } from '@/features/admin/utils/roles';
+import { TdDefault } from '@/shared/components/ui/table/TdDefault';
 import {
   HeaderTable,
   Table,
   THeadTable,
   TitleColTable,
 } from '@/shared/components/ui/table/index';
-import { TdDefault } from '@/shared/components/ui/table/TdDefault';
-import { colorByRole } from '@/features/admin/utils/roles';
-import { StaffMembers } from '@/features/admin/__mocks__/staffMembers';
 
 interface LineTableProps {
   name: string;

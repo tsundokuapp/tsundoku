@@ -1,5 +1,5 @@
-import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 import { Badge } from '@/shared/components/ui/badge';
+import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 
 import { cn } from './cn';
 

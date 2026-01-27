@@ -2,15 +2,15 @@
 
 import { useMemo, useState } from 'react';
 
-import { Title } from '@/shared/components/ui/title/Title';
+import { usePublicNovels } from '@/features/novels/hooks/usePublicNovels';
+import { Cover } from '@/features/project/components/Cover';
+import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { NoContent } from '@/shared/components/feedback/noContent';
+import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
 import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
-import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 import { SearchTable } from '@/shared/components/ui/table/index';
-import { NoContent } from '@/shared/components/feedback/noContent';
-import { Cover } from '@/features/project/components/Cover';
-import { usePublicNovels } from '@/features/novels/hooks/usePublicNovels';
-import { usePublicGenres } from '@/features/project/hooks/useProject';
+import { Title } from '@/shared/components/ui/title/Title';
 import { ORDER_BY, STATUS_NOVEL, TOrderBy } from '@/shared/utils/systemValues';
 
 export default function Novels() {

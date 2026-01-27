@@ -1,5 +1,5 @@
-import { TStatusComic } from '@/shared/types/system';
 import { IGenres } from '@/shared/types/common';
+import { TStatusComic } from '@/shared/types/system';
 
 export interface IImagesChapterComic {
   id: number;
