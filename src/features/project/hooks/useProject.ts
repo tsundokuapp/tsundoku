@@ -9,10 +9,10 @@ import {
   getWorksBySearch,
 } from '../api/projectApi';
 import {
-  IProjectRecomendations,
   IProjectsHome,
   IPublicGenres,
   IWork,
+  IProjectRecomendations,
 } from '../api/types';
 
 export const useRecomendations = (): UseQueryResult<

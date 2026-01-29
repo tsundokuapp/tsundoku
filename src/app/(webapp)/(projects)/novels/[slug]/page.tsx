@@ -12,7 +12,6 @@ export default function Novel({ params }: { params: { slug: string } }) {
 
   const { data: response, isLoading } = usePublicNovelSlug(slug);
 
-  // Extrai dados apenas se response.ok === true
   const novel = response?.ok ? response.data : undefined;
   const hasError = response && !response.ok;
 

@@ -11,18 +11,18 @@ import {
 export const getProjects = async (): Promise<ApiResponse<IProjectsHome[]>> => {
   try {
     const { data } = await api.get('/obras/home');
-    return { ok: true, data };
+    return { ok: true, data: data.data };
   } catch (error) {
     return { ok: false, error: handleApiError(error) };
   }
 };
 
 export const getRecomendations = async (): Promise<
-  ApiResponse<IProjectRecomendations[]>
+  ApiResponse<IProjectRecomendations>
 > => {
   try {
     const { data } = await api.get('/obras/recomendadas');
-    return { ok: true, data };
+    return { ok: true, data: data.data };
   } catch (error) {
     return { ok: false, error: handleApiError(error) };
   }

@@ -1,6 +1,5 @@
 'use client';
 
-import { IProjectRecomendations } from '@/features/project/api/types';
 import { useRecomendations } from '@/features/project/hooks/useProject';
 import { AsyncSection } from '@/shared/components/layout/section/AsyncSection';
 
@@ -13,7 +12,7 @@ export function NewProjectsList() {
 
   return (
     <AsyncSection isLoading={isLoading} title="Indicadas pela Tsun">
-      {recomendations?.map((item: IProjectRecomendations) => (
+      {recomendations?.map((item) => (
         <Cover
           key={item.slugObra}
           src={item.capa}
