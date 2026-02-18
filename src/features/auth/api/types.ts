@@ -4,10 +4,10 @@ export interface IUserRegisterResponse {
 }
 
 export interface IUserRegisterData {
-  UserName: string;
-  Email: string;
-  Senha: string;
-  ConfirmaSenha: string;
+  usuario: string;
+  email: string;
+  senha: string;
+  confirmaSenha: string;
 }
 
 export interface IUserLoginData {
