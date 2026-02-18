@@ -57,10 +57,10 @@ export const SignUp = () => {
 
   const handleFormRegisterSubmit = async (data: ISignUpForm) => {
     const formData: IUserRegisterData = {
-      UserName: data.name,
-      Email: data.email,
-      Senha: data.password,
-      ConfirmaSenha: data.confirmPassword,
+      usuario: data.name,
+      email: data.email,
+      senha: data.password,
+      confirmaSenha: data.confirmPassword,
     };
 
     const result = await createUserFn(formData);
