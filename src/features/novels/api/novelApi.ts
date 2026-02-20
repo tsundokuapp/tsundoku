@@ -57,7 +57,9 @@ export const getChapterNovel = async (
   slugChapter: string,
 ): Promise<ApiResponse<IChapterNovel>> => {
   try {
-    const { data } = await api.get(`/novels/${slugNovel}/${slugChapter}`);
+    const { data } = await api.get(
+      `/novels/capitulos/${slugNovel}/${slugChapter}`,
+    );
     return { ok: true, data };
   } catch (error) {
     return {
