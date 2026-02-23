@@ -1,3 +1,6 @@
+export const BLUR_DATA_URL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAOCAYAAAAWo42rAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAnSURBVHgB7coxAQAACAMwtH8Pzw4GfBQk2arV6rXWWmuttdZaa/2rD7mHANwDM6gEAAAAAElFTkSuQmCC';
+
 /**
  * Valida se uma imagem é vertical (altura > largura)
  * @param file Arquivo de imagem a ser validado

@@ -1,6 +1,13 @@
+'use client';
+
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+
+import { getComicBySlug } from '@/features/comics/api/comicApi';
+import { getNovelBySlug } from '@/features/novels/api/novelApi';
+import { BLUR_DATA_URL } from '@/shared/utils/image';
 
 interface CoverProps {
   src: string;
@@ -21,6 +28,10 @@ export function Cover({
   children,
   text = '',
 }: CoverProps) {
+  const queryClient = useQueryClient();
+
+  const isNovel = category === 'Light Novel' || category === 'Web Novel';
+
   const PathToNavigate = (slug: string, type: string) => {
     if (!slug) {
       return '/';
@@ -34,10 +45,29 @@ export function Cover({
 
   const actionByHome = PathToNavigate(actionHome!, category);
 
+  const handlePrefetch = () => {
+    if (!actionHome) return;
+
+    if (isNovel) {
+      queryClient.prefetchQuery({
+        queryKey: ['public-novel-slug', actionHome],
+        queryFn: () => getNovelBySlug(actionHome),
+        staleTime: 5 * 60 * 1000,
+      });
+    } else {
+      queryClient.prefetchQuery({
+        queryKey: ['public-comic-slug', actionHome],
+        queryFn: () => getComicBySlug(actionHome),
+        staleTime: 5 * 60 * 1000,
+      });
+    }
+  };
+
   return (
     <Link
       href={action || actionByHome}
       className="group flex w-[180px] flex-col gap-1"
+      onMouseEnter={handlePrefetch}
     >
       <div className="relative overflow-hidden rounded-md">
         <Image
@@ -46,6 +76,8 @@ export function Cover({
           className="h-64 transition-transform duration-500 group-hover:scale-105 group-hover:brightness-75"
           width={180}
           height={256}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
         />
         {children}
         <div

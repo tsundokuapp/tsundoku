@@ -5,6 +5,7 @@ import { useBannerStore } from '@/shared/stores/useBannerStore';
 import { IGenres } from '@/shared/types/common';
 import { TStatusNovel, TStatusComic } from '@/shared/types/system';
 import { GetBadgeByStatusProject } from '@/shared/utils/GetBagde';
+import { BLUR_DATA_URL } from '@/shared/utils/image';
 
 import { CollapseText } from './CollapseText';
 import { Tag } from '../../../shared/components/ui/Tag';
@@ -61,7 +62,14 @@ export function ProjectData({
   return (
     <article className="group flex flex-col items-center justify-between gap-6 md:flex-row md:items-start md:gap-6">
       <div className="flex-shrink-0 overflow-hidden rounded-md">
-        <Image src={src} alt={title} width={240} height={336} />
+        <Image
+          src={src}
+          alt={title}
+          width={240}
+          height={336}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+        />
       </div>
       <div className="flex flex-grow flex-col gap-3 p-4 pt-0">
         <div className="mb-4">
