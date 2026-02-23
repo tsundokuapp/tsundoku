@@ -1,13 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { auth } from '@/core/api';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
 export const useAuthHydration = () => {
-  const { setUsername, setAccessToken, setTsunId, setIsPending } =
-    useAuthStore();
+  const {
+    setUsername,
+    setAccessToken,
+    setTsunId,
+    setIsPending,
+    accessToken,
+    isTokenExpired,
+  } = useAuthStore();
+
+  const hasHydrated = useRef(false);
 
   useEffect(() => {
+    // Evita chamadas duplicadas (ex: StrictMode, re-renders)
+    if (hasHydrated.current) return;
+
+    // Se já existe token válido, não precisa fazer refresh
+    if (accessToken && !isTokenExpired()) {
+      return;
+    }
+
+    hasHydrated.current = true;
+
     const hydrateAuth = async () => {
       setIsPending(true);
       try {
@@ -24,5 +42,12 @@ export const useAuthHydration = () => {
     };
 
     hydrateAuth();
-  }, [setAccessToken, setIsPending, setTsunId, setUsername]);
+  }, [
+    accessToken,
+    isTokenExpired,
+    setAccessToken,
+    setIsPending,
+    setTsunId,
+    setUsername,
+  ]);
 };
