@@ -1,6 +1,3 @@
-// Color Checked
-// Components Checked
-
 import * as motion from 'motion/react-client';
 
 type MotionDivProps = React.ComponentProps<typeof motion.div>;

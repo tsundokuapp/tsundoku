@@ -89,9 +89,9 @@ export const SignIn = () => {
         >
           <div className="space-y-2">
             <FormInput
-              label="Nome"
+              label="Username"
               name="username"
-              placeholder="Digite seu e-mail"
+              placeholder="Digite seu nome de usuário"
               errors={errors}
               setValue={setValue}
               register={register}
