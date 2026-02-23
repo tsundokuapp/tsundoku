@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-  matcher: ['/novels/:slug/:chapter', '/comics/:slug/:chapter'],
+  matcher: ['/novels/:path*', '/comics/:path*'],
 };
 
 export function middleware(req: NextRequest) {
