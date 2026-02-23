@@ -3,8 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-  // matcher para todas as rotas
-  matcher: '/(.*)',
+  matcher: ['/novels/:slug/:chapter', '/comics/:slug/:chapter'],
 };
 
 export function middleware(req: NextRequest) {
