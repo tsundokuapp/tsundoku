@@ -1,4 +1,9 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import {
+  useQuery,
+  useSuspenseQuery,
+  UseQueryResult,
+  UseSuspenseQueryResult,
+} from '@tanstack/react-query';
 
 import { ApiResponse } from '@/core/api/types';
 
@@ -24,8 +29,28 @@ export const useRecomendations = (): UseQueryResult<
   });
 };
 
+// Versão com Suspense para uso com React Suspense boundaries
+export const useRecomendationsSuspense = (): UseSuspenseQueryResult<
+  ApiResponse<IProjectRecomendations[]>
+> => {
+  return useSuspenseQuery({
+    queryKey: ['recomendations'],
+    queryFn: () => getRecomendations(),
+  });
+};
+
 export const useProjects = (): UseQueryResult<ApiResponse<IProjectsHome[]>> => {
   return useQuery({
+    queryKey: ['projects-home'],
+    queryFn: () => getProjects(),
+  });
+};
+
+// Versão com Suspense para uso com React Suspense boundaries
+export const useProjectsSuspense = (): UseSuspenseQueryResult<
+  ApiResponse<IProjectsHome[]>
+> => {
+  return useSuspenseQuery({
     queryKey: ['projects-home'],
     queryFn: () => getProjects(),
   });
