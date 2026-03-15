@@ -1,7 +1,9 @@
+import { Spinner } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import React, {
   useRef,
   useEffect,
+  useState,
   type ComponentProps,
   useCallback,
 } from 'react';
@@ -20,6 +22,7 @@ export function ComicInfiniteView({
   className,
 }: ComicInfiniteViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [loadedImageIds, setLoadedImageIds] = useState<Set<number>>(new Set());
 
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -38,6 +41,8 @@ export function ComicInfiniteView({
   );
 
   useEffect(() => {
+    setLoadedImageIds(new Set());
+
     if (observer.current) {
       observer.current.disconnect();
     }
@@ -55,6 +60,15 @@ export function ComicInfiniteView({
       observer.current?.disconnect();
     };
   }, [images, handleIntersect]);
+
+  const handleImageLoaded = useCallback((imageId: number) => {
+    setLoadedImageIds((prevState) => {
+      if (prevState.has(imageId)) return prevState;
+      const nextState = new Set(prevState);
+      nextState.add(imageId);
+      return nextState;
+    });
+  }, []);
 
   if (!images || images.length === 0) {
     return (
@@ -74,8 +88,19 @@ export function ComicInfiniteView({
     >
       <div className="flex flex-col items-center gap-2">
         {images.map((img, index) => {
+          const isLoaded = loadedImageIds.has(img.id);
+
           return (
-            <div key={img.id} data-page={index + 1}>
+            <div
+              key={img.id}
+              data-page={index + 1}
+              className="relative flex min-h-screen items-center justify-center"
+            >
+              {!isLoaded && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/5">
+                  <Spinner size={28} className="animate-spin text-white" />
+                </div>
+              )}
               <Image
                 // verificar se é necessário o uso de blurDataURL
                 // placeholder="blur"
@@ -86,7 +111,11 @@ export function ComicInfiniteView({
                 alt={`Página ${img.alt}`}
                 width={1114}
                 height={1600}
-                className="h-screen w-full select-none object-contain"
+                onLoad={() => handleImageLoaded(img.id)}
+                className={cn(
+                  'h-screen w-full select-none object-contain transition-opacity duration-200',
+                  isLoaded ? 'opacity-100' : 'opacity-0',
+                )}
               />
             </div>
           );

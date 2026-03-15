@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GenerateScrollModeList } from '@/features/reader/utils/GenerateScrollModeList';
 import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
@@ -7,13 +7,23 @@ import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
 import { ScrollMode } from '../../types/ScrollMode';
 
 interface ActionScrollModeListProps {
+  scrollMode?: ScrollMode;
   onScrollModeChange?: (setMode: ScrollMode) => void;
 }
 
 export function ActionScrollModeList({
+  scrollMode: externalScrollMode,
   onScrollModeChange,
 }: ActionScrollModeListProps) {
-  const [scrollMode, setScrollMode] = useState<ScrollMode>('infinite');
+  const [scrollMode, setScrollMode] = useState<ScrollMode>(
+    externalScrollMode ?? 'infinite',
+  );
+
+  useEffect(() => {
+    if (externalScrollMode) {
+      setScrollMode(externalScrollMode);
+    }
+  }, [externalScrollMode]);
 
   const scrollModeList = GenerateScrollModeList();
 

@@ -50,6 +50,12 @@ export interface IImageChapterComic {
   publicado: boolean;
   listaImagens: IListImageComic[];
 }
+
+export interface IImageChapterComicPayload {
+  proxima?: string;
+  anterior?: string;
+  data: IImageChapterComic;
+}
 export interface IPublicComic {
   urlCapa: string;
   urlBanner?: string;

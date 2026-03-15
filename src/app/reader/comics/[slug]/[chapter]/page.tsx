@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
+import { IImageChapterComic } from '@/features/comics/api/types';
 import {
   useChapterComic,
   usePublicComicAndChapterBySlug,
@@ -17,7 +18,7 @@ import { ComicSingleView } from '@/features/reader/components/comic/ComicSingleV
 import { useReaderPreferences } from '@/features/reader/stores/useReaderPreferences';
 import { ReaderProgressBar } from '@/features/reader/utils/ReaderProgressBar';
 import { ScrollPage } from '@/features/reader/utils/ScrollPage';
-import { fakeComicChapter } from '@/features/reader/utils/fakeComicChapter';
+import { NoContent } from '@/shared/components/feedback/noContent';
 
 export default function ComicReader({
   params,
@@ -32,6 +33,10 @@ export default function ComicReader({
 
   const { scrollMode, setScrollMode } = useReaderPreferences();
 
+  useEffect(() => {
+    setScrollMode('infinite');
+  }, [setScrollMode]);
+
   const { data: responseImages, isLoading } = usePublicComicAndChapterBySlug(
     slugComic,
     slugChapter!,
@@ -42,6 +47,10 @@ export default function ComicReader({
   const imageChapterResponse = responseImages?.ok
     ? responseImages.data
     : undefined;
+  const imageChapterData: IImageChapterComic | undefined =
+    imageChapterResponse && 'data' in imageChapterResponse
+      ? imageChapterResponse.data
+      : imageChapterResponse;
 
   useEffect(() => {
     if (chapterComicResponse?.data) {
@@ -72,19 +81,19 @@ export default function ComicReader({
     setCurrentPage(page);
   }, []);
 
-  // Corrigir modo de rolagem duplo quando currentPage é par
-  useEffect(() => {
-    if (scrollMode === 'double' && currentPage % 2 === 0) {
-      setCurrentPage((prevState) => prevState - 1);
-    }
-  }, [scrollMode, currentPage]);
-
   // Rolagem para a página atual quando o modo de rolagem muda
   useEffect(() => {
     if (scrollMode === 'infinite' && comicContainerRef.current) {
       ScrollPage(scrollMode, currentPage, 'instant');
     }
   }, [scrollMode, currentPage]);
+
+  const hasError =
+    (response && !response.ok) || (responseImages && !responseImages.ok);
+
+  if (hasError) {
+    return <NoContent msg="Erro ao carregar o comic. Tente novamente." />;
+  }
 
   return (
     <div ref={comicContainerRef} className="relative h-[100vh] pt-[74px]">
@@ -95,12 +104,15 @@ export default function ComicReader({
           chapterList={chapterListData}
         />
         <ActionPageList
-          totalPages={imageChapterResponse?.listaImagens.length ?? 40}
+          totalPages={imageChapterData?.listaImagens?.length ?? 40}
           showPage={currentPage}
           scrollMode={scrollMode}
           onPageChange={handlePageChange}
         />
-        <ActionScrollModeList onScrollModeChange={setScrollMode} />
+        <ActionScrollModeList
+          scrollMode={scrollMode}
+          onScrollModeChange={setScrollMode}
+        />
       </ActionsBar>
 
       {isLoading ? (
@@ -110,18 +122,18 @@ export default function ComicReader({
       ) : (
         <ReaderContainer data-view-mode={scrollMode} className="group">
           <ComicInfiniteView
-            images={imageChapterResponse?.listaImagens ?? []}
+            images={imageChapterData?.listaImagens ?? []}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=infinite]:flex"
           />
           <ComicSingleView
-            images={imageChapterResponse?.listaImagens ?? []}
+            images={imageChapterData?.listaImagens ?? []}
             showPage={currentPage}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=single]:flex"
           />
           <ComicDoubleView
-            images={fakeComicChapter.images}
+            images={imageChapterData?.listaImagens ?? []}
             showPage={currentPage}
             updatePageNumber={handlePageOnRead}
             className="hidden group-data-[view-mode=double]:flex"
@@ -130,7 +142,7 @@ export default function ComicReader({
       )}
 
       <ReaderProgressBar
-        totalSteps={imageChapterResponse?.listaImagens.length ?? 10}
+        totalSteps={imageChapterData?.listaImagens?.length ?? 10}
         progressStep={currentPage}
         scrollMode={scrollMode}
         onPageChange={handlePageChange}

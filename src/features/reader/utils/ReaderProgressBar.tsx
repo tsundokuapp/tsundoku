@@ -14,6 +14,7 @@ export function ReaderProgressBar({
   totalSteps,
   progressStep,
   scrollMode,
+  onPageChange,
   ...props
 }: ReaderProgressBarProps) {
   if (scrollMode === 'double' && progressStep % 2 !== 0) {
@@ -22,7 +23,7 @@ export function ReaderProgressBar({
 
   const handlePageChange = (pageNumber: number) => {
     progressStep = pageNumber;
-    props.onPageChange?.(pageNumber);
+    onPageChange?.(pageNumber);
   };
 
   const percentageRead = Math.min(

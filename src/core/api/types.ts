@@ -17,3 +17,9 @@ export interface PaginatedResponse<T> {
   anterior: string;
   total: number;
 }
+
+export interface PaginatedComicChapter<T> {
+  data: T[];
+  proxima: string;
+  anterior: string;
+}

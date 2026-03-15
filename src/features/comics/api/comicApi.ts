@@ -13,7 +13,7 @@ export const getChaptersComic = async (
   slugComic: string,
 ): Promise<ApiResponse<IChapterComic>> => {
   try {
-    const { data } = await api.get(`/comics/slug/${slugComic}`);
+    const { data } = await api.get(`/comics/capitulos/slug/${slugComic}`);
     return { ok: true, data };
   } catch (error) {
     return {
@@ -28,7 +28,9 @@ export const getChapterComicBySlug = async (
   slugChapter: string,
 ): Promise<ApiResponse<IImageChapterComic>> => {
   try {
-    const { data } = await api.get(`/comics/${slugComic}/${slugChapter}`);
+    const { data } = await api.get(
+      `/comics/capitulos/${slugComic}/${slugChapter}`,
+    );
     return { ok: true, data };
   } catch (error) {
     return {

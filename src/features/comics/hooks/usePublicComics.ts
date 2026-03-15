@@ -11,6 +11,7 @@ import {
 import {
   IChapterComic,
   IImageChapterComic,
+  IImageChapterComicPayload,
   IPublicComic,
   IPublicComics,
 } from '../api/types';
@@ -51,7 +52,9 @@ export const useChapterComic = (
 export const usePublicComicAndChapterBySlug = (
   slugComic: string,
   slugChapter: string,
-): UseQueryResult<ApiResponse<IImageChapterComic>> => {
+): UseQueryResult<
+  ApiResponse<IImageChapterComic | IImageChapterComicPayload>
+> => {
   return useQuery({
     queryKey: ['public-comic-chapter', slugComic, slugChapter],
     queryFn: () => getChapterComicBySlug(slugComic, slugChapter),

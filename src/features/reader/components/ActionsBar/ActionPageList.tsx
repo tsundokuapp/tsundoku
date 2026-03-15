@@ -21,9 +21,6 @@ export function ActionPageList({
   showPage,
   onPageChange,
 }: ActionPageListProps) {
-  // Estou pensando se devemos separar isto em dois componentes...
-  // ActionSinglePageList e ActionDoublePageList.
-
   const dropdownLabel = `${totalPages} Páginas`;
 
   const dropdownValue =
