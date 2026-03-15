@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/shared/utils/cn';
+import { formatDate } from '@/shared/utils/date';
 
 import { Tag } from '../../../shared/components/ui/Tag';
 
@@ -28,11 +29,11 @@ export function Chapter({
 }: ChapterProps) {
   const pathname = usePathname();
   const chapterLink = `${pathname}/${slug}`;
-  const formatDate = new Date(date).toLocaleDateString('pt-BR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  // const dateRaw = new Date(date).toLocaleDateString('pt-BR', {
+  //   year: 'numeric',
+  //   month: 'long',
+  //   day: 'numeric',
+  // });
   const tagText = variant === 'regular' ? 'Leia Agora' : 'Lido';
 
   const ChapterInfo = ({
@@ -69,7 +70,11 @@ export function Chapter({
       )}
       {...props}
     >
-      <ChapterInfo name={name} number={number ?? ''} date={formatDate} />
+      <ChapterInfo
+        name={name}
+        number={number ?? ''}
+        date={formatDate(date, true)}
+      />
 
       <span>
         <Tag className="text-nowrap" variant={variant} text={tagText} />
