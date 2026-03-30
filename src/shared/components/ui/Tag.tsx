@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '@/shared/utils/cn';
 
 interface TagProps extends ComponentProps<'span'> {
-  variant?: 'regular' | 'fill';
+  variant?: 'regular' | 'fill' | 'duotone';
   text: string;
 }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { SortAscending, SortDescending } from '@phosphor-icons/react/dist/ssr';
+import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
 import { useChapterComic } from '@/features/comics/hooks/usePublicComics';
@@ -41,16 +41,45 @@ export function ComicData({ title, comicSlug }: ComicDataProps) {
 
   const [isAscending, setIsAscending] = useState<boolean>(false);
 
+  const getChapterOrderValue = (order: string | number) => {
+    const normalized = String(order).replace(',', '.');
+    const numericChunk = normalized.match(/\d+(\.\d+)?/);
+    if (!numericChunk) return null;
+
+    const parsed = Number(numericChunk[0]);
+    return Number.isNaN(parsed) ? null : parsed;
+  };
+
+  const compareChapters = (a: IChapterData, b: IChapterData, ascending: boolean) => {
+    const aOrder = getChapterOrderValue(a.ordemCapitulo);
+    const bOrder = getChapterOrderValue(b.ordemCapitulo);
+
+    if (aOrder !== null && bOrder !== null) {
+      return ascending ? aOrder - bOrder : bOrder - aOrder;
+    }
+
+    return ascending
+      ? String(a.ordemCapitulo).localeCompare(String(b.ordemCapitulo), 'pt-BR', {
+          numeric: true,
+          sensitivity: 'base',
+        })
+      : String(b.ordemCapitulo).localeCompare(String(a.ordemCapitulo), 'pt-BR', {
+          numeric: true,
+          sensitivity: 'base',
+        });
+  };
+
   const handleSorting = () => {
-    if (!chapterData) return;
+    if (!chapterData?.length) return;
+
+    const nextIsAscending = !isAscending;
 
     const sorted = [...chapterData].sort((a, b) =>
-      isAscending
-        ? Number(a.ordemCapitulo) - Number(b.ordemCapitulo)
-        : Number(b.ordemCapitulo) - Number(a.ordemCapitulo),
+      compareChapters(a, b, nextIsAscending),
     );
+
     setChapterData(sorted);
-    setIsAscending(!isAscending);
+    setIsAscending(nextIsAscending);
   };
 
   const isChapterOpen = () => {
@@ -62,11 +91,10 @@ export function ComicData({ title, comicSlug }: ComicDataProps) {
       <TitleContainer className="px-6">
         <Title title={title} />
         <button onClick={handleSorting}>
-          {isAscending ? (
-            <SortDescending size={24} />
-          ) : (
-            <SortAscending size={24} />
-          )}
+          <SortAscending
+            size={24}
+            className={`${isAscending ? 'rotate-180' : ''} transition duration-300 ease-in-out`}
+          />
         </button>
       </TitleContainer>
 

@@ -41,7 +41,7 @@ export function NovelData({ title, novelId }: NovelDataProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex w-full flex-col gap-12">
       <TitleContainer className="px-6">
         <Title title={title} />
         <button onClick={handleSorting}>

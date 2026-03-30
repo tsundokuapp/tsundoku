@@ -1,6 +1,6 @@
 import { SortAscending } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { IVolumeNovel } from '@/features/admin/novels/types/Volume';
 import { IChapterListNovelVolume } from '@/features/novels/api/types';
@@ -19,17 +19,51 @@ export function Volume({
   const [chaptersArray, setChaptersArray] =
     useState<IChapterListNovelVolume[]>(chapters);
 
+  useEffect(() => {
+    setChaptersArray(chapters);
+  }, [chapters]);
+
+  const getChapterNumericValue = (chapterNumber: string) => {
+    const normalized = chapterNumber.replace(',', '.');
+    const numericChunk = normalized.match(/\d+(\.\d+)?/);
+    if (!numericChunk) return null;
+
+    const parsed = Number(numericChunk[0]);
+    return Number.isNaN(parsed) ? null : parsed;
+  };
+
+  const compareChapters = (
+    a: IChapterListNovelVolume,
+    b: IChapterListNovelVolume,
+    ascending: boolean,
+  ) => {
+    const aNumber = getChapterNumericValue(a.numeroCapitulo);
+    const bNumber = getChapterNumericValue(b.numeroCapitulo);
+
+    if (aNumber !== null && bNumber !== null) {
+      return ascending ? aNumber - bNumber : bNumber - aNumber;
+    }
+
+    return ascending
+      ? a.numeroCapitulo.localeCompare(b.numeroCapitulo, 'pt-BR', {
+          numeric: true,
+          sensitivity: 'base',
+        })
+      : b.numeroCapitulo.localeCompare(a.numeroCapitulo, 'pt-BR', {
+          numeric: true,
+          sensitivity: 'base',
+        });
+  };
+
   const handleSorting = () => {
-    if (!chaptersArray) return;
+    const nextIsAscending = !isAscending;
 
     const chaptersSorted = [...chaptersArray].sort((a, b) =>
-      isAscending
-        ? Number(a.numeroCapitulo) - Number(b.numeroCapitulo)
-        : Number(b.numeroCapitulo) - Number(a.numeroCapitulo),
+      compareChapters(a, b, nextIsAscending),
     );
 
     setChaptersArray(chaptersSorted);
-    setIsAscending(!isAscending);
+    setIsAscending(nextIsAscending);
   };
 
   return (
@@ -45,22 +79,22 @@ export function Volume({
           />
         </div>
         <div className="flex w-full flex-col gap-2">
-          <span className="inline-flex flex-row items-center gap-2">
-            <h3 className="text-lg font-bold">{title}</h3>
-            {subTitle && <p> : {subTitle}</p>}
-          </span>
-
+          <div className="flex justify-between">
+            <span className="inline-flex flex-row items-center gap-2">
+              <h3 className="text-lg font-bold">{title}</h3>
+              {subTitle && <p> : {subTitle}</p>}
+            </span>
+            <button
+              onClick={handleSorting}
+              className="ml-auto flex items-center gap-2"
+            >
+              <SortAscending
+                size={24}
+                className={`${isAscending ? 'rotate-180' : ''} transition duration-300 ease-in-out`}
+              />
+            </button>
+          </div>
           <p className="text-sm text-gray-500">{sinopse}</p>
-
-          <button
-            onClick={handleSorting}
-            className="ml-auto flex items-center gap-2"
-          >
-            <SortAscending
-              size={24}
-              className={`${isAscending ? 'rotate-180' : ''} transition duration-300 ease-in-out`}
-            />
-          </button>
 
           <div className="my-4 grid grid-cols-1">
             {chaptersArray?.map((chapter) => (
@@ -79,6 +113,7 @@ export function Volume({
                   slug={chapter.slugCapitulo}
                   name={`Capítulo ${chapter.numeroCapitulo}: ${chapter.tituloCapitulo}`}
                   date={chapter.dataInclusao}
+                  variant="duotone"
                 />
               </div>
             ))}
