@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 
 import { useBannerStore } from '@/shared/stores/useBannerStore';
 import { IGenres } from '@/shared/types/common';
-import { TStatusNovel, TStatusComic } from '@/shared/types/system';
+import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 import { GetBadgeByStatusProject } from '@/shared/utils/GetBagde';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
-import { CollapseText } from './CollapseText';
 import { Tag } from '../../../shared/components/ui/Tag';
+import { CollapseText } from './CollapseText';
 
 interface ProjectDataProps {
   src: string;
@@ -83,7 +83,7 @@ export function ProjectData({
 
         <CollapseText>{description}</CollapseText>
 
-        <ul className="flex flex-row items-center gap-8 text-sm">
+        <ul className="mb-2 flex flex-col gap-2 text-sm md:flex-row md:items-center md:gap-8">
           <li>
             <span className="font-bold">Autor:</span> {author}
           </li>

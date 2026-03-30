@@ -50,7 +50,11 @@ export function ComicData({ title, comicSlug }: ComicDataProps) {
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  const compareChapters = (a: IChapterData, b: IChapterData, ascending: boolean) => {
+  const compareChapters = (
+    a: IChapterData,
+    b: IChapterData,
+    ascending: boolean,
+  ) => {
     const aOrder = getChapterOrderValue(a.ordemCapitulo);
     const bOrder = getChapterOrderValue(b.ordemCapitulo);
 
@@ -59,14 +63,22 @@ export function ComicData({ title, comicSlug }: ComicDataProps) {
     }
 
     return ascending
-      ? String(a.ordemCapitulo).localeCompare(String(b.ordemCapitulo), 'pt-BR', {
-          numeric: true,
-          sensitivity: 'base',
-        })
-      : String(b.ordemCapitulo).localeCompare(String(a.ordemCapitulo), 'pt-BR', {
-          numeric: true,
-          sensitivity: 'base',
-        });
+      ? String(a.ordemCapitulo).localeCompare(
+          String(b.ordemCapitulo),
+          'pt-BR',
+          {
+            numeric: true,
+            sensitivity: 'base',
+          },
+        )
+      : String(b.ordemCapitulo).localeCompare(
+          String(a.ordemCapitulo),
+          'pt-BR',
+          {
+            numeric: true,
+            sensitivity: 'base',
+          },
+        );
   };
 
   const handleSorting = () => {

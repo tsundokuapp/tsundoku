@@ -23,6 +23,7 @@ export function HeaderButtonLogin() {
   async function handleLogout() {
     await auth.get('logout');
     logout();
+    setIsOpen(false);
 
     toaster({
       type: 'info',
@@ -80,8 +81,11 @@ export function HeaderButtonLogin() {
     return (
       <ItemList
         icon={<LayoutDashboard size={16} />}
-        text="Dashboad"
-        action={() => router.push('/dashboard')}
+        text="Dashboard"
+        action={() => {
+          router.push('/dashboard');
+          setIsOpen(false);
+        }}
       />
     );
   };
@@ -113,7 +117,7 @@ export function HeaderButtonLogin() {
           {isPending ? (
             <Spinner size={16} className="animate-spin" />
           ) : (
-            <p>Logar</p>
+            <p>Entrar</p>
           )}
         </button>
       )}
@@ -129,6 +133,7 @@ export function HeaderButtonLogin() {
                 username
                   ? router.push(`/profile/${username}`)
                   : router.push('/auth');
+                setIsOpen(false);
               }}
             />
             <ItemList

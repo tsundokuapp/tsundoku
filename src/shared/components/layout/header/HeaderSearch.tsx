@@ -1,6 +1,9 @@
 'use client';
 
-import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import {
+  ArrowCircleRight,
+  MagnifyingGlass,
+} from '@phosphor-icons/react/dist/ssr';
 import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -9,6 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getWorksBySearch } from '@/features/project/api/projectApi';
 import { IWork } from '@/features/project/api/types';
 import { useSearchBar } from '@/shared/contexts/SearchBarContext';
+import { cn } from '@/shared/utils/cn';
 
 import {
   Command,
@@ -35,6 +39,7 @@ export const HeaderSearch = React.forwardRef<
       placeholder = 'Buscar...',
       icon = 'Search',
       onOpenChangeDialog,
+      className,
     }: HeaderSearchProps,
     ref: React.Ref<HTMLInputElement>,
   ) => {
@@ -42,6 +47,7 @@ export const HeaderSearch = React.forwardRef<
     const { closeSearchBar } = useSearchBar();
 
     const queryClient = useQueryClient();
+    const isOverlaySearch = icon === 'Enter';
 
     const [works, setWorks] = useState<IWork | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -128,10 +134,10 @@ export const HeaderSearch = React.forwardRef<
       return (
         <button
           type="submit"
-          className="hover:bg-appSearchHover flex items-center justify-center rounded-md"
+          className="flex items-center justify-center rounded-md px-1 hover:bg-appGroupHover"
         >
           {icon === 'Enter' ? (
-            <div className="flex h-5 items-center justify-center rounded border border-dashed border-appSearchPlaceholder px-1 text-xs text-appSearchPlaceholder">
+            <div className="flex h-8 items-center justify-center rounded-lg border border-appMenuBorder bg-appBackground px-2.5 text-[11px] font-semibold tracking-wide text-appText shadow-sm">
               ENTER
             </div>
           ) : (
@@ -141,6 +147,53 @@ export const HeaderSearch = React.forwardRef<
       );
     };
 
+    const getSynopsisPreview = (synopsis?: string) => {
+      if (!synopsis?.trim()) return 'Sem descricao disponivel.';
+      return synopsis.length > 110
+        ? `${synopsis.slice(0, 107).trim()}...`
+        : synopsis;
+    };
+
+    const getCountsText = (work: IWork['data'][number]) => {
+      const metadata = work as unknown as Record<string, unknown>;
+
+      const extractCount = (keys: string[]) => {
+        for (const key of keys) {
+          const value = metadata[key];
+          if (typeof value === 'number' && Number.isFinite(value)) return value;
+          if (typeof value === 'string') {
+            const parsed = Number(value);
+            if (!Number.isNaN(parsed)) return parsed;
+          }
+        }
+
+        return null;
+      };
+
+      const chapters = extractCount([
+        'totalCapitulos',
+        'qtdCapitulos',
+        'capitulos',
+        'chaptersCount',
+      ]);
+      const volumes = extractCount([
+        'totalVolumes',
+        'qtdVolumes',
+        'volumes',
+        'volumesCount',
+      ]);
+
+      if (chapters === null && volumes === null) return null;
+
+      if (chapters !== null && volumes !== null) {
+        return `${chapters} capitulos • ${volumes} volumes`;
+      }
+
+      if (chapters !== null) return `${chapters} capitulos`;
+
+      return `${volumes} volumes`;
+    };
+
     const PathForNavigate = (slug: string, type: string) => {
       if (type !== 'Light Novel' && type !== 'Web Novel') {
         return `/comics/${slug}`;
@@ -148,9 +201,22 @@ export const HeaderSearch = React.forwardRef<
       return `/novels/${slug}`;
     };
 
+    const getResultsCountText = (count: number) => {
+      return count === 1 ? '1 item encontrado' : `${count} itens encontrados`;
+    };
+
     const CommandReturn = () => {
       return (
-        <Command shouldFilter={true} ref={commandRef}>
+        <Command
+          shouldFilter={true}
+          ref={commandRef}
+          className={cn(
+            'w-full',
+            isOverlaySearch &&
+              'rounded-2xl border border-appInputBorder bg-gradient-to-br from-appSearchBackground to-appGroupBackground',
+            className,
+          )}
+        >
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -167,10 +233,19 @@ export const HeaderSearch = React.forwardRef<
               value={searchInput}
               onValueChange={handleInputChange}
               name="search"
+              className={cn(
+                isOverlaySearch && 'h-14 text-base md:text-lg',
+                !isOverlaySearch && 'h-11 text-sm',
+              )}
             />
           </form>
           {showResults && (
-            <CommandList>
+            <CommandList
+              className={cn(
+                isOverlaySearch &&
+                  'border border-appMenuBorder bg-gradient-to-br from-appSearchBackground to-appGroupBackground',
+              )}
+            >
               {isLoading && (
                 <CommandItem className="cursor-default">
                   <div className="flex items-center gap-2">Buscando...</div>
@@ -178,11 +253,20 @@ export const HeaderSearch = React.forwardRef<
               )}
               <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
               {works?.data && (
-                <CommandGroup heading="Resultado da pesquisa:">
+                <CommandGroup
+                  heading={
+                    <div className="flex items-center justify-between gap-2">
+                      <span>Resultado da pesquisa</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-appSearchPlaceholder">
+                        {getResultsCountText(works.data.length)}
+                      </span>
+                    </div>
+                  }
+                >
                   {works?.data?.map((work) => (
                     <CommandItem
                       key={work.id}
-                      className="cursor-pointer"
+                      className="group cursor-pointer"
                       onSelect={() => {
                         router.push(PathForNavigate(work.slug, work.tipo));
                         if (onOpenChangeDialog) {
@@ -191,22 +275,46 @@ export const HeaderSearch = React.forwardRef<
                         closeSearchBar();
                       }}
                     >
-                      <div className="flex w-full items-center gap-2">
+                      <div className="relative flex w-full min-w-0 items-start gap-3 overflow-hidden rounded-xl p-3 transition-all duration-200 group-hover:-translate-y-1 group-hover:bg-appGroupHover">
                         {work.capa && (
                           <Image
                             src={work.capa}
                             alt={work.titulo}
-                            width={40}
-                            height={60}
-                            className="rounded-md"
+                            width={56}
+                            height={84}
+                            className="h-[72px] w-12 shrink-0 rounded-md object-cover md:h-[84px] md:w-14"
                           />
                         )}
-                        <div className="flex w-full items-center justify-between gap-2">
-                          <span>{work.titulo}</span>
-                          <span className="flex items-center justify-center rounded border border-appHighlight px-2 py-1 text-xs">
-                            {work.tipo}
-                          </span>
+                        <div className="flex min-w-0 flex-1 flex-col gap-2">
+                          <div className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                            <span className="truncate text-sm font-semibold text-appSearchText sm:text-base md:text-lg">
+                              {work.titulo}
+                            </span>
+                            <span className="w-fit text-[11px] font-medium text-appSubtitle sm:inline-flex sm:items-center sm:justify-center sm:rounded-md sm:border sm:border-appMenuBorder sm:bg-appGroupBackground sm:px-2 sm:py-1 sm:text-xs sm:font-semibold sm:uppercase sm:tracking-wide sm:text-appSearchText">
+                              {work.tipo}
+                            </span>
+                          </div>
+
+                          <p className="text-xs text-appSubtitle md:text-sm">
+                            {getSynopsisPreview(work.sinopse)}
+                          </p>
+
+                          <div className="mt-1 flex items-end gap-2 pr-16">
+                            {getCountsText(work) ? (
+                              <span className="text-[11px] font-medium uppercase tracking-wide text-appSearchPlaceholder md:text-xs">
+                                {getCountsText(work)}
+                              </span>
+                            ) : (
+                              <span />
+                            )}
+                          </div>
                         </div>
+
+                        <ArrowCircleRight
+                          size={56}
+                          weight="duotone"
+                          className="pointer-events-none absolute bottom-4 right-4 !h-8 !w-8 translate-x-1 text-appSearchText opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
+                        />
                       </div>
                     </CommandItem>
                   ))}

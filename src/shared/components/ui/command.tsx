@@ -15,7 +15,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      'flex h-full w-full flex-col overflow-hidden rounded-md bg-appSearchBackground text-appSearchText',
+      'relative flex h-full w-full flex-col overflow-visible rounded-2xl border border-appMenuBorder bg-gradient-to-b from-appSearchBackground to-appGroupBackground text-appSearchText',
       className,
     )}
     {...props}
@@ -45,12 +45,15 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   CommandInputProps
 >(({ className, customButton: CustomButton, ...props }, ref) => (
-  <div className="flex items-center gap-2 px-3" cmdk-input-wrapper="">
+  <div
+    className="flex items-center gap-2 rounded-2xl bg-gradient-to-br from-appSearchBackground to-appGroupBackground px-3"
+    cmdk-input-wrapper=""
+  >
     <CommandPrimitive.Input
       autoFocus
       ref={ref}
       className={cn(
-        'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-appSearchPlaceholder disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-11 w-full rounded-md bg-transparent py-3 text-sm text-appSearchText outline-none placeholder:text-appSearchPlaceholder disabled:cursor-not-allowed disabled:opacity-50',
         className,
       )}
       {...props}
@@ -72,7 +75,7 @@ const CommandList = React.forwardRef<
   <CommandPrimitive.List
     ref={ref}
     className={cn(
-      'absolute left-0 z-[9999] mt-12 max-h-[300px] w-[480px] overflow-y-auto overflow-x-hidden rounded-md bg-appSearchBackground text-appSearchText shadow-lg lg:left-4 lg:mt-8 lg:rounded-b-md',
+      'absolute left-0 right-0 top-full z-[9999] mt-3 max-h-[70vh] w-full overflow-y-auto overflow-x-hidden rounded-2xl border border-appMenuBorder bg-gradient-to-b from-appSearchBackground to-appGroupBackground text-appSearchText',
       className,
     )}
     {...props}
@@ -129,7 +132,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected='true']:bg-appMenuHover data-[selected=true]:text-appMenuText data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+      "relative flex cursor-default select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-appSearchText outline-none transition-colors duration-200 data-[disabled=true]:pointer-events-none data-[selected='true']:bg-transparent data-[selected=true]:text-appSearchText data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
       className,
     )}
     {...props}

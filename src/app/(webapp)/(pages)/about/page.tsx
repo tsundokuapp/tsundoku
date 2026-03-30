@@ -1,5 +1,7 @@
 'use client';
 
+import { DotOutline } from '@phosphor-icons/react/dist/ssr';
+
 import { Accordion } from '@/shared/components/ui/Accordion';
 import {
   Avatar,
@@ -8,18 +10,91 @@ import {
 } from '@/shared/components/ui/avatar';
 import { Title } from '@/shared/components/ui/title/Title';
 
-const ItemAccordionTsun = ({ children }: { children: React.ReactNode }) => {
+interface TeamMember {
+  name: string;
+  quote: string;
+  avatarUrl: string;
+  avatarFallback: string;
+  favoriteWorks: string[];
+}
+
+const adminMembers: TeamMember[] = [
+  {
+    name: 'Bravo',
+    quote: 'Pense positivo e deixe o universo fazer seu trabalho.',
+    avatarUrl:
+      'https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg',
+    avatarFallback: 'BR',
+    favoriteWorks: ['Bleach'],
+  },
+  {
+    name: 'Axios',
+    quote: 'Violencia e dinheiro so nao resolve se for pouco.',
+    avatarUrl:
+      'https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5779201-K07pMJG3aJAn.png',
+    avatarFallback: 'AX',
+    favoriteWorks: ['Bruxa Errante: A Jornada de Elaina'],
+  },
+];
+
+const TeamMemberCard = ({
+  name,
+  quote,
+  avatarUrl,
+  avatarFallback,
+  favoriteWorks,
+}: TeamMember) => {
   return (
-    <div className="flex w-full space-x-4 border-b border-b-gray-200 p-4">
-      {children}
-    </div>
+    <article className="group relative overflow-hidden rounded-xl border border-appListBorder bg-appListBackground p-4 transition-all duration-300 hover:-translate-y-0.5 hover:bg-appListHover">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-appHighlight opacity-80" />
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+        <Avatar className="h-16 w-16 border-2 border-appListBorder">
+          <AvatarImage src={avatarUrl} />
+          <AvatarFallback>{avatarFallback}</AvatarFallback>
+        </Avatar>
+
+        <div className="min-w-0 space-y-2">
+          <h4 className="text-base font-semibold text-appText">{name}</h4>
+
+          <p className="text-sm leading-relaxed text-appSubtitle">
+            &quot;{quote}&quot;
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <span className="text-xs font-semibold uppercase tracking-wide text-appHighlight">
+              Obras favoritas
+            </span>
+            <DotOutline size={16} className="text-appSubtitle" weight="fill" />
+            {favoriteWorks.map((work) => (
+              <span
+                key={work}
+                className="rounded-full border border-appListBorder bg-appGroupBackground px-2.5 py-1 text-xs text-appGroupText"
+              >
+                {work}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+const EmptyRoleCard = ({ role }: { role: string }) => {
+  return (
+    <article className="rounded-xl border border-dashed border-appListBorder bg-appListBackground px-4 py-5">
+      <p className="text-sm text-appSubtitle">
+        {role} em breve. Estamos preparando novidades para esta area.
+      </p>
+    </article>
   );
 };
 
 export default function About() {
   return (
-    <div className="flex flex-1 flex-col items-center gap-12">
-      <div className="flex w-[800px] flex-col gap-4">
+    <div className="flex w-full flex-1 flex-col items-center gap-12 px-4 sm:px-0">
+      <div className="flex w-full max-w-[800px] flex-col gap-4">
         <Title title="BEM-VINDO À TSUNDOKU TRADUÇÕES" />
         <p>
           Surgimos em uma noite, quando certo alguém foi beber cerveja e
@@ -48,73 +123,31 @@ export default function About() {
           acessar Formas de Apoio.
         </p>
       </div>
-      <div className="flex w-[800px] flex-col gap-4">
+      <div className="flex w-full max-w-[800px] flex-col gap-4">
         <Title title="Nossa Equipe" />
         <Accordion title="Administradores">
           <section className="flex flex-col gap-4">
-            <ItemAccordionTsun>
-              <Avatar className="h-16 w-16">
-                <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5600801-DVnlQJR4iJ96.jpg" />
-                <AvatarFallback>BR</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">Bravo</h4>
-                <p className="text-sm">
-                  &quot;Pense positivo e deixe o universo fazer seu
-                  trabalho.&quot;
-                </p>
-                <div className="items-left flex w-full flex-col pt-2">
-                  <span className="text-muted-foreground text-xs font-bold">
-                    Obras Favoritas:
-                  </span>
-                  <span className="text-muted-foreground text-xs">Bleach.</span>
-                </div>
-              </div>
-            </ItemAccordionTsun>
-            <ItemAccordionTsun>
-              <Avatar className="h-16 w-16">
-                <AvatarImage src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b5779201-K07pMJG3aJAn.png" />
-                <AvatarFallback>BR</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">Axios</h4>
-                <p className="text-sm">
-                  &quot;Violência e dinheiro só não resolve se for pouco.&quot;
-                </p>
-                <div className="items-left flex w-full flex-col pt-2">
-                  <span className="text-muted-foreground text-xs font-bold">
-                    Obras Favoritas:
-                  </span>
-                  <span className="text-muted-foreground text-xs">
-                    Bruxa Errante: A Jornada de Elaina.
-                  </span>
-                </div>
-              </div>
-            </ItemAccordionTsun>
+            {adminMembers.map((member) => (
+              <TeamMemberCard key={member.name} {...member} />
+            ))}
           </section>
         </Accordion>
 
         <Accordion title="Editores">
-          <section className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex w-full space-x-4">
-              <p>Em breve</p>
-            </div>
+          <section className="flex flex-col gap-4">
+            <EmptyRoleCard role="Editores" />
           </section>
         </Accordion>
 
         <Accordion title="Tradutores">
-          <section className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex w-full space-x-4">
-              <p>Em breve</p>
-            </div>
+          <section className="flex flex-col gap-4">
+            <EmptyRoleCard role="Tradutores" />
           </section>
         </Accordion>
 
         <Accordion title="Revisores">
-          <section className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex w-full space-x-4">
-              <p>Em breve</p>
-            </div>
+          <section className="flex flex-col gap-4">
+            <EmptyRoleCard role="Revisores" />
           </section>
         </Accordion>
       </div>
