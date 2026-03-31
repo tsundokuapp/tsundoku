@@ -8,9 +8,9 @@
   --app-color-header-text: var(--color-white);
   --app-color-header-highlight: var(--color-black-highlight);
   /* Footer */
-  --app-color-footer-background: var(--color-black-neutral);
-  --app-color-footer-text: var(--color-black-900);
-  --app-color-footer-highlight: var(--color-black-900);
+  --app-color-footer-background: var(--color-black-900);
+  --app-color-footer-text: var(--color-zinc-100);
+  --app-color-footer-highlight: var(--color-zinc-400);
   /* Text */
   --app-color-text: var(--color-zinc-300);
   /* Elements */

@@ -1,16 +1,16 @@
 'use client';
-import { MagnifyingGlass, DiscordLogo } from '@phosphor-icons/react/dist/ssr';
+import { DiscordLogo, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import { type ComponentProps } from 'react';
 
 import { useSearchBar } from '@/shared/contexts/SearchBarContext';
 import { cn } from '@/shared/utils/cn';
 
+import { LogoLink } from '../../ui/logoLink/LogoLink';
+import { ThemeToggle } from '../../ui/theme/ThemeToggle';
 import { HeaderButtonLogin } from './HeaderButtonLogin';
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
 import { HeaderMenu } from './HeaderMenu';
-import { LogoLink } from '../../ui/logoLink/LogoLink';
-import { ThemeToggle } from '../../ui/theme/ThemeToggle';
 
 type HeaderBarProps = ComponentProps<'header'>;
 
@@ -51,7 +51,7 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
-          <HeaderButtonLogin />
+          <HeaderButtonLogin compact compactStyle="ghost" />
         </div>
 
         <div className="flex items-center gap-4 lg:hidden">

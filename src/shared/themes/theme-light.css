@@ -42,13 +42,13 @@
   --app-color-button-fill-text: var(--color-white);
 
   /* Buscar */
-  --app-color-search-background: var(--color-slate-700);
-  --app-color-search-placeholder: var(--color-gray-500);
-  --app-color-search-text: var(--color-white);
+  --app-color-search-background: var(--color-slate-100);
+  --app-color-search-placeholder: var(--color-slate-500);
+  --app-color-search-text: var(--color-slate-900);
 
   /* Grupo */
-  --app-color-group-background: var(--color-slate-200);
-  --app-color-group-hover: var(--color-slate-300);
+  --app-color-group-background: var(--color-slate-100);
+  --app-color-group-hover: var(--color-slate-200);
   --app-color-group-text: var(--color-slate-900);
 
   /* Inputs */
