@@ -1,6 +1,8 @@
 .theme-blue {
   /* ...regras do tema blue extraídas do globals.css... */
-  --app-color-background: var(--color-slate-900);
+  --reader-color-background: var(--color-slate-900);
+
+  --app-color-background: var(--color-slate-800);
   /* Header */
   --app-color-header-background: var(--color-slate-900);
   --app-color-header-text: var(--color-white);
@@ -10,7 +12,7 @@
   --app-color-footer-text: var(--color-slate-900);
   --app-color-footer-highlight: var(--color-slate-900);
   /* Text */
-  --app-color-text: var(--color-white);
+  --app-color-text: var(--color-slate-300);
   /* Elements */
   --app-color-icon: var(--color-white);
   --app-color-tag: var(--color-white);
@@ -57,8 +59,8 @@
   --app-color-menu-title: var(--color-zinc-600);
   --app-color-menu-breakline: var(--color-zinc-600);
   /* Titulos */
-  --app-color-title: var(--color-white);
-  --app-color-subtitle: var(--color-slate-500);
+  --app-color-title: var(--color-slate-200);
+  --app-color-subtitle: var(--color-slate-400);
   --app-color-highlight: var(--color-blue-500);
   --app-color-highlight-text: var(--color-white);
 

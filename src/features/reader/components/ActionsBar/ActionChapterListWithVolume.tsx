@@ -1,3 +1,4 @@
+import { Bookmarks } from '@phosphor-icons/react/dist/ssr';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -66,8 +67,26 @@ export function ActionChapterWithVolumeList() {
 
   return (
     <DropdownContainer
-      label={`${totalChaptersDropdown} Capítulos`}
-      value={`Capítulo ${currentChapterDropdown}`}
+      label={
+        <>
+          <span className="sm:hidden">
+            <Bookmarks size={16} />
+          </span>
+          <span className="hidden sm:inline">{`${totalChaptersDropdown} Capítulos`}</span>
+        </>
+      }
+      value={
+        <>
+          <span className="sm:hidden">
+            <Bookmarks size={16} />
+          </span>
+          <span className="hidden sm:inline">{`Capítulo ${currentChapterDropdown}`}</span>
+        </>
+      }
+      className="min-w-[52px] sm:min-w-[180px]"
+      buttonClassname="border-appMenuBorder bg-appInputBackground px-2 hover:bg-appGroupBackground sm:px-3 justify-center gap-1 sm:justify-between"
+      menuClassname="min-w-[180px]"
+      matchTriggerWidth={false}
     >
       {volumesListToDropdown?.map((volume) => {
         return (

@@ -1,3 +1,4 @@
+import { UsersThree } from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useState } from 'react';
 
 import { GenerateScrollModeList } from '@/features/reader/utils/GenerateScrollModeList';
@@ -34,12 +35,30 @@ export function ActionScrollModeList({
 
   return (
     <DropdownContainer
-      label="Modo de Leitura"
-      value={
-        scrollModeList.find(
-          (scrollModeListItem) => scrollModeListItem.value === scrollMode,
-        )?.label || scrollModeList[0].label
+      label={
+        <>
+          <span className="sm:hidden">
+            <UsersThree size={16} />
+          </span>
+          <span className="hidden sm:inline">Modo de Leitura</span>
+        </>
       }
+      value={
+        <>
+          <span className="sm:hidden">
+            <UsersThree size={16} />
+          </span>
+          <span className="hidden sm:inline">
+            {scrollModeList.find(
+              (scrollModeListItem) => scrollModeListItem.value === scrollMode,
+            )?.label || scrollModeList[0].label}
+          </span>
+        </>
+      }
+      className="min-w-[52px] sm:min-w-[180px]"
+      buttonClassname="px-2 sm:px-3"
+      menuClassname="min-w-[180px]"
+      matchTriggerWidth={false}
     >
       {scrollModeList.map((scrollModeListItem) => (
         <DropdownOption

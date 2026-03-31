@@ -14,7 +14,7 @@ export const ActionButtonControl = ({
     <button
       role="button"
       onClick={onClick}
-      className="inline-flex h-10 w-full items-center justify-between rounded-lg border border-appMenuBorder bg-appMenuBackground px-4 py-2 text-sm font-medium text-appText hover:text-zinc-400 focus:outline-none"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-appMenuBorder bg-appInputBackground px-2 py-2 text-sm font-medium text-appText hover:bg-appGroupBackground focus:outline-none sm:w-full sm:justify-between sm:px-4"
       disabled={disable}
       {...props}
     >

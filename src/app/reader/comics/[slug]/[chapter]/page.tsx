@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { IImageChapterComic } from '@/features/comics/api/types';
 import {
@@ -96,7 +96,7 @@ export default function ComicReader({
   }
 
   return (
-    <div ref={comicContainerRef} className="relative h-[100vh] pt-[74px]">
+    <div ref={comicContainerRef} className="relative h-[100vh] pt-[88px]">
       <ActionsBar removeList={['reader']}>
         <ActionChapterList
           totalChapters={chapterListData.length}

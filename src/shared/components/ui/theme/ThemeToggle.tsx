@@ -17,7 +17,11 @@ export const THEME_OPTIONS = [
 
 export type ThemeValue = (typeof THEME_OPTIONS)[number]['value'];
 
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  buttonClassName?: string;
+}
+
+export function ThemeToggle({ buttonClassName }: ThemeToggleProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +83,7 @@ export function ThemeToggle() {
         className={cn(
           'flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground',
           isOpen && 'bg-appButtonBackground',
+          buttonClassName,
         )}
         onClick={() => setIsOpen((prev) => !prev)}
       >

@@ -11,7 +11,11 @@ import { useToaster } from '@/shared/contexts/ToasterContext';
 
 import { Avatar, AvatarFallback } from '../../ui/avatar';
 
-export function HeaderButtonLogin() {
+interface HeaderButtonLoginProps {
+  compact?: boolean;
+}
+
+export function HeaderButtonLogin({ compact = false }: HeaderButtonLoginProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { toaster } = useToaster();
@@ -90,11 +94,18 @@ export function HeaderButtonLogin() {
     );
   };
 
+  const compactButtonClass =
+    'flex h-10 w-10 items-center justify-center rounded-md border border-appMenuBorder bg-appInputBackground text-appText hover:bg-appGroupBackground';
+
   return (
     <div ref={dropdownRef} className="relative">
       {isLogged ? (
         <button
-          className="flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
+          className={
+            compact
+              ? compactButtonClass
+              : 'flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground'
+          }
           onClick={() => setIsOpen(!isOpen)}
         >
           <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
@@ -102,22 +113,29 @@ export function HeaderButtonLogin() {
               {getInitials(username)}
             </AvatarFallback>
           </Avatar>
-          <div className="ml-2 flex flex-1 flex-col items-start justify-start">
-            <p className="text-sm capitalize text-appText">{username}</p>
-            <p className="text-xs capitalize text-appSubtitle">
-              {position || 'Leitor'}
-            </p>
-          </div>
+
+          {!compact && (
+            <div className="ml-2 flex flex-1 flex-col items-start justify-start">
+              <p className="text-sm capitalize text-appText">{username}</p>
+              <p className="text-xs capitalize text-appSubtitle">
+                {position || 'Leitor'}
+              </p>
+            </div>
+          )}
         </button>
       ) : (
         <button
-          className="flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
+          className={
+            compact
+              ? compactButtonClass
+              : 'flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground'
+          }
           onClick={() => handleLogin()}
         >
           {isPending ? (
             <Spinner size={16} className="animate-spin" />
           ) : (
-            <p>Entrar</p>
+            <>{compact ? <User size={16} /> : <p>Entrar</p>}</>
           )}
         </button>
       )}
