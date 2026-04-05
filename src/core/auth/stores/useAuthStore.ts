@@ -86,21 +86,31 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
       console.warn('Token expirado ao tentar definir accessToken');
       set({
         accessToken: null,
-        roles: ['Leitor'],
+        username: null,
+        tsunId: null,
+        roles: null,
         isAdmin: false,
-        position: 'Leitor',
+        position: null,
       });
       return;
     }
 
     let roles = token ? extractRolesFromToken(token) : null;
 
-    if (roles === null || roles.length === 0) {
-      roles = ['Leitor'];
+    if (!token) {
+      set({
+        accessToken: null,
+        username: null,
+        tsunId: null,
+        roles: null,
+        isAdmin: false,
+        position: null,
+      });
+      return;
     }
 
-    if (typeof roles === 'string') {
-      roles = [roles];
+    if (roles === null || roles.length === 0) {
+      roles = ['Leitor'];
     }
 
     set({

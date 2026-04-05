@@ -51,7 +51,11 @@ export function HeaderBar({ className, ...props }: HeaderBarProps) {
             <DiscordLogo size={24} />
           </HeaderIcon>
           <ThemeToggle />
-          <HeaderButtonLogin compact compactStyle="ghost" />
+          <HeaderButtonLogin
+            compact
+            compactStyle="ghost"
+            compactLoggedView="user-info"
+          />
         </div>
 
         <div className="flex items-center gap-4 lg:hidden">

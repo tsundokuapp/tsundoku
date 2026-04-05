@@ -1,6 +1,6 @@
 'use client';
 import { Spinner, User, UserCircle } from '@phosphor-icons/react/dist/ssr';
-import { LayoutDashboard, LogOut } from 'lucide-react';
+import { ChevronDown, LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -14,11 +14,13 @@ import { Avatar, AvatarFallback } from '../../ui/avatar';
 interface HeaderButtonLoginProps {
   compact?: boolean;
   compactStyle?: 'solid' | 'ghost';
+  compactLoggedView?: 'icon' | 'user-info';
 }
 
 export function HeaderButtonLogin({
   compact = false,
   compactStyle = 'solid',
+  compactLoggedView = 'icon',
 }: HeaderButtonLoginProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +42,7 @@ export function HeaderButtonLogin({
   }
 
   function handleLogin() {
-    router.push('/auth');
+    router.push('/login');
   }
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -102,6 +104,8 @@ export function HeaderButtonLogin({
     'flex h-10 w-10 items-center justify-center rounded-md border border-appMenuBorder bg-appInputBackground text-appText hover:bg-appGroupBackground';
   const compactGhostButtonClass =
     'flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground';
+  const compactLoggedInfoButtonClass =
+    'flex h-10 min-w-[160px] items-center justify-start rounded-md border border-transparent bg-transparent px-3 hover:bg-appButtonBackground';
 
   const compactClass =
     compactStyle === 'ghost' ? compactGhostButtonClass : compactButtonClass;
@@ -112,12 +116,35 @@ export function HeaderButtonLogin({
         <button
           className={
             compact
-              ? compactClass
+              ? compactLoggedView === 'user-info'
+                ? compactLoggedInfoButtonClass
+                : compactClass
               : 'flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground'
           }
           onClick={() => setIsOpen(!isOpen)}
         >
-          {compactStyle === 'ghost' ? (
+          {compact && compactLoggedView === 'user-info' ? (
+            <>
+              <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
+                <AvatarFallback className="bg-appMenuBackground font-medium text-appText">
+                  {getInitials(username)}
+                </AvatarFallback>
+              </Avatar>
+              <div className="ml-2 flex min-w-0 flex-1 flex-col items-start justify-center text-left">
+                <p className="w-full truncate text-left text-sm font-semibold capitalize text-appHeaderText">
+                  {username}
+                </p>
+                <p className="w-full truncate text-left text-xs font-medium capitalize text-appHeaderText opacity-80">
+                  {position || 'Leitor'}
+                </p>
+              </div>
+              <ChevronDown
+                size={16}
+                className="ml-2 shrink-0 text-appHeaderText opacity-70"
+                aria-hidden="true"
+              />
+            </>
+          ) : compactStyle === 'ghost' ? (
             <UserCircle size={24} weight="duotone" />
           ) : (
             <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
@@ -169,7 +196,7 @@ export function HeaderButtonLogin({
               action={() => {
                 username
                   ? router.push(`/profile/${username}`)
-                  : router.push('/auth');
+                  : router.push('/login');
                 setIsOpen(false);
               }}
             />
