@@ -116,6 +116,15 @@ export function HeaderMenu() {
           </div>
           <DialogFooter className="mt-auto px-6 pb-6 sm:px-8">
             <div className="flex w-full flex-col gap-6">
+              <LinkButton
+                text="Discord"
+                action="https://discord.com/invite/x4MyhMn3TQ"
+                className={cn(
+                  'flex h-12 w-full items-center justify-center rounded-md border border-appButtonBorder',
+                  'font-bold uppercase text-appButtonText hover:bg-appButtonHover',
+                )}
+              />
+
               {isLogged && (
                 <div className="rounded-lg border border-appMenuBorder bg-appMenuBackground px-4 py-3">
                   <p className="text-sm font-semibold text-appMenuText">
@@ -127,29 +136,18 @@ export function HeaderMenu() {
                 </div>
               )}
 
-              <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
-                <LinkButton
-                  text="Discord"
-                  action="https://discord.com/invite/x4MyhMn3TQ"
-                  className={cn(
-                    'flex h-12 w-full items-center justify-center rounded-md border border-appButtonBorder',
-                    'font-bold uppercase text-appButtonText hover:bg-appButtonHover',
-                  )}
-                />
-
-                {!isLogged && (
-                  <DialogClose asChild>
-                    <LinkButton
-                      text="Entrar"
-                      action="/auth"
-                      className={cn(
-                        'flex h-12 w-full items-center justify-center rounded-md border border-appButtonBorder',
-                        'font-bold uppercase text-appButtonText hover:bg-appButtonHover',
-                      )}
-                    />
-                  </DialogClose>
-                )}
-              </div>
+              {!isLogged && (
+                <DialogClose asChild>
+                  <LinkButton
+                    text="Entrar"
+                    action="/login"
+                    className={cn(
+                      'flex h-12 w-full items-center justify-center rounded-md border border-appButtonBorder',
+                      'font-bold uppercase text-appButtonText hover:bg-appButtonHover',
+                    )}
+                  />
+                </DialogClose>
+              )}
 
               {isLogged && (
                 <div className="rounded-lg border border-appMenuBorder bg-appMenuBackground p-2">

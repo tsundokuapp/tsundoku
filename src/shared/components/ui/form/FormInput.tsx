@@ -1,10 +1,10 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { Eye, EyeClosed } from '@phosphor-icons/react/dist/ssr';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
+  type FieldErrors,
   type Path,
   type PathValue,
-  type FieldErrors,
   type UseFormRegister,
   type UseFormSetValue,
 } from 'react-hook-form';
@@ -57,7 +57,7 @@ export const FormInput = <T extends Record<string, unknown>>({
   return (
     <div className="flex w-full max-w-sm flex-col">
       <label
-        className="mb-1 block text-base font-normal text-appText"
+        className="text-authText mb-1 block text-base font-normal"
         htmlFor={`input-${name}`}
       >
         {label}
@@ -68,7 +68,7 @@ export const FormInput = <T extends Record<string, unknown>>({
           id={`input-${name}`}
           placeholder={placeholder}
           className={cn(
-            'focus:border-primary dark:bg-appPrimary dark:focus:border-primary w-full rounded-md border border-[#e0e0e0] bg-appSearchBackground px-3 py-2 text-base font-medium text-appSearchText outline-none focus:shadow-md disabled:cursor-not-allowed dark:border-slate-700 disabled:dark:opacity-50',
+            'border-authInputBorder bg-authInputBackground text-authInputText focus:border-authInputFocus placeholder:text-authInputPlaceholder w-full rounded-md border px-3 py-2 text-base font-medium outline-none transition-colors focus:shadow-md disabled:cursor-not-allowed disabled:opacity-50',
             className,
           )}
           min={type === 'number' ? min : undefined}
@@ -78,7 +78,7 @@ export const FormInput = <T extends Record<string, unknown>>({
         />
         {isPassword && (
           <button
-            className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md outline-none transition-[color,box-shadow] focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="text-authInputIcon hover:text-authInputText absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md outline-none transition-colors focus:z-10 focus-visible:ring-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
             type="button"
             onClick={toggleVisibility}
             aria-label={isVisible ? 'Hide password' : 'Show password'}

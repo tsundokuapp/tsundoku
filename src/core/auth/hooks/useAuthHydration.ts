@@ -16,15 +16,12 @@ export const useAuthHydration = () => {
   const hasHydrated = useRef(false);
 
   useEffect(() => {
-    // Evita chamadas duplicadas (ex: StrictMode, re-renders)
     if (hasHydrated.current) return;
+    hasHydrated.current = true;
 
-    // Se já existe token válido, não precisa fazer refresh
     if (accessToken && !isTokenExpired()) {
       return;
     }
-
-    hasHydrated.current = true;
 
     const hydrateAuth = async () => {
       setIsPending(true);
