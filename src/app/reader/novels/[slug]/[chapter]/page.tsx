@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
-import { Poppins, Merriweather } from 'next/font/google';
+import { Merriweather, Poppins } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 
@@ -72,7 +72,7 @@ export default function NovelReader({ params }: PageProps) {
   }
 
   return (
-    <div className="relative pb-10">
+    <div className="relative pb-10 pt-[88px]">
       <ScrollProgressAnimation onTop>
         <ActionsBar removeList={['reader']} isReader>
           <ActionChapterWithVolumeList />
@@ -101,7 +101,7 @@ export default function NovelReader({ params }: PageProps) {
           {chapterNovel?.anterior && (
             <Button
               onClick={() => goToPrevious(chapterNovel.anterior)}
-              className="flex items-center gap-2 bg-appBackground text-appText hover:bg-appBackground"
+              className="flex items-center gap-2 border border-appButtonBorder bg-appBackground text-appText hover:bg-appBackground"
             >
               <ArrowLeft size={24} />
               <p>Anterior</p>
@@ -111,7 +111,7 @@ export default function NovelReader({ params }: PageProps) {
           {chapterNovel?.proxima ? (
             <Button
               onClick={() => goToNext(chapterNovel?.proxima)}
-              className="hover:bg-appBackground/80 flex items-center gap-2 bg-appBackground text-appText"
+              className="hover:bg-appBackground/80 flex items-center gap-2 border border-appButtonBorder bg-appBackground text-appText"
             >
               <p>Próximo</p>
               <ArrowRight size={24} />
@@ -119,7 +119,7 @@ export default function NovelReader({ params }: PageProps) {
           ) : (
             <Button
               onClick={() => router.push(`/novels/${slugObra}`)}
-              className="hover:bg-appBackground/80 flex items-center gap-2 text-nowrap bg-appBackground text-appText"
+              className="hover:bg-appBackground/80 flex items-center gap-2 text-nowrap border border-appButtonBorder bg-appBackground text-appText"
             >
               <p>Retornar para obra</p>
             </Button>

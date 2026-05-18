@@ -1,16 +1,18 @@
 .theme-dark {
   /* ...regras do tema dark extraídas do globals.css... */
-  --app-color-background: var(--color-black-900);
+  --reader-color-background: var(--color-black-900);
+
+  --app-color-background: var(--color-zinc-800);
   /* Header */
   --app-color-header-background: var(--color-black-900);
   --app-color-header-text: var(--color-white);
   --app-color-header-highlight: var(--color-black-highlight);
   /* Footer */
-  --app-color-footer-background: var(--color-black-neutral);
-  --app-color-footer-text: var(--color-black-900);
-  --app-color-footer-highlight: var(--color-black-900);
+  --app-color-footer-background: var(--color-black-900);
+  --app-color-footer-text: var(--color-zinc-100);
+  --app-color-footer-highlight: var(--color-zinc-400);
   /* Text */
-  --app-color-text: var(--color-white);
+  --app-color-text: var(--color-zinc-300);
   /* Elements */
   --app-color-icon: var(--color-white);
   --app-color-tag: var(--color-white);
@@ -25,7 +27,7 @@
   --app-color-button-hover: var(--color-zinc-800);
   --app-color-button-text: var(--color-white);
   --app-color-button-icon: var(--color-white);
-  --app-color-button-outline-border: var(--color-white);
+  --app-color-button-outline-border: var(--color-zinc-400);
   --app-color-button-outline-text: var(--color-white);
   --app-color-button-fill-background: var(--color-white);
   --app-color-button-fill-text: var(--color-zinc-900);
@@ -51,15 +53,15 @@
   --app-color-list-text: var(--color-zinc-100);
   /* Menu */
   --app-color-menu-background: var(--color-zinc-700);
-  --app-color-menu-border: var(--color-zinc-100);
+  --app-color-menu-border: var(--color-zinc-600);
   --app-color-menu-hover: var(--color-zinc-500);
   --app-color-menu-text: var(--color-white);
   --app-color-menu-title: var(--color-zinc-600);
   --app-color-menu-breakline: var(--color-zinc-600);
 
   /* Titulos */
-  --app-color-title: var(--color-white);
-  --app-color-subtitle: var(--color-gray-500);
+  --app-color-title: var(--color-zinc-200);
+  --app-color-subtitle: var(--color-zinc-400);
   --app-color-highlight: var(--color-black-highlight);
   --app-color-highlight-text: var(--color-white);
 

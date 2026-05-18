@@ -1,3 +1,4 @@
+import { FileDashed } from '@phosphor-icons/react/dist/ssr';
 import { type ComponentProps } from 'react';
 
 import { ScrollMode } from '@/features/reader/types/ScrollMode';
@@ -39,7 +40,28 @@ export function ActionPageList({
   };
 
   return (
-    <DropdownContainer label={dropdownLabel} value={dropdownValue}>
+    <DropdownContainer
+      label={
+        <>
+          <span className="sm:hidden">
+            <FileDashed size={16} />
+          </span>
+          <span className="hidden sm:inline">{dropdownLabel}</span>
+        </>
+      }
+      value={
+        <>
+          <span className="sm:hidden">
+            <FileDashed size={16} />
+          </span>
+          <span className="hidden sm:inline">{dropdownValue}</span>
+        </>
+      }
+      className="min-w-[52px] sm:min-w-[180px]"
+      buttonClassname="px-2 sm:px-3"
+      menuClassname="min-w-[180px]"
+      matchTriggerWidth={false}
+    >
       {pageList.map(({ pageListItemIndex, pageListItemLabel }) => {
         return (
           <DropdownOption

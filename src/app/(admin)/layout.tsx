@@ -1,6 +1,6 @@
 import {
   AddressBookTabs,
-  BookOpenText,
+  Bookmark,
   Checkerboard,
   IdentificationBadge,
   Users,
@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
         <hr className="my-3 border-t border-gray-400" />
         <SidebarItem
-          icon={<BookOpenText size={24} />}
+          icon={<Bookmark size={24} />}
           text="Novel"
           action="/noveladmin"
         />

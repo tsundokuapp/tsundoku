@@ -29,6 +29,7 @@ interface DropdownContainerProps extends ComponentProps<'div'> {
   children: ReactNode;
   isButton?: boolean;
   customIcon?: ReactNode;
+  matchTriggerWidth?: boolean;
 }
 
 interface Position {
@@ -71,6 +72,7 @@ export function DropdownContainer({
   className,
   isButton = false,
   customIcon,
+  matchTriggerWidth = true,
   ...props
 }: DropdownContainerProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -238,7 +240,9 @@ export function DropdownContainer({
             )}
             role="menu"
             style={{
-              width: triggerRef.current?.offsetWidth || 'auto',
+              width: matchTriggerWidth
+                ? triggerRef.current?.offsetWidth || 'auto'
+                : 'auto',
             }}
           >
             <div

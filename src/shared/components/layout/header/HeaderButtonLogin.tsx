@@ -1,5 +1,5 @@
 'use client';
-import { Spinner, User } from '@phosphor-icons/react/dist/ssr';
+import { Spinner, User, UserCircle } from '@phosphor-icons/react/dist/ssr';
 import { LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -11,7 +11,15 @@ import { useToaster } from '@/shared/contexts/ToasterContext';
 
 import { Avatar, AvatarFallback } from '../../ui/avatar';
 
-export function HeaderButtonLogin() {
+interface HeaderButtonLoginProps {
+  compact?: boolean;
+  compactStyle?: 'solid' | 'ghost';
+}
+
+export function HeaderButtonLogin({
+  compact = false,
+  compactStyle = 'solid',
+}: HeaderButtonLoginProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const { toaster } = useToaster();
@@ -23,6 +31,7 @@ export function HeaderButtonLogin() {
   async function handleLogout() {
     await auth.get('logout');
     logout();
+    setIsOpen(false);
 
     toaster({
       type: 'info',
@@ -80,40 +89,72 @@ export function HeaderButtonLogin() {
     return (
       <ItemList
         icon={<LayoutDashboard size={16} />}
-        text="Dashboad"
-        action={() => router.push('/dashboard')}
+        text="Dashboard"
+        action={() => {
+          router.push('/dashboard');
+          setIsOpen(false);
+        }}
       />
     );
   };
+
+  const compactButtonClass =
+    'flex h-10 w-10 items-center justify-center rounded-md border border-appMenuBorder bg-appInputBackground text-appText hover:bg-appGroupBackground';
+  const compactGhostButtonClass =
+    'flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground';
+
+  const compactClass =
+    compactStyle === 'ghost' ? compactGhostButtonClass : compactButtonClass;
 
   return (
     <div ref={dropdownRef} className="relative">
       {isLogged ? (
         <button
-          className="flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
+          className={
+            compact
+              ? compactClass
+              : 'flex h-10 max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground'
+          }
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
-            <AvatarFallback className="bg-appMenuBackground font-medium text-appText">
-              {getInitials(username)}
-            </AvatarFallback>
-          </Avatar>
-          <div className="ml-2 flex flex-1 flex-col items-start justify-start">
-            <p className="text-sm capitalize text-appText">{username}</p>
-            <p className="text-xs capitalize text-appSubtitle">
-              {position || 'Leitor'}
-            </p>
-          </div>
+          {compactStyle === 'ghost' ? (
+            <UserCircle size={24} weight="duotone" />
+          ) : (
+            <Avatar className="border-background h-8 w-8 border-2 bg-appMenuBackground text-[10px]">
+              <AvatarFallback className="bg-appMenuBackground font-medium text-appText">
+                {getInitials(username)}
+              </AvatarFallback>
+            </Avatar>
+          )}
+
+          {!compact && (
+            <div className="ml-2 flex flex-1 flex-col items-start justify-start">
+              <p className="text-sm capitalize text-appText">{username}</p>
+              <p className="text-xs capitalize text-appSubtitle">
+                {position || 'Leitor'}
+              </p>
+            </div>
+          )}
         </button>
       ) : (
         <button
-          className="flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground"
+          className={
+            compact
+              ? compactClass
+              : 'flex h-10 w-fit max-w-24 items-center justify-center rounded-md bg-transparent px-8 hover:bg-appButtonBackground'
+          }
           onClick={() => handleLogin()}
         >
           {isPending ? (
             <Spinner size={16} className="animate-spin" />
           ) : (
-            <p>Logar</p>
+            <>
+              {compact ? (
+                <UserCircle size={24} weight="duotone" />
+              ) : (
+                <p>Entrar</p>
+              )}
+            </>
           )}
         </button>
       )}
@@ -129,6 +170,7 @@ export function HeaderButtonLogin() {
                 username
                   ? router.push(`/profile/${username}`)
                   : router.push('/auth');
+                setIsOpen(false);
               }}
             />
             <ItemList

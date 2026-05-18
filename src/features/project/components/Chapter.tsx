@@ -1,5 +1,5 @@
 'use client';
-import { BookOpenText, DotOutline } from '@phosphor-icons/react/dist/ssr';
+import { Bookmark, DotOutline } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -13,7 +13,7 @@ export interface ChapterProps extends React.HTMLAttributes<HTMLAnchorElement> {
   name: string;
   number?: string;
   date?: Date | string;
-  variant?: 'regular' | 'fill';
+  variant?: 'regular' | 'fill' | 'duotone';
   border?: 'bottom' | 'full';
 }
 
@@ -47,7 +47,7 @@ export function Chapter({
   }) => {
     return (
       <div className="flex flex-row items-center gap-2">
-        <BookOpenText size={24} weight={variant} />
+        <Bookmark size={24} weight={variant} />
 
         {number !== '' ? (
           <span className="font-bold">Capítulo {number}</span>

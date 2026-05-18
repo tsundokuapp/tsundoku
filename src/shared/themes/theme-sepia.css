@@ -1,5 +1,7 @@
 .theme-sepia {
   /* ...regras do tema sepia extraídas do globals.css... */
+  --reader-color-background: var(--color-stone-400);
+
   --app-color-background: var(--color-stone-300);
   /* Header */
   --app-color-header-background: var(--color-stone-900);
@@ -30,15 +32,15 @@
   --app-color-button-fill-background: var(--color-stone-900);
   --app-color-button-fill-text: var(--color-white);
   /* Buscar */
-  --app-color-search-background: var(--color-stone-700);
-  --app-color-search-placeholder: var(--color-gray-500);
-  --app-color-search-text: var(--color-white);
+  --app-color-search-background: var(--color-stone-100);
+  --app-color-search-placeholder: var(--color-stone-500);
+  --app-color-search-text: var(--color-stone-900);
   /* Grupo */
   --app-color-group-background: var(--color-stone-200);
-  --app-color-group-hover: var(--color-stone-400);
+  --app-color-group-hover: var(--color-stone-300);
   --app-color-group-text: var(--color-stone-900);
   /* Inputs */
-  --app-color-input-background: var(--color-white);
+  --app-color-input-background: var(--color-stone-300);
   --app-color-input-border: var(--color-stone-900);
   --app-color-input-placeholder: var(--color-stone-500);
   --app-color-input-text: var(--color-stone-900);
@@ -50,12 +52,12 @@
   --app-color-list-hover: var(--color-stone-400);
   --app-color-list-text: var(--color-stone-900);
   /* Menu */
-  --app-color-menu-background: var(--color-white);
-  --app-color-menu-border: var(--color-stone-100);
-  --app-color-menu-hover: var(--color-zinc-100);
-  --app-color-menu-text: var(--color-zinc-700);
-  --app-color-menu-title: var(--color-zinc-600);
-  --app-color-menu-breakline: var(--color-zinc-600);
+  --app-color-menu-background: var(--color-stone-300);
+  --app-color-menu-border: var(--color-stone-400);
+  --app-color-menu-hover: var(--color-stone-400);
+  --app-color-menu-text: var(--color-stone-800);
+  --app-color-menu-title: var(--color-stone-700);
+  --app-color-menu-breakline: var(--color-stone-700);
   /* Titulos */
   --app-color-title: var(--color-stone-900);
   --app-color-subtitle: var(--color-stone-700);
