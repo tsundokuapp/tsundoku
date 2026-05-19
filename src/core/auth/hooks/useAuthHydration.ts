@@ -26,7 +26,7 @@ export const useAuthHydration = () => {
     const hydrateAuth = async () => {
       setIsPending(true);
       try {
-        const { data } = await auth.get('refresh-token');
+        const { data } = await auth.get('/auth/refresh-token');
 
         setAccessToken(data.accessToken);
         setUsername(data.userName);
