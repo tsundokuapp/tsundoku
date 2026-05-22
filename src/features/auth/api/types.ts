@@ -11,8 +11,8 @@ export interface IUserRegisterData {
 }
 
 export interface IUserLoginData {
-  UserName: string;
-  Password: string;
+  Usuario: string;
+  Senha: string;
 }
 
 export interface IUserLoginResponse {

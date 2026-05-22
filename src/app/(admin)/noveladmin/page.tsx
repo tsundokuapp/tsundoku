@@ -24,7 +24,6 @@ import {
 } from '@/shared/components/ui/form';
 import { useModal } from '@/shared/contexts/ModalContext';
 import { useToaster } from '@/shared/contexts/ToasterContext';
-import { IGenres } from '@/shared/types/common';
 
 export default function NovelAdmin() {
   const { openModal, closeModal } = useModal();
@@ -42,8 +41,7 @@ export default function NovelAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData =
-    arrayGenres?.map((genre: IGenres) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre) || [];
 
   const { mutateAsync: createNovelFn } = useMutation({
     mutationFn: createNovelService,

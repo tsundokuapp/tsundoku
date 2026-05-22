@@ -41,8 +41,9 @@ export function HeaderButtonLogin({
     });
   }
 
-  function handleLogin() {
-    router.push('/login');
+  function handleLogin() {    
+    //router.push('/login');
+    router.push('/dashboard');
   }
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -86,7 +87,7 @@ export function HeaderButtonLogin({
   };
 
   const ItemsStaff = () => {
-    if (position !== 'Admin' && position !== 'Staff') return;
+    if (position !== 'Admin' && position !== 'Staff') return; 
 
     return (
       <ItemList

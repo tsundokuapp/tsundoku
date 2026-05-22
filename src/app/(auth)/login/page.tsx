@@ -45,8 +45,8 @@ export default function LoginPage() {
     clearErrors('root');
 
     const formData: IUserLoginData = {
-      UserName: data.username,
-      Password: data.password,
+      Usuario: data.username,
+      Senha: data.password,
     };
 
     const result = await loginUserFn(formData);

@@ -109,7 +109,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
       return;
     }
 
-    if (roles === null || roles.length === 0) {
+    if (roles === null || roles.length === 0 || !Array.isArray(roles)) {
       roles = ['Leitor'];
     }
 

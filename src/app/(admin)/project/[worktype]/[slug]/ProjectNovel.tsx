@@ -65,8 +65,7 @@ export function ProjectNovel() {
   const projectResponse = response?.ok ? response.data : undefined;
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData =
-    arrayGenres?.map((genre: IGenres) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre) || []; 
 
   const { toaster } = useToaster();
 

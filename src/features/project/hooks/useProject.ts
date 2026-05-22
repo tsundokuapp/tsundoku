@@ -62,7 +62,7 @@ export const usePublicGenres = (): UseQueryResult<IPublicGenres[]> => {
     queryFn: async () => {
       const result = await getGenres();
       if (!result.ok) throw result.error;
-      return result.data.data;
+      return result.data;
     },
   });
 };
