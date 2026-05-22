@@ -12,6 +12,7 @@ import {
 import { cn } from '@/shared/utils/cn';
 
 import { MultiSelect } from '../select/MultiSelect';
+import { IGenres } from '@/shared/types/common';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;
@@ -19,7 +20,7 @@ interface FormMultiSelectProps<T extends Record<string, unknown>> {
   watch: UseFormWatch<T>;
   getValues: UseFormGetValues<T>;
   onClick: (items: T[keyof T]) => void;
-  options: string[];
+  options: any[];
   className?: string;
   defaultValue?: PathValue<T, Path<T>>;
   errors: FieldErrors;
@@ -49,8 +50,8 @@ export const FormMultiSelect = <T extends Record<string, unknown>>({
     hasSetDefault.current = true;
   }, [defaultValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const generateOptions = (items: string[]) => {
-    return items.map((item) => ({ label: item, value: item }));
+  const generateOptions = (items: IGenres[]) => {
+    return items.map((item) => ({ label: item.label, value: item.value }));
   };
 
   return (

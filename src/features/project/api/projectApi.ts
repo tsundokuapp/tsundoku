@@ -1,5 +1,5 @@
 import { api } from '@/core/api';
-import { ApiResponse, PaginatedResponse } from '@/core/api/types';
+import { ApiResponse, PaginatedResponse, PaginatedResponseGenres } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
 
 import {
@@ -29,7 +29,7 @@ export const getRecomendations = async (): Promise<
 };
 
 export const getGenres = async (): Promise<
-  ApiResponse<PaginatedResponse<IPublicGenres[]>>
+  ApiResponse<PaginatedResponseGenres<IPublicGenres[]>>
 > => {
   try {
     const { data } = await api.get('/generos');

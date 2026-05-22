@@ -106,7 +106,7 @@ interface MultiSelectProps
   /**
    * An array of option objects or groups to be displayed in the multi-select component.
    */
-  options: MultiSelectOption[] | MultiSelectGroup[];
+  options: MultiSelectOption[] | MultiSelectGroup[] | any[];
   /**
    * Callback function triggered when the selected values change.
    * Receives an array of the new selected values.
@@ -536,8 +536,10 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     }, [options, deduplicateOptions, isGroupedOptions]);
 
     const getOptionByValue = React.useCallback(
-      (value: string): MultiSelectOption | undefined => {
-        const option = getAllOptions().find((option) => option.value === value);
+      (value: any): MultiSelectOption | undefined => {
+        
+        const option = getAllOptions().find(option => option.label === value.label);        
+
         if (!option && process.env.NODE_ENV === 'development') {
           console.warn(
             `MultiSelect: Item com o nome "${value}" não foi encontrado na lista`,
@@ -586,7 +588,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     };
 
     const toggleOption = (optionValue: string) => {
-      if (disabled) return;
+      if (disabled) return;      
       const option = getOptionByValue(optionValue);
       if (option?.disabled) return;
       const newSelectedValues = selectedValues.includes(optionValue)
@@ -757,7 +759,8 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 } selecionados: ${selectedValues
                   .map((value) => getOptionByValue(value)?.label)
                   .filter(Boolean)
-                  .join(', ')}`}
+                  .join(', ')}`                  
+                  }
           </div>
 
           <PopoverTrigger asChild>

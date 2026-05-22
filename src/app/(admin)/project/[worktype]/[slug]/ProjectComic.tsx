@@ -67,7 +67,7 @@ export function ProjectComic() {
     : undefined;
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre) || [];
 
   const { toaster } = useToaster();
 
@@ -283,7 +283,7 @@ export function ProjectComic() {
                     options={genresData}
                     errors={errors}
                     defaultValue={projectResponse?.generos.map(
-                      (genre) => genre.descricao,
+                      (genre) => genre,
                     )}
                   />
                 </div>

@@ -18,6 +18,10 @@ export interface PaginatedResponse<T> {
   total: number;
 }
 
+export interface PaginatedResponseGenres<T> {
+  data: T[];
+}
+
 export interface PaginatedComicChapter<T> {
   data: T[];
   proxima: string;
