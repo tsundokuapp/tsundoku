@@ -59,8 +59,11 @@ export default function Novels() {
   const sortedGenres = useMemo(() => {
     if (!genres) return [];
     const genreArray = Array.isArray(genres) ? genres : [];
+    
+    console.log("genreArray", genreArray);
+    
     return [...genreArray].sort((a, b) =>
-      a.descricao.localeCompare(b.descricao),
+      a.label.localeCompare(b.label),
     );
   }, [genres]);
 
@@ -103,11 +106,11 @@ export default function Novels() {
         >
           {sortedGenres.map((g) => (
             <DropdownOption
-              key={g.id}
-              label={g.descricao}
-              onClick={() => setGenre(g.descricao)}
-              value={g.descricao}
-              selected={g.descricao === genre}
+              key={g.label}
+              label={g.label}
+              onClick={() => setGenre(g.label)}
+              value={g.label}
+              selected={g.label === genre}
             />
           ))}
         </DropdownContainer>
