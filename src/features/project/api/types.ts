@@ -20,9 +20,8 @@ export interface IProjectsHome {
 }
 
 export interface IPublicGenres {
-  id: string;
-  descricao: string;
-  slug: string;
+  label: string;
+  value: string;
 }
 
 export interface IWorkData {
