@@ -17,8 +17,8 @@ import { Debounce } from '@/shared/utils/Debounce';
 import { ORDER_BY, STATUS_COMIC, TOrderBy } from '@/shared/utils/systemValues';
 
 export default function Comics() {
-  const INITIAL_GENRES = [
-    { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
+  const INITIAL_GENRES: IPublicGenres[] = [
+    { label: 'Filtrar por Gênero', value: '' },
   ];
 
   const [search, setSearch] = useState('');
