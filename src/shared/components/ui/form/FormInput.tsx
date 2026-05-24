@@ -57,7 +57,7 @@ export const FormInput = <T extends Record<string, unknown>>({
   return (
     <div className="flex w-full max-w-sm flex-col">
       <label
-        className="text-authText mb-1 block text-base font-normal"
+        className="mb-1 block text-base font-normal text-authText"
         htmlFor={`input-${name}`}
       >
         {label}
@@ -68,7 +68,7 @@ export const FormInput = <T extends Record<string, unknown>>({
           id={`input-${name}`}
           placeholder={placeholder}
           className={cn(
-            'border-authInputBorder bg-authInputBackground text-authInputText focus:border-authInputFocus placeholder:text-authInputPlaceholder w-full rounded-md border px-3 py-2 text-base font-medium outline-none transition-colors focus:shadow-md disabled:cursor-not-allowed disabled:opacity-50',
+            'w-full rounded-md border border-authInputBorder bg-authInputBackground px-3 py-2 text-base font-medium text-authInputText outline-none transition-colors placeholder:text-authInputPlaceholder focus:border-authInputFocus focus:shadow-md disabled:cursor-not-allowed disabled:opacity-50',
             className,
           )}
           min={type === 'number' ? min : undefined}
@@ -78,7 +78,7 @@ export const FormInput = <T extends Record<string, unknown>>({
         />
         {isPassword && (
           <button
-            className="text-authInputIcon hover:text-authInputText absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md outline-none transition-colors focus:z-10 focus-visible:ring-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-authInputIcon outline-none transition-colors hover:text-authInputText focus:z-10 focus-visible:ring-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
             type="button"
             onClick={toggleVisibility}
             aria-label={isVisible ? 'Hide password' : 'Show password'}

@@ -9,10 +9,10 @@ import {
   type UseFormWatch,
 } from 'react-hook-form';
 
+import { IGenres } from '@/shared/types/common';
 import { cn } from '@/shared/utils/cn';
 
 import { MultiSelect } from '../select/MultiSelect';
-import { IGenres } from '@/shared/types/common';
 
 interface FormMultiSelectProps<T extends Record<string, unknown>> {
   label: string;

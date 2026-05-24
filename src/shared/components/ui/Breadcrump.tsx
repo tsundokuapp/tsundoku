@@ -7,7 +7,6 @@ import { ComponentProps } from 'react';
 
 import { DropdownContainer } from '@/shared/components/ui/dropdown/DropdownContainer';
 import { DropdownOption } from '@/shared/components/ui/dropdown/DropdownOption';
-
 import { cn } from '@/shared/utils/cn';
 
 interface BreadcrumpProps extends ComponentProps<'nav'> {

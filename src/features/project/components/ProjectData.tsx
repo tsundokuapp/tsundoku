@@ -7,8 +7,8 @@ import { TStatusComic, TStatusNovel } from '@/shared/types/system';
 import { GetBadgeByStatusProject } from '@/shared/utils/GetBagde';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
-import { Tag } from '../../../shared/components/ui/Tag';
 import { CollapseText } from './CollapseText';
+import { Tag } from '../../../shared/components/ui/Tag';
 
 interface ProjectDataProps {
   src: string;

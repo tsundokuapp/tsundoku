@@ -537,8 +537,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 
     const getOptionByValue = React.useCallback(
       (value: any): MultiSelectOption | undefined => {
-        
-        const option = getAllOptions().find(option => option.label === value.label);        
+        const option = getAllOptions().find(
+          (option) => option.label === value.label,
+        );
 
         if (!option && process.env.NODE_ENV === 'development') {
           console.warn(
@@ -588,7 +589,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     };
 
     const toggleOption = (optionValue: string) => {
-      if (disabled) return;      
+      if (disabled) return;
       const option = getOptionByValue(optionValue);
       if (option?.disabled) return;
       const newSelectedValues = selectedValues.includes(optionValue)
@@ -759,8 +760,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 } selecionados: ${selectedValues
                   .map((value) => getOptionByValue(value)?.label)
                   .filter(Boolean)
-                  .join(', ')}`                  
-                  }
+                  .join(', ')}`}
           </div>
 
           <PopoverTrigger asChild>

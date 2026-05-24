@@ -1,6 +1,11 @@
 'use client';
 import { Spinner, User, UserCircle } from '@phosphor-icons/react/dist/ssr';
-import { ChevronDown, ExternalLink, LayoutDashboard, LogOut } from 'lucide-react';
+import {
+  ChevronDown,
+  ExternalLink,
+  LayoutDashboard,
+  LogOut,
+} from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -30,7 +35,14 @@ export function HeaderButtonLogin({
   const pathname = usePathname();
 
   const isLogged = username;
-  const adminRoutes = ['/dashboard', '/staff', '/noveladmin', '/mangaadmin', '/staffadmin', '/useradmin'];
+  const adminRoutes = [
+    '/dashboard',
+    '/staff',
+    '/noveladmin',
+    '/mangaadmin',
+    '/staffadmin',
+    '/useradmin',
+  ];
   const isOnAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
   async function handleLogout() {
