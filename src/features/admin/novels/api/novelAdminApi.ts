@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { api } from '@/core/api';
+import { apiPrivate as api } from '@/core/api';
 import { ApiResponse, PaginatedResponse } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
 
@@ -88,17 +88,15 @@ export const createNovelChapter = async (
   }
 };
 
-export const getAdminNovels = async (): Promise<
+export const getPrivateNovels = async (): Promise<
   ApiResponse<PaginatedResponse<INovelResponse>>
 > => {
   try {
     const { data } = await api.get('/admin/obra/novels?take=12');
     return { ok: true, data };
   } catch (error) {
-    return {
-      ok: false,
-      error: handleApiError(error),
-    };
+    console.error(error);
+    return { ok: false, error: handleApiError(error) };
   }
 };
 
