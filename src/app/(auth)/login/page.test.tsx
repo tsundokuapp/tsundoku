@@ -85,9 +85,9 @@ describe('LoginPage', () => {
     loginUserServiceMock.mockResolvedValue({
       ok: true,
       data: {
-        userName: 'usuario-teste',
+        usuario: 'usuario-teste',
         accessToken: validToken,
-        TsunId: 'tsun-123',
+        tsunId: 'tsun-123',
       },
     });
 
