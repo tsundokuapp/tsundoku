@@ -51,8 +51,8 @@ export function ProjectData({
         <span className="font-bold">Gêneros:</span>
         {genres.map((genre) => (
           <Tag
-            key={typeof genre === 'string' ? genre : genre.slug}
-            text={typeof genre === 'string' ? genre : genre.descricao}
+            key={typeof genre === 'string' ? genre : genre.value}
+            text={typeof genre === 'string' ? genre : genre.label}
           />
         ))}
       </div>

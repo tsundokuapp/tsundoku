@@ -40,7 +40,7 @@ export default function Comics() {
   useEffect(() => {
     if (genresResponse) {
       const genresOrdered = genresResponse.sort((a, b) =>
-        a.descricao.localeCompare(b.descricao),
+        a.label.localeCompare(b.label),
       );
       setGenresList(genresOrdered);
     }
@@ -87,7 +87,7 @@ export default function Comics() {
 
     if (projectsResponse?.data) {
       const filtered = projectsResponse?.data.filter((item) => {
-        return item.listaGeneros.some((g: IGenres) => g.descricao === genre);
+        return item.listaGeneros.some((g: IGenres) => g.label === genre);
       });
 
       setComicList(filtered);
@@ -127,11 +127,11 @@ export default function Comics() {
       >
         {genresList.map((genre) => (
           <DropdownOption
-            key={genre.id}
-            label={genre.descricao}
-            onClick={() => findByGenre(genre.descricao)}
-            value={genre.descricao}
-            selected={genre.descricao === genres}
+            key={genre.value}
+            label={genre.label}
+            onClick={() => findByGenre(genre.label)}
+            value={genre.value}
+            selected={genre.label === genres}
           />
         ))}
       </DropdownContainer>

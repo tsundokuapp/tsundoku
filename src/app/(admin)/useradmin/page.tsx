@@ -41,7 +41,7 @@ export default function UserAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre.label) || [];
 
   const { mutateAsync: createNovelFn } = useMutation({
     mutationFn: createNovelService,
