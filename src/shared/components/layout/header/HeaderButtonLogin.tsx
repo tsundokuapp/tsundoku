@@ -1,7 +1,7 @@
 'use client';
 import { Spinner, User, UserCircle } from '@phosphor-icons/react/dist/ssr';
-import { ChevronDown, LayoutDashboard, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { ChevronDown, ExternalLink, LayoutDashboard, LogOut } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { auth } from '@/core/api';
@@ -27,13 +27,20 @@ export function HeaderButtonLogin({
   const { toaster } = useToaster();
   const { username, logout, position, isPending } = useAuthStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   const isLogged = username;
+  const adminRoutes = ['/dashboard', '/staff', '/noveladmin', '/mangaadmin', '/staffadmin', '/useradmin'];
+  const isOnAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
   async function handleLogout() {
-    await auth.get('logout');
+    await auth.get('auth/logout');
     logout();
     setIsOpen(false);
+
+    if (isOnAdmin) {
+      router.push('/');
+    }
 
     toaster({
       type: 'info',
@@ -41,9 +48,8 @@ export function HeaderButtonLogin({
     });
   }
 
-  function handleLogin() {    
-    //router.push('/login');
-    router.push('/dashboard');
+  function handleLogin() {
+    router.push('/login');
   }
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -87,7 +93,20 @@ export function HeaderButtonLogin({
   };
 
   const ItemsStaff = () => {
-    if (position !== 'Admin' && position !== 'Staff') return; 
+    if (position !== 'Admin' && position !== 'Staff') return;
+
+    if (isOnAdmin) {
+      return (
+        <ItemList
+          icon={<ExternalLink size={16} />}
+          text="Ver Site"
+          action={() => {
+            router.push('/');
+            setIsOpen(false);
+          }}
+        />
+      );
+    }
 
     return (
       <ItemList

@@ -33,7 +33,7 @@ export function ReaderProgressBar({
 
   return (
     <div
-      className="fixed bottom-0 left-0 w-full bg-white shadow-inner dark:bg-zinc-950"
+      className="fixed bottom-0 left-0 w-full bg-[var(--reader-color-background)] shadow-inner"
       {...props}
     >
       <div className="flex items-center justify-between">

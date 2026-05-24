@@ -61,7 +61,7 @@ export default function ComicReader({
           publicado: chapter.publicado,
           ordemCapitulo: chapter.ordemCapitulo,
           slug: chapter.slug,
-          descritivoCapitulo: chapter.descritivoCapitulo,
+          descritivoCapitulo: chapter.descritivoCapitulo || chapter.slug.replace(/-/g, ' '),
           dataInclusao: chapter.dataInclusao,
         }),
       );
@@ -97,7 +97,7 @@ export default function ComicReader({
 
   return (
     <div ref={comicContainerRef} className="relative h-[100vh] pt-[88px]">
-      <ActionsBar removeList={['reader']}>
+      <ActionsBar removeList={['reader']} className="bg-[var(--reader-color-background)]">
         <ActionChapterList
           totalChapters={chapterListData.length}
           currentChapter={slugChapter ? slugChapter!.replace(/-/g, ' ') : '0'}

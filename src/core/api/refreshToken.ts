@@ -16,7 +16,7 @@ export const refreshAccessToken = async () => {
   isRefreshing = true;
 
   try {
-    const { data } = await auth.get('/auth/refresh-token');
+    const { data } = await auth.get('refresh-token');
 
     useAuthStore.getState().setAccessToken(data.accessToken);
 

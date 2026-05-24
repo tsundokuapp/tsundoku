@@ -1,5 +1,6 @@
 import { List } from '@phosphor-icons/react/dist/ssr';
 import { LogOut } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 import { auth } from '@/core/api';
@@ -28,16 +29,25 @@ export function HeaderMenu() {
   const [open, setOpen] = useState(false);
   const { toaster } = useToaster();
   const { username, position, logout } = useAuthStore();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const isLogged = Boolean(username);
   const canAccessAdmin = position === 'Admin' || position === 'Staff';
+  const adminRoutes = ['/dashboard', '/staff', '/noveladmin', '/mangaadmin', '/staffadmin', '/useradmin'];
+  const isOnAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
   const handleLogout = async () => {
     try {
-      await auth.get('logout');
+      await auth.get('auth/logout');
     } finally {
       logout();
       setOpen(false);
+
+      if (isOnAdmin) {
+        router.push('/');
+      }
+
       toaster({
         type: 'info',
         msg: 'Voce saiu da sua conta. Ate breve!',
@@ -169,8 +179,8 @@ export function HeaderMenu() {
                     {canAccessAdmin && (
                       <DialogClose asChild>
                         <LinkButton
-                          text="Administracao"
-                          action="/dashboard"
+                          text={isOnAdmin ? 'Ver Site' : 'Administracao'}
+                          action={isOnAdmin ? '/' : '/dashboard'}
                           className={cn(
                             'inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-appMenuBorder px-3 text-sm font-semibold text-appMenuText hover:bg-appMenuHover',
                           )}

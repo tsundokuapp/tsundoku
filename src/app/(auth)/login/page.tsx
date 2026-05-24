@@ -61,9 +61,9 @@ export default function LoginPage() {
       return;
     }
 
-    setUsername(result.data.userName);
+    setUsername(result.data.usuario);
     setAccessToken(result.data.accessToken);
-    setTsunId(result.data.TsunId);
+    setTsunId(result.data.tsunId);
 
     reset();
     router.push('/');

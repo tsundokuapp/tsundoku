@@ -74,7 +74,7 @@ export default function NovelReader({ params }: PageProps) {
   return (
     <div className="relative pb-10 pt-[88px]">
       <ScrollProgressAnimation onTop>
-        <ActionsBar removeList={['reader']} isReader>
+        <ActionsBar removeList={['reader']} isReader className="bg-[var(--reader-color-background)]">
           <ActionChapterWithVolumeList />
           <ActionFontFamilyControl onChange={setFontFamily} />
           <ActionFontSizeControl onChange={setFontSize} />

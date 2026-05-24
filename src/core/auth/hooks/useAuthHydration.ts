@@ -26,11 +26,11 @@ export const useAuthHydration = () => {
     const hydrateAuth = async () => {
       setIsPending(true);
       try {
-        const { data } = await auth.get('/auth/refresh-token');
+        const { data } = await auth.get('refresh-token');
 
         setAccessToken(data.accessToken);
-        setUsername(data.userName);
-        setTsunId(data.TsunId);
+        setUsername(data.usuario);
+        setTsunId(data.tsunId);
       } catch (error) {
         console.log('Fail to refresh token in useAuthHydration');
       } finally {
