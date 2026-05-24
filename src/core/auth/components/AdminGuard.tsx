@@ -9,7 +9,8 @@ export function AdminGuard({ children }: { children: ReactNode }) {
   const { username, position, isPending } = useAuthStore();
   const router = useRouter();
 
-  const isAuthorized = username && (position === 'Admin' || position === 'Staff');
+  const isAuthorized =
+    username && (position === 'Admin' || position === 'Staff');
 
   useEffect(() => {
     if (isPending) return;
