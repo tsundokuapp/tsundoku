@@ -86,7 +86,7 @@ export default function RegisterPage() {
   return (
     <div className="relative">
       <div className="mb-5 text-center">
-        <p className="text-authSubtitle mt-2 text-sm">
+        <p className="mt-2 text-sm text-authSubtitle">
           Cadastre-se para acompanhar seus mangás e novels favoritos.
         </p>
       </div>
@@ -136,37 +136,37 @@ export default function RegisterPage() {
         />
 
         {errors.root?.message && (
-          <p className="border-authErrorBorder bg-authErrorBackground text-authErrorText rounded-md border px-3 py-2 text-sm">
+          <p className="rounded-md border border-authErrorBorder bg-authErrorBackground px-3 py-2 text-sm text-authErrorText">
             {errors.root.message}
           </p>
         )}
 
-        <div className="border-authSeparator bg-authPanelBackground text-authSubtitle rounded-lg border p-2.5 text-xs">
+        <div className="rounded-lg border border-authSeparator bg-authPanelBackground p-2.5 text-xs text-authSubtitle">
           Sua senha deve conter letra maiúscula, número e caractere especial.
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="border-authButtonBorder bg-authButtonBackground text-authButtonText hover:bg-authButtonHover inline-flex h-11 w-full items-center justify-center rounded-lg border px-4 text-sm font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-authButtonBorder bg-authButtonBackground px-4 text-sm font-semibold text-authButtonText transition-colors duration-200 hover:bg-authButtonHover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
         </button>
       </form>
 
       <div className="text-authSubtitle/70 mt-5 flex items-center gap-3">
-        <span className="bg-authSeparator h-[1.5px] flex-1" />
+        <span className="h-[1.5px] flex-1 bg-authSeparator" />
         <span className="text-[11px] uppercase tracking-[0.18em]">
           Já tem conta?
         </span>
-        <span className="bg-authSeparator h-[1.5px] flex-1" />
+        <span className="h-[1.5px] flex-1 bg-authSeparator" />
       </div>
 
-      <p className="text-authSubtitle mt-3 text-center text-sm">
+      <p className="mt-3 text-center text-sm text-authSubtitle">
         Já possui conta?{' '}
         <Link
           href="/login"
-          className="text-authHighlight hover:text-authHeaderHighlight font-semibold transition-colors"
+          className="font-semibold text-authHighlight transition-colors hover:text-authHeaderHighlight"
         >
           Entrar
         </Link>

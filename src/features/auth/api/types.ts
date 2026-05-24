@@ -16,7 +16,7 @@ export interface IUserLoginData {
 }
 
 export interface IUserLoginResponse {
-  userName: string;
+  usuario: string;
   accessToken: string;
-  TsunId: string;
+  tsunId: string;
 }

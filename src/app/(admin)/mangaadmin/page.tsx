@@ -41,7 +41,7 @@ export default function NovelAdmin() {
   });
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.map((genre) => genre.descricao) || [];
+  const genresData = arrayGenres?.map((genre) => genre.label) || [];
 
   const { mutateAsync: createComicFn } = useMutation({
     mutationFn: createComicService,

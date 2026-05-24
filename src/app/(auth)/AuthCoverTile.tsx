@@ -35,7 +35,7 @@ export function AuthCoverTile({
           aria-label={alt || 'Imagem indisponível'}
           className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_55%),linear-gradient(180deg,_rgba(11,29,61,0.98)_0%,_rgba(7,18,38,0.98)_100%)] p-2 text-center"
         >
-          <span className="border-authSeparator text-authSubtitle rounded-full border px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.22em]">
+          <span className="rounded-full border border-authSeparator px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-authSubtitle">
             Tsundoku
           </span>
           <span className="text-authSubtitle/70 max-w-full truncate text-[10px] font-medium">

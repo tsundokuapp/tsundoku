@@ -3,7 +3,7 @@
 exports[`Testes para o componente <ActionButtonControl /> Teste de snapshot Deve manter o snapshot do ActionButtonControl 1`] = `
 <div>
   <button
-    class="inline-flex h-10 w-full items-center justify-between rounded-lg border border-appMenuBorder bg-appMenuBackground px-4 py-2 text-sm font-medium text-appText hover:text-zinc-400 focus:outline-none"
+    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-appMenuBorder bg-appInputBackground px-2 py-2 text-sm font-medium text-appText hover:bg-appGroupBackground focus:outline-none sm:w-full sm:justify-between sm:px-4"
     role="button"
   >
     Clique aqui

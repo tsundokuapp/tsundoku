@@ -5,7 +5,9 @@ import { AuthCoverTile } from './AuthCoverTile';
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: React.ComponentProps<'img'>) => <img {...props} />,
+  default: ({ fill: _, priority: _p, sizes: _s, ...props }: Record<string, unknown>) => (
+    <img {...props} />
+  ),
 }));
 
 describe('AuthCoverTile', () => {

@@ -85,9 +85,9 @@ describe('LoginPage', () => {
     loginUserServiceMock.mockResolvedValue({
       ok: true,
       data: {
-        userName: 'usuario-teste',
+        usuario: 'usuario-teste',
         accessToken: validToken,
-        TsunId: 'tsun-123',
+        tsunId: 'tsun-123',
       },
     });
 
@@ -103,8 +103,8 @@ describe('LoginPage', () => {
 
     await waitFor(() => {
       expect(loginUserServiceMock).toHaveBeenCalledWith({
-        UserName: 'usuario-teste',
-        Password: 'Senha@123',
+        Usuario: 'usuario-teste',
+        Senha: 'Senha@123',
       });
     });
 

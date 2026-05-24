@@ -13,7 +13,7 @@ export const createUserService = async (
   dataRequest: IUserRegisterData,
 ): Promise<ApiResponse<IUserRegisterResponse>> => {
   try {
-    const { data } = await auth.post('/auth/cadastro', dataRequest);
+    const { data } = await auth.post('auth/cadastro', dataRequest);
     return { ok: true, data };
   } catch (error) {
     return {
@@ -27,7 +27,7 @@ export const loginUserService = async (
   dataRequest: IUserLoginData,
 ): Promise<ApiResponse<IUserLoginResponse>> => {
   try {
-    const { data } = await auth.post('/auth/login', dataRequest);
+    const { data } = await auth.post('auth/login', dataRequest);
     return { ok: true, data };
   } catch (error) {
     return {

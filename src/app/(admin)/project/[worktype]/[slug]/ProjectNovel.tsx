@@ -33,7 +33,6 @@ import {
   DragAndDropSingleImage,
 } from '@/shared/components/ui/form';
 import { useToaster } from '@/shared/contexts/ToasterContext';
-import { IGenres } from '@/shared/types/common';
 
 import { Volumes } from './Volumes';
 
@@ -65,7 +64,7 @@ export function ProjectNovel() {
   const projectResponse = response?.ok ? response.data : undefined;
 
   const { data: arrayGenres } = usePublicGenres();
-  const genresData = arrayGenres?.map((genre) => genre) || []; 
+  const genresData = arrayGenres?.map((genre) => genre) || [];
 
   const { toaster } = useToaster();
 
