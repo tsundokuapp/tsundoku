@@ -103,8 +103,8 @@ describe('LoginPage', () => {
 
     await waitFor(() => {
       expect(loginUserServiceMock).toHaveBeenCalledWith({
-        UserName: 'usuario-teste',
-        Password: 'Senha@123',
+        Usuario: 'usuario-teste',
+        Senha: 'Senha@123',
       });
     });
 
