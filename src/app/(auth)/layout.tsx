@@ -75,7 +75,7 @@ export default function AuthGroupLayout({
   return (
     <main
       style={authThemeVars}
-      className="bg-authBackground text-authText relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-6 sm:px-6"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-authBackground px-4 py-6 text-authText sm:px-6"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-4 gap-2 p-2 opacity-35 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
@@ -112,25 +112,25 @@ export default function AuthGroupLayout({
         />
       </div>
 
-      <section className="border-authCardBorder bg-authCardBackground relative z-10 w-full max-w-md rounded-2xl border p-5 shadow-2xl backdrop-blur-lg sm:p-6">
+      <section className="relative z-10 w-full max-w-md rounded-2xl border border-authCardBorder bg-authCardBackground p-5 shadow-2xl backdrop-blur-lg sm:p-6">
         <header className="mb-5 flex flex-col items-center gap-2 text-center">
-          <span className="border-authPanelBorder bg-authPanelBackground text-authSubtitle mb-3 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]">
+          <span className="mb-3 rounded-full border border-authPanelBorder bg-authPanelBackground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-authSubtitle">
             Comunidade de Leitores
           </span>
 
           <Link
             href="/"
-            className="text-authHeaderText flex items-center gap-1 text-3xl font-extrabold leading-none"
+            className="flex items-center gap-1 text-3xl font-extrabold leading-none text-authHeaderText"
           >
-            <span className="text-authHeaderHighlight font-black">/</span>
+            <span className="font-black text-authHeaderHighlight">/</span>
             <span>Tsundoku</span>
-            <span className="text-authHeaderHighlight font-black">/</span>
+            <span className="font-black text-authHeaderHighlight">/</span>
           </Link>
         </header>
 
         {children}
 
-        <footer className="border-authSeparator text-authSubtitle mt-5 border-t pt-4 text-center text-xs">
+        <footer className="mt-5 border-t border-authSeparator pt-4 text-center text-xs text-authSubtitle">
           <p className="tracking-wide">Light Novels e Mangás</p>
           <p className="text-authSubtitle/75 mt-2">Tsundoku &copy; - 2026</p>
         </footer>
