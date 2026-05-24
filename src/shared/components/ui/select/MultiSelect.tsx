@@ -106,6 +106,7 @@ interface MultiSelectProps
   /**
    * An array of option objects or groups to be displayed in the multi-select component.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: MultiSelectOption[] | MultiSelectGroup[] | any[];
   /**
    * Callback function triggered when the selected values change.
@@ -536,6 +537,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     }, [options, deduplicateOptions, isGroupedOptions]);
 
     const getOptionByValue = React.useCallback(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (value: any): MultiSelectOption | undefined => {
         const option = getAllOptions().find(
           (option) => option.label === value.label,

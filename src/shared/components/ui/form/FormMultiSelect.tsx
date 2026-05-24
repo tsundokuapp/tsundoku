@@ -20,6 +20,7 @@ interface FormMultiSelectProps<T extends Record<string, unknown>> {
   watch: UseFormWatch<T>;
   getValues: UseFormGetValues<T>;
   onClick: (items: T[keyof T]) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any[];
   className?: string;
   defaultValue?: PathValue<T, Path<T>>;
