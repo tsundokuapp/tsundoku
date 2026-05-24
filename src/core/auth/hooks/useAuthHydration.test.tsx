@@ -3,8 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 
 import { auth } from '@/core/api';
 
-import { useAuthStore } from '../stores/useAuthStore';
 import { useAuthHydration } from './useAuthHydration';
+import { useAuthStore } from '../stores/useAuthStore';
 
 jest.mock('@/core/api', () => ({
   auth: {

@@ -23,6 +23,9 @@ interface IAuthStore {
   roles: string[] | null;
   setRoles: (roles: string[] | null) => void;
 
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
+
   isAdmin?: boolean;
   setIsAdmin?: (isAdmin: boolean) => void;
   isPending: boolean;
@@ -80,6 +83,9 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
   username: null,
   setUsername: (username) => set({ username }),
 
+  hasHydrated: false,
+  setHasHydrated: (hasHydrated) => set({ hasHydrated }),
+
   accessToken: null,
   setAccessToken: (token) => {
     if (token && isTokenExpired(token)) {
@@ -132,6 +138,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
       position: null,
       roles: null,
       isAdmin: false,
+      hasHydrated: true,
     });
   },
 
