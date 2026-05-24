@@ -59,12 +59,10 @@ export default function Novels() {
   const sortedGenres = useMemo(() => {
     if (!genres) return [];
     const genreArray = Array.isArray(genres) ? genres : [];
-    
-    console.log("genreArray", genreArray);
-    
-    return [...genreArray].sort((a, b) =>
-      a.label.localeCompare(b.label),
-    );
+
+    console.log('genreArray', genreArray);
+
+    return [...genreArray].sort((a, b) => a.label.localeCompare(b.label));
   }, [genres]);
 
   return (
