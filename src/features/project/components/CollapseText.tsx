@@ -16,7 +16,7 @@ export function CollapseText({
   return (
     <>
       {maxCharacter === 0 ? (
-        <p className="text-justify">{children}</p>
+        <p className="text-justify indent-4">{children}</p>
       ) : (
         <p>
           {isExpanded
