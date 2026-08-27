@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { api } from '@/core/api';
 import { INovelResponse } from '@/features/admin/novels/api/types';
-import { useAdminNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
+import { usePrivateNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
 import { getWorksBySearch } from '@/features/project/api/projectApi';
 import { Button } from '@/shared/components/ui/button/Button';
 import { TdDefault } from '@/shared/components/ui/table/TdDefault';
@@ -39,7 +39,7 @@ interface ITableNovel {
 }
 
 export const TableUser = ({ openModal }: ITableNovel) => {
-  const { data: response, isLoading } = useAdminNovels();
+  const { data: response, isLoading } = usePrivateNovels();
   const queryClient = useQueryClient();
 
   const novelsResponse = response?.ok ? response?.data : undefined;
