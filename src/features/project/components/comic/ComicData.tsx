@@ -31,7 +31,8 @@ export function ComicData({ title, comicSlug }: ComicDataProps) {
           publicado: chapter.publicado,
           ordemCapitulo: chapter.ordemCapitulo,
           slug: chapter.slug,
-          descritivoCapitulo: chapter.descritivoCapitulo || chapter.slug.replace(/-/g, ' '),
+          descritivoCapitulo:
+            chapter.descritivoCapitulo || chapter.slug.replace(/-/g, ' '),
           dataInclusao: chapter.dataInclusao,
         }),
       );

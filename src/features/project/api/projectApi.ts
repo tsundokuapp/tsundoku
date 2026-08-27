@@ -1,5 +1,5 @@
 import { api } from '@/core/api';
-import { ApiResponse, PaginatedResponse, PaginatedResponseGenres } from '@/core/api/types';
+import { ApiResponse, PaginatedResponseGenres } from '@/core/api/types';
 import { handleApiError } from '@/core/api/util';
 
 import {

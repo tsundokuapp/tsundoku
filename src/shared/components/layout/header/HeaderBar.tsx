@@ -5,12 +5,12 @@ import { type ComponentProps } from 'react';
 import { useSearchBar } from '@/shared/contexts/SearchBarContext';
 import { cn } from '@/shared/utils/cn';
 
-import { LogoLink } from '../../ui/logoLink/LogoLink';
-import { ThemeToggle } from '../../ui/theme/ThemeToggle';
 import { HeaderButtonLogin } from './HeaderButtonLogin';
 import { HeaderIcon } from './HeaderIcon';
 import { HeaderLink } from './HeaderLink';
 import { HeaderMenu } from './HeaderMenu';
+import { LogoLink } from '../../ui/logoLink/LogoLink';
+import { ThemeToggle } from '../../ui/theme/ThemeToggle';
 
 type HeaderBarProps = ComponentProps<'header'>;
 

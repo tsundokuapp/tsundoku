@@ -106,6 +106,7 @@ interface MultiSelectProps
   /**
    * An array of option objects or groups to be displayed in the multi-select component.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: MultiSelectOption[] | MultiSelectGroup[] | any[];
   /**
    * Callback function triggered when the selected values change.
@@ -536,9 +537,11 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     }, [options, deduplicateOptions, isGroupedOptions]);
 
     const getOptionByValue = React.useCallback(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (value: any): MultiSelectOption | undefined => {
-        
-        const option = getAllOptions().find(option => option.label === value.label);        
+        const option = getAllOptions().find(
+          (option) => option.label === value.label,
+        );
 
         if (!option && process.env.NODE_ENV === 'development') {
           console.warn(
@@ -588,7 +591,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     };
 
     const toggleOption = (optionValue: string) => {
-      if (disabled) return;      
+      if (disabled) return;
       const option = getOptionByValue(optionValue);
       if (option?.disabled) return;
       const newSelectedValues = selectedValues.includes(optionValue)
@@ -759,8 +762,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 } selecionados: ${selectedValues
                   .map((value) => getOptionByValue(value)?.label)
                   .filter(Boolean)
-                  .join(', ')}`                  
-                  }
+                  .join(', ')}`}
           </div>
 
           <PopoverTrigger asChild>

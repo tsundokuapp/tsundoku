@@ -9,6 +9,9 @@ import { SideAnimation } from '@/shared/animations/SideAnimation';
 import { useToaster } from '@/shared/contexts/ToasterContext';
 import { cn } from '@/shared/utils/cn';
 
+import { HeaderIcon } from './HeaderIcon';
+import { HeaderLink } from './HeaderLink';
+import { HeaderSearch } from './HeaderSearch';
 import { LinkButton } from '../../ui/LinkButton';
 import {
   Dialog,
@@ -20,9 +23,6 @@ import {
   DialogTrigger,
 } from '../../ui/dialog';
 import { ThemeToggleList } from '../../ui/theme/ThemeToggleList';
-import { HeaderIcon } from './HeaderIcon';
-import { HeaderLink } from './HeaderLink';
-import { HeaderSearch } from './HeaderSearch';
 
 export function HeaderMenu() {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -34,7 +34,14 @@ export function HeaderMenu() {
 
   const isLogged = Boolean(username);
   const canAccessAdmin = position === 'Admin' || position === 'Staff';
-  const adminRoutes = ['/dashboard', '/staff', '/noveladmin', '/mangaadmin', '/staffadmin', '/useradmin'];
+  const adminRoutes = [
+    '/dashboard',
+    '/staff',
+    '/noveladmin',
+    '/mangaadmin',
+    '/staffadmin',
+    '/useradmin',
+  ];
   const isOnAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
   const handleLogout = async () => {
