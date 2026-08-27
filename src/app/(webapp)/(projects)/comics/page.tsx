@@ -25,7 +25,7 @@ export default function Comics() {
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
   const [orderBy, setOrderBy] = useState('Padrão');
-  const [genresList, setGenresList] = useState<IPublicGenres[]>([]);
+  const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
   const [comicList, setComicList] = useState<IPublicComics[]>();
 
   const { data: projectsResponse, isLoading } = usePublicComics();
