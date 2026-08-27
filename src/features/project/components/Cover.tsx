@@ -73,7 +73,7 @@ export function Cover({
         <Image
           src={src}
           alt={title}
-          className="h-64 transition-transform duration-500 group-hover:scale-105 group-hover:brightness-75"
+          className="h-64 brightness-75 transition-transform duration-500 group-hover:scale-105 group-hover:brightness-100"
           width={180}
           height={256}
           placeholder="blur"

@@ -5,7 +5,7 @@ import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
 import {
   getAdminNovelBySlug,
-  getAdminNovels,
+  getPrivateNovels,
   getChapterNovelAdmin,
 } from '../api/novelAdminApi';
 import { IChapterNovelData, INovelResponse } from '../api/types';
@@ -22,14 +22,14 @@ export const useAdminNovelBySlug = (
   });
 };
 
-export const useAdminNovels = (): UseQueryResult<
+export const usePrivateNovels = (): UseQueryResult<
   ApiResponse<PaginatedResponse<INovelResponse>>
 > => {
   const { accessToken, isPending } = useAuthStore();
 
   return useQuery({
-    queryKey: ['adm-novels'],
-    queryFn: () => getAdminNovels(),
+    queryKey: ['private-novels'],
+    queryFn: () => getPrivateNovels(),
     enabled: !!accessToken && !isPending,
   });
 };

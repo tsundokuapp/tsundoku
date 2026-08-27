@@ -9,6 +9,7 @@ export const useAuthHydration = () => {
     setAccessToken,
     setTsunId,
     setIsPending,
+    setHasHydrated,
     accessToken,
     isTokenExpired,
   } = useAuthStore();
@@ -20,6 +21,7 @@ export const useAuthHydration = () => {
     hasHydrated.current = true;
 
     if (accessToken && !isTokenExpired()) {
+      setHasHydrated(true);
       return;
     }
 
@@ -35,6 +37,7 @@ export const useAuthHydration = () => {
         console.log('Fail to refresh token in useAuthHydration');
       } finally {
         setIsPending(false);
+        setHasHydrated(true);
       }
     };
 

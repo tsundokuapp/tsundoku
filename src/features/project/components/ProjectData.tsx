@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 
+import { Tag } from '@/shared/components/ui/Tag';
 import { useBannerStore } from '@/shared/stores/useBannerStore';
 import { IGenres } from '@/shared/types/common';
 import { TStatusComic, TStatusNovel } from '@/shared/types/system';
