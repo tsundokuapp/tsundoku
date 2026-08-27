@@ -17,15 +17,15 @@ import { Debounce } from '@/shared/utils/Debounce';
 import { ORDER_BY, STATUS_COMIC, TOrderBy } from '@/shared/utils/systemValues';
 
 export default function Comics() {
-  const INITIAL_GENRES = [
-    { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
-  ];
+  // const INITIAL_GENRES = [
+  //   { id: '0', descricao: 'Filtrar por Gênero', slug: '' },
+  // ];
 
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('Filtrar por Status');
   const [genres, setGenres] = useState('Filtrar por Gênero');
   const [orderBy, setOrderBy] = useState('Padrão');
-  const [genresList, setGenresList] = useState<IPublicGenres[]>(INITIAL_GENRES);
+  const [genresList, setGenresList] = useState<IPublicGenres[]>([]);
   const [comicList, setComicList] = useState<IPublicComics[]>();
 
   const { data: projectsResponse, isLoading } = usePublicComics();
