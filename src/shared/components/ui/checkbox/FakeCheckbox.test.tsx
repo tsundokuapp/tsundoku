@@ -10,7 +10,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
@@ -27,7 +26,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
@@ -44,7 +42,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
           description="Texto de apoio do Checkbox Teste"
         />,
@@ -62,7 +59,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked
           description="Texto de apoio do Checkbox Teste"
         />,
@@ -83,13 +79,11 @@ describe('Testes para o componente <FakeCheckbox />', () => {
         <div>
           <FakeCheckbox
             label="Checkbox Teste"
-            name="checkboxTeste"
             checked={false}
             size="lg"
           />
           <FakeCheckbox
             label="Checkbox Teste"
-            name="checkboxTeste"
             checked={false}
             id="checkbox-default"
           />
@@ -112,7 +106,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
@@ -132,7 +125,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
@@ -149,7 +141,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
@@ -166,7 +157,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           aria-label="Checkbox de teste"
           checked={false}
         />,
@@ -187,7 +177,6 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       const { container } = render(
         <FakeCheckbox
           label="Checkbox Teste"
-          name="checkboxTeste"
           checked={false}
         />,
       );
