@@ -22,6 +22,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { canAccessAdmin } from '@/core/auth/components/AdminGuard';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import {
   IS_ORIGIN_FILTER_DEV_ENABLED,
@@ -53,7 +54,9 @@ export function WebappSidebar({
 }: WebappSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const username = useAuthStore((state) => state.username);
+  const { username, position, isPending, hasHydrated } = useAuthStore();
+  const canShowAdminGroup =
+    hasHydrated && !isPending && canAccessAdmin(username, position);
 
   const activeOrigin = searchParams.get('origem') ?? '';
   const isNovelsRoute = pathname.startsWith('/novels');
@@ -274,139 +277,147 @@ export function WebappSidebar({
               </Link>
             </li>
 
+            {/* TODO(backend-integration): Confirmar canais financeiros oficiais antes de alterar o destino; atualmente aponta apenas para o Discord oficial (`LINK_DISCORD`). */}
             <li>
               <a
                 href={LINK_DISCORD}
                 target="_blank"
                 rel="noopener noreferrer"
+                title="Comunidade e informações de apoio no Discord"
+                aria-label="Apoio à Tsundoku no Discord (abre em nova aba)"
                 className={itemClass(false)}
               >
                 <CurrencyDollar size={18} weight="regular" />
-                <span>Apoio</span>
+                <span>Apoio (Discord)</span>
               </a>
             </li>
           </ul>
         </div>
 
-        {/* Grupo Admin */}
-        <div className="border-t border-appSidebarBorder pt-3">
-          <p className="mb-2 px-2 text-xs font-medium text-appSidebarMuted">
-            Admin
-          </p>
-          <ul className="space-y-1">
-            <li>
-              <Link
-                href="/dashboard"
-                aria-current={isAdminDashboardActive ? 'page' : undefined}
-                className={itemClass(isAdminDashboardActive)}
-              >
-                <SquaresFour size={18} weight="regular" />
-                <span>Dashboard</span>
-              </Link>
-            </li>
+        {/* Grupo Admin — visível somente após hidratação para perfis Staff/Admin */}
+        {canShowAdminGroup && (
+          <div
+            data-testid="v22-sidebar-admin-group"
+            className="border-t border-appSidebarBorder pt-3"
+          >
+            <p className="mb-2 px-2 text-xs font-medium text-appSidebarMuted">
+              Admin
+            </p>
+            <ul className="space-y-1">
+              <li>
+                <Link
+                  href="/dashboard"
+                  aria-current={isAdminDashboardActive ? 'page' : undefined}
+                  className={itemClass(isAdminDashboardActive)}
+                >
+                  <SquaresFour size={18} weight="regular" />
+                  <span>Dashboard</span>
+                </Link>
+              </li>
 
-            {variant === 'admin' && (
-              <>
-                <li>
-                  <Link
-                    href="/staff"
-                    aria-current={pathname === '/staff' ? 'page' : undefined}
-                    className={itemClass(pathname === '/staff')}
-                  >
-                    <UsersFour size={18} weight="regular" />
-                    <span>Staff</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/noveladmin"
-                    aria-current={
-                      pathname.startsWith('/noveladmin') ? 'page' : undefined
-                    }
-                    className={itemClass(pathname.startsWith('/noveladmin'))}
-                  >
-                    <BookOpenText size={18} weight="regular" />
-                    <span>Novels (Admin)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/mangaadmin"
-                    aria-current={
-                      pathname.startsWith('/mangaadmin') ? 'page' : undefined
-                    }
-                    className={itemClass(pathname.startsWith('/mangaadmin'))}
-                  >
-                    <BookBookmark size={18} weight="regular" />
-                    <span>Mangás (Admin)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/staffadmin"
-                    aria-current={
-                      pathname.startsWith('/staffadmin') ? 'page' : undefined
-                    }
-                    className={itemClass(pathname.startsWith('/staffadmin'))}
-                  >
-                    <IdentificationBadge size={18} weight="regular" />
-                    <span>Permissões</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/useradmin"
-                    aria-current={
-                      pathname.startsWith('/useradmin') ? 'page' : undefined
-                    }
-                    className={itemClass(pathname.startsWith('/useradmin'))}
-                  >
-                    <Users size={18} weight="regular" />
-                    <span>Usuários</span>
-                  </Link>
-                </li>
-              </>
-            )}
+              {variant === 'admin' && (
+                <>
+                  <li>
+                    <Link
+                      href="/staff"
+                      aria-current={pathname === '/staff' ? 'page' : undefined}
+                      className={itemClass(pathname === '/staff')}
+                    >
+                      <UsersFour size={18} weight="regular" />
+                      <span>Staff</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/noveladmin"
+                      aria-current={
+                        pathname.startsWith('/noveladmin') ? 'page' : undefined
+                      }
+                      className={itemClass(pathname.startsWith('/noveladmin'))}
+                    >
+                      <BookOpenText size={18} weight="regular" />
+                      <span>Novels (Admin)</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/mangaadmin"
+                      aria-current={
+                        pathname.startsWith('/mangaadmin') ? 'page' : undefined
+                      }
+                      className={itemClass(pathname.startsWith('/mangaadmin'))}
+                    >
+                      <BookBookmark size={18} weight="regular" />
+                      <span>Mangás (Admin)</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/staffadmin"
+                      aria-current={
+                        pathname.startsWith('/staffadmin') ? 'page' : undefined
+                      }
+                      className={itemClass(pathname.startsWith('/staffadmin'))}
+                    >
+                      <IdentificationBadge size={18} weight="regular" />
+                      <span>Permissões</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/useradmin"
+                      aria-current={
+                        pathname.startsWith('/useradmin') ? 'page' : undefined
+                      }
+                      className={itemClass(pathname.startsWith('/useradmin'))}
+                    >
+                      <Users size={18} weight="regular" />
+                      <span>Usuários</span>
+                    </Link>
+                  </li>
+                </>
+              )}
 
-            {/* TODO(backend-integration): Conectar Reports administrativos quando houver módulo de moderação/denúncias no `tsundoku-api`. */}
-            <li>
-              <button
-                type="button"
-                disabled
-                aria-disabled="true"
-                title="Reports indisponíveis — endpoint administrativo pendente no backend"
-                className={disabledItemClass}
-              >
-                <span className="flex items-center gap-3">
-                  <WarningCircle size={18} weight="regular" />
-                  <span>Reports</span>
-                </span>
-                <span className="rounded bg-appSidebarSurface px-1.5 py-0.5 text-[10px] text-appSidebarMuted">
-                  Em breve
-                </span>
-              </button>
-            </li>
+              {/* TODO(backend-integration): Conectar Reports administrativos quando houver módulo de moderação/denúncias no `tsundoku-api`. */}
+              <li>
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  title="Reports indisponíveis — endpoint administrativo pendente no backend"
+                  className={disabledItemClass}
+                >
+                  <span className="flex items-center gap-3">
+                    <WarningCircle size={18} weight="regular" />
+                    <span>Reports</span>
+                  </span>
+                  <span className="rounded bg-appSidebarSurface px-1.5 py-0.5 text-[10px] text-appSidebarMuted">
+                    Em breve
+                  </span>
+                </button>
+              </li>
 
-            {/* TODO(backend-integration): Conectar Configurações do site/painel quando existir endpoint de parâmetros no backend. */}
-            <li>
-              <button
-                type="button"
-                disabled
-                aria-disabled="true"
-                title="Configurações indisponíveis — endpoint administrativo pendente no backend"
-                className={disabledItemClass}
-              >
-                <span className="flex items-center gap-3">
-                  <GearSix size={18} weight="regular" />
-                  <span>Configurações</span>
-                </span>
-                <span className="rounded bg-appSidebarSurface px-1.5 py-0.5 text-[10px] text-appSidebarMuted">
-                  Em breve
-                </span>
-              </button>
-            </li>
-          </ul>
-        </div>
+              {/* TODO(backend-integration): Conectar Configurações do site/painel quando existir endpoint de parâmetros no backend. */}
+              <li>
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  title="Configurações indisponíveis — endpoint administrativo pendente no backend"
+                  className={disabledItemClass}
+                >
+                  <span className="flex items-center gap-3">
+                    <GearSix size={18} weight="regular" />
+                    <span>Configurações</span>
+                  </span>
+                  <span className="rounded bg-appSidebarSurface px-1.5 py-0.5 text-[10px] text-appSidebarMuted">
+                    Em breve
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
 
       {/* CTA Upgrade do Plano */}

@@ -3,10 +3,12 @@
 import { CaretLeft, CaretRight } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState, type ReactNode } from 'react';
 
 import { cn } from '@/shared/utils/cn';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
+import { withV21LayoutParam } from '@/shared/utils/layoutParam';
 
 export interface HeroSlideItem {
   id: string;
@@ -41,6 +43,25 @@ interface HeroCarouselV21Props {
   className?: string;
 }
 
+function HeroSlideLink({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className: string;
+  children: ReactNode;
+}) {
+  const searchParams = useSearchParams();
+  const resolvedHref = withV21LayoutParam(href, searchParams.get('layout'));
+
+  return (
+    <Link href={resolvedHref} className={className}>
+      {children}
+    </Link>
+  );
+}
+
 export function HeroCarouselV21({
   slides = DEFAULT_HERO_SLIDES,
   className,
@@ -66,26 +87,38 @@ export function HeroCarouselV21({
     setActiveIndex((prev) => (prev + 1) % slides.length);
   };
 
+  const slideLinkClass =
+    'relative block h-[120px] w-full overflow-hidden rounded-[8px] bg-appCardBackground sm:h-[220px] lg:h-[300px]';
+
+  const slideImage = (
+    <Image
+      src={currentSlide.image}
+      alt={currentSlide.alt}
+      fill
+      priority
+      sizes="(max-width: 768px) 100vw, 1180px"
+      placeholder="blur"
+      blurDataURL={BLUR_DATA_URL}
+      className="object-cover transition-transform duration-500 hover:scale-[1.01]"
+    />
+  );
+
   return (
     <section
       aria-label="Destaques"
       className={cn('relative w-full overflow-hidden rounded-[8px]', className)}
     >
-      <Link
-        href={currentSlide.href}
-        className="relative block h-[120px] w-full overflow-hidden rounded-[8px] bg-appCardBackground sm:h-[220px] lg:h-[300px]"
+      <Suspense
+        fallback={
+          <Link href={currentSlide.href} className={slideLinkClass}>
+            {slideImage}
+          </Link>
+        }
       >
-        <Image
-          src={currentSlide.image}
-          alt={currentSlide.alt}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 1180px"
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
-          className="object-cover transition-transform duration-500 hover:scale-[1.01]"
-        />
-      </Link>
+        <HeroSlideLink href={currentSlide.href} className={slideLinkClass}>
+          {slideImage}
+        </HeroSlideLink>
+      </Suspense>
 
       {slides.length > 1 && (
         <>

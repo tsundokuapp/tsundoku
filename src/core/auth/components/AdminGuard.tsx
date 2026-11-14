@@ -5,12 +5,21 @@ import { useEffect, type ReactNode } from 'react';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
+/**
+ * Regra única de autorização administrativa reutilizada pelo `AdminGuard` e pela navegação.
+ */
+export function canAccessAdmin(
+  username: string | null,
+  position: string | null,
+): boolean {
+  return Boolean(username && (position === 'Admin' || position === 'Staff'));
+}
+
 export function AdminGuard({ children }: { children: ReactNode }) {
   const { username, position, isPending, hasHydrated } = useAuthStore();
   const router = useRouter();
 
-  const isAuthorized =
-    username && (position === 'Admin' || position === 'Staff');
+  const isAuthorized = canAccessAdmin(username, position);
 
   useEffect(() => {
     if (!hasHydrated || isPending) return;

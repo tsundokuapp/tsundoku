@@ -4,7 +4,7 @@ import { create } from 'zustand';
 type PositionPossible = 'Admin' | 'Staff' | 'Apoiador' | 'Leitor';
 
 interface JWTPayload {
-  roles?: string[];
+  roles?: string[] | string;
   exp?: number;
   iat?: number;
   sub?: string;
@@ -53,7 +53,11 @@ function extractRolesFromToken(token: string): string[] {
     }
 
     const payload = jwtDecode<JWTPayload>(token);
-    return payload.roles || [];
+    if (typeof payload.roles === 'string') {
+      return [payload.roles];
+    }
+
+    return Array.isArray(payload.roles) ? payload.roles : [];
   } catch (error) {
     console.error('Erro ao recuperar permissões de acessos:', error);
     return [];

@@ -3,9 +3,10 @@
 import { BookOpen, CaretDown, List } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
+import { canAccessAdmin } from '@/core/auth/components/AdminGuard';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import {
   IS_ORIGIN_FILTER_DEV_ENABLED,
@@ -21,6 +22,7 @@ import {
 import { ThemeToggle } from '@/shared/components/ui/theme/ThemeToggle';
 import { ThemeToggleList } from '@/shared/components/ui/theme/ThemeToggleList';
 import { cn } from '@/shared/utils/cn';
+import { withV21LayoutParam } from '@/shared/utils/layoutParam';
 import { LINK_DISCORD } from '@/shared/utils/systemValues';
 
 import { HeaderButtonLogin } from '../header/HeaderButtonLogin';
@@ -28,10 +30,13 @@ import { InlineSearchBar } from '../search/InlineSearchBar';
 
 export function HeaderBarV21() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const layoutParam = searchParams.get('layout') ?? 'v2.1';
   const [mobileOpen, setMobileOpen] = useState(false);
   const [novelsDropdownOpen, setNovelsDropdownOpen] = useState(false);
-  const { username, position } = useAuthStore();
-  const canAccessAdmin = position === 'Admin' || position === 'Staff';
+  const { username, position, isPending, hasHydrated } = useAuthStore();
+  const showAdminLink =
+    hasHydrated && !isPending && canAccessAdmin(username, position);
 
   const navItems = [
     { label: 'Início', href: '/' },
@@ -85,7 +90,7 @@ export function HeaderBarV21() {
                   return (
                     <DialogClose asChild key={item.href}>
                       <Link
-                        href={item.href}
+                        href={withV21LayoutParam(item.href, layoutParam)}
                         className={cn(
                           'flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                           active
@@ -109,7 +114,7 @@ export function HeaderBarV21() {
                   >
                     Apoio (Discord)
                   </Link>
-                  {username && canAccessAdmin ? (
+                  {showAdminLink ? (
                     <DialogClose asChild>
                       <Link
                         href="/dashboard"
@@ -138,7 +143,7 @@ export function HeaderBarV21() {
         {/* Desktop Left: Logo + Links (1024:149) */}
         <div className="hidden items-center gap-8 lg:flex">
           <Link
-            href="/"
+            href={withV21LayoutParam('/', layoutParam)}
             aria-label="Tsundoku Traduções - Início"
             className="flex items-center gap-2.5"
           >
@@ -160,11 +165,12 @@ export function HeaderBarV21() {
           >
             {navItems.map((item) => {
               const active = isRouteActive(item.href);
+              const targetHref = withV21LayoutParam(item.href, layoutParam);
               if (!item.hasDropdown) {
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={targetHref}
                     className={cn(
                       'relative py-2 text-sm font-medium text-appText transition-colors hover:text-appAccentCyan',
                       active && 'font-semibold',
@@ -187,7 +193,7 @@ export function HeaderBarV21() {
                 >
                   <div className="flex items-center gap-1">
                     <Link
-                      href={item.href}
+                      href={targetHref}
                       className={cn(
                         'relative py-2 text-sm font-medium text-appText transition-colors hover:text-appAccentCyan',
                         active && 'font-semibold',
@@ -212,7 +218,7 @@ export function HeaderBarV21() {
                   {novelsDropdownOpen && (
                     <div className="absolute left-0 top-full z-50 min-w-[180px] rounded-md border border-appCardBorder bg-appCardBackground p-1.5 shadow-lg">
                       <Link
-                        href="/novels"
+                        href={withV21LayoutParam('/novels', layoutParam)}
                         onClick={() => setNovelsDropdownOpen(false)}
                         className="block rounded px-3 py-1.5 text-xs font-medium text-appText hover:bg-appGroupBackground"
                       >
@@ -222,7 +228,10 @@ export function HeaderBarV21() {
                         IS_ORIGIN_FILTER_DEV_ENABLED ? (
                           <Link
                             key={origin.slug}
-                            href={`/novels?origem=${origin.slug}`}
+                            href={withV21LayoutParam(
+                              `/novels?origem=${origin.slug}`,
+                              layoutParam,
+                            )}
                             onClick={() => setNovelsDropdownOpen(false)}
                             className="block rounded px-3 py-1.5 text-xs text-appSubtitle hover:bg-appGroupBackground hover:text-appText"
                           >

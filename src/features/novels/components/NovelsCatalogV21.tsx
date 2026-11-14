@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { usePublicNovels } from '@/features/novels/hooks/usePublicNovels';
 import { usePublicGenres } from '@/features/project/hooks/useProject';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
+import { withV21LayoutParam } from '@/shared/utils/layoutParam';
 
 import { NovelCatalogFilters } from './NovelCatalogFilters';
 import { filterAndSortNovels, NovelFilterState } from '../utils/filterNovels';
@@ -31,6 +32,7 @@ export function NovelsCatalogV21() {
 
   const initialOrigin = searchParams.get('origem') ?? '';
   const initialWorkType = searchParams.get('tipo') ?? '';
+  const layoutParam = searchParams.get('layout');
 
   const [filters, setFilters] = useState<NovelFilterState>({
     search: '',
@@ -53,24 +55,24 @@ export function NovelsCatalogV21() {
 
   const handleFiltersChange = useCallback(
     (patch: Partial<NovelFilterState>) => {
-      setFilters((prev) => {
-        const next = { ...prev, ...patch };
-        if (patch.origin !== undefined) {
-          const params = new URLSearchParams(searchParams.toString());
-          if (patch.origin) {
-            params.set('origem', patch.origin);
-          } else {
-            params.delete('origem');
-          }
-          const qs = params.toString();
-          router.replace(qs ? `${pathname}?${qs}` : pathname, {
-            scroll: false,
-          });
+      setFilters((prev) => ({ ...prev, ...patch }));
+      if (patch.origin !== undefined) {
+        const params = new URLSearchParams(searchParams.toString());
+        if (layoutParam === 'v2.1') {
+          params.set('layout', 'v2.1');
         }
-        return next;
-      });
+        if (patch.origin) {
+          params.set('origem', patch.origin);
+        } else {
+          params.delete('origem');
+        }
+        const qs = params.toString();
+        router.replace(qs ? `${pathname}?${qs}` : pathname, {
+          scroll: false,
+        });
+      }
     },
-    [pathname, router, searchParams],
+    [layoutParam, pathname, router, searchParams],
   );
 
   const handleClearAll = useCallback(() => {
@@ -85,9 +87,12 @@ export function NovelsCatalogV21() {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('origem');
     params.delete('tipo');
+    if (layoutParam === 'v2.1') {
+      params.set('layout', 'v2.1');
+    }
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [pathname, router, searchParams]);
+  }, [layoutParam, pathname, router, searchParams]);
 
   const realNovels = useMemo(() => novelsResponse ?? [], [novelsResponse]);
 
@@ -213,7 +218,13 @@ export function NovelsCatalogV21() {
                     key={novel.id}
                     className="flex flex-col rounded-[25px] border border-appCardBorder bg-appCardBackground p-4 shadow-sm transition-transform hover:-translate-y-1"
                   >
-                    <Link href={`/novels/${novel.slug}`} className="block">
+                    <Link
+                      href={withV21LayoutParam(
+                        `/novels/${novel.slug}`,
+                        layoutParam,
+                      )}
+                      className="block"
+                    >
                       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-appGroupBackground">
                         <Image
                           src={novel.urlCapa}
