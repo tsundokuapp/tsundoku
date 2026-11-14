@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { NovelsCatalogV21 } from '@/features/novels/components/NovelsCatalogV21';
+import { NovelsVersionSwitch } from './NovelsVersionSwitch';
 
 export default function NovelsPage() {
   return (
@@ -11,7 +11,7 @@ export default function NovelsPage() {
         </div>
       }
     >
-      <NovelsCatalogV21 />
+      <NovelsVersionSwitch />
     </Suspense>
   );
 }

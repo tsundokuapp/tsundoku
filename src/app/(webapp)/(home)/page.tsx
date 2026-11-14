@@ -1,5 +1,13 @@
-import { HomeV21 } from '@/features/project/components/v21/HomeV21';
+import { Suspense } from 'react';
+
+import { HomeV22 } from '@/features/project/components/v22/HomeV22';
+
+import { HomeVersionSwitch } from './HomeVersionSwitch';
 
 export default function HomePage() {
-  return <HomeV21 />;
+  return (
+    <Suspense fallback={<HomeV22 />}>
+      <HomeVersionSwitch />
+    </Suspense>
+  );
 }

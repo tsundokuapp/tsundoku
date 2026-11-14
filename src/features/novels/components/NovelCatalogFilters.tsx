@@ -241,7 +241,7 @@ export function NovelCatalogFilters({
             customIcon={<CaretDown size={14} />}
             onClear={() => onChange({ orderBy: '' })}
           >
-            {[...ORDER_BY, 'Padrão'].map((orderItem) => (
+            {ORDER_BY.map((orderItem) => (
               <DropdownOption
                 key={orderItem}
                 label={orderItem}

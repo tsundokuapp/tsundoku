@@ -15,11 +15,12 @@ export interface UseHomeRankingResult {
 // Dependência exata: endpoint público no `tsundoku-api` ou `Torii` (ex.: `GET /api/ranking/apoiadores?limit=8`), atualmente inexistente.
 // Comportamento temporário: em desenvolvimento (`NODE_ENV !== 'production'`) utiliza `HOME_RANKING_DEV_FIXTURES`; em produção retorna vazio e exibe estado indisponível.
 // Dados/operações necessárias: listagem ordenada por pontuação/nível com `id`, `position`, `displayName`, `badgeLabel` e `avatarUrl`.
-export function useHomeRanking(limit = 8): UseHomeRankingResult {
-  const isDev = process.env.NODE_ENV !== 'production';
-
+export function useHomeRanking(
+  limit = 8,
+  allowDevFixtures = process.env.NODE_ENV !== 'production',
+): UseHomeRankingResult {
   return useMemo(() => {
-    if (!isDev) {
+    if (!allowDevFixtures) {
       return {
         entries: [],
         isLoading: false,
@@ -36,5 +37,5 @@ export function useHomeRanking(limit = 8): UseHomeRankingResult {
       isError: false,
       isFixture: true,
     };
-  }, [isDev, limit]);
+  }, [allowDevFixtures, limit]);
 }

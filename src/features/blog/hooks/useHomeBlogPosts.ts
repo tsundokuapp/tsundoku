@@ -15,11 +15,12 @@ export interface UseHomeBlogPostsResult {
 // Dependência exata: endpoint público no `tsundoku-api` (ex.: `GET /api/blog/posts?limit=3`) ou CMS integrado, ainda ausente no backend.
 // Comportamento temporário: em desenvolvimento (`NODE_ENV !== 'production'`) retorna `HOME_BLOG_POSTS_DEV_FIXTURES`; em produção retorna lista vazia com estado indisponível.
 // Dados/operações necessárias: listagem paginada ordenada por `publishedAt` desc contendo `id`, `slug`, `title`, `excerpt`, `coverImage`, `category` e `publishedAt`.
-export function useHomeBlogPosts(limit = 3): UseHomeBlogPostsResult {
-  const isDev = process.env.NODE_ENV !== 'production';
-
+export function useHomeBlogPosts(
+  limit = 3,
+  allowDevFixtures = process.env.NODE_ENV !== 'production',
+): UseHomeBlogPostsResult {
   return useMemo(() => {
-    if (!isDev) {
+    if (!allowDevFixtures) {
       return {
         posts: [],
         isLoading: false,
@@ -36,5 +37,5 @@ export function useHomeBlogPosts(limit = 3): UseHomeBlogPostsResult {
       isError: false,
       isFixture: true,
     };
-  }, [isDev, limit]);
+  }, [allowDevFixtures, limit]);
 }
