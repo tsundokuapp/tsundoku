@@ -1,7 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Pencil } from '@phosphor-icons/react/dist/ssr';
+import {
+  BookOpen,
+  Pencil,
+  Rows,
+  SquaresFour,
+  Table,
+} from '@phosphor-icons/react/dist/ssr';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -13,6 +19,7 @@ import { ChapterDocumentsTable } from '@/features/admin/components/table/Chapter
 import {
   createNovelVolume,
   deleteNovelVolume,
+  updateNovelVolume,
 } from '@/features/admin/novels/api/novelAdminApi';
 import {
   InputFormUnifiedVolumeAndChapter,
@@ -34,6 +41,7 @@ import {
 import { Title } from '@/shared/components/ui/title/Title';
 import { useModal } from '@/shared/contexts/ModalContext';
 import { useToaster } from '@/shared/contexts/ToasterContext';
+import { cn } from '@/shared/utils/cn';
 
 interface IVolumeContentProps {
   idVolume: string;
@@ -93,6 +101,9 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
   const { toaster } = useToaster();
   const [typeModal, setTypeModal] = useState<'volume' | 'chapter'>('volume');
   const [modeModal, setModeModal] = useState<'create' | 'edit'>('create');
+  const [volumeViewMode, setVolumeViewMode] = useState<
+    'accordion' | 'grid' | 'table'
+  >('accordion');
   const [volumeData, setVolumeData] = useState<IVolumeNovelData[]>();
   const [isCreatingOrLoading, setIsCreatingOrLoading] = useState(false);
   const [infoEditing, setInfoEditing] = useState<IPreInfo>({
@@ -106,6 +117,10 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
 
   const { mutateAsync: createNovelVolumeFn } = useMutation({
     mutationFn: createNovelVolume,
+  });
+
+  const { mutateAsync: updateNovelVolumeFn } = useMutation({
+    mutationFn: (fd: FormData) => updateNovelVolume(fd, infoEditing.idVolume),
   });
 
   const { mutateAsync: deleteNovelVolumeFn } = useMutation({
@@ -237,10 +252,12 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
     formData.append('obraId', novelId);
 
     for (const [key, value] of Object.entries(dataRequest)) {
-      if (key === 'cover' && value instanceof File) {
+      if (value instanceof File) {
         formData.append(key, value);
-      } else {
-        formData.append(key, value as string);
+      } else if (Array.isArray(value)) {
+        value.forEach((item) => formData.append(key, item));
+      } else if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
       }
     }
 
@@ -249,7 +266,20 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
       ? 'Volume criado com sucesso'
       : 'Volume atualizado com sucesso';
 
-    const response = await createNovelVolumeFn(formData);
+    if (
+      data.type === 'volume' &&
+      modeModal === 'edit' &&
+      infoEditing.idVolume
+    ) {
+      if (!formData.has('id')) {
+        formData.append('id', infoEditing.idVolume);
+      }
+    }
+
+    const response =
+      data.type === 'volume' && modeModal === 'edit'
+        ? await updateNovelVolumeFn(formData)
+        : await createNovelVolumeFn(formData);
 
     if (!response.ok) {
       toaster({
@@ -361,7 +391,7 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
         </div>
         <div className="col-span-3 flex flex-col items-center justify-center gap-4">
           <FormButton isSubmitting={isSubmitting} className="col-span-3" />
-          {isEditing && (
+          {isAdmin && isEditing && (
             <Button
               onClick={() => {
                 handleDeleteVolume(infoEditing.idVolume!);
@@ -449,25 +479,27 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
               >
                 {isCreatingOrLoading ? 'Carregando...' : 'Editar Conteúdo'}
               </Button>
-              <Button
-                disabled={isCreatingOrLoading}
-                onClick={() => {
-                  setIsCreatingOrLoading(true);
-                  // removeChapter({ documentId: infoEditing.id }).finally(() => {
-                  // });
-                  setIsCreatingOrLoading(false);
+              {isAdmin && (
+                <Button
+                  disabled={isCreatingOrLoading}
+                  onClick={() => {
+                    setIsCreatingOrLoading(true);
+                    // removeChapter({ documentId: infoEditing.id }).finally(() => {
+                    // });
+                    setIsCreatingOrLoading(false);
 
-                  toaster({
-                    type: 'success',
-                    msg: 'Capítulo deletado com sucesso',
-                  });
+                    toaster({
+                      type: 'success',
+                      msg: 'Capítulo deletado com sucesso',
+                    });
 
-                  closeModal();
-                }}
-                className="w-full bg-red-500 p-1 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-300"
-              >
-                {isCreatingOrLoading ? 'Deletando...' : 'Deletar Capítulo'}
-              </Button>
+                    closeModal();
+                  }}
+                  className="w-full bg-red-500 p-1 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-300"
+                >
+                  {isCreatingOrLoading ? 'Deletando...' : 'Deletar Capítulo'}
+                </Button>
+              )}
             </div>
           ) : (
             <Button
@@ -490,18 +522,81 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="mt-2 flex flex-row items-center justify-between gap-4">
-        <Title title="Nome da obra" className="w-full text-lg" />
-        <div className="flex w-full flex-row justify-end gap-2">
-          <Button
-            onClick={() => {
-              console.log('apertado');
-              handleOpenModal({ ...OPTIONS_MODAL.createVolume });
-            }}
-            className="py-2 text-xs"
+      <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <Title title="Volumes da Obra" className="w-full text-lg" />
+        <div className="flex w-full flex-row items-center justify-end gap-3">
+          {/* View mode toggle: Grid 1268:29456, Table 1238:713, Accordion */}
+          <div
+            role="group"
+            aria-label="Modo de visualização dos volumes"
+            className="flex items-center gap-1 rounded-lg border border-appCardBorder bg-appCardBackground p-1"
           >
-            Adicionar Volume
-          </Button>
+            <button
+              type="button"
+              title="Grade de volumes"
+              aria-label="Grade de volumes"
+              aria-pressed={volumeViewMode === 'grid'}
+              onClick={() => setVolumeViewMode('grid')}
+              className={cn(
+                'flex h-7 w-7 items-center justify-center rounded-md text-appSidebarMuted transition-colors',
+                volumeViewMode === 'grid'
+                  ? 'bg-[#259cc1] text-white shadow-sm'
+                  : 'hover:bg-appGroupBackground hover:text-appText',
+              )}
+            >
+              <SquaresFour
+                size={16}
+                weight={volumeViewMode === 'grid' ? 'fill' : 'regular'}
+              />
+            </button>
+            <button
+              type="button"
+              title="Tabela de capítulos"
+              aria-label="Tabela de capítulos"
+              aria-pressed={volumeViewMode === 'table'}
+              onClick={() => setVolumeViewMode('table')}
+              className={cn(
+                'flex h-7 w-7 items-center justify-center rounded-md text-appSidebarMuted transition-colors',
+                volumeViewMode === 'table'
+                  ? 'bg-[#259cc1] text-white shadow-sm'
+                  : 'hover:bg-appGroupBackground hover:text-appText',
+              )}
+            >
+              <Table
+                size={16}
+                weight={volumeViewMode === 'table' ? 'fill' : 'regular'}
+              />
+            </button>
+            <button
+              type="button"
+              title="Lista expansível"
+              aria-label="Lista expansível"
+              aria-pressed={volumeViewMode === 'accordion'}
+              onClick={() => setVolumeViewMode('accordion')}
+              className={cn(
+                'flex h-7 w-7 items-center justify-center rounded-md text-appSidebarMuted transition-colors',
+                volumeViewMode === 'accordion'
+                  ? 'bg-[#259cc1] text-white shadow-sm'
+                  : 'hover:bg-appGroupBackground hover:text-appText',
+              )}
+            >
+              <Rows
+                size={16}
+                weight={volumeViewMode === 'accordion' ? 'fill' : 'regular'}
+              />
+            </button>
+          </div>
+
+          {isAdmin && (
+            <Button
+              onClick={() => {
+                handleOpenModal({ ...OPTIONS_MODAL.createVolume });
+              }}
+              className="py-2 text-xs"
+            >
+              Adicionar Volume
+            </Button>
+          )}
           <Button
             onClick={() => {
               handleOpenModal({ ...OPTIONS_MODAL.createChapter });
@@ -514,10 +609,141 @@ export const Volumes = ({ novelId }: { novelId: string }) => {
       </div>
 
       {isLoading ? (
-        <p>Carregando...</p>
-      ) : (
+        <p className="text-sm text-[#a8a8b3]">Carregando volumes...</p>
+      ) : !volumeData || volumeData.length === 0 ? (
+        <div className="flex h-36 items-center justify-center rounded-[8px] border border-dashed border-[#202024] p-6 text-sm text-[#a8a8b3]">
+          Nenhum volume cadastrado para esta obra.
+        </div>
+      ) : volumeViewMode === 'grid' ? (
+        /* Volumes Grid View matching Figma 1268:29456 */
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {volumeData.map((volume) => {
+            const preInfo = {
+              idVolume: volume.id,
+              cover: volume.urlCapaVolume,
+              title: volume.tituloVolume,
+              volumeNumber: volume.numeroVolume,
+              sinopse: volume.sinopse,
+              id: novelId,
+            };
+            return (
+              <div
+                key={volume.id}
+                className="group relative flex aspect-[235/297] w-full max-w-[235px] flex-col overflow-hidden rounded-[8px] bg-[#202024] shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="absolute inset-0 h-full w-full">
+                  {volume.urlCapaVolume ? (
+                    <Image
+                      src={volume.urlCapaVolume}
+                      alt={`Volume ${volume.numeroVolume}`}
+                      fill
+                      sizes="(max-width: 640px) 150px, 235px"
+                      className="object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-[#18181b] p-4 text-center text-xs text-[#6c757d]">
+                      Volume {volume.numeroVolume}
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                </div>
+
+                <div className="relative z-10 mt-auto flex flex-col justify-end p-3">
+                  <h4 className="line-clamp-1 text-sm font-bold text-[#e1e1e6] sm:text-[16px]">
+                    Volume {volume.numeroVolume}
+                  </h4>
+                  {volume.tituloVolume && (
+                    <p className="mt-0.5 truncate text-[11px] text-[#a8a8b3]">
+                      {volume.tituloVolume}
+                    </p>
+                  )}
+
+                  <div className="mt-2.5 flex items-center gap-2 border-t border-white/10 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setVolumeViewMode('accordion')}
+                      className="group/btn relative flex flex-1 items-center justify-center gap-1 rounded-[4px] bg-black/60 py-1.5 text-[11px] font-medium text-[#e1e1e6] backdrop-blur-sm transition-colors hover:bg-[#259cc1] hover:text-[#121214]"
+                    >
+                      <BookOpen size={14} weight="bold" />
+                      <span>Índice</span>
+                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-black px-1.5 py-0.5 text-[10px] text-white opacity-0 shadow transition-opacity group-hover/btn:opacity-100">
+                        Índice
+                      </span>
+                    </button>
+
+                    {isAdmin && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleOpenModal(
+                            { ...OPTIONS_MODAL.editVolume },
+                            preInfo,
+                          )
+                        }
+                        className="group/btn relative flex flex-1 items-center justify-center gap-1 rounded-[4px] bg-black/60 py-1.5 text-[11px] font-medium text-[#e1e1e6] backdrop-blur-sm transition-colors hover:bg-[#259cc1] hover:text-[#121214]"
+                      >
+                        <Pencil size={14} weight="bold" />
+                        <span>Editar</span>
+                        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-black px-1.5 py-0.5 text-[10px] text-white opacity-0 shadow transition-opacity group-hover/btn:opacity-100">
+                          Editar
+                        </span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : volumeViewMode === 'table' ? (
+        /* Volumes Table View matching Figma 1238:713 */
         <div className="flex flex-col gap-4">
-          {volumeData?.map((volume) => (
+          {volumeData.map((volume) => (
+            <div
+              key={volume.id}
+              className="overflow-hidden rounded-[8px] bg-[#202024] p-4"
+            >
+              <div className="mb-3 flex items-center justify-between border-b border-white/10 pb-2">
+                <h4 className="text-base font-bold text-[#e1e1e6]">
+                  Volume {volume.numeroVolume}{' '}
+                  {volume.tituloVolume ? `— ${volume.tituloVolume}` : ''}
+                </h4>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const preInfo = {
+                        idVolume: volume.id,
+                        cover: volume.urlCapaVolume,
+                        title: volume.tituloVolume,
+                        volumeNumber: volume.numeroVolume,
+                        sinopse: volume.sinopse,
+                        id: novelId,
+                      };
+                      handleOpenModal({ ...OPTIONS_MODAL.editVolume }, preInfo);
+                    }}
+                    className="flex items-center gap-1 text-xs text-[#259cc1] hover:underline"
+                  >
+                    <Pencil size={14} />
+                    <span>Editar Volume</span>
+                  </button>
+                )}
+              </div>
+
+              <ChapterDocumentsTable
+                chapters={volume.listaCapitulos}
+                onHandleClick={(preInfo: IPreInfo) => {
+                  preInfo = { ...preInfo, volumeNumber: volume.numeroVolume };
+                  handleOpenModal({ ...OPTIONS_MODAL.editChapter }, preInfo);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        /* Accordion View (default) */
+        <div className="flex flex-col gap-4">
+          {volumeData.map((volume) => (
             <VolumeContent
               key={volume.id}
               idVolume={volume.id}
