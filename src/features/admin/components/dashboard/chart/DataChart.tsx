@@ -5,22 +5,21 @@ import { ChartConfiguration } from 'chart.js/dist/types';
 import { useEffect, useRef } from 'react';
 
 export const DataCharts = (props: ChartConfiguration) => {
-  const { data, options } = props;
+  const { data, options, type } = props;
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (chartRef.current) {
       const chart = new Chart(chartRef.current, {
-        ...props,
-        options: {
-          ...options,
-        },
+        type,
+        data,
+        options,
       });
       return () => {
         chart.destroy();
       };
     }
-  }, [data]);
+  }, [type, data, options]);
 
   return <canvas ref={chartRef} className="max-h-[23rem]" />;
 };
