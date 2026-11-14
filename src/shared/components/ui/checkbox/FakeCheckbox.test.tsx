@@ -7,12 +7,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
   describe('Testes de renderização', () => {
     it('Deve renderizar FakeCheckbox corretamente', () => {
       // Given
-      render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
-      );
+      render(<FakeCheckbox label="Checkbox Teste" checked={false} />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -23,12 +18,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
 
     it('Deve renderizar a label do FakeCheckbox corretamente', () => {
       // Given
-      render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
-      );
+      render(<FakeCheckbox label="Checkbox Teste" checked={false} />);
 
       // When
       const label = screen.getByText('Checkbox Teste');
@@ -77,11 +67,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
       // Given
       render(
         <div>
-          <FakeCheckbox
-            label="Checkbox Teste"
-            checked={false}
-            size="lg"
-          />
+          <FakeCheckbox label="Checkbox Teste" checked={false} size="lg" />
           <FakeCheckbox
             label="Checkbox Teste"
             checked={false}
@@ -103,12 +89,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
   describe('Testes de interação e comportamento', () => {
     it('Não deve ser possível clicar no FakeCheckbox', () => {
       // Given
-      render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
-      );
+      render(<FakeCheckbox label="Checkbox Teste" checked={false} />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -122,12 +103,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
   describe('Testes de acessibilidade', () => {
     it('Deve ter o atributo role igual a checkbox', () => {
       // Given
-      render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
-      );
+      render(<FakeCheckbox label="Checkbox Teste" checked={false} />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -138,12 +114,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
 
     it('Deve ter o atributo tabindex igual a -1', () => {
       // Given
-      render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
-      );
+      render(<FakeCheckbox label="Checkbox Teste" checked={false} />);
 
       // When
       const checkbox = screen.getByRole('checkbox');
@@ -175,10 +146,7 @@ describe('Testes para o componente <FakeCheckbox />', () => {
     it('Deve manter o snapshot do Checkbox', () => {
       // Given
       const { container } = render(
-        <FakeCheckbox
-          label="Checkbox Teste"
-          checked={false}
-        />,
+        <FakeCheckbox label="Checkbox Teste" checked={false} />,
       );
 
       // Then

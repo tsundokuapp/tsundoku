@@ -209,4 +209,17 @@
 
   --color-neutral: #d1d5db;
   --color-white: #ffffff;
+
+  /* V2 Design Primitives */
+  --color-v2-bg-dark: #121214;
+  --color-v2-card-dark: #202024;
+  --color-v2-sidebar-dark: #1c1c1c;
+  --color-v2-sidebar-active: #2e2e2e;
+  --color-v2-main-dark: #161616;
+  --color-v2-light-main: #f8f9fa;
+  --color-v2-text-light: #e1e1e6;
+  --color-v2-text-muted: #8d8d99;
+  --color-v2-sidebar-muted: #9e9ea8;
+  --color-v2-cyan: #259cc1;
+  --color-v2-mint: #44b57e;
 }

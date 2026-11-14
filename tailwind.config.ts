@@ -83,6 +83,17 @@ const config: Config = {
         appTabsText: 'var(--app-color-tabs-text)',
         appTabsActive: 'var(--app-color-tabs-active)',
         appTabsActiveText: 'var(--app-color-tabs-active-text)',
+        appSidebarBackground: 'var(--app-color-sidebar-background)',
+        appSidebarSurface: 'var(--app-color-sidebar-surface)',
+        appSidebarBorder: 'var(--app-color-sidebar-border)',
+        appSidebarText: 'var(--app-color-sidebar-text)',
+        appSidebarMuted: 'var(--app-color-sidebar-muted)',
+        appSurfaceBackground: 'var(--app-color-surface-background)',
+        appCardBackground: 'var(--app-color-card-background)',
+        appCardBorder: 'var(--app-color-card-border)',
+        appAccentCyan: 'var(--app-color-accent-cyan)',
+        appCtaGradientFrom: 'var(--app-color-cta-gradient-from)',
+        appCtaGradientTo: 'var(--app-color-cta-gradient-to)',
 
         // Auth Colors
         authBackground: 'var(--auth-background)',

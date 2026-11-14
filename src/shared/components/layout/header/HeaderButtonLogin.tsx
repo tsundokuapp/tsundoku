@@ -13,19 +13,24 @@ import { auth } from '@/core/api';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import { EnterAnimation } from '@/shared/animations/EnterAnimation';
 import { useToaster } from '@/shared/contexts/ToasterContext';
+import { cn } from '@/shared/utils/cn';
 
 import { Avatar, AvatarFallback } from '../../ui/avatar';
 
 interface HeaderButtonLoginProps {
   compact?: boolean;
-  compactStyle?: 'solid' | 'ghost';
+  compactStyle?: 'solid' | 'ghost' | 'gradient';
   compactLoggedView?: 'icon' | 'user-info';
+  loggedOutLabel?: string;
+  textTone?: 'header' | 'surface';
 }
 
 export function HeaderButtonLogin({
   compact = false,
   compactStyle = 'solid',
   compactLoggedView = 'icon',
+  loggedOutLabel = 'Entrar',
+  textTone = 'header',
 }: HeaderButtonLoginProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -136,11 +141,23 @@ export function HeaderButtonLogin({
     'flex h-10 w-10 items-center justify-center rounded-md border border-appMenuBorder bg-appInputBackground text-appText hover:bg-appGroupBackground';
   const compactGhostButtonClass =
     'flex h-10 w-10 items-center justify-center rounded-md bg-transparent text-appButtonIcon hover:bg-appButtonBackground';
-  const compactLoggedInfoButtonClass =
-    'flex h-10 min-w-[160px] items-center justify-start rounded-md border border-transparent bg-transparent px-3 hover:bg-appButtonBackground';
+  const gradientButtonClass =
+    'flex h-[30px] items-center justify-center rounded-[4px] bg-gradient-to-r from-appCtaGradientFrom to-appCtaGradientTo px-3 text-xs font-medium text-white shadow-sm transition-opacity hover:opacity-90';
+  const primaryTextClass =
+    textTone === 'surface' ? 'text-appText' : 'text-appHeaderText';
+  const compactLoggedInfoButtonClass = cn(
+    'flex h-10 min-w-[140px] items-center justify-start rounded-md border border-transparent bg-transparent px-2.5 transition-colors',
+    textTone === 'surface'
+      ? 'hover:bg-appGroupBackground'
+      : 'hover:bg-appButtonBackground',
+  );
 
   const compactClass =
-    compactStyle === 'ghost' ? compactGhostButtonClass : compactButtonClass;
+    compactStyle === 'gradient'
+      ? gradientButtonClass
+      : compactStyle === 'ghost'
+        ? compactGhostButtonClass
+        : compactButtonClass;
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -163,16 +180,20 @@ export function HeaderButtonLogin({
                 </AvatarFallback>
               </Avatar>
               <div className="ml-2 flex min-w-0 flex-1 flex-col items-start justify-center text-left">
-                <p className="w-full truncate text-left text-sm font-semibold capitalize text-appHeaderText">
+                <p
+                  className={`w-full truncate text-left text-sm font-semibold capitalize ${primaryTextClass}`}
+                >
                   {username}
                 </p>
-                <p className="w-full truncate text-left text-xs font-medium capitalize text-appHeaderText opacity-80">
+                <p
+                  className={`w-full truncate text-left text-xs font-medium capitalize opacity-80 ${primaryTextClass}`}
+                >
                   {position || 'Leitor'}
                 </p>
               </div>
               <ChevronDown
                 size={16}
-                className="ml-2 shrink-0 text-appHeaderText opacity-70"
+                className={`ml-2 shrink-0 opacity-70 ${primaryTextClass}`}
                 aria-hidden="true"
               />
             </>
@@ -208,10 +229,24 @@ export function HeaderButtonLogin({
             <Spinner size={16} className="animate-spin" />
           ) : (
             <>
-              {compact ? (
-                <UserCircle size={24} weight="duotone" />
+              {compactStyle === 'gradient' ? (
+                <span className="whitespace-nowrap">{loggedOutLabel}</span>
+              ) : compact ? (
+                <UserCircle
+                  size={24}
+                  weight="duotone"
+                  className={primaryTextClass}
+                />
               ) : (
-                <p>Entrar</p>
+                <p
+                  className={cn(
+                    'flex items-center gap-1.5 whitespace-nowrap text-sm font-medium',
+                    primaryTextClass,
+                  )}
+                >
+                  <UserCircle size={20} weight="duotone" />
+                  <span>{loggedOutLabel}</span>
+                </p>
               )}
             </>
           )}
