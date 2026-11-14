@@ -6,7 +6,9 @@ import { ReactNode, Suspense, useCallback, useState } from 'react';
 
 import { FooterV2 } from '@/shared/components/layout/footer/FooterV2';
 import { ScrollToTopButton } from '@/shared/components/ui/ScrollToTopButton';
+import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { useBannerStore } from '@/shared/stores/useBannerStore';
+import { cn } from '@/shared/utils/cn';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
 import { WebappSidebar } from './WebappSidebar';
@@ -22,6 +24,14 @@ export function WebappShellV22({
   variant = 'webapp',
 }: WebappShellV22Props) {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [storedCollapsed, setStoredCollapsed, isHydrated] =
+    useLocalStorage<boolean>('tsundoku-admin-sidebar-collapsed', false);
+  const isCollapsed = isHydrated ? storedCollapsed : false;
+
+  const handleToggleCollapse = useCallback(() => {
+    setStoredCollapsed((prev) => !prev);
+  }, [setStoredCollapsed]);
+
   const pathname = usePathname();
   const banner = useBannerStore((state) => state.banner);
 
@@ -34,6 +44,13 @@ export function WebappShellV22({
     /^\/(novels|comics)\/[^/]+$/.test(pathname) &&
     banner;
 
+  const sidebarPadding =
+    variant === 'admin'
+      ? isCollapsed
+        ? 'lg:pl-[80px]'
+        : 'lg:pl-[200px]'
+      : 'lg:pl-[260px]';
+
   return (
     <div className="min-h-screen bg-appSurfaceBackground text-appText">
       <Suspense fallback={null}>
@@ -41,11 +58,21 @@ export function WebappShellV22({
           variant={variant}
           mobileOpen={mobileSidebarOpen}
           onCloseMobile={handleCloseMobile}
+          isCollapsed={variant === 'admin' ? isCollapsed : false}
+          onToggleCollapse={handleToggleCollapse}
         />
       </Suspense>
 
-      <div className="flex min-h-screen flex-col lg:pl-[260px]">
-        <WebappTopbar onOpenMobileSidebar={() => setMobileSidebarOpen(true)} />
+      <div
+        className={cn(
+          'flex min-h-screen flex-col transition-[padding] duration-300',
+          sidebarPadding,
+        )}
+      >
+        <WebappTopbar
+          variant={variant}
+          onOpenMobileSidebar={() => setMobileSidebarOpen(true)}
+        />
 
         {isWorkDetailRoute ? (
           <div className="mx-auto w-full max-w-[1220px] px-4 pt-2 sm:px-6 lg:px-8">

@@ -2,7 +2,7 @@ import type { AxiosInstance } from 'axios';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
-import { api, apiPrivate } from '.';
+import { api, apiPrivate, auth, authPrivate } from '.';
 import { refreshAccessToken } from './refreshToken';
 
 export const setupInterceptors = () => {
@@ -42,4 +42,6 @@ export const setupInterceptors = () => {
 
   attachAuthInterceptors(api);
   attachAuthInterceptors(apiPrivate);
+  attachAuthInterceptors(auth);
+  attachAuthInterceptors(authPrivate);
 };

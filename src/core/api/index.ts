@@ -20,3 +20,9 @@ export const auth = axios.create({
   timeout: timeout,
   withCredentials: true,
 });
+
+export const authPrivate = axios.create({
+  baseURL: selectAuthAPI(),
+  timeout: timeout,
+  withCredentials: true,
+});

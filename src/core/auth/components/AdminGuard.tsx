@@ -31,8 +31,13 @@ export function AdminGuard({ children }: { children: ReactNode }) {
 
   if (!hasHydrated || isPending) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-appBackground">
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex h-screen w-full items-center justify-center bg-appBackground"
+      >
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-appMenuBorder border-t-appHeaderHighlight" />
+        <span className="sr-only">Carregando painel administrativo...</span>
       </div>
     );
   }

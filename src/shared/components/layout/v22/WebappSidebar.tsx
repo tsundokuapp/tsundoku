@@ -1,16 +1,23 @@
 'use client';
 
+import type { Icon } from '@phosphor-icons/react';
 import {
   BookBookmark,
   BookOpenText,
   CaretDown,
+  CaretLeft,
   CaretRight,
   ChartBar,
   CurrencyDollar,
+  FileText,
+  FolderSimple,
   GearSix,
   House,
   IdentificationBadge,
+  Newspaper,
+  SignOut,
   SquaresFour,
+  Tag,
   User,
   Users,
   UsersFour,
@@ -19,8 +26,8 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 
 import { canAccessAdmin } from '@/core/auth/components/AdminGuard';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
@@ -31,30 +38,156 @@ import {
 import { cn } from '@/shared/utils/cn';
 import { LINK_DISCORD } from '@/shared/utils/systemValues';
 
+export const ADMIN_ROUTE_PREFIXES = [
+  '/dashboard',
+  '/noveladmin',
+  '/mangaadmin',
+  '/generos',
+  '/admin/generos',
+  '/useradmin',
+  '/staffadmin',
+  '/staff',
+  '/project',
+  '/admin/posts',
+  '/admin/blog/categorias',
+];
+
 interface WebappSidebarProps {
   variant?: 'webapp' | 'admin';
   mobileOpen: boolean;
   onCloseMobile: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
-const ADMIN_ROUTE_PREFIXES = [
-  '/dashboard',
-  '/staff',
-  '/noveladmin',
-  '/mangaadmin',
-  '/staffadmin',
-  '/useradmin',
-  '/project',
+interface AdminNavItem {
+  id: string;
+  label: string;
+  href: string;
+  icon: Icon;
+}
+
+interface AdminNavGroup {
+  id: string;
+  title: string;
+  items: AdminNavItem[];
+}
+
+const ADMIN_GROUPS: AdminNavGroup[] = [
+  {
+    id: 'principal',
+    title: 'Principal',
+    items: [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        href: '/dashboard',
+        icon: SquaresFour,
+      },
+      {
+        id: 'novels',
+        label: 'Novels',
+        href: '/noveladmin',
+        icon: BookOpenText,
+      },
+      {
+        id: 'mangas',
+        label: 'Mangás',
+        href: '/mangaadmin',
+        icon: BookBookmark,
+      },
+      { id: 'volumes', label: 'Volumes', href: '/project', icon: BookBookmark },
+      {
+        id: 'capitulos',
+        label: 'Capítulos',
+        href: '/project/capitulos',
+        icon: FileText,
+      },
+      { id: 'generos', label: 'Gêneros', href: '/admin/generos', icon: Tag },
+    ],
+  },
+  {
+    id: 'blog',
+    title: 'Blog',
+    items: [
+      { id: 'posts', label: 'Posts', href: '/admin/posts', icon: Newspaper },
+      {
+        id: 'categorias',
+        label: 'Categorias',
+        href: '/admin/blog/categorias',
+        icon: FolderSimple,
+      },
+    ],
+  },
+  {
+    id: 'admin',
+    title: 'Admin',
+    items: [
+      { id: 'usuarios', label: 'Usuários', href: '/useradmin', icon: Users },
+      {
+        id: 'permissoes',
+        label: 'Permissões',
+        href: '/staffadmin',
+        icon: IdentificationBadge,
+      },
+      { id: 'staff', label: 'Staff', href: '/staff', icon: UsersFour },
+      {
+        id: 'estatisticas',
+        label: 'Estatísticas',
+        href: '/dashboard?tab=estatisticas',
+        icon: ChartBar,
+      },
+    ],
+  },
 ];
+
+function isAdminItemActive(
+  item: AdminNavItem,
+  pathname: string,
+  searchParams?: { get: (name: string) => string | null } | null,
+): boolean {
+  if (item.id === 'dashboard') {
+    const isEstatisticasTab = searchParams?.get('tab') === 'estatisticas';
+    return pathname === '/dashboard' && !isEstatisticasTab;
+  }
+  if (item.id === 'novels') {
+    return pathname.startsWith('/noveladmin');
+  }
+  if (item.id === 'mangas') {
+    return pathname.startsWith('/mangaadmin');
+  }
+  if (item.id === 'volumes') {
+    return pathname.startsWith('/project') && !pathname.includes('capitulo');
+  }
+  if (item.id === 'capitulos') {
+    return (
+      pathname.startsWith('/project/capitulos') ||
+      (pathname.startsWith('/project') && pathname.includes('capitulo'))
+    );
+  }
+  if (item.id === 'estatisticas') {
+    return (
+      (pathname === '/dashboard' &&
+        searchParams?.get('tab') === 'estatisticas') ||
+      pathname === '/dashboard/stats' ||
+      pathname === '/admin/estatisticas'
+    );
+  }
+  return pathname.startsWith(item.href);
+}
 
 export function WebappSidebar({
   variant = 'webapp',
   mobileOpen,
   onCloseMobile,
+  isCollapsed = false,
+  onToggleCollapse,
 }: WebappSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { username, position, isPending, hasHydrated } = useAuthStore();
+  const router = useRouter();
+  const { username, position, isPending, hasHydrated, logout } = useAuthStore();
+
   const canShowAdminGroup =
     hasHydrated && !isPending && canAccessAdmin(username, position);
 
@@ -83,6 +216,11 @@ export function WebappSidebar({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileOpen, onCloseMobile]);
 
+  const handleLogout = useCallback(() => {
+    logout();
+    router.push('/');
+  }, [logout, router]);
+
   const profileHref = username
     ? `/profile/${encodeURIComponent(username)}`
     : '/login';
@@ -103,7 +241,8 @@ export function WebappSidebar({
   const disabledItemClass =
     'flex w-full cursor-not-allowed items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-appSidebarMuted opacity-60';
 
-  const sidebarContent = (
+  // --- Webapp Variant Sidebar Content ---
+  const webappSidebarContent = (
     <div className="flex h-full w-[260px] flex-col bg-appSidebarBackground text-appSidebarText">
       <div className="flex items-center justify-between px-5 pb-4 pt-5">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90">
@@ -132,9 +271,7 @@ export function WebappSidebar({
       </div>
 
       <nav
-        aria-label={
-          variant === 'admin' ? 'Navegação administrativa' : 'Menu principal'
-        }
+        aria-label="Menu principal"
         className="flex-1 space-y-5 overflow-y-auto px-4 pb-4"
       >
         {/* Grupo Menu */}
@@ -195,8 +332,6 @@ export function WebappSidebar({
                     const isOriginActive =
                       isNovelsRoute && activeOrigin === origin.slug;
 
-                    // TODO(backend-integration): Remover gate quando `tsundoku-api` expuser filtro real por nacionalidade/origem (`GET /api/obras/novels?origem=<slug>`).
-                    // Em produção os subitens ficam visíveis na hierarquia do menu mas desabilitados até haver dados confiáveis.
                     if (!IS_ORIGIN_FILTER_DEV_ENABLED) {
                       return (
                         <li key={origin.slug}>
@@ -277,7 +412,6 @@ export function WebappSidebar({
               </Link>
             </li>
 
-            {/* TODO(backend-integration): Confirmar canais financeiros oficiais antes de alterar o destino; atualmente aponta apenas para o Discord oficial (`LINK_DISCORD`). */}
             <li>
               <a
                 href={LINK_DISCORD}
@@ -314,69 +448,6 @@ export function WebappSidebar({
                   <span>Dashboard</span>
                 </Link>
               </li>
-
-              {variant === 'admin' && (
-                <>
-                  <li>
-                    <Link
-                      href="/staff"
-                      aria-current={pathname === '/staff' ? 'page' : undefined}
-                      className={itemClass(pathname === '/staff')}
-                    >
-                      <UsersFour size={18} weight="regular" />
-                      <span>Staff</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/noveladmin"
-                      aria-current={
-                        pathname.startsWith('/noveladmin') ? 'page' : undefined
-                      }
-                      className={itemClass(pathname.startsWith('/noveladmin'))}
-                    >
-                      <BookOpenText size={18} weight="regular" />
-                      <span>Novels (Admin)</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/mangaadmin"
-                      aria-current={
-                        pathname.startsWith('/mangaadmin') ? 'page' : undefined
-                      }
-                      className={itemClass(pathname.startsWith('/mangaadmin'))}
-                    >
-                      <BookBookmark size={18} weight="regular" />
-                      <span>Mangás (Admin)</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/staffadmin"
-                      aria-current={
-                        pathname.startsWith('/staffadmin') ? 'page' : undefined
-                      }
-                      className={itemClass(pathname.startsWith('/staffadmin'))}
-                    >
-                      <IdentificationBadge size={18} weight="regular" />
-                      <span>Permissões</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/useradmin"
-                      aria-current={
-                        pathname.startsWith('/useradmin') ? 'page' : undefined
-                      }
-                      className={itemClass(pathname.startsWith('/useradmin'))}
-                    >
-                      <Users size={18} weight="regular" />
-                      <span>Usuários</span>
-                    </Link>
-                  </li>
-                </>
-              )}
 
               {/* TODO(backend-integration): Conectar Reports administrativos quando houver módulo de moderação/denúncias no `tsundoku-api`. */}
               <li>
@@ -421,7 +492,6 @@ export function WebappSidebar({
       </nav>
 
       {/* CTA Upgrade do Plano */}
-      {/* TODO(backend-integration): Conectar CTA Upgrade do Plano ao fluxo de assinatura/apoiador no Torii ou gateway de pagamento quando disponível. */}
       <div className="px-4 pb-8 pt-2">
         <div className="flex justify-center">
           <button
@@ -439,12 +509,268 @@ export function WebappSidebar({
     </div>
   );
 
+  // --- Admin Variant Sidebar Content (Desktop & Mobile) ---
+  const renderAdminSidebarContent = (isMobile: boolean) => {
+    const collapsed = !isMobile && isCollapsed;
+
+    return (
+      <div
+        className={cn(
+          'flex h-full flex-col bg-[#202024] text-[#e1e1e6]',
+          isMobile ? 'w-[207px]' : collapsed ? 'w-[80px]' : 'w-[200px]',
+        )}
+      >
+        {/* Header com Logo */}
+        <div
+          className={cn(
+            'flex items-center pb-2 pt-4',
+            isMobile
+              ? 'justify-between px-3'
+              : collapsed
+                ? 'justify-center px-2'
+                : 'justify-between px-3',
+          )}
+        >
+          <Link
+            href="/"
+            aria-label="Página inicial do Tsundoku"
+            className="flex items-center gap-2 hover:opacity-90"
+          >
+            <div className="relative size-[40px] shrink-0 overflow-hidden rounded-full border border-appSidebarBorder bg-appSidebarSurface">
+              <Image
+                src="/cover-shadow.webp"
+                alt="Logo Tsundoku"
+                fill
+                sizes="40px"
+                className="object-cover"
+              />
+            </div>
+            {!collapsed && (
+              <span className="text-sm font-bold tracking-tight text-[#e1e1e6]">
+                Tsundoku
+              </span>
+            )}
+          </Link>
+
+          {isMobile && (
+            <button
+              type="button"
+              onClick={onCloseMobile}
+              aria-label="Fechar menu lateral"
+              className="flex h-8 w-8 items-center justify-center rounded-md text-appSidebarMuted hover:bg-appSidebarSurface hover:text-appSidebarText"
+            >
+              <X size={18} />
+            </button>
+          )}
+        </div>
+
+        {/* Card de Usuário */}
+        <div className="flex flex-col items-center justify-center pb-3 pt-2">
+          <div
+            className={cn(
+              'relative overflow-hidden rounded-[8px] border border-[#259cc1] bg-appSidebarSurface',
+              isMobile
+                ? 'size-[80px]'
+                : collapsed
+                  ? 'size-[50px]'
+                  : 'size-[100px]',
+            )}
+          >
+            <Image
+              src="/cover-shadow.webp"
+              alt={
+                username ? `Avatar de ${username}` : 'Avatar do Administrador'
+              }
+              fill
+              sizes={isMobile ? '80px' : collapsed ? '50px' : '100px'}
+              className="object-cover"
+            />
+          </div>
+
+          {!collapsed && (
+            <span className="mt-2 max-w-[180px] truncate text-center text-sm font-bold text-[#259cc1]">
+              {username || 'Admin'}
+            </span>
+          )}
+        </div>
+
+        {/* Navegação Administrativa Agrupada */}
+        <nav
+          data-testid="v22-sidebar-admin-group"
+          aria-label="Navegação administrativa"
+          className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden px-2 pb-2"
+        >
+          {ADMIN_GROUPS.map((group) => (
+            <div
+              key={group.id}
+              className="flex flex-col items-center space-y-1"
+            >
+              <p
+                className={cn(
+                  'text-xs font-normal text-[#e1e1e6]',
+                  collapsed ? 'sr-only' : 'mb-1 w-[180px] px-2',
+                )}
+              >
+                {group.title}
+              </p>
+
+              <ul className="flex flex-col items-center space-y-1">
+                {group.items.map((item) => {
+                  const active = isAdminItemActive(
+                    item,
+                    pathname,
+                    searchParams,
+                  );
+                  const Icon = item.icon;
+
+                  return (
+                    <li key={item.id}>
+                      <Link
+                        href={item.href}
+                        aria-current={active ? 'page' : undefined}
+                        title={item.label}
+                        aria-label={item.label}
+                        className={cn(
+                          'rounded-md text-xs transition-colors',
+                          collapsed
+                            ? 'flex h-[27px] w-[34px] items-center justify-center'
+                            : 'flex h-[27px] w-[180px] items-center gap-2 px-2',
+                          active
+                            ? 'bg-[#259cc1] font-medium text-[#121214]'
+                            : 'text-[#e1e1e6] hover:bg-[#259cc1]/15 hover:text-[#259cc1]',
+                        )}
+                      >
+                        <Icon size={16} weight={active ? 'bold' : 'regular'} />
+                        <span
+                          className={cn('truncate', collapsed ? 'sr-only' : '')}
+                        >
+                          {item.label}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+
+        {/* Rodapé: Site, Sair e Toggle Recolher/Expandir */}
+        <div className="flex flex-col items-center space-y-1 border-t border-white/10 pb-3 pt-2">
+          <p
+            className={cn(
+              'text-xs font-normal text-[#e1e1e6]',
+              collapsed ? 'sr-only' : 'mb-1 w-[180px] px-2',
+            )}
+          >
+            Rodapé
+          </p>
+
+          <ul className="flex flex-col items-center space-y-1">
+            <li>
+              <Link
+                href="/"
+                aria-current={pathname === '/' ? 'page' : undefined}
+                title="Retornar ao Site"
+                aria-label="Retornar ao Site"
+                className={cn(
+                  'rounded-md text-xs transition-colors',
+                  collapsed
+                    ? 'flex h-[27px] w-[34px] items-center justify-center'
+                    : 'flex h-[27px] w-[180px] items-center gap-2 px-2',
+                  pathname === '/'
+                    ? 'bg-[#259cc1] font-medium text-[#121214]'
+                    : 'text-[#e1e1e6] hover:bg-[#259cc1]/15 hover:text-[#259cc1]',
+                )}
+              >
+                <House
+                  size={16}
+                  weight={pathname === '/' ? 'bold' : 'regular'}
+                />
+                <span className={cn('truncate', collapsed ? 'sr-only' : '')}>
+                  Retornar ao Site
+                </span>
+              </Link>
+            </li>
+
+            <li>
+              <button
+                type="button"
+                onClick={handleLogout}
+                title="Sair"
+                aria-label="Sair da conta"
+                className={cn(
+                  'rounded-md text-xs transition-colors',
+                  collapsed
+                    ? 'flex h-[27px] w-[34px] items-center justify-center'
+                    : 'flex h-[27px] w-[180px] items-center gap-2 px-2',
+                  'text-[#e1e1e6] hover:bg-[#259cc1]/15 hover:text-[#259cc1]',
+                )}
+              >
+                <SignOut size={16} weight="regular" />
+                <span className={cn('truncate', collapsed ? 'sr-only' : '')}>
+                  Sair
+                </span>
+              </button>
+            </li>
+
+            {!isMobile && onToggleCollapse && (
+              <li>
+                <button
+                  type="button"
+                  onClick={onToggleCollapse}
+                  title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+                  aria-label={
+                    collapsed
+                      ? 'Expandir menu lateral'
+                      : 'Recolher menu lateral'
+                  }
+                  className={cn(
+                    'rounded-md text-xs transition-colors',
+                    collapsed
+                      ? 'flex h-[27px] w-[34px] items-center justify-center'
+                      : 'flex h-[27px] w-[180px] items-center justify-between px-2',
+                    'text-[#e1e1e6] hover:bg-[#259cc1]/15 hover:text-[#259cc1]',
+                  )}
+                >
+                  {collapsed ? (
+                    <CaretRight size={16} weight="bold" />
+                  ) : (
+                    <>
+                      <span>Menu</span>
+                      <CaretLeft size={16} weight="bold" />
+                    </>
+                  )}
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-30 hidden border-r border-appSidebarBorder lg:block">
-        {sidebarContent}
+      {/* Desktop Aside */}
+      <aside
+        data-testid="v22-desktop-sidebar"
+        className={cn(
+          'fixed inset-y-0 left-0 z-30 hidden transition-all duration-300 lg:block',
+          variant === 'admin'
+            ? cn(
+                'rounded-br-[24px] rounded-tr-[24px] border-r-2 border-[#259cc1] bg-[#202024]',
+                isCollapsed ? 'w-[80px]' : 'w-[200px]',
+              )
+            : 'w-[260px] border-r border-appSidebarBorder bg-appSidebarBackground',
+        )}
+      >
+        {variant === 'admin'
+          ? renderAdminSidebarContent(false)
+          : webappSidebarContent}
       </aside>
 
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
@@ -454,9 +780,16 @@ export function WebappSidebar({
           />
           <aside
             data-testid="v22-mobile-drawer"
-            className="relative z-10 h-full w-[260px] border-r border-appSidebarBorder shadow-2xl"
+            className={cn(
+              'relative z-10 h-full border-r shadow-2xl transition-all',
+              variant === 'admin'
+                ? 'w-[207px] border-[#259cc1] bg-[#202024]'
+                : 'w-[260px] border-appSidebarBorder bg-appSidebarBackground',
+            )}
           >
-            {sidebarContent}
+            {variant === 'admin'
+              ? renderAdminSidebarContent(true)
+              : webappSidebarContent}
           </aside>
         </div>
       )}
