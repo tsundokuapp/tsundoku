@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
+  assignRoleToNewUser,
   createAdminUser,
   deleteAdminUser,
   getAdminUsers,
@@ -24,6 +25,19 @@ export function useCreateAdminUser() {
   return useMutation({
     mutationFn: (data: ICreateUserForm) => createAdminUser(data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ADMIN_USERS_QUERY_KEY });
+    },
+  });
+}
+
+/** Retoma a atribuição de cargo de uma conta já criada (sem novo cadastro). */
+export function useAssignNewUserRole() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ userId, cargo }: { userId: number; cargo: string }) =>
+      assignRoleToNewUser(userId, cargo),
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ADMIN_USERS_QUERY_KEY });
     },
   });

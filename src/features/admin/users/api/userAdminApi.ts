@@ -2,7 +2,12 @@ import { authPrivate } from '@/core/api';
 import { isDevEnvironment } from '@/features/admin/utils/devMock';
 
 import { FIGMA_MOCK_USERS } from '../mocks/userMocks';
-import { ICreateUserForm, IToriiUser, IUserAdmin } from '../types/userAdmin';
+import {
+  CreateAdminUserResult,
+  ICreateUserForm,
+  IToriiUser,
+  IUserAdmin,
+} from '../types/userAdmin';
 
 let devUsersState: IUserAdmin[] = [...FIGMA_MOCK_USERS];
 
@@ -38,55 +43,236 @@ export async function getAdminUsers(): Promise<IUserAdmin[]> {
   }
 }
 
+/**
+ * Política de senha aplicada pelo Torii no cadastro.
+ * O Torii (`Program.cs`) usa `AddIdentity` sem `PasswordOptions`, então valem
+ * os padrões do ASP.NET Core Identity: 6+ caracteres, ao menos uma letra
+ * maiúscula, uma minúscula, um dígito e um caractere não alfanumérico.
+ * `CadastroUsuarioRequest` também exige `ConfirmaSenha` igual a `Senha`.
+ */
+export const TORII_PASSWORD_MIN_LENGTH = 6;
+
+export function validateNewUserPassword(
+  senha: string,
+  confirmaSenha: string,
+): string | null {
+  if (!senha) return 'Informe a senha de acesso.';
+  if (senha.length < TORII_PASSWORD_MIN_LENGTH)
+    return `A senha precisa ter ao menos ${TORII_PASSWORD_MIN_LENGTH} caracteres.`;
+  if (!/[A-Z]/.test(senha))
+    return 'A senha precisa ter ao menos uma letra maiúscula.';
+  if (!/[a-z]/.test(senha))
+    return 'A senha precisa ter ao menos uma letra minúscula.';
+  if (!/\d/.test(senha)) return 'A senha precisa ter ao menos um número.';
+  if (!/[^a-zA-Z0-9]/.test(senha))
+    return 'A senha precisa ter ao menos um caractere especial.';
+  if (senha !== confirmaSenha) return 'A confirmação de senha não confere.';
+  return null;
+}
+
+interface AxiosLikeError {
+  response?: { status?: number; data?: unknown };
+}
+
+function hasResponse(err: unknown): err is Required<AxiosLikeError> {
+  return Boolean(
+    err && typeof err === 'object' && (err as AxiosLikeError).response,
+  );
+}
+
+/** Extrai a mensagem de erro dos formatos devolvidos pelo Torii. */
+export function extractToriiMessage(err: unknown, fallback: string): string {
+  if (!hasResponse(err)) return fallback;
+  const data = err.response.data;
+
+  if (typeof data === 'string' && data.trim()) return data.trim();
+
+  if (Array.isArray(data)) {
+    // IdentityError[] de AddToRoleAsync/RemoveFromRoleAsync.
+    const descriptions = data
+      .map((e) => (e && typeof e === 'object' ? e.description : null))
+      .filter(Boolean);
+    if (descriptions.length) return descriptions.join(' ');
+  }
+
+  if (data && typeof data === 'object') {
+    const obj = data as Record<string, unknown>;
+    if (typeof obj.message === 'string') return obj.message;
+    if (obj.errors && typeof obj.errors === 'object') {
+      const messages = Object.values(obj.errors as Record<string, unknown>)
+        .flat()
+        .filter((m): m is string => typeof m === 'string');
+      if (messages.length) return messages.join(' ');
+    }
+    if (typeof obj.title === 'string') return obj.title;
+  }
+
+  return fallback;
+}
+
+/**
+ * `POST api/auth/cadastro` devolve `Ok(result)`, em que `result` é o
+ * `Result<object>` (FluentResults) de `CadastroService.CadastrarUsuario`,
+ * serializado em camelCase pelo Newtonsoft:
+ * `{ isSuccess, value: { idUsuario, codigoConfirmacao }, ... }`.
+ */
+export function extractCreatedUserId(data: unknown): number | null {
+  if (!data || typeof data !== 'object') return null;
+  const result = data as Record<string, unknown>;
+  if (result.isSuccess === false || result.isFailed === true) return null;
+
+  const value = (result.value ?? result.valueOrDefault ?? result.Value) as
+    | Record<string, unknown>
+    | undefined;
+  const rawId = value?.idUsuario ?? value?.IdUsuario;
+  const id = typeof rawId === 'string' ? Number(rawId) : rawId;
+
+  return typeof id === 'number' && Number.isInteger(id) && id > 0 ? id : null;
+}
+
+function isLeitor(cargo: string) {
+  return cargo.trim().toLowerCase() === 'leitor';
+}
+
+function buildCreatedUser(
+  data: ICreateUserForm,
+  id: number | string,
+  roles: string[],
+): IUserAdmin {
+  const today = new Date().toLocaleDateString('pt-BR');
+  return {
+    id,
+    userName: data.userName,
+    email: data.email,
+    roles,
+    dataCadastro: today,
+    ultimoAcesso: today,
+    apoiador: roles.some((r) => r.toLowerCase() === 'apoiador'),
+  };
+}
+
+/**
+ * Atribui o cargo a uma conta recém-criada e só retorna depois de o Torii
+ * confirmar (`GET admin/usuarios/{id}/roles`) que o cargo está vinculado.
+ * Pode ser chamada novamente para retomar uma atribuição que falhou.
+ */
+export async function assignRoleToNewUser(
+  userId: number,
+  cargo: string,
+): Promise<string[]> {
+  const roleName = cargo.trim().toLowerCase();
+  let assignError: string | null = null;
+
+  try {
+    await authPrivate.post(`admin/usuarios/${userId}/roles`, { roleName });
+  } catch (err) {
+    const message = extractToriiMessage(
+      err,
+      `Não foi possível atribuir o cargo ${cargo} no Torii.`,
+    );
+    // Reenvio após uma atribuição que chegou a ser gravada: o Identity
+    // responde 400 "User already in role". A verificação abaixo decide.
+    if (!hasResponse(err) || err.response.status !== 400) {
+      throw new Error(message);
+    }
+    assignError = message;
+  }
+
+  let roles: string[];
+  try {
+    const { data } = await authPrivate.get<string[]>(
+      `admin/usuarios/${userId}/roles`,
+    );
+    roles = Array.isArray(data) ? data : [];
+  } catch (err) {
+    throw new Error(
+      extractToriiMessage(
+        err,
+        `Não foi possível confirmar o cargo ${cargo} no Torii.`,
+      ),
+    );
+  }
+
+  if (!roles.some((r) => r.toLowerCase() === roleName)) {
+    throw new Error(
+      assignError ?? `O Torii não confirmou o cargo ${cargo} para a conta.`,
+    );
+  }
+
+  return roles;
+}
+
+// TODO(backend-integration): `POST api/auth/cadastro` é o cadastro público:
+// exige confirmação de e-mail (`RequireConfirmedEmail`) antes do primeiro login
+// e devolve `codigoConfirmacao` no corpo. Um endpoint administrativo dedicado
+// (ex.: `POST api/admin/usuarios` em AdminController.cs, com role na mesma
+// transação) eliminaria o estado parcial e a exposição do código.
 export async function createAdminUser(
   data: ICreateUserForm,
-): Promise<IUserAdmin> {
+): Promise<CreateAdminUserResult> {
+  const passwordError = validateNewUserPassword(data.senha, data.confirmaSenha);
+  if (passwordError) throw new Error(passwordError);
+
+  const cargo = data.cargo || 'Leitor';
+
+  let registerData: unknown;
   try {
-    const registerResponse = await authPrivate.post('auth/cadastro', {
+    const response = await authPrivate.post('auth/cadastro', {
       usuario: data.userName,
       email: data.email,
-      senha: data.senha || 'Tsundoku@123',
-      confirmaSenha: data.senha || 'Tsundoku@123',
+      senha: data.senha,
+      confirmaSenha: data.confirmaSenha,
     });
-
-    const newUserId = registerResponse.data?.id;
-
-    if (newUserId && data.cargo && data.cargo.toLowerCase() !== 'leitor') {
-      await authPrivate.post(`admin/usuarios/${newUserId}/roles`, {
-        roleName: data.cargo.toLowerCase(),
-      });
-    }
-
-    const newUser: IUserAdmin = {
-      id: newUserId || Date.now(),
-      userName: data.userName,
-      email: data.email,
-      roles: [data.cargo || 'Leitor'],
-      dataCadastro: new Date().toLocaleDateString('pt-BR'),
-      ultimoAcesso: new Date().toLocaleDateString('pt-BR'),
-      apoiador: data.cargo.toLowerCase() === 'apoiador',
-    };
-
-    if (isDevEnvironment()) {
-      devUsersState = [newUser, ...devUsersState];
-    }
-
-    return newUser;
+    registerData = response.data;
   } catch (err) {
-    if (isDevEnvironment()) {
-      const newUser: IUserAdmin = {
-        id: Date.now(),
-        userName: data.userName,
-        email: data.email,
-        roles: [data.cargo || 'Leitor'],
-        dataCadastro: new Date().toLocaleDateString('pt-BR'),
-        ultimoAcesso: new Date().toLocaleDateString('pt-BR'),
-        apoiador: data.cargo.toLowerCase() === 'apoiador',
-      };
-      devUsersState = [newUser, ...devUsersState];
-      return newUser;
+    // Mock local apenas quando o Torii está inacessível (sem resposta HTTP).
+    // Respostas de erro reais do Torii sempre chegam à interface.
+    if (isDevEnvironment() && !hasResponse(err)) {
+      const devUser = buildCreatedUser(data, Date.now(), [cargo]);
+      devUsersState = [devUser, ...devUsersState];
+      return { status: 'complete', user: devUser };
     }
-    throw err;
+    throw new Error(
+      extractToriiMessage(err, 'Não foi possível cadastrar a conta no Torii.'),
+    );
+  }
+
+  const userId = extractCreatedUserId(registerData);
+
+  if (userId === null) {
+    // A conta foi criada, mas sem o ID não é seguro atribuir o cargo.
+    return {
+      status: 'role_pending',
+      user: buildCreatedUser(data, data.email, ['Leitor']),
+      userId: null,
+      cargo,
+      message:
+        'O Torii criou a conta, mas não retornou o ID do usuário. Atribua o cargo pela lista de usuários.',
+    };
+  }
+
+  // CadastroService já vincula a role "leitor" a toda conta nova.
+  if (isLeitor(cargo)) {
+    return {
+      status: 'complete',
+      user: buildCreatedUser(data, userId, ['Leitor']),
+    };
+  }
+
+  try {
+    const roles = await assignRoleToNewUser(userId, cargo);
+    return { status: 'complete', user: buildCreatedUser(data, userId, roles) };
+  } catch (err) {
+    return {
+      status: 'role_pending',
+      user: buildCreatedUser(data, userId, ['Leitor']),
+      userId,
+      cargo,
+      message:
+        err instanceof Error
+          ? err.message
+          : `Não foi possível atribuir o cargo ${cargo}.`,
+    };
   }
 }
 
