@@ -71,6 +71,19 @@
   --app-color-tabs-active: var(--color-zinc-700);
   --app-color-tabs-active-text: var(--color-white);
 
+  /* V2 Sidebar & Surfaces */
+  --app-color-sidebar-background: var(--color-v2-sidebar-dark);
+  --app-color-sidebar-surface: var(--color-v2-sidebar-active);
+  --app-color-sidebar-border: var(--color-v2-sidebar-active);
+  --app-color-sidebar-text: var(--color-v2-text-light);
+  --app-color-sidebar-muted: var(--color-v2-sidebar-muted);
+  --app-color-surface-background: var(--color-v2-main-dark);
+  --app-color-card-background: var(--color-v2-card-dark);
+  --app-color-card-border: var(--color-v2-sidebar-active);
+  --app-color-accent-cyan: var(--color-v2-cyan);
+  --app-color-cta-gradient-from: var(--color-v2-cyan);
+  --app-color-cta-gradient-to: var(--color-v2-mint);
+
   /* 
   ---------------------- 
   PROFILE                    

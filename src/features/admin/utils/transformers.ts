@@ -1,9 +1,12 @@
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+
 import {
   type InputFormCreateProject,
   type InputFormUnifiedVolumeAndChapter,
 } from '../schemas';
 
 export function transformFormDataNovel(data: InputFormCreateProject) {
+  const currentUsername = useAuthStore.getState().username || 'admin';
   return {
     titulo: data.title,
     tituloAlternativo: data.titleAlternative,
@@ -21,8 +24,8 @@ export function transformFormDataNovel(data: InputFormCreateProject) {
     listaGeneros: data.genres,
     sinopse: data.synopsis,
     imagemCapaPrincipalFile: data.cover,
-    usuarioAlteracao: 'admin',
-    usuarioInclusao: 'admin',
+    usuarioAlteracao: currentUsername,
+    usuarioInclusao: currentUsername,
     dataAlteracao: new Date().toISOString(),
     publicado: data.privacy === 'publico',
     ...Object.fromEntries(
@@ -48,6 +51,7 @@ export function transformFormDataNovel(data: InputFormCreateProject) {
 }
 
 export function transformFormDataComic(data: InputFormCreateProject) {
+  const currentUsername = useAuthStore.getState().username || 'admin';
   return {
     titulo: data.title,
     tituloAlternativo: data.titleAlternative,
@@ -65,8 +69,8 @@ export function transformFormDataComic(data: InputFormCreateProject) {
     listaGeneros: data.genres,
     sinopse: data.synopsis,
     imagemCapaPrincipalFile: data.cover,
-    usuarioInclusao: 'admin',
-    usuarioAlteracao: 'admin',
+    usuarioInclusao: currentUsername,
+    usuarioAlteracao: currentUsername,
     dataAlteracao: new Date().toISOString(),
     publicado: data.privacy === 'publico',
     ...Object.fromEntries(
@@ -95,13 +99,14 @@ export function transformFormDataNovelVolumeAndChapter(
   data: InputFormUnifiedVolumeAndChapter,
 ) {
   const isVolume = data.type === 'volume';
+  const currentUsername = useAuthStore.getState().username || 'admin';
   return {
     titulo: data.title,
     sinopse: isVolume ? data.description : undefined,
     ImagemVolumeFile: isVolume ? data.cover : undefined,
     numero: isVolume ? data.number : undefined,
-    usuarioAlteracao: 'admin',
-    usuarioInclusao: 'admin',
+    usuarioAlteracao: currentUsername,
+    usuarioInclusao: currentUsername,
     dataAlteracao: new Date().toISOString(),
     ...Object.fromEntries(
       Object.entries(data).filter(

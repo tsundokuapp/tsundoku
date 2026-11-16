@@ -1,12 +1,17 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trash } from '@phosphor-icons/react/dist/ssr';
 import { useMutation } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
-import { FormEvent, ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { FormEvent, ReactNode, useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 
-import { updateComicService } from '@/features/admin/comics/api/comicAdmin';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import {
+  deleteComicService,
+  updateComicService,
+} from '@/features/admin/comics/api/comicAdmin';
 import { useAdminComicBySlug } from '@/features/admin/comics/hooks/usePrivateComics';
 import { ChapterComicDocumentsTable } from '@/features/admin/components/table/ChapterComicDocumentsTable';
 import {
@@ -21,7 +26,7 @@ import {
   InputFormCreateProject,
   InputFormProject,
 } from '@/features/admin/schemas';
-import { transformFormDataNovel } from '@/features/admin/utils/transformers';
+import { transformFormDataComic } from '@/features/admin/utils/transformers';
 import { useChapterComic } from '@/features/comics/hooks/usePublicComics';
 import { usePublicGenres } from '@/features/project/hooks/useProject';
 import { NavTabs, Tab } from '@/shared/components/layout/tab';
@@ -71,25 +76,51 @@ export function ProjectComic() {
 
   const { toaster } = useToaster();
 
+  const router = useRouter();
+  const { isAdmin } = useAuthStore();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const { mutateAsync: updateComicFn } = useMutation({
     mutationFn: updateComicService,
   });
+
+  const { mutateAsync: deleteComicFn, isPending: isDeleting } = useMutation({
+    mutationFn: deleteComicService,
+  });
+
+  const handleDeleteObra = async () => {
+    if (!projectResponse?.id) return;
+    const res = await deleteComicFn(projectResponse.id);
+    if (!res.ok) {
+      toaster({
+        type: 'error',
+        msg: 'Erro ao excluir o mangá',
+      });
+      return;
+    }
+    toaster({
+      type: 'success',
+      msg: 'Mangá excluído com sucesso',
+    });
+    setShowDeleteModal(false);
+    router.push('/mangaadmin');
+  };
 
   const booleanOptions = ['Sim', 'Não'];
 
   const handleFormSubmit = async (data: InputFormCreateProject) => {
     const formData = new FormData();
-    const dataRequest = transformFormDataNovel(data);
+    const dataRequest = transformFormDataComic(data);
 
     for (const [key, value] of Object.entries(dataRequest)) {
-      if (key === 'cover' && value instanceof File) {
+      if (value instanceof File) {
         formData.append(key, value);
-      } else if (key === 'listaGeneros' && Array.isArray(value)) {
-        value.forEach((genero) => {
-          formData.append(`${key}`, genero);
+      } else if (Array.isArray(value)) {
+        value.forEach((item) => {
+          formData.append(key, item);
         });
-      } else {
-        formData.append(key, value as string);
+      } else if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
       }
     }
 
@@ -183,28 +214,39 @@ export function ProjectComic() {
               }
             />
 
-            <button
-              type="submit"
-              className="mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg bg-appGroupBackground px-4 py-2 text-center text-base font-semibold text-appText shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                className="mr-2"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
+            {isAdmin ? (
+              <button
+                type="submit"
+                className="mt-4 flex w-full max-w-[140px] items-center justify-center rounded-lg bg-appGroupBackground px-4 py-2 text-center text-base font-semibold text-appText shadow-md transition duration-200 ease-in hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-700 focus:ring-offset-2 focus:ring-offset-sky-300"
               >
-                <path d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z"></path>
-              </svg>
-              Enviar
-            </button>
+                <svg
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  className="mr-2"
+                  viewBox="0 0 1792 1792"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z"></path>
+                </svg>
+                Enviar
+              </button>
+            ) : (
+              <p className="mt-3 text-center text-xs text-appSidebarMuted">
+                Upload de imagens restrito a administradores.
+              </p>
+            )}
           </form>
         </Section>
       </aside>
       <aside className="flex w-full flex-col flex-wrap rounded-md bg-appGroupBackground p-4">
-        <NavTabs defaultActiveKey="Geral">
-          <Tab title="Geral" eventKey="Geral" alert={errorGeral}>
+        <NavTabs defaultActiveKey={isAdmin ? 'Geral' : 'Capitulos'}>
+          <Tab
+            title="Geral"
+            eventKey="Geral"
+            alert={errorGeral}
+            disabled={!isAdmin}
+          >
             <div className="flex flex-col justify-between">
               <form
                 onSubmit={handleSubmit(handleFormSubmit)}
@@ -353,7 +395,7 @@ export function ProjectComic() {
                   <FormInput
                     label="Cor Hexadecimal"
                     name="hexColor"
-                    placeholder="3F51B5"
+                    placeholder="#3F51B5"
                     errors={errors}
                     setValue={setValue}
                     register={register}
@@ -423,7 +465,26 @@ export function ProjectComic() {
                   rows={5}
                 />
 
-                <FormButton isSubmitting={isSubmitting} />
+                <div className="mt-2 flex items-center justify-between gap-4">
+                  {isAdmin ? (
+                    <FormButton isSubmitting={isSubmitting} />
+                  ) : (
+                    <div className="rounded-[4px] bg-[#202024] p-3 text-xs text-[#a8a8b3]">
+                      Apenas administradores podem alterar os metadados da obra.
+                    </div>
+                  )}
+
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => setShowDeleteModal(true)}
+                      className="flex items-center gap-1.5 rounded-[4px] border border-red-500/40 bg-red-500/20 px-4 py-2 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500 hover:text-white"
+                    >
+                      <Trash size={16} weight="bold" />
+                      <span>Excluir Obra</span>
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
           </Tab>
@@ -439,11 +500,46 @@ export function ProjectComic() {
               <p>Nenhum capítulo encontrado.</p>
             )}
           </Tab>
-          <Tab title="Registros" eventKey="Logs">
-            <h1>Logs para admins</h1>
+          <Tab title="Registros" eventKey="Logs" disabled={!isAdmin}>
+            {/* TODO(backend-integration): Endpoint de histórico de alterações da obra (ex: GET /api/admin/obra/{id}/historico). O Tsundoku API não possui tabela de auditoria/logs de alterações por obra. */}
+            <div className="p-4 text-sm text-[#a8a8b3]">
+              Logs e histórico de alterações em desenvolvimento (aguardando
+              endpoint no backend).
+            </div>
           </Tab>
         </NavTabs>
       </aside>
+
+      {/* Excluir Obra confirmation modal matching Figma 1238:551 */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-md rounded-lg border border-appCardBorder bg-[#202024] p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-white">Excluir Obra</h3>
+            <p className="mt-2 text-sm text-[#a8a8b3]">
+              Tem certeza que deseja excluir esta obra? Esta ação é irreversível
+              e excluirá todos os volumes e capítulos vinculados.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setShowDeleteModal(false)}
+                className="rounded-[4px] bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                disabled={isDeleting}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteObra}
+                className="rounded-[4px] bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+                disabled={isDeleting}
+              >
+                {isDeleting ? 'Excluindo...' : 'Confirmar Exclusão'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

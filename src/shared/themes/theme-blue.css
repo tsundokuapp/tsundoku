@@ -70,6 +70,19 @@
   --app-color-tabs-active: var(--color-slate-700);
   --app-color-tabs-active-text: var(--color-white);
 
+  /* V2 Sidebar & Surfaces */
+  --app-color-sidebar-background: var(--color-slate-900);
+  --app-color-sidebar-surface: var(--color-slate-800);
+  --app-color-sidebar-border: var(--color-slate-700);
+  --app-color-sidebar-text: var(--color-slate-100);
+  --app-color-sidebar-muted: var(--color-slate-300);
+  --app-color-surface-background: var(--color-slate-950);
+  --app-color-card-background: var(--color-slate-800);
+  --app-color-card-border: var(--color-slate-700);
+  --app-color-accent-cyan: var(--color-v2-cyan);
+  --app-color-cta-gradient-from: var(--color-v2-cyan);
+  --app-color-cta-gradient-to: var(--color-v2-mint);
+
   /* 
   ---------------------- 
   PROFILE                    

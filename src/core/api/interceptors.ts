@@ -2,8 +2,8 @@ import type { AxiosInstance } from 'axios';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
-import { api, apiPrivate } from '.';
-import { refreshAccessToken } from './refreshToken';
+import { api, apiPrivate, auth, authPrivate } from '.';
+import { isRefreshTokenRequest, refreshAccessToken } from './refreshToken';
 
 export const setupInterceptors = () => {
   const attachAuthInterceptors = (instance: AxiosInstance) => {
@@ -22,17 +22,21 @@ export const setupInterceptors = () => {
       async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+          error.response?.status === 401 &&
+          originalRequest &&
+          !originalRequest._retry &&
+          !isRefreshTokenRequest(originalRequest.url)
+        ) {
           originalRequest._retry = true;
 
-          try {
-            const newToken = await refreshAccessToken();
+          // refreshAccessToken() usa o cliente `authRefresh`, que não recebe
+          // estes interceptors: um 401 da renovação rejeita aqui e libera a
+          // requisição original, em vez de disparar outra renovação.
+          const newToken = await refreshAccessToken();
 
-            originalRequest.headers.Authorization = `Bearer ${newToken}`;
-            return instance(originalRequest);
-          } catch (err) {
-            return Promise.reject(err);
-          }
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return instance(originalRequest);
         }
 
         return Promise.reject(error);
@@ -42,4 +46,6 @@ export const setupInterceptors = () => {
 
   attachAuthInterceptors(api);
   attachAuthInterceptors(apiPrivate);
+  attachAuthInterceptors(auth);
+  attachAuthInterceptors(authPrivate);
 };

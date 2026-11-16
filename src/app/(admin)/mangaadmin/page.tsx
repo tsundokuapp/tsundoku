@@ -1,11 +1,16 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { MagnifyingGlass, Plus } from '@phosphor-icons/react/dist/ssr';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Path, useForm } from 'react-hook-form';
 
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import { createComicService } from '@/features/admin/comics/api/comicAdmin';
+import { usePrivateComics } from '@/features/admin/comics/hooks/usePrivateComics';
 import { TableComic } from '@/features/admin/components/dashboard/table/TableComic';
+import { ObraCard, ObrasViewToggle } from '@/features/admin/components/obras';
 import { nationality, status, types } from '@/features/admin/constants/project';
 import {
   formCreateProjectSchema,
@@ -14,6 +19,7 @@ import {
 import { transformFormDataComic } from '@/features/admin/utils/transformers';
 import { usePublicGenres } from '@/features/project/hooks/useProject';
 import { Modal } from '@/shared/components/feedback/Modal';
+import { Button } from '@/shared/components/ui/button/Button';
 import {
   DragAndDropSingleImage,
   FormButton,
@@ -25,7 +31,13 @@ import {
 import { useModal } from '@/shared/contexts/ModalContext';
 import { useToaster } from '@/shared/contexts/ToasterContext';
 
-export default function NovelAdmin() {
+export default function MangaAdmin() {
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+  const { isAdmin } = useAuthStore();
+  const { data: comicsResponse, isLoading: isLoadingComics } =
+    usePrivateComics();
+
   const { openModal, closeModal } = useModal();
   const { toaster } = useToaster();
   const {
@@ -59,10 +71,12 @@ export default function NovelAdmin() {
     const dataRequest = transformFormDataComic(data);
 
     for (const [key, value] of Object.entries(dataRequest)) {
-      if (key === 'cover' && value instanceof File) {
+      if (value instanceof File) {
         formData.append(key, value);
-      } else {
-        formData.append(key, value as string);
+      } else if (Array.isArray(value)) {
+        value.forEach((item) => formData.append(key, item));
+      } else if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
       }
     }
 
@@ -74,19 +88,30 @@ export default function NovelAdmin() {
         msg:
           typeof response.error.message?.title === 'string'
             ? response.error.message.title
-            : 'Erro ao criar a comic',
+            : 'Erro ao criar o mangá',
       });
       return;
     }
 
     toaster({
       type: 'success',
-      msg: 'Comic criada com sucesso',
+      msg: 'Mangá criado com sucesso',
     });
 
     reset();
     closeModal();
   };
+
+  const comicsList =
+    comicsResponse?.ok && Array.isArray(comicsResponse.data?.data)
+      ? comicsResponse.data.data
+      : [];
+
+  const filteredComics = comicsList.filter(
+    (comic) =>
+      comic.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      comic.autor?.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const ModalCreateComic = () => {
     return (
@@ -107,7 +132,7 @@ export default function NovelAdmin() {
             <FormInput
               label="Título"
               name="title"
-              placeholder="Jirai Nandesuka? Chihara-san"
+              placeholder="Sousou no Frieren"
               errors={errors}
               setValue={setValue}
               register={register}
@@ -116,7 +141,7 @@ export default function NovelAdmin() {
             <FormInput
               label="Alias (Título Reduzido)"
               name="aliasTitle"
-              placeholder="Chihara-san"
+              placeholder="Frieren"
               errors={errors}
               setValue={setValue}
               register={register}
@@ -125,7 +150,7 @@ export default function NovelAdmin() {
             <FormInput
               label="Título Alternativo"
               name="titleAlternative"
-              placeholder="That Girl Is Cute... But Dangerous?; Aquela Garota é Bonita, Mas Perigosa?"
+              placeholder="Frieren: Beyond Journey's End"
               errors={errors}
               setValue={setValue}
               register={register}
@@ -134,7 +159,7 @@ export default function NovelAdmin() {
             <FormInput
               label="Autor"
               name="author"
-              placeholder="Ryon"
+              placeholder="Kanehito Yamada"
               errors={errors}
               setValue={setValue}
               register={register}
@@ -156,7 +181,7 @@ export default function NovelAdmin() {
             <FormInput
               label="Cor Hexadecimal"
               name="hexColor"
-              placeholder="3F51B5"
+              placeholder="#3F51B5"
               errors={errors}
               setValue={setValue}
               register={register}
@@ -227,10 +252,99 @@ export default function NovelAdmin() {
   };
 
   return (
-    <div className="flex flex-row">
-      <TableComic openModal={openModal} />
+    <div className="flex w-full flex-col gap-6">
+      {/* Top Controls Header matching Figma 1268:29213 */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full max-w-md">
+          <MagnifyingGlass
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6c757d]"
+            size={18}
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Pesquisar Obras"
+            className="h-10 w-full rounded-[8px] border border-transparent bg-[#202024] pl-10 pr-4 text-sm text-[#e1e1e6] placeholder-[#6c757d] transition-colors focus:border-[#259cc1] focus:outline-none"
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <ObrasViewToggle viewMode={viewMode} onChange={setViewMode} />
+          {isAdmin && (
+            <Button
+              onClick={() => openModal()}
+              className="flex items-center gap-1.5"
+            >
+              <Plus size={16} weight="bold" />
+              <span>Adicionar</span>
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Main Content: Grid vs Table with responsive mobile view */}
+      {viewMode === 'grid' ? (
+        <div>
+          {isLoadingComics ? (
+            <div className="flex h-64 items-center justify-center text-sm text-[#a8a8b3]">
+              Carregando obras...
+            </div>
+          ) : filteredComics.length === 0 ? (
+            <div className="flex h-64 flex-col items-center justify-center gap-2 rounded-[8px] border border-dashed border-[#202024] p-8 text-center text-[#a8a8b3]">
+              <p>Nenhum mangá encontrado.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+              {filteredComics.map((comic) => (
+                <ObraCard
+                  key={comic.id}
+                  id={comic.id}
+                  title={comic.titulo}
+                  coverUrl={comic.imagemCapaPrincipal}
+                  slug={comic.slug}
+                  worktype="comic"
+                  author={comic.autor}
+                  status={comic.statusObra}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="w-full">
+          {/* On mobile, render the 2-column card grid to prevent horizontal squishing */}
+          <div className="block md:hidden">
+            {filteredComics.length === 0 ? (
+              <div className="flex h-48 items-center justify-center text-sm text-[#a8a8b3]">
+                Nenhum mangá encontrado.
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                {filteredComics.map((comic) => (
+                  <ObraCard
+                    key={comic.id}
+                    id={comic.id}
+                    title={comic.titulo}
+                    coverUrl={comic.imagemCapaPrincipal}
+                    slug={comic.slug}
+                    worktype="comic"
+                    author={comic.autor}
+                    status={comic.statusObra}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="hidden md:block">
+            <TableComic openModal={openModal} />
+          </div>
+        </div>
+      )}
+
       <div>
-        <Modal title="Criação de Comics">
+        <Modal title="Criação de Mangás">
           <ModalCreateComic />
         </Modal>
       </div>
