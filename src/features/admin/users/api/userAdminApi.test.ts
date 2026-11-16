@@ -177,15 +177,113 @@ describe('userAdminApi', () => {
       });
     });
 
-    it('não faz chamada de cargo para Leitor (o cadastro já vincula leitor)', async () => {
+    it('Leitor confirmado: verifica no Torii e conclui sem repetir a atribuição', async () => {
       (authPrivate.post as jest.Mock).mockResolvedValueOnce({
         data: toriiCadastroBody(7),
+      });
+      (authPrivate.get as jest.Mock).mockResolvedValueOnce({
+        data: ['leitor'],
       });
 
       const result = await createAdminUser({ ...baseForm, cargo: 'Leitor' });
 
+      expect(authPrivate.get).toHaveBeenCalledWith('admin/usuarios/7/roles');
       expect(authPrivate.post).toHaveBeenCalledTimes(1);
-      expect(result).toMatchObject({ status: 'complete', user: { id: 7 } });
+      expect(authPrivate.post).toHaveBeenCalledWith(
+        'auth/cadastro',
+        expect.anything(),
+      );
+      expect(result).toMatchObject({
+        status: 'complete',
+        user: { id: 7, roles: ['leitor'] },
+      });
+    });
+
+    it('Leitor ausente: retorna parcial com o ID real e mensagem de cargo ausente', async () => {
+      (authPrivate.post as jest.Mock).mockResolvedValueOnce({
+        data: toriiCadastroBody(8),
+      });
+      (authPrivate.get as jest.Mock).mockResolvedValueOnce({ data: [] });
+
+      const result = await createAdminUser({ ...baseForm, cargo: 'Leitor' });
+
+      expect(result).toMatchObject({
+        status: 'role_pending',
+        userId: 8,
+        cargo: 'Leitor',
+        message:
+          'O Torii criou a conta, mas o cargo Leitor não está vinculado.',
+      });
+      expect(authPrivate.post).toHaveBeenCalledTimes(1);
+    });
+
+    it('Leitor não verificável: retorna parcial com mensagem de falha ao confirmar', async () => {
+      (authPrivate.post as jest.Mock).mockResolvedValueOnce({
+        data: toriiCadastroBody(9),
+      });
+      (authPrivate.get as jest.Mock).mockRejectedValueOnce(
+        httpError(503, 'Torii indisponível'),
+      );
+
+      const result = await createAdminUser({ ...baseForm, cargo: 'Leitor' });
+
+      expect(result).toMatchObject({
+        status: 'role_pending',
+        userId: 9,
+        cargo: 'Leitor',
+        message:
+          'Não foi possível confirmar o cargo Leitor no Torii: Torii indisponível',
+      });
+      expect(authPrivate.post).toHaveBeenCalledTimes(1);
+    });
+
+    it('Leitor: a retomada usa o mesmo ID, sem reenviar o cadastro', async () => {
+      (authPrivate.post as jest.Mock).mockResolvedValueOnce({
+        data: toriiCadastroBody(10),
+      });
+      (authPrivate.get as jest.Mock).mockResolvedValueOnce({ data: [] });
+
+      const partial = await createAdminUser({ ...baseForm, cargo: 'Leitor' });
+      expect(partial).toMatchObject({ status: 'role_pending', userId: 10 });
+      if (partial.status !== 'role_pending' || partial.userId === null) {
+        throw new Error('esperava resultado parcial com ID');
+      }
+
+      (authPrivate.post as jest.Mock).mockResolvedValueOnce({ data: {} });
+      (authPrivate.get as jest.Mock).mockResolvedValueOnce({
+        data: ['leitor'],
+      });
+
+      await expect(
+        assignRoleToNewUser(partial.userId, partial.cargo),
+      ).resolves.toEqual(['leitor']);
+
+      const postUrls = (authPrivate.post as jest.Mock).mock.calls.map(
+        (c) => c[0],
+      );
+      expect(postUrls).toEqual(['auth/cadastro', 'admin/usuarios/10/roles']);
+      expect(authPrivate.post).toHaveBeenLastCalledWith(
+        'admin/usuarios/10/roles',
+        { roleName: 'leitor' },
+      );
+    });
+
+    it('distingue falha ao confirmar de cargo ausente para os demais cargos', async () => {
+      (authPrivate.post as jest.Mock)
+        .mockResolvedValueOnce({ data: toriiCadastroBody(57) })
+        .mockResolvedValueOnce({ data: {} });
+      (authPrivate.get as jest.Mock).mockRejectedValueOnce(
+        new Error('Network Error'),
+      );
+
+      const result = await createAdminUser({ ...baseForm, cargo: 'Staff' });
+
+      expect(result).toMatchObject({
+        status: 'role_pending',
+        userId: 57,
+        message:
+          'Não foi possível confirmar o cargo Staff no Torii: a consulta de cargos falhou.',
+      });
     });
 
     it('retorna resultado parcial quando a conta é criada e a atribuição falha', async () => {

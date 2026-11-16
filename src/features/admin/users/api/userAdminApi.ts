@@ -178,28 +178,40 @@ export async function assignRoleToNewUser(
     assignError = message;
   }
 
-  let roles: string[];
+  const roles = await fetchUserRoles(userId, cargo);
+
+  if (!hasRole(roles, roleName)) {
+    throw new Error(assignError ?? roleMissingMessage(cargo));
+  }
+
+  return roles;
+}
+
+const roleMissingMessage = (cargo: string) =>
+  `O Torii não confirmou o cargo ${cargo} para a conta.`;
+
+const roleCheckFailedMessage = (cargo: string, detail: string) =>
+  `Não foi possível confirmar o cargo ${cargo} no Torii: ${detail}`;
+
+function hasRole(roles: string[], roleName: string) {
+  return roles.some((r) => r.toLowerCase() === roleName);
+}
+
+/** Consulta as roles gravadas no Torii; a falha vira erro com mensagem própria. */
+async function fetchUserRoles(userId: number, cargo: string) {
   try {
     const { data } = await authPrivate.get<string[]>(
       `admin/usuarios/${userId}/roles`,
     );
-    roles = Array.isArray(data) ? data : [];
+    return Array.isArray(data) ? data : [];
   } catch (err) {
     throw new Error(
-      extractToriiMessage(
-        err,
-        `Não foi possível confirmar o cargo ${cargo} no Torii.`,
+      roleCheckFailedMessage(
+        cargo,
+        extractToriiMessage(err, 'a consulta de cargos falhou.'),
       ),
     );
   }
-
-  if (!roles.some((r) => r.toLowerCase() === roleName)) {
-    throw new Error(
-      assignError ?? `O Torii não confirmou o cargo ${cargo} para a conta.`,
-    );
-  }
-
-  return roles;
 }
 
 // TODO(backend-integration): `POST api/auth/cadastro` é o cadastro público:
@@ -251,11 +263,39 @@ export async function createAdminUser(
     };
   }
 
-  // CadastroService já vincula a role "leitor" a toda conta nova.
+  // CadastroService chama AddToRoleAsync(usuario, "leitor"), mas descarta o
+  // resultado. Por isso o vínculo é verificado aqui antes de concluir, e só é
+  // reatribuído pela retomada ("Tentar atribuir cargo novamente").
   if (isLeitor(cargo)) {
+    let roles: string[];
+    try {
+      roles = await fetchUserRoles(userId, cargo);
+    } catch (err) {
+      return {
+        status: 'role_pending',
+        user: buildCreatedUser(data, userId, []),
+        userId,
+        cargo,
+        message:
+          err instanceof Error
+            ? err.message
+            : roleCheckFailedMessage(cargo, ''),
+      };
+    }
+
+    if (!hasRole(roles, 'leitor')) {
+      return {
+        status: 'role_pending',
+        user: buildCreatedUser(data, userId, roles),
+        userId,
+        cargo,
+        message: `O Torii criou a conta, mas o cargo ${cargo} não está vinculado.`,
+      };
+    }
+
     return {
       status: 'complete',
-      user: buildCreatedUser(data, userId, ['Leitor']),
+      user: buildCreatedUser(data, userId, roles),
     };
   }
 

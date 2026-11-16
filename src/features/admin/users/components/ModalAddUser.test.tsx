@@ -212,6 +212,72 @@ describe('ModalAddUser', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 
+  it('Leitor confirmado no Torii fecha com sucesso sem atribuição extra', async () => {
+    (authPrivate.post as jest.Mock).mockResolvedValueOnce({
+      data: toriiCadastroBody(40),
+    });
+    (authPrivate.get as jest.Mock).mockResolvedValueOnce({
+      data: ['leitor'],
+    });
+
+    const { onClose } = renderModal();
+    fillForm({ cargo: 'Leitor' });
+    fireEvent.click(screen.getByRole('button', { name: 'Adicionar' }));
+
+    await waitFor(() => expect(onClose).toHaveBeenCalled());
+    expect(authPrivate.get).toHaveBeenCalledWith('admin/usuarios/40/roles');
+    expect(authPrivate.post).toHaveBeenCalledTimes(1);
+  });
+
+  it('Leitor não verificável mostra parcial e a retomada usa o mesmo ID', async () => {
+    (authPrivate.post as jest.Mock).mockResolvedValueOnce({
+      data: toriiCadastroBody(41),
+    });
+    (authPrivate.get as jest.Mock).mockRejectedValueOnce(
+      Object.assign(new Error('503'), {
+        response: { status: 503, data: 'Torii indisponível' },
+      }),
+    );
+
+    const { onClose } = renderModal();
+    fillForm({ cargo: 'Leitor' });
+    fireEvent.click(screen.getByRole('button', { name: 'Adicionar' }));
+
+    const partial = await screen.findByTestId('add-user-partial');
+    expect(partial).toHaveTextContent(
+      'Conta novo criada, mas o cargo Leitor não foi atribuído.',
+    );
+    expect(partial).toHaveTextContent(
+      'Não foi possível confirmar o cargo Leitor no Torii: Torii indisponível',
+    );
+    expect(onClose).not.toHaveBeenCalled();
+
+    // Retomada: o vínculo já existia, o Identity responde "already in role"
+    // e a verificação confirma.
+    (authPrivate.post as jest.Mock).mockRejectedValueOnce(
+      Object.assign(new Error('400'), {
+        response: {
+          status: 400,
+          data: [{ description: "User already in role 'leitor'." }],
+        },
+      }),
+    );
+    (authPrivate.get as jest.Mock).mockResolvedValueOnce({
+      data: ['leitor'],
+    });
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Tentar atribuir cargo novamente' }),
+    );
+
+    await waitFor(() => expect(onClose).toHaveBeenCalled());
+    const postUrls = (authPrivate.post as jest.Mock).mock.calls.map(
+      (c) => c[0],
+    );
+    expect(postUrls).toEqual(['auth/cadastro', 'admin/usuarios/41/roles']);
+    expect(authPrivate.get).toHaveBeenLastCalledWith('admin/usuarios/41/roles');
+  });
+
   it('mostra o erro real do Torii quando o cadastro é recusado', async () => {
     (authPrivate.post as jest.Mock).mockRejectedValueOnce(
       Object.assign(new Error('400'), {
