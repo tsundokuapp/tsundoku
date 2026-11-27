@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { api } from '@/core/api';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import { IPrivateComics } from '@/features/admin/comics/api/types';
 import { usePrivateComics } from '@/features/admin/comics/hooks/usePrivateComics';
 import { getWorksBySearch } from '@/features/project/api/projectApi';
@@ -41,6 +42,7 @@ interface ITableComic {
 export const TableComic = ({ openModal }: ITableComic) => {
   const { data: response, isLoading } = usePrivateComics();
   const queryClient = useQueryClient();
+  const { isAdmin } = useAuthStore();
 
   const comicsResponse = response?.ok ? response.data : undefined;
 
@@ -60,18 +62,28 @@ export const TableComic = ({ openModal }: ITableComic) => {
   const SKIP_DEFAULT = 12;
 
   useEffect(() => {
-    if (comicsResponse?.data) {
-      setComics(comicsResponse?.data);
+    if (comicsResponse?.data && Array.isArray(comicsResponse.data)) {
+      setComics(comicsResponse.data);
       setPagination({
-        nextPage: comicsResponse.proxima,
-        prevPage: comicsResponse.anterior,
-        total: comicsResponse.total,
+        nextPage: comicsResponse.proxima || '',
+        prevPage: comicsResponse.anterior || '',
+        total: comicsResponse.total ?? 0,
         itemsVisible: comicsResponse.data.length,
         currentPage: getCurrentPagePagination(
           comicsResponse?.proxima,
           comicsResponse?.anterior,
         ),
       });
+    } else {
+      setComics([]);
+      setPagination((prev) => ({
+        ...prev,
+        nextPage: '',
+        prevPage: '',
+        total: 0,
+        itemsVisible: 0,
+        currentPage: 1,
+      }));
     }
   }, [comicsResponse]); // eslint-disable-line
 
@@ -107,8 +119,12 @@ export const TableComic = ({ openModal }: ITableComic) => {
   };
 
   const debouncedHandleChange = Debounce(async (value: string) => {
+    const sourceData = Array.isArray(comicsResponse?.data)
+      ? comicsResponse.data
+      : [];
+
     if (value === '') {
-      setComics(comicsResponse?.data);
+      setComics(sourceData);
       return;
     }
 
@@ -137,8 +153,8 @@ export const TableComic = ({ openModal }: ITableComic) => {
       setLoadingNewPage(false);
     }
 
-    const filtered = comicsResponse?.data.filter((novel) =>
-      novel.titulo.toLowerCase().includes(value.toLowerCase()),
+    const filtered = sourceData.filter((comic) =>
+      comic.titulo.toLowerCase().includes(value.toLowerCase()),
     );
 
     setComics(filtered);
@@ -270,8 +286,8 @@ export const TableComic = ({ openModal }: ITableComic) => {
         title="Comics"
         description="Inclui comics pausadas e canceladas."
       >
-        <SearchTable value={search} onChange={handleChange} disabled />
-        <Button onClick={() => openModal()}>Adicionar</Button>
+        <SearchTable value={search} onChange={handleChange} />
+        {isAdmin && <Button onClick={() => openModal()}>Adicionar</Button>}
       </HeaderTable>
 
       <Table>

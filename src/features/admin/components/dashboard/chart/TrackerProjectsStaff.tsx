@@ -1,5 +1,14 @@
+'use client';
+
+import React from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
+import {
+  getStaffTrackerMonthlyData,
+  getStaffTrackerWeeklyData,
+  TrackerDeliveryMonthItem,
+  TrackerDeliveryWeekItem,
+} from '@/features/admin/utils/devMock';
 import {
   ChartContainer,
   ChartLegend,
@@ -16,7 +25,7 @@ interface ChartTypeRegistry {
 const chartConfig = {
   novel: {
     label: 'Novel',
-    color: '#2563eb',
+    color: '#259cc1',
   },
   comic: {
     label: 'Comic',
@@ -24,45 +33,42 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const chartDataByMonth = [
-  { month: 'Janeiro', novel: 186, comic: 80 },
-  { month: 'Fevereiro', novel: 305, comic: 200 },
-  { month: 'Março', novel: 237, comic: 120 },
-  { month: 'Abril', novel: 73, comic: 190 },
-  { month: 'Maio', novel: 209, comic: 130 },
-  { month: 'Junho', novel: 214, comic: 140 },
-  { month: 'Julho', novel: 256, comic: 150 },
-  { month: 'Agosto', novel: 287, comic: 170 },
-  { month: 'Setembro', novel: 240, comic: 160 },
-  { month: 'Outubro', novel: 325, comic: 180 },
-  { month: 'Novembro', novel: 300, comic: 190 },
-  { month: 'Dezembro', novel: 400, comic: 220 },
-];
-
-const chartDataByWeek = [
-  { week: 'Segunda', novel: 2, comic: 1 },
-  { week: 'Terça', novel: 3, comic: 0 },
-  { week: 'Quarta', novel: 1, comic: 3 },
-  { week: 'Quinta', novel: 0, comic: 2 },
-  { week: 'Sexta', novel: 2, comic: 0 },
-  { week: 'Sábado', novel: 5, comic: 0 },
-  { week: 'Domingo', novel: 1, comic: 0 },
-];
-
+// TODO(backend-integration): Endpoint de agregação de capítulos entregues por período (ex: GET /api/admin/estatisticas/capitulos-entregues?periodo=semana|mes).
+// O backend tsundoku-api não possui serviço de telemetria ou consolidação temporal de entregas por staff.
 export const TrackerProjectsStaff = ({ ByMonth = true }: ChartTypeRegistry) => {
+  const monthData: TrackerDeliveryMonthItem[] = getStaffTrackerMonthlyData();
+  const weekData: TrackerDeliveryWeekItem[] = getStaffTrackerWeeklyData();
+  const data = ByMonth ? monthData : weekData;
+
+  if (data.length === 0) {
+    return (
+      <div
+        data-testid="tracker-staff-empty"
+        className="flex min-h-[200px] w-full flex-col items-center justify-center rounded-[8px] border border-dashed border-white/10 bg-white/[0.02] p-6 text-center"
+      >
+        <p className="text-sm font-medium text-[#e1e1e6]">
+          Dados estatísticos indisponíveis em produção
+        </p>
+        <p className="mt-1 text-xs text-appSidebarMuted">
+          Aguardando integração com o serviço de telemetria da Tsundoku API.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <BarChart
-        accessibilityLayer
-        data={ByMonth ? chartDataByMonth : chartDataByWeek}
-      >
-        <CartesianGrid vertical={false} />
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.08)" />
         <XAxis
           dataKey={ByMonth ? 'month' : 'week'}
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          stroke="#a1a1aa"
+          tickFormatter={(value: string) =>
+            typeof value === 'string' ? value.slice(0, 3) : String(value ?? '')
+          }
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />

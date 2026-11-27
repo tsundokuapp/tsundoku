@@ -1,321 +1,604 @@
 'use client';
 
 import {
-  CalendarBlank,
-  CheckCircle,
-  Target,
+  ArrowDown,
+  ArrowLeft,
+  ArrowUp,
+  CloudArrowUp,
+  Trash,
 } from '@phosphor-icons/react/dist/ssr';
-import * as motion from 'motion/react-client';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useId, useState } from 'react';
 
-import { Avatar, AvatarImage } from '@/shared/components/ui/avatar';
-import { Button } from '@/shared/components/ui/button/Button';
-import { FakeCheckbox } from '@/shared/components/ui/checkbox/index';
-import { Title } from '@/shared/components/ui/title/Title';
-import { cn } from '@/shared/utils/cn';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
+import {
+  createComicChapter,
+  deleteComicChapter,
+  updateComicChapter,
+} from '@/features/admin/comics/api/comicAdmin';
+import {
+  createNovelChapter,
+  deleteNovelChapter,
+  updateChapterNovel,
+} from '@/features/admin/novels/api/novelAdminApi';
+import {
+  useAdminChapterNovel,
+  useAdminNovelBySlug,
+} from '@/features/admin/novels/hooks/usePrivateNovels';
+import { Editor } from '@/features/editor/components/Editor';
+import { useEditorStore } from '@/features/editor/store/useEditorStore';
+import { useVolumesNovel } from '@/features/novels/hooks/usePublicNovels';
+import { AdminBreadcrumbs } from '@/shared/components/layout/v22/AdminBreadcrumbs';
+import { useToaster } from '@/shared/contexts/ToasterContext';
 
-interface ICardRoadmap {
-  className?: string;
+interface ChapterPageParams {
+  worktype: string;
+  slug: string;
+  'chapter-slug': string;
 }
 
-interface IItemCardProgress {
-  label: string;
-  stage: { down: boolean; up: boolean; done: boolean };
+interface MangaPageItem {
+  id: string;
+  url: string;
+  file?: File;
+  name: string;
 }
 
-interface ICardAttachment {
-  title: string;
-  description?: string;
-  create?: boolean;
-  handleClickDown: () => void;
-  handleClickUp: () => void;
-}
+export default function UnifiedChapterAdminPage({
+  params,
+  searchParams,
+}: {
+  params: ChapterPageParams;
+  searchParams?: { volumeId?: string };
+}) {
+  const router = useRouter();
+  const { isAdmin } = useAuthStore();
+  const { toaster } = useToaster();
+  const { editor } = useEditorStore();
+  const fileInputId = useId();
 
-export default function ChapterNovelAdmin() {
-  const [stageProgress, setStageProgress] = useState({
-    translation: {
-      down: false,
-      up: false,
-      done: false,
-    },
-    review: {
-      down: false,
-      up: false,
-      done: false,
-    },
-    qc: {
-      down: false,
-      up: false,
-      done: false,
-    },
-  });
+  const worktype = params.worktype === 'comic' ? 'comic' : 'novel';
+  const obraSlug = params.slug;
+  const chapterSlug = params['chapter-slug'];
+  const isNew = chapterSlug === 'novo' || chapterSlug === 'adicionar';
+  const isNovel = worktype === 'novel';
 
-  const allDone =
-    stageProgress.translation.done &&
-    stageProgress.review.done &&
-    stageProgress.qc.done;
+  // Work data
+  const { data: novelResponse } = useAdminNovelBySlug(isNovel ? obraSlug : '');
+  const novelData = novelResponse?.ok ? novelResponse.data : undefined;
+  const obraId = novelData?.id || '';
 
-  const calcProgress = () => {
-    const progress = Object.values(stageProgress).filter(
-      (value) => value.done,
-    ).length;
-    return progress;
+  // Volumes data
+  const { data: volumesResponse } = useVolumesNovel(obraId);
+  const volumes = Array.isArray(volumesResponse?.data)
+    ? volumesResponse.data
+    : [];
+
+  // Edit mode: fetch existing novel chapter data
+  const { data: chapterDetailResponse, isLoading: isLoadingChapter } =
+    useAdminChapterNovel(!isNew && isNovel ? chapterSlug : '');
+  const chapterData = chapterDetailResponse?.ok
+    ? chapterDetailResponse.data
+    : undefined;
+
+  // Form states
+  const [selectedVolumeId, setSelectedVolumeId] = useState<string>(
+    searchParams?.volumeId || '',
+  );
+  const [title, setTitle] = useState('');
+  const [number, setNumber] = useState('');
+  const [part, setPart] = useState('');
+  const [order, setOrder] = useState('1');
+  const [translator, setTranslator] = useState('');
+  const [reviewer, setReviewer] = useState('');
+  const [slug, setSlug] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // Manga page manager state
+  const [mangaPages, setMangaPages] = useState<MangaPageItem[]>([]);
+
+  // Initialize edit fields
+  useEffect(() => {
+    if (chapterData) {
+      setTitle(chapterData.titulo || '');
+      setNumber(chapterData.numero || '');
+      setPart(chapterData.parte || '');
+      setOrder(String(chapterData.ordemCapitulo ?? 1));
+      setTranslator(chapterData.tradutor || '');
+      setReviewer(chapterData.revisor || '');
+      setSlug(chapterData.slug || '');
+    }
+  }, [chapterData]);
+
+  // Handle image upload in Manga dropzone
+  const handleMangaImageUpload = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const newItems: MangaPageItem[] = Array.from(files).map((file, idx) => ({
+      id: `${Date.now()}-${idx}`,
+      url: URL.createObjectURL(file),
+      file,
+      name: file.name,
+    }));
+    setMangaPages((prev) => [...prev, ...newItems]);
   };
 
-  const progressPercentage = Number((calcProgress() / 3) * 100).toFixed(0);
-
-  const CardAttachment = ({
-    title,
-    description,
-    create,
-    handleClickDown,
-    handleClickUp,
-  }: ICardAttachment) => {
-    return (
-      <div className="flex h-fit min-h-40 w-auto max-w-96 flex-col items-start justify-between gap-4 rounded-lg border border-dashed border-slate-400 p-4">
-        <header className="flex w-full flex-col items-start justify-center">
-          <p className="text-base font-medium text-white">{title}</p>
-          {description && (
-            <p className="text-sm font-normal text-gray-400">{description}</p>
-          )}
-        </header>
-        <div className="flex w-full flex-row justify-between gap-4 border-t border-slate-400 pt-2">
-          <Button onClick={() => handleClickUp()}>Upload</Button>
-          {create && <Button onClick={() => alert('click')}>Criar</Button>}
-          <Button onClick={() => handleClickDown()}>Download</Button>
-        </div>
-      </div>
-    );
+  // Reorder page up
+  const handleMovePageUp = (index: number) => {
+    if (index === 0) return;
+    setMangaPages((prev) => {
+      const copy = [...prev];
+      const temp = copy[index - 1];
+      copy[index - 1] = copy[index];
+      copy[index] = temp;
+      return copy;
+    });
   };
 
-  const ProgressBar = () => {
-    return (
-      <div className="flex w-full flex-col gap-2">
-        <p className="text-md font-normal">
-          <span>{progressPercentage}%</span> concluído
-        </p>
-        <div className="relative h-2 w-full rounded-lg bg-gray-400">
-          <motion.div
-            className="h-2 rounded-lg bg-green-600"
-            initial={{ width: `0` }}
-            animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-          />
-        </div>
-      </div>
-    );
+  // Reorder page down
+  const handleMovePageDown = (index: number) => {
+    if (index === mangaPages.length - 1) return;
+    setMangaPages((prev) => {
+      const copy = [...prev];
+      const temp = copy[index + 1];
+      copy[index + 1] = copy[index];
+      copy[index] = temp;
+      return copy;
+    });
   };
 
-  const CardRoadmap = ({ className }: ICardRoadmap) => {
-    return (
-      <div
-        className={cn(
-          'dark:bg-appPrimary m-2 flex h-fit w-full max-w-[450px] flex-col gap-4 rounded-lg bg-slate-100 p-4',
-          className,
-        )}
-      >
-        <header className="flex w-full flex-col items-center justify-start gap-4">
-          <div className="flex w-full flex-row items-center justify-start gap-4">
-            <Avatar className="h-12 w-12">
-              <AvatarImage src="/cover-alya.webp" />
-            </Avatar>
-            <p className="text-lg font-bold">Roadmap</p>
-          </div>
-
-          <ProgressBar />
-
-          <div className="g flex w-full flex-row items-center justify-between">
-            <div className="flex flex-row -space-x-4">
-              <Avatar className="h-10 w-10">
-                <AvatarImage src="/cover-alya.webp" />
-              </Avatar>
-              <Avatar className="h-10 w-10">
-                <AvatarImage src="/cover-shadow.webp" />
-              </Avatar>
-            </div>
-
-            <div className="flex flex-row items-end gap-4">
-              <div className="flex flex-row items-center justify-center gap-1 text-gray-400">
-                <CalendarBlank size={20} />
-                <p>Ínicio: 12 Dez</p>
-              </div>
-              <div className="flex flex-row items-center justify-center gap-1 text-gray-400">
-                <Target size={20} />
-                <p>Fim: 12 Jan</p>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <CardProgress />
-      </div>
-    );
+  // Remove page
+  const handleRemovePage = (index: number) => {
+    setMangaPages((prev) => prev.filter((_, idx) => idx !== index));
   };
 
-  const CardProgress = () => {
-    return (
-      <div className="flex w-full flex-col gap-4 rounded-md border border-gray-400 px-4 py-2">
-        <header className="flex w-full justify-between">
-          <p className="text-md text-lg font-semibold">Tarefas</p>
-          <div className="flex items-center gap-2">
-            <CheckCircle size={20} color="rgba(17, 221, 68, 0.764)" />
-            <p className="text-xs text-gray-400">3 tarefas</p>
-          </div>
-        </header>
+  // Form Submit (Create or Update)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedVolumeId && volumes.length > 0) {
+      toaster({
+        type: 'error',
+        msg: 'Selecione um volume para o capítulo.',
+      });
+      return;
+    }
 
-        <div className="flex flex-col gap-4">
-          <ItemCardProgress
-            label="Tradução"
-            stage={stageProgress.translation}
-          />
-          <ItemCardProgress label="Revisão" stage={stageProgress.review} />
-          <ItemCardProgress label="QC" stage={stageProgress.qc} />
-        </div>
-      </div>
-    );
+    setIsSubmitting(true);
+    const formData = new FormData();
+    formData.append('volumeId', selectedVolumeId || volumes[0]?.id || '');
+    formData.append('numero', number);
+    if (part) formData.append('parte', part);
+    formData.append('ordemCapitulo', order);
+    formData.append('titulo', title);
+    if (translator) formData.append('tradutor', translator);
+    if (reviewer) formData.append('revisor', reviewer);
+
+    const currentUsername = useAuthStore.getState().username || 'admin';
+    formData.append('usuarioAlteracao', currentUsername);
+    if (isNew) {
+      formData.append('usuarioInclusao', currentUsername);
+    }
+
+    try {
+      if (isNovel) {
+        const content = editor?.getHTML() || '';
+        formData.append('conteudoNovel', content);
+        formData.append('ehIlustracoesNovel', 'false');
+
+        if (isNew) {
+          const res = await createNovelChapter(formData);
+          if (!res.ok) throw new Error('Falha ao criar capítulo');
+          toaster({ type: 'success', msg: 'Capítulo criado com sucesso!' });
+        } else {
+          const chapterId = chapterData?.id || chapterSlug;
+          formData.append('id', chapterId);
+          const res = await updateChapterNovel(chapterId, formData);
+          if (!res.ok) throw new Error('Falha ao atualizar capítulo');
+          toaster({ type: 'success', msg: 'Capítulo atualizado com sucesso!' });
+        }
+      } else {
+        // Manga: append image files
+        mangaPages.forEach((item) => {
+          if (item.file) {
+            formData.append('listaImagensForm', item.file);
+          }
+        });
+
+        if (isNew) {
+          const res = await createComicChapter(formData);
+          if (!res.ok) throw new Error('Falha ao criar capítulo de mangá');
+          toaster({
+            type: 'success',
+            msg: 'Capítulo de mangá criado com sucesso!',
+          });
+        } else {
+          const chapterId = chapterSlug;
+          const res = await updateComicChapter(chapterId, formData);
+          if (!res.ok) throw new Error('Falha ao atualizar capítulo de mangá');
+          toaster({
+            type: 'success',
+            msg: 'Capítulo de mangá atualizado com sucesso!',
+          });
+        }
+      }
+      router.push(`/project/${worktype}/${obraSlug}`);
+    } catch {
+      toaster({
+        type: 'error',
+        msg: 'Erro ao salvar capítulo. Verifique os campos.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const ItemCardProgress = ({ label, stage }: IItemCardProgress) => {
-    const { down, up, done } = stage;
-    return (
-      <div className="flex w-full flex-row items-center justify-between">
-        <span className="flex flex-row items-center gap-2">
-          <FakeCheckbox label={label} size="md" checked={done} />
-          {down && !up ? <LabelProgress /> : null}
-        </span>
-        <Avatar
-          className={`h-8 w-8 ${done ? 'ring-primary dark:ring-primary' : ''}`}
-        >
-          <AvatarImage src="/cover-alya.webp" />
-        </Avatar>
-      </div>
-    );
-  };
-
-  const LabelProgress = () => {
-    return (
-      <div className="flex w-full flex-col gap-2 rounded-lg bg-blue-300/10 p-1">
-        <p className="text-primary text-sm font-normal">Em Progresso</p>
-      </div>
-    );
+  // Delete chapter
+  const handleDelete = async () => {
+    setIsSubmitting(true);
+    try {
+      const chapterId = chapterData?.id || chapterSlug;
+      const res = isNovel
+        ? await deleteNovelChapter(chapterId, true)
+        : await deleteComicChapter(chapterId, true);
+      if (!res.ok) throw new Error();
+      toaster({ type: 'success', msg: 'Capítulo excluído com sucesso.' });
+      router.push(`/project/${worktype}/${obraSlug}`);
+    } catch {
+      toaster({ type: 'error', msg: 'Erro ao excluir o capítulo.' });
+    } finally {
+      setIsSubmitting(false);
+      setShowDeleteModal(false);
+    }
   };
 
   return (
-    <div className="m-4 flex flex-col gap-4">
-      <Title title="Capítulo - 01" />
-      <div className="relative flex h-full w-full flex-col items-center justify-start rounded-lg bg-slate-100 px-4 pb-4 dark:bg-slate-800">
-        <div className="dark:bg-appPrimary relative top-[-30px] flex h-20 w-auto flex-row items-end gap-4 rounded-xl bg-white px-8 pb-2 text-lg font-bold before:absolute before:left-[-25px] before:top-7 before:h-[50px] before:w-[25px] before:rounded-tr-[25px] before:shadow-[0_-25px_0_0_#FFF] before:content-[''] after:absolute after:right-[-25px] after:top-7 after:h-[50px] after:w-[25px] after:rounded-tl-[25px] after:shadow-[0_-25px_0_0_#FFF] after:content-[''] before:dark:shadow-[0_-25px_0_0_#0F172A] after:dark:shadow-[0_-25px_0_0_#0F172A]">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/cover-alya.webp" />
-          </Avatar>
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/cover-alya.webp" />
-          </Avatar>
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/cover-shadow.webp" />
-          </Avatar>
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/cover-seven.webp" />
-          </Avatar>
-          <Avatar className="h-12 w-12">
-            <AvatarImage src="/elaina-banner.jpg" />
-          </Avatar>
+    <div className="flex w-full flex-col gap-6">
+      {/* Header matching Figma 1258:114028 / 1258:113886 */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            aria-label="Voltar"
+            className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-white/10 bg-[#202024] text-[#a8a8b3] transition-colors hover:text-white"
+          >
+            <ArrowLeft size={16} weight="bold" />
+          </button>
+          <AdminBreadcrumbs />
         </div>
-
-        <div className="gap-4l flex w-full flex-row items-center justify-between">
-          <CardRoadmap />
-
-          <div className="grid grid-cols-2 gap-4">
-            <CardAttachment
-              title="Raw"
-              description="Nenhum arquivo upado ainda."
-              handleClickDown={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  translation: { down: true, up: false, done: false },
-                });
-              }}
-              handleClickUp={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  translation: { down: false, up: true, done: true },
-                });
-              }}
-            />
-            <CardAttachment
-              title="Tradução"
-              create
-              description="Arquivo levemente corrompido, ignorar páginas em branco"
-              handleClickDown={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  translation: { down: true, up: false, done: false },
-                });
-              }}
-              handleClickUp={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  translation: { down: false, up: true, done: true },
-                });
-              }}
-            />
-            <CardAttachment
-              title="Revisão"
-              description="Nenhum arquivo upado ainda."
-              handleClickDown={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  review: { down: true, up: false, done: false },
-                });
-              }}
-              handleClickUp={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  review: { down: false, up: true, done: true },
-                });
-              }}
-            />
-            <CardAttachment
-              title="QC"
-              description="Nenhum arquivo upado ainda."
-              handleClickDown={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  qc: { down: true, up: false, done: false },
-                });
-              }}
-              handleClickUp={() => {
-                setStageProgress({
-                  ...stageProgress,
-                  qc: { down: false, up: true, done: true },
-                });
-              }}
-            />
-          </div>
-        </div>
-
-        <div
-          className={cn(
-            'mt-4 flex w-full flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-400 p-4',
-            {
-              'border-primary border-solid': allDone,
-            },
-          )}
-        >
-          <h2 className="text-lg font-bold">Capítulo pronto para postagem</h2>
-          <div className="flex w-full flex-row items-center justify-center gap-4">
-            <Button
-              onClick={() => alert('click') /* setModalOpen(true) */}
-              disabled={!allDone}
-            >
-              Revisar Créditos
-            </Button>
-            <Button onClick={() => alert('click')} disabled={!allDone}>
-              Postar
-            </Button>
-          </div>
-        </div>
+        <h1 className="text-xl font-bold text-[#e1e1e6]">
+          {isNew
+            ? `Adicionar Capítulo (${isNovel ? 'Novel' : 'Mangá'})`
+            : `Editar Capítulo (${isNovel ? 'Novel' : 'Mangá'})`}
+        </h1>
       </div>
+
+      {isLoadingChapter && !isNew ? (
+        <div className="flex h-64 items-center justify-center text-sm text-[#a8a8b3]">
+          Carregando dados do capítulo...
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          {/* Metadata Grid */}
+          <div className="flex flex-col gap-4 rounded-[8px] bg-[#202024] p-5">
+            <h2 className="text-sm font-semibold text-[#a8a8b3]">
+              Metadados do Capítulo
+            </h2>
+
+            {/* Obra & Volume Selectors */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Obra
+                </label>
+                <input
+                  type="text"
+                  disabled
+                  value={novelData?.titulo || obraSlug}
+                  className="h-10 w-full rounded-[8px] border border-white/5 bg-[#18181b] px-3.5 text-sm text-[#e1e1e6]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Volume
+                </label>
+                <select
+                  value={selectedVolumeId}
+                  onChange={(e) => setSelectedVolumeId(e.target.value)}
+                  className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:border-[#259cc1] focus:outline-none"
+                >
+                  <option value="">Selecione o Volume</option>
+                  {volumes.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      Volume {v.numeroVolume}{' '}
+                      {v.tituloVolume ? `— ${v.tituloVolume}` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Title field matching Figma 1258:114022 */}
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                Título do Capítulo
+              </label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Adicionar título"
+                className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] placeholder-[#6c757d] focus:border-[#259cc1] focus:outline-none"
+              />
+            </div>
+
+            {/* Number, Part, Order */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Número do Capítulo
+                </label>
+                <input
+                  type="text"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  placeholder="01"
+                  required
+                  className="h-10 w-full rounded-[8px] border border-[#259cc1] bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Parte
+                </label>
+                <input
+                  type="text"
+                  value={part}
+                  onChange={(e) => setPart(e.target.value)}
+                  placeholder="01 (opcional)"
+                  className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:border-[#259cc1] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Ordem do Capítulo
+                </label>
+                <input
+                  type="number"
+                  value={order}
+                  onChange={(e) => setOrder(e.target.value)}
+                  min="1"
+                  className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:border-[#259cc1] focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Staff assignment */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Tradutor(es)
+                </label>
+                <input
+                  type="text"
+                  value={translator}
+                  onChange={(e) => setTranslator(e.target.value)}
+                  placeholder="Nome do tradutor"
+                  className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:border-[#259cc1] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Revisor(es)
+                </label>
+                <input
+                  type="text"
+                  value={reviewer}
+                  onChange={(e) => setReviewer(e.target.value)}
+                  placeholder="Nome do revisor"
+                  className="h-10 w-full rounded-[8px] border border-white/10 bg-[#121214] px-3.5 text-sm text-[#e1e1e6] focus:border-[#259cc1] focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Slug in Edit Mode */}
+            {!isNew && (
+              <div>
+                <label className="mb-1.5 block text-xs font-medium text-[#a8a8b3]">
+                  Slug do Capítulo
+                </label>
+                <input
+                  type="text"
+                  value={slug}
+                  disabled
+                  className="h-10 w-full rounded-[8px] border border-white/5 bg-[#18181b] px-3.5 text-sm text-[#a8a8b3]"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Novel Content: TipTap Editor matching Figma 1258:113997 */}
+          {isNovel ? (
+            <div className="flex flex-col gap-3 rounded-[8px] bg-[#202024] p-5">
+              <h2 className="text-sm font-semibold text-[#a8a8b3]">
+                Conteúdo da Novel
+              </h2>
+              <div className="min-h-[450px] rounded-[8px] border border-white/10 bg-[#121214] p-4 text-[#e1e1e6]">
+                <Editor contentEditor={chapterData?.conteudoNovel} />
+              </div>
+            </div>
+          ) : (
+            /* Manga Content: Dropzone & Page Manager matching Figma 1258:113746 & 1238:1155 */
+            <div className="flex flex-col gap-4 rounded-[8px] bg-[#202024] p-5">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 className="text-sm font-semibold text-[#e1e1e6]">
+                    Gerenciador de Páginas do Mangá
+                  </h2>
+                  <p className="text-xs text-[#a8a8b3]">
+                    Envie as páginas do capítulo e ajuste a ordem de
+                    visualização.
+                  </p>
+                </div>
+
+                <label
+                  htmlFor={fileInputId}
+                  className="flex cursor-pointer items-center justify-center gap-1.5 rounded-[8px] bg-[#259cc1] px-4 py-2 text-xs font-semibold text-[#121214] transition-colors hover:bg-[#2082a2]"
+                >
+                  <CloudArrowUp size={16} weight="bold" />
+                  <span>Selecione as imagens...</span>
+                </label>
+                <input
+                  id={fileInputId}
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => handleMangaImageUpload(e.target.files)}
+                  className="hidden"
+                />
+              </div>
+
+              {/* R3 Gap comment:
+                  // TODO(backend-integration): Reordenação de páginas de mangá via drag-and-drop requer endpoint no backend (ex: PUT /api/admin/capitulo/comic/{id}/paginas/reordenar). Atualmente o Tsundoku API só suporta upload inicial em lote via CapituloDTO.ListaImagensForm.
+              */}
+              {mangaPages.length === 0 ? (
+                <div className="flex h-48 flex-col items-center justify-center gap-2 rounded-[8px] border border-dashed border-white/10 p-6 text-center text-sm text-[#a8a8b3]">
+                  <CloudArrowUp size={32} className="text-[#6c757d]" />
+                  <p>Nenhuma página carregada ainda.</p>
+                  <p className="text-xs text-[#6c757d]">
+                    Clique acima para selecionar imagens.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+                  {mangaPages.map((page, idx) => (
+                    <div
+                      key={page.id}
+                      className="group relative flex aspect-[250/375] w-full flex-col overflow-hidden rounded-[8px] border border-white/10 bg-[#121214] shadow"
+                    >
+                      <Image
+                        src={page.url}
+                        alt={`Página ${idx + 1}`}
+                        fill
+                        unoptimized
+                        className="object-cover"
+                      />
+
+                      {/* Hover Overlay matching Figma 1238:1155 */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-between bg-black/75 p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                        <span className="text-sm font-bold text-[#259cc1]">
+                          Imagem {String(idx + 1).padStart(2, '0')}
+                        </span>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => handleMovePageUp(idx)}
+                            aria-label="Mover para cima"
+                            className="flex h-8 w-8 items-center justify-center rounded bg-white/20 text-white hover:bg-white/30 disabled:opacity-30"
+                          >
+                            <ArrowUp size={16} weight="bold" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === mangaPages.length - 1}
+                            onClick={() => handleMovePageDown(idx)}
+                            aria-label="Mover para baixo"
+                            className="flex h-8 w-8 items-center justify-center rounded bg-white/20 text-white hover:bg-white/30 disabled:opacity-30"
+                          >
+                            <ArrowDown size={16} weight="bold" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRemovePage(idx)}
+                            aria-label="Remover página"
+                            className="flex h-8 w-8 items-center justify-center rounded bg-red-600/80 text-white hover:bg-red-600"
+                          >
+                            <Trash size={16} weight="bold" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Workflow & Progress Section for R3 Backend Gap */}
+          <div className="rounded-[8px] bg-[#202024] p-4 text-xs text-[#a8a8b3]">
+            {/* TODO(backend-integration): Endpoint de workflow editorial e progresso de etapas (ex: GET/PUT /api/admin/capitulo/{id}/workflow). O Tsundoku API armazena apenas nomes de responsáveis (Tradutor, Revisor, QC) em campos de texto no CapituloDTO sem persistência de status por etapa. */}
+            {/* TODO(backend-integration): Endpoint para upload e download de arquivos brutos/tradução de trabalho (ex: POST/GET /api/admin/capitulo/{id}/anexos). O Tsundoku API não implementa repositório de arquivos auxiliares de edição. */}
+            <p className="font-semibold text-[#e1e1e6]">
+              Etapas editoriais e fluxo de trabalho:
+            </p>
+            <p className="mt-1">
+              Tradução e revisão vinculadas aos responsáveis informados acima.
+              (Progresso automatizado aguardando endpoint no backend).
+            </p>
+          </div>
+
+          {/* Action Buttons matching Figma 1258:113886 */}
+          <div className="flex items-center justify-end gap-3 pt-2">
+            {!isNew && isAdmin && (
+              <button
+                type="button"
+                onClick={() => setShowDeleteModal(true)}
+                disabled={isSubmitting}
+                className="flex h-10 items-center justify-center gap-1.5 rounded-[4px] border border-red-500/40 bg-red-500/20 px-5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500 hover:text-white"
+              >
+                <Trash size={16} weight="bold" />
+                <span>Excluir</span>
+              </button>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex h-10 items-center justify-center rounded-[4px] bg-[#259cc1] px-6 text-sm font-semibold text-[#121214] transition-colors hover:bg-[#2082a2] disabled:opacity-50"
+            >
+              {isSubmitting ? 'Salvando...' : isNew ? 'Adicionar' : 'Salvar'}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-md rounded-lg border border-appCardBorder bg-[#202024] p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-white">Excluir Capítulo</h3>
+            <p className="mt-2 text-sm text-[#a8a8b3]">
+              Tem certeza que deseja excluir este capítulo? Esta ação é
+              irreversível.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setShowDeleteModal(false)}
+                className="rounded-[4px] bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                disabled={isSubmitting}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="rounded-[4px] bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+                disabled={isSubmitting}
+              >
+                Confirmar Exclusão
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

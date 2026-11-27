@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { auth } from '@/core/api';
+import { refreshSession } from '@/core/api/refreshToken';
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 
 export const useAuthHydration = () => {
@@ -28,11 +28,11 @@ export const useAuthHydration = () => {
     const hydrateAuth = async () => {
       setIsPending(true);
       try {
-        const { data } = await auth.get('refresh-token');
+        const data = await refreshSession();
 
         setAccessToken(data.accessToken);
-        setUsername(data.usuario);
-        setTsunId(data.tsunId);
+        setUsername(data.usuario ?? null);
+        if (data.tsunId) setTsunId(data.tsunId);
       } catch (error) {
         console.log('Fail to refresh token in useAuthHydration');
       } finally {
@@ -46,6 +46,7 @@ export const useAuthHydration = () => {
     accessToken,
     isTokenExpired,
     setAccessToken,
+    setHasHydrated,
     setIsPending,
     setTsunId,
     setUsername,

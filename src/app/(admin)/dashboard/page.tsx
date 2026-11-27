@@ -1,100 +1,142 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { BarChart2, LayoutDashboard } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import { useAuthStore } from '@/core/auth/stores/useAuthStore';
-import { TrackerProjectsStaff } from '@/features/admin/components/dashboard/chart/TrackerProjectsStaff';
-import { FileUpload } from '@/features/admin/components/dashboard/fileDropzone';
-import TablePendingProjects from '@/features/admin/components/dashboard/table/TablePendingProjects';
-import TableRecentProjects from '@/features/admin/components/dashboard/table/TableRecentProjects';
-import { Button } from '@/shared/components/ui/button/Button';
+import { AnalyticsPanel } from '@/features/admin/components/dashboard/analytics/AnalyticsPanel';
+import { DashboardMainContent } from '@/features/admin/components/dashboard/overview/DashboardMainContent';
+import { DashboardOverviewCards } from '@/features/admin/components/dashboard/overview/DashboardOverviewCards';
 import { formatDate } from '@/shared/utils/date';
 
-export default function Dashboard() {
-  const [registryProjectByMonth, setRegistryProjectByMonth] = useState(true);
-  const dateFormatted = formatDate(new Date(), true, true);
+type DashboardTab = 'visao-geral' | 'estatisticas';
+
+function DashboardContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { username } = useAuthStore();
+  const dateFormatted = formatDate(new Date(), true, true);
 
-  const Card = ({ children }: { children: ReactNode }) => {
-    return (
-      <div className="col-span-2 flex h-full flex-1 flex-col items-center justify-between rounded-md bg-appMenuBackground p-4">
-        {children}
-      </div>
-    );
-  };
+  const queryTab = searchParams.get('tab');
+  const initialTab: DashboardTab =
+    queryTab === 'estatisticas' || queryTab === 'analytics'
+      ? 'estatisticas'
+      : 'visao-geral';
 
-  const HeaderDashboard = () => {
-    return (
-      <div className="rounded-b-2x flex w-full max-w-full flex-col justify-between gap-6 p-4 transition-all">
-        <div className="flex flex-col justify-between">
-          <div className="flex flex-row items-center justify-between">
-            <h3 className="text-3xl font-bold capitalize text-appText lg:text-4xl">
-              Bem-vindo, {username}!
-            </h3>
-            <h3 className="hidden text-appText lg:flex">{dateFormatted}</h3>
-          </div>
-          <p className="text-xl font-bold text-appSubtitle lg:text-3xl">
-            T$ 34,00
-          </p>
-        </div>
+  const [activeTab, setActiveTab] = useState<DashboardTab>(initialTab);
 
-        <div className="flex flex-col items-start justify-between gap-2 rounded-md md:flex-row">
-          <FileUpload />
-          <FileUpload />
-        </div>
-      </div>
-    );
+  useEffect(() => {
+    if (queryTab === 'estatisticas' || queryTab === 'analytics') {
+      setActiveTab('estatisticas');
+    } else {
+      setActiveTab('visao-geral');
+    }
+  }, [queryTab]);
+
+  const handleTabChange = (tab: DashboardTab) => {
+    setActiveTab(tab);
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('tab', tab);
+    router.replace(`/dashboard?${newParams.toString()}`);
   };
 
   return (
-    <div className="grid min-h-screen w-full grid-cols-1 gap-4 p-4 md:grid-cols-6">
-      {/* LADO ESQUERDO */}
-      <div className="col-span-4 flex flex-col gap-4">
-        <div className="flex-1">
-          <HeaderDashboard />
-        </div>
-
-        {/* Tabela de Pendências */}
-        <div className="h-min-fit">
-          <Card>
-            <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-2">
-              <p className="text-nowrap text-sm text-appText">
-                Minhas Pendências
-              </p>
-              <TablePendingProjects />
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {/* LADO DIREITO */}
-      <div className="col-span-2 flex flex-col gap-4">
-        {/* Projetos feitos semana/mês */}
-        <Card>
-          <div className="mb-2 flex w-full flex-row items-center justify-between gap-4">
-            <Button
-              onClick={() => setRegistryProjectByMonth(!registryProjectByMonth)}
-              size="sm"
+    <div className="mx-auto w-full max-w-[1058px] px-4 py-6 md:px-6">
+      {/* Header do Dashboard */}
+      <header className="mb-6 flex flex-col gap-4">
+        <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+          <div>
+            <h1
+              data-testid="dashboard-title"
+              className="text-base font-bold text-[#e1e1e6]"
             >
-              {registryProjectByMonth ? 'Por Semana' : 'Por Mês'}
-            </Button>
-            <p className="hidden text-nowrap text-center text-sm text-appText lg:block">
-              Capítulos Entregues
-            </p>
+              Dashboard
+            </h1>
+            <h2 className="text-xl font-bold capitalize text-[#e1e1e6] sm:text-2xl md:text-3xl">
+              Bem-vindo, {username || 'Administrador'}!
+            </h2>
           </div>
-          <TrackerProjectsStaff ByMonth={registryProjectByMonth} />
-        </Card>
+          <span
+            suppressHydrationWarning
+            className="text-xs text-appSidebarMuted sm:text-sm"
+          >
+            {dateFormatted}
+          </span>
+        </div>
 
-        {/* Projetos recentes */}
-        <Card>
-          <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-2">
-            <p className="text-nowrap text-sm text-appText">
-              Projetos Recentes
-            </p>
-            <TableRecentProjects />
-          </div>
-        </Card>
-      </div>
+        {/* Seletor de Abas: Visão Geral vs Estatísticas */}
+        <div
+          role="tablist"
+          aria-label="Seções do Dashboard"
+          className="flex w-fit items-center gap-1 rounded-[8px] border border-white/10 bg-[#202024] p-1"
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'visao-geral'}
+            data-testid="tab-visao-geral"
+            onClick={() => handleTabChange('visao-geral')}
+            className={`flex items-center gap-2 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-colors ${
+              activeTab === 'visao-geral'
+                ? 'bg-[#259cc1] font-semibold text-[#121214]'
+                : 'text-[#e1e1e6] hover:bg-white/5 hover:text-[#259cc1]'
+            }`}
+          >
+            <LayoutDashboard size={14} />
+            <span>Visão Geral</span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'estatisticas'}
+            data-testid="tab-estatisticas"
+            onClick={() => handleTabChange('estatisticas')}
+            className={`flex items-center gap-2 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-colors ${
+              activeTab === 'estatisticas'
+                ? 'bg-[#259cc1] font-semibold text-[#121214]'
+                : 'text-[#e1e1e6] hover:bg-white/5 hover:text-[#259cc1]'
+            }`}
+          >
+            <BarChart2 size={14} />
+            <span>Estatísticas</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Conteúdo da Aba Ativa */}
+      {activeTab === 'visao-geral' ? (
+        <main className="space-y-6">
+          {/* Top 3 Summary Overview Cards */}
+          <section aria-label="Resumo Geral">
+            <DashboardOverviewCards />
+          </section>
+
+          {/* Container Principal de Conteúdo Operacional */}
+          <section aria-label="Conteúdo Principal Operacional">
+            <DashboardMainContent />
+          </section>
+        </main>
+      ) : (
+        <main aria-label="Painel de Estatísticas">
+          <AnalyticsPanel />
+        </main>
+      )}
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[400px] w-full items-center justify-center">
+          <div className="size-8 animate-spin rounded-full border-2 border-[#259cc1] border-t-transparent" />
+        </div>
+      }
+    >
+      <DashboardContent />
+    </Suspense>
   );
 }

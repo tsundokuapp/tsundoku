@@ -41,11 +41,11 @@ export const formProjectSchema = z.object({
   hexColor: z.custom(
     (value) => {
       return typeof value === 'string'
-        ? /^#[0-9a-fA-F]{3}$|^#[0-9a-fA-F]{6}$/.test(value)
+        ? /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value)
         : false;
     },
     {
-      message: 'Cor é obrigátoria e deve ser um hexadecimal iniciando com #',
+      message: 'Cor é obrigatória e deve ser um hexadecimal iniciando com #',
     },
   ),
   discordRole: z.optional(z.string()),
@@ -86,11 +86,11 @@ export const formCreateProjectSchema = z.object({
   hexColor: z.custom(
     (value) => {
       return typeof value === 'string'
-        ? /^#[0-9a-fA-F]{3}$|^#[0-9a-fA-F]{6}$/.test(value)
+        ? /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value)
         : false;
     },
     {
-      message: 'Cor é obrigátoria e deve ser um hexadecimal iniciando com #',
+      message: 'Cor é obrigatória e deve ser um hexadecimal iniciando com #',
     },
   ),
   cover: z

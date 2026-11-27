@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { api } from '@/core/api';
+import { useAuthStore } from '@/core/auth/stores/useAuthStore';
 import { INovelResponse } from '@/features/admin/novels/api/types';
 import { usePrivateNovels } from '@/features/admin/novels/hooks/usePrivateNovels';
 import { getWorksBySearch } from '@/features/project/api/projectApi';
@@ -41,8 +42,7 @@ interface ITableNovel {
 export const TableNovel = ({ openModal }: ITableNovel) => {
   const { data: response, isLoading } = usePrivateNovels();
   const queryClient = useQueryClient();
-
-  console.log(response);
+  const { isAdmin } = useAuthStore();
 
   const novelsResponse = response?.ok ? response.data : undefined;
 
@@ -62,18 +62,28 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
   const SKIP_DEFAULT = 12;
 
   useEffect(() => {
-    if (novelsResponse?.data) {
-      setNovels(novelsResponse?.data);
+    if (novelsResponse?.data && Array.isArray(novelsResponse.data)) {
+      setNovels(novelsResponse.data);
       setPagination({
-        nextPage: novelsResponse.proxima,
-        prevPage: novelsResponse.anterior,
-        total: novelsResponse.total,
+        nextPage: novelsResponse.proxima || '',
+        prevPage: novelsResponse.anterior || '',
+        total: novelsResponse.total ?? 0,
         itemsVisible: novelsResponse.data.length,
         currentPage: getCurrentPagePagination(
           novelsResponse?.proxima,
           novelsResponse?.anterior,
         ),
       });
+    } else {
+      setNovels([]);
+      setPagination((prev) => ({
+        ...prev,
+        nextPage: '',
+        prevPage: '',
+        total: 0,
+        itemsVisible: 0,
+        currentPage: 1,
+      }));
     }
   }, [novelsResponse]); // eslint-disable-line
 
@@ -109,8 +119,12 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
   };
 
   const debouncedHandleChange = Debounce(async (value: string) => {
+    const sourceData = Array.isArray(novelsResponse?.data)
+      ? novelsResponse.data
+      : [];
+
     if (value === '') {
-      setNovels(novelsResponse?.data);
+      setNovels(sourceData);
       return;
     }
 
@@ -135,13 +149,11 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         setNovels([]);
         return;
       }
-
-      // setNovels(data.data);
     } finally {
       setLoadingNewPage(false);
     }
 
-    const filtered = novelsResponse?.data.filter((novel) =>
+    const filtered = sourceData.filter((novel) =>
       novel.titulo.toLowerCase().includes(value.toLowerCase()),
     );
 
@@ -274,8 +286,8 @@ export const TableNovel = ({ openModal }: ITableNovel) => {
         title="Novels"
         description="Inclui novels pausadas e canceladas."
       >
-        <SearchTable value={search} onChange={handleChange} disabled />
-        <Button onClick={() => openModal()}>Adicionar</Button>
+        <SearchTable value={search} onChange={handleChange} />
+        {isAdmin && <Button onClick={() => openModal()}>Adicionar</Button>}
       </HeaderTable>
 
       <Table>
