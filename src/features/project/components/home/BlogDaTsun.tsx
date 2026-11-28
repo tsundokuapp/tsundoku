@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useHomeBlogPosts } from '@/features/blog/hooks/useHomeBlogPosts';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
-export function BlogDaTsunV22() {
+export function BlogDaTsun() {
   const { posts, isLoading, isError, isFixture, unavailableReason } =
     useHomeBlogPosts(3);
 

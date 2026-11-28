@@ -6,7 +6,7 @@ import { BLUR_DATA_URL } from '@/shared/utils/image';
 import { LINK_DISCORD } from '@/shared/utils/systemValues';
 
 // TODO(backend-integration): Caso a equipe confirme links oficiais de pagamento (ex.: Padrim/PIX ou assinaturas via Torii), atualizar os destinos e textos correspondentes neste banner.
-export function BannerSupportV22() {
+export function BannerSupport() {
   return (
     <a
       href={LINK_DISCORD}

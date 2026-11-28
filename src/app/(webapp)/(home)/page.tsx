@@ -1,13 +1,17 @@
-import { Suspense } from 'react';
-
-import { HomeV22 } from '@/features/project/components/v22/HomeV22';
-
-import { HomeVersionSwitch } from './HomeVersionSwitch';
+import { HeroCarousel } from '@/features/project/components/HeroCarousel';
+import { BannerSupport } from '@/features/project/components/home/BannerSupport';
+import { BlogDaTsun } from '@/features/project/components/home/BlogDaTsun';
+import { NovidadesGrid } from '@/features/project/components/home/NovidadesGrid';
+import { RankingGrid } from '@/features/project/components/home/RankingGrid';
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<HomeV22 />}>
-      <HomeVersionSwitch />
-    </Suspense>
+    <div className="flex flex-col gap-8 pb-6">
+      <HeroCarousel />
+      <BannerSupport />
+      <NovidadesGrid />
+      <BlogDaTsun />
+      <RankingGrid />
+    </div>
   );
 }

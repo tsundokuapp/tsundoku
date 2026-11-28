@@ -10,7 +10,7 @@ import { unwrapApiArrayResult } from '@/features/project/utils/unwrapApiResult';
 import { getWorkDetailHref } from '@/features/project/utils/workRoutes';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
-export function NovidadesGridV22() {
+export function NovidadesGrid() {
   const { data, isLoading, isError, refetch } = useProjects();
 
   const { items, isApiPayloadError } = useMemo(

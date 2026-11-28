@@ -62,7 +62,7 @@ function HeroSlideLink({
   );
 }
 
-export function HeroCarouselV21({
+export function HeroCarousel({
   slides = DEFAULT_HERO_SLIDES,
   className,
 }: HeroCarouselV21Props) {

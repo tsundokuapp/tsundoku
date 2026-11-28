@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useHomeRanking } from '@/features/ranking/hooks/useHomeRanking';
 import { BLUR_DATA_URL } from '@/shared/utils/image';
 
-export function RankingGridV22() {
+export function RankingGrid() {
   const { entries, isLoading, isError, isFixture, unavailableReason } =
     useHomeRanking(8);
 
